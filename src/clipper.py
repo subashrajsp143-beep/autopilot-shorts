@@ -15,38 +15,38 @@ from typing import Dict, Any, Optional, List
 VIRAL_CREATOR_PRESETS = [
     {
         "query": "MrBeast challenge viral moments",
-        "title": "MR BEAST'S CRAZIEST CHALLENGE! 😱 #Shorts #MrBeast #Viral",
-        "description": "Watch MrBeast do the most insane challenge ever!\n\n#Shorts #MrBeast #Challenge #Viral #Trending",
-        "tags": ["mrbeast", "mrbeast shorts", "challenge", "viral", "shorts"],
-        "banner": "MR BEAST CRAZY CHALLENGE!"
+        "title": "मिस्टर बीस्ट का 50 करोड़ का चैलेंज! 😱 MR BEAST CRAZY CHALLENGE #Shorts #MrBeastHindi #Viral",
+        "description": "मिस्टर बीस्ट का अब तक का सबसे हैरान कर देने वाला चैलेंज!\n\n#Shorts #MrBeast #MrBeastHindi #ViralShorts #Trending",
+        "tags": ["mrbeast hindi", "mrbeast", "shorts", "hindi shorts", "viral shorts", "trending"],
+        "banner": "MR BEAST KA 50 CRORE CHALLENGE! 😱"
     },
     {
         "query": "IShowSpeed funny rage reaction moments",
-        "title": "SPEED HAD THE CRAZIEST REACTION! 😂🔥 #Shorts #IShowSpeed",
-        "description": "IShowSpeed completely losing his mind!\n\n#Shorts #IShowSpeed #Speed #Funny #Viral",
-        "tags": ["ishowspeed", "speed clips", "funny", "rage", "shorts"],
-        "banner": "SPEED CRAZIEST REACTION!"
+        "title": "स्पीड का सबसे पागलपन भरा रिएक्शन! 😂🔥 SPEED CRAZY MOMENTS #Shorts #IShowSpeed #Hindi",
+        "description": "स्पीड का यह रिएक्शन देखकर आपकी हंसी नहीं रुकेगी!\n\n#Shorts #IShowSpeed #SpeedHindi #FunnyShorts #Viral",
+        "tags": ["ishowspeed", "speed clips", "funny shorts", "hindi shorts", "shorts", "viral"],
+        "banner": "SPEED KA SABSE CRAZY REACTION! 😂"
     },
     {
         "query": "MrBeast giving away money reaction",
-        "title": "MR BEAST GIVES AWAY $1,000,000 CASH! 💰 #Shorts #MrBeast",
-        "description": "Insane moment when MrBeast gives away life-changing money!\n\n#Shorts #MrBeast #Money #Viral",
-        "tags": ["mrbeast", "million dollars", "money", "shorts", "giveaway"],
-        "banner": "MR BEAST $1,000,000 CASH!"
+        "title": "मिस्टर बीस्ट ने दिया 10 लाख डॉलर कैश! 💰 MR BEAST CASH GIVEAWAY #Shorts #MrBeastHindi",
+        "description": "जब मिस्टर बीस्ट ने अनजान लड़के को करोड़ों रुपये दे दिए!\n\n#Shorts #MrBeast #MrBeastHindi #MoneyChallenge #Viral",
+        "tags": ["mrbeast hindi", "million dollars", "mrbeast giveaway", "shorts", "hindi"],
+        "banner": "10 LAKH DOLLAR CASH DE DIYA! 💰"
     },
     {
         "query": "IShowSpeed meeting Ronaldo",
-        "title": "THE DAY SPEED MET CRISTIANO RONALDO! 🐐 #Shorts #IShowSpeed #Ronaldo",
-        "description": "The emotional and hilarious moment IShowSpeed met his idol Cristiano Ronaldo!\n\n#Shorts #IShowSpeed #Ronaldo #CR7",
-        "tags": ["ishowspeed", "ronaldo", "cr7", "speed and ronaldo", "shorts"],
-        "banner": "SPEED MEETS RONALDO! 🐐"
+        "title": "स्पीड जब रोनाल्डो से पहली बार मिला! 🐐 SPEED FINALLY MEETS RONALDO #Shorts #IShowSpeed #CR7",
+        "description": "स्पीड और क्रिस्टियानो रोनाल्डो का सबसे यादगार पल!\n\n#Shorts #IShowSpeed #Ronaldo #CR7 #HindiShorts",
+        "tags": ["ishowspeed", "ronaldo", "cr7", "speed and ronaldo", "shorts", "hindi"],
+        "banner": "SPEED MEETS RONALDO! 🐐🔥"
     },
     {
         "query": "MrBeast impossible escape room",
-        "title": "MR BEAST IMPOSSIBLE ESCAPE! 🔒🔥 #Shorts #MrBeast",
-        "description": "Can they escape the most difficult room in the world?\n\n#Shorts #MrBeast #EscapeRoom #Viral",
-        "tags": ["mrbeast", "escape room", "challenge", "shorts", "viral"],
-        "banner": "MR BEAST IMPOSSIBLE ESCAPE!"
+        "title": "दुनिया का सबसे खतरनाक एस्केप रूम! 🔒🔥 MR BEAST IMPOSSIBLE ESCAPE #Shorts #MrBeastHindi",
+        "description": "क्या ये लोग दुनिया के सबसे मुश्किल कमरे से बाहर निकल पाए?\n\n#Shorts #MrBeast #EscapeRoom #ViralShorts #Hindi",
+        "tags": ["mrbeast", "escape room", "mrbeast hindi", "challenge", "shorts"],
+        "banner": "DUNIYA KA SABSE KHATARNAK ESCAPE! 🔒"
     }
 ]
 
