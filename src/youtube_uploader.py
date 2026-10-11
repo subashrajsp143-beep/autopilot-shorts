@@ -87,11 +87,12 @@ class YouTubeUploader:
         description: str,
         tags: Optional[List[str]] = None,
         privacy_status: str = "public",
-        category_id: str = "27"  # 27 = Education, 24 = Entertainment
+        category_id: str = "27",  # 27 = Education, 24 = Entertainment
+        publish_at: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Uploads a video to YouTube as a Short.
-        Ensures #Shorts is present in title and description.
+        Supports scheduled publishing via publish_at (RFC 3339 formatted ISO UTC timestamp).
         """
         if not self.youtube:
             self.authenticate()
@@ -106,6 +107,18 @@ class YouTubeUploader:
         if "shorts" not in [t.lower() for t in tags]:
             tags.append("shorts")
 
+        # Configure video status (Scheduled release vs Immediate Public)
+        status_dict = {
+            "selfDeclaredMadeForKids": False
+        }
+        if publish_at:
+            status_dict["privacyStatus"] = "private"
+            status_dict["publishAt"] = publish_at
+            status_desc = f"Scheduled for {publish_at}"
+        else:
+            status_dict["privacyStatus"] = privacy_status
+            status_desc = privacy_status
+
         body = {
             "snippet": {
                 "title": title[:100],  # YouTube title limit 100 chars
@@ -113,10 +126,7 @@ class YouTubeUploader:
                 "tags": tags,
                 "categoryId": category_id
             },
-            "status": {
-                "privacyStatus": privacy_status,
-                "selfDeclaredMadeForKids": False
-            }
+            "status": status_dict
         }
 
         media = MediaFileUpload(
@@ -126,7 +136,7 @@ class YouTubeUploader:
             chunksize=1024 * 1024 * 5  # 5MB chunks
         )
 
-        print(f"Uploading '{title}' to YouTube ({privacy_status})...")
+        print(f"Uploading '{title}' to YouTube ({status_desc})...")
         request = self.youtube.videos().insert(
             part="snippet,status",
             body=body,

@@ -243,20 +243,42 @@ def generate_daily_10_batch(
         except Exception as e:
             print(f"Warning: Could not copy to desktop: {e}")
 
+def get_staggered_schedule(num_videos: int = 10, interval_minutes: int = 90):
+    """
+    Calculates staggered publishing slots every 90 minutes throughout the day.
+    Slots are converted to UTC RFC 3339 format for YouTube publishAt.
+    """
+    from datetime import datetime, timedelta, timezone
+    now_utc = datetime.now(timezone.utc)
+    start_slot = now_utc.replace(hour=3, minute=0, second=0, microsecond=0)
+
+    schedules = []
+    for i in range(num_videos):
+        slot = start_slot + timedelta(minutes=i * interval_minutes)
+        if slot <= now_utc + timedelta(minutes=10):
+            schedules.append(None)  # Release immediately
+        else:
+            schedules.append(slot.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+    return schedules
+
+
     # Optional Auto-Upload
     if upload_yt:
-        print("\n>> Uploading all 10 videos to YouTube...")
+        print("\n>> Uploading all 10 videos with Smart Staggered Schedule (Every 1.5 Hours)...")
         yt_uploader = YouTubeUploader()
-        for v in generated_videos:
+        schedules = get_staggered_schedule(len(generated_videos), interval_minutes=90)
+        for idx, v in enumerate(generated_videos):
+            slot = schedules[idx]
             try:
                 yt_uploader.upload_short(
                     video_path=v["video_path"],
                     title=v["title"],
                     description=v["description"],
                     tags=v["tags"],
-                    privacy_status="public"
+                    privacy_status="public",
+                    publish_at=slot
                 )
-                time.sleep(5)  # brief pause between uploads
+                time.sleep(4)  # pause between uploads
             except Exception as e:
                 print(f"YouTube upload failed for {v['title']}: {e}")
 
