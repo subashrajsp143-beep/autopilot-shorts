@@ -36,6 +36,7 @@ from clipper import CreatorClipper
 from youtube_uploader import YouTubeUploader
 from meta_uploader import MetaUploader
 from visual_storyboard import VisualStoryboard
+from creator_storyboard import CreatorStoryboard, CREATOR_SCRIPTS_HINDI
 
 
 def ensure_credentials():
@@ -172,53 +173,56 @@ def generate_daily_10_batch(
         print(f"✓ Video {idx} ready: {video_filename}")
 
     # -------------------------------------------------------------
-    # PART 2: 5 CREATOR & MR BEAST STYLE CLIPS
+    # PART 2: 5 CREATOR & MR BEAST STYLE SHORTS (REAL PHOTOS & SCENES)
     # -------------------------------------------------------------
-    print("\n>>> [STAGE 2] Generating 5 Creator / MrBeast Style Shorts...")
-    clipper = CreatorClipper(output_dir=output_batch_dir)
+    print("\n>>> [STAGE 2] Generating 5 Creator / MrBeast Style Shorts (Real Visuals & Voice)...")
+    creator_sb = CreatorStoryboard(cache_dir="assets/image_cache")
 
-    # Check if there is sample footage in assets/backgrounds or use generator
-    for j in range(5):
-        preset = CREATOR_PRESETS[j]
+    for j in range(min(5, len(CREATOR_SCRIPTS_HINDI))):
+        c_script = CREATOR_SCRIPTS_HINDI[j]
         idx = 5 + j + 1
-        print(f"\n[{idx}/10] Creating Creator Short: {preset['title'][:40]}...")
+        print(f"\n[{idx}/10] Creating Creator Short: {c_script['title'][:40]}...")
 
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        audio_path = os.path.join(output_batch_dir, f"creator_audio_{idx}_{timestamp}.mp3")
+        ass_path = os.path.join(output_batch_dir, f"creator_sub_{idx}_{timestamp}.ass")
+        bg_video_path = os.path.join(output_batch_dir, f"creator_bg_{idx}_{timestamp}.mp4")
         video_filename = f"video_{idx:02d}_creator_clip.mp4"
-        out_video_path = os.path.join(output_batch_dir, video_filename)
 
-        # Clean banner text for FFmpeg (remove non-ascii/emojis to avoid font errors)
-        banner_clean = re.sub(r'[^\x00-\x7F]+', '', preset["banner"]).replace(":", " ").replace("'", "").strip()
-        if not banner_clean:
-            banner_clean = "VIRAL MOMENT"
+        # Generate voiceover & subtitles
+        voice_res = generate_audio(
+            text=c_script["text"],
+            audio_path=audio_path,
+            ass_path=ass_path,
+            voice="hi-IN-MadhurNeural"
+        )
 
-        # Cross-platform font selection (Windows vs Ubuntu Linux cloud)
-        font_filter = ""
-        if sys.platform == "win32" and os.path.exists("C:/Windows/Fonts/arial.ttf"):
-            font_filter = "fontfile='C\\:/Windows/Fonts/arial.ttf':"
+        # Build real multi-scene visual background with MrBeast & challenge visuals
+        bg_video = creator_sb.build_creator_video_background(
+            key=c_script["key"],
+            duration=voice_res["duration"],
+            output_path=bg_video_path
+        )
 
-        cmd = [
-            "ffmpeg", "-y",
-            "-f", "lavfi",
-            "-i", "color=c=0x181028:s=1080x1920:d=30",
-            "-vf", f"drawtext={font_filter}text='{banner_clean}':fontsize=52:fontcolor=white:box=1:boxcolor=black@0.7:boxborderw=16:x=(w-text_w)/2:y=240,drawtext={font_filter}text='SUBSCRIBE FOR MORE':fontsize=42:fontcolor=yellow:box=1:boxcolor=black@0.6:boxborderw=10:x=(w-text_w)/2:y=1650",
-            "-c:v", "libx264", "-preset", "ultrafast",
-            out_video_path
-        ]
-        import subprocess
-        res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        if res.returncode != 0:
-            print("FFmpeg error:", res.stderr[-300:])
+        # Render complete 9:16 vertical short
+        video_path = video_maker.render_video(
+            audio_path=audio_path,
+            ass_path=ass_path,
+            output_filename=video_filename,
+            duration=voice_res["duration"],
+            bg_video_path=bg_video
+        )
 
         generated_videos.append({
             "index": idx,
-            "type": "Creator Clip",
-            "title": preset["title"],
-            "description": preset["description"],
-            "tags": preset["tags"],
-            "video_path": out_video_path,
-            "duration": "30.0s"
+            "type": "Creator Short",
+            "title": c_script["title"],
+            "description": c_script["description"],
+            "tags": c_script["tags"],
+            "video_path": video_path,
+            "duration": f"{voice_res['duration']:.1f}s"
         })
-        print(f"✓ Video {idx} ready: {video_filename}")
+        print(f"✓ Video {idx} ready with real scenes: {video_filename}")
 
     # -------------------------------------------------------------
     # PART 3: SAVE METADATA & SCHEDULE
