@@ -32,7 +32,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 from hindi_script_generator import HindiScriptGenerator
 from voice_generator import generate_audio
 from video_maker import VideoMaker
-from clipper import CreatorClipper
+from clipper import CreatorClipper, VIRAL_CREATOR_PRESETS
 from youtube_uploader import YouTubeUploader
 from meta_uploader import MetaUploader
 from visual_storyboard import VisualStoryboard
@@ -97,6 +97,9 @@ CREATOR_PRESETS: List[Dict[str, Any]] = [
         "description": "Crazy physics experiment in slow motion!\n\n#Shorts #Experiments #SlowMotion #ViralScience",
         "tags": ["experiment", "destruction", "slow motion", "shorts", "viral"]
     }
+]
+
+
 def get_staggered_schedule(num_videos: int = 10, interval_minutes: int = 90):
     """
     Calculates staggered publishing slots every 90 minutes throughout the day.
@@ -189,56 +192,73 @@ def generate_daily_10_batch(
         print(f"✓ Video {idx} ready: {video_filename}")
 
     # -------------------------------------------------------------
-    # PART 2: 5 CREATOR & MR BEAST STYLE SHORTS (REAL PHOTOS & SCENES)
+    # PART 2: 5 REAL CREATOR & MR BEAST SHORTS (REAL MOVING FOOTAGE + HOOK BANNERS)
     # -------------------------------------------------------------
-    print("\n>>> [STAGE 2] Generating 5 Creator / MrBeast Style Shorts (Real Visuals & Voice)...")
+    print("\n>>> [STAGE 2] Generating 5 Real Creator Shorts (MrBeast, Speed, Viral Moments)...")
+    clipper = CreatorClipper(downloads_dir="assets/downloads", output_dir=output_batch_dir)
     creator_sb = CreatorStoryboard(cache_dir="assets/image_cache")
 
-    for j in range(min(5, len(CREATOR_SCRIPTS_HINDI))):
-        c_script = CREATOR_SCRIPTS_HINDI[j]
+    for j in range(min(5, len(VIRAL_CREATOR_PRESETS))):
+        c_preset = VIRAL_CREATOR_PRESETS[j]
         idx = 5 + j + 1
-        print(f"\n[{idx}/10] Creating Creator Short: {c_script['title'][:40]}...")
+        print(f"\n[{idx}/10] Creating Real Creator Short: {c_preset['title'][:40]}...")
 
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        audio_path = os.path.join(output_batch_dir, f"creator_audio_{idx}_{timestamp}.mp3")
-        ass_path = os.path.join(output_batch_dir, f"creator_sub_{idx}_{timestamp}.ass")
-        bg_video_path = os.path.join(output_batch_dir, f"creator_bg_{idx}_{timestamp}.mp4")
         video_filename = f"video_{idx:02d}_creator_clip.mp4"
+        final_video_path = os.path.join(output_batch_dir, video_filename)
 
-        # Generate voiceover & subtitles
-        voice_res = generate_audio(
-            text=c_script["text"],
-            audio_path=audio_path,
-            ass_path=ass_path,
-            voice="hi-IN-MadhurNeural"
-        )
+        try:
+            # 1. Download real creator clip (MrBeast / Speed)
+            raw_video = clipper.download_by_search_or_url(
+                search_query_or_url=c_preset["query"],
+                output_prefix=f"creator_{idx}"
+            )
+            # 2. Format into 9:16 vertical short with blurred studio bg & hook banner
+            video_path = clipper.create_viral_short_clip(
+                video_path=raw_video,
+                banner_text=c_preset["banner"],
+                output_filename=video_filename,
+                start_time=5,
+                duration=30.0
+            )
+            vid_duration = "30.0s"
+        except Exception as e:
+            print(f"Notice: Fallback for creator short {idx}: {e}")
+            c_script = CREATOR_SCRIPTS_HINDI[j]
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            audio_path = os.path.join(output_batch_dir, f"creator_audio_{idx}_{timestamp}.mp3")
+            ass_path = os.path.join(output_batch_dir, f"creator_sub_{idx}_{timestamp}.ass")
+            bg_video_path = os.path.join(output_batch_dir, f"creator_bg_{idx}_{timestamp}.mp4")
 
-        # Build real multi-scene visual background with MrBeast & challenge visuals
-        bg_video = creator_sb.build_creator_video_background(
-            key=c_script["key"],
-            duration=voice_res["duration"],
-            output_path=bg_video_path
-        )
-
-        # Render complete 9:16 vertical short
-        video_path = video_maker.render_video(
-            audio_path=audio_path,
-            ass_path=ass_path,
-            output_filename=video_filename,
-            duration=voice_res["duration"],
-            bg_video_path=bg_video
-        )
+            voice_res = generate_audio(
+                text=c_script["text"],
+                audio_path=audio_path,
+                ass_path=ass_path,
+                voice="hi-IN-MadhurNeural"
+            )
+            bg_video = creator_sb.build_creator_video_background(
+                key=c_script["key"],
+                duration=voice_res["duration"],
+                output_path=bg_video_path
+            )
+            video_path = video_maker.render_video(
+                audio_path=audio_path,
+                ass_path=ass_path,
+                output_filename=video_filename,
+                duration=voice_res["duration"],
+                bg_video_path=bg_video
+            )
+            vid_duration = f"{voice_res['duration']:.1f}s"
 
         generated_videos.append({
             "index": idx,
-            "type": "Creator Short",
-            "title": c_script["title"],
-            "description": c_script["description"],
-            "tags": c_script["tags"],
+            "type": "Creator Short (Real Video)",
+            "title": c_preset["title"],
+            "description": c_preset["description"],
+            "tags": c_preset["tags"],
             "video_path": video_path,
-            "duration": f"{voice_res['duration']:.1f}s"
+            "duration": vid_duration
         })
-        print(f"✓ Video {idx} ready with real scenes: {video_filename}")
+        print(f"✓ Video {idx} ready (Real Creator Footage): {video_filename}")
 
     # -------------------------------------------------------------
     # PART 3: SAVE METADATA & SCHEDULE
