@@ -146,50 +146,53 @@ def generate_daily_10_batch(
         idx = i + 1
         print(f"\n[{idx}/10] Creating AI Hindi Short: {script['title'][:40]}...")
 
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        audio_path = os.path.join(output_batch_dir, f"hindi_audio_{idx}_{timestamp}.mp3")
-        ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
-        video_filename = f"video_{idx:02d}_hindi_ai.mp4"
-
-        # Generate Hindi voiceover and subtitles
-        voice_res = generate_audio(
-            text=script["text"],
-            audio_path=audio_path,
-            ass_path=ass_path,
-            voice="hi-IN-MadhurNeural"
-        )
-
-        # Build dynamic multi-scene visual background matching the topic
-        storyboard = VisualStoryboard(cache_dir="assets/image_cache")
-        bg_video_path = os.path.join(output_batch_dir, f"hindi_bg_{idx}_{timestamp}.mp4")
         try:
-            bg_video = storyboard.build_multi_scene_background(
-                sentences=voice_res["sentences"],
-                output_bg_video=bg_video_path
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            audio_path = os.path.join(output_batch_dir, f"hindi_audio_{idx}_{timestamp}.mp3")
+            ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
+            video_filename = f"video_{idx:02d}_hindi_ai.mp4"
+
+            # Generate Hindi voiceover and subtitles
+            voice_res = generate_audio(
+                text=script["text"],
+                audio_path=audio_path,
+                ass_path=ass_path,
+                voice="hi-IN-MadhurNeural"
             )
+
+            # Build dynamic multi-scene visual background matching the topic
+            storyboard = VisualStoryboard(cache_dir="assets/image_cache")
+            bg_video_path = os.path.join(output_batch_dir, f"hindi_bg_{idx}_{timestamp}.mp4")
+            try:
+                bg_video = storyboard.build_multi_scene_background(
+                    sentences=voice_res["sentences"],
+                    output_bg_video=bg_video_path
+                )
+            except Exception as e:
+                print(f"Notice: Storyboard fallback: {e}")
+                bg_video = None
+
+            # Render 9:16 vertical video with dynamic visuals & burnt subtitles
+            video_path = video_maker.render_video(
+                audio_path=audio_path,
+                ass_path=ass_path,
+                output_filename=video_filename,
+                duration=voice_res["duration"],
+                bg_video_path=bg_video
+            )
+
+            generated_videos.append({
+                "index": idx,
+                "type": "AI Hindi Short",
+                "title": script["title"],
+                "description": script["description"],
+                "tags": script["tags"],
+                "video_path": video_path,
+                "duration": f"{voice_res['duration']:.1f}s"
+            })
+            print(f"✓ Video {idx} ready: {video_filename}")
         except Exception as e:
-            print(f"Notice: Storyboard fallback: {e}")
-            bg_video = None
-
-        # Render 9:16 vertical video with dynamic visuals & burnt subtitles
-        video_path = video_maker.render_video(
-            audio_path=audio_path,
-            ass_path=ass_path,
-            output_filename=video_filename,
-            duration=voice_res["duration"],
-            bg_video_path=bg_video
-        )
-
-        generated_videos.append({
-            "index": idx,
-            "type": "AI Hindi Short",
-            "title": script["title"],
-            "description": script["description"],
-            "tags": script["tags"],
-            "video_path": video_path,
-            "duration": f"{voice_res['duration']:.1f}s"
-        })
-        print(f"✓ Video {idx} ready: {video_filename}")
+            print(f"❌ Failed to generate video {idx}: {e}")
 
     # -------------------------------------------------------------
     # PART 2: 5 REAL CREATOR & MR BEAST SHORTS (REAL MOVING FOOTAGE + HOOK BANNERS)
