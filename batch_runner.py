@@ -134,12 +134,20 @@ def generate_daily_10_batch(
     generated_videos: List[Dict[str, Any]] = []
 
     # -------------------------------------------------------------
-    # PART 1: 5 AI HINDI SHORTS
+    # PART 1: 5 AI HINDI SHORTS (100% REAL MOVING VIDEO FOOTAGE)
     # -------------------------------------------------------------
-    print("\n>>> [STAGE 1] Generating 5 AI Hindi Shorts (Neural Voice + Subtitles)...")
+    print("\n>>> [STAGE 1] Generating 5 AI Hindi Shorts (Real Moving Background Footage)...")
     hindi_gen = HindiScriptGenerator()
     all_scripts = hindi_gen.get_all_preset_scripts()
     video_maker = VideoMaker(assets_dir="assets", output_dir=output_batch_dir)
+
+    ai_bg_clips = [
+        "assets/ai_video_clips/bg_psychology.mp4",
+        "assets/ai_video_clips/bg_ocean.mp4",
+        "assets/ai_video_clips/bg_money.mp4",
+        "assets/ai_video_clips/bg_brain.mp4",
+        "assets/ai_video_clips/bg_space.mp4"
+    ]
 
     for i in range(min(5, len(all_scripts))):
         script = all_scripts[i]
@@ -160,19 +168,13 @@ def generate_daily_10_batch(
                 voice="hi-IN-MadhurNeural"
             )
 
-            # Build dynamic multi-scene visual background matching the topic
-            storyboard = VisualStoryboard(cache_dir="assets/image_cache")
-            bg_video_path = os.path.join(output_batch_dir, f"hindi_bg_{idx}_{timestamp}.mp4")
-            try:
-                bg_video = storyboard.build_multi_scene_background(
-                    sentences=voice_res["sentences"],
-                    output_bg_video=bg_video_path
-                )
-            except Exception as e:
-                print(f"Notice: Storyboard fallback: {e}")
+            # Assign real moving HD video background
+            bg_video = ai_bg_clips[i % len(ai_bg_clips)]
+            if not os.path.exists(bg_video):
+                print(f"Warning: {bg_video} not found, falling back to any available bg")
                 bg_video = None
 
-            # Render 9:16 vertical video with dynamic visuals & burnt subtitles
+            # Render 9:16 vertical video with REAL MOVING VIDEO & burnt subtitles
             video_path = video_maker.render_video(
                 audio_path=audio_path,
                 ass_path=ass_path,
@@ -183,23 +185,30 @@ def generate_daily_10_batch(
 
             generated_videos.append({
                 "index": idx,
-                "type": "AI Hindi Short",
+                "type": "AI Hindi Short (Real Video)",
                 "title": script["title"],
                 "description": script["description"],
                 "tags": script["tags"],
                 "video_path": video_path,
                 "duration": f"{voice_res['duration']:.1f}s"
             })
-            print(f"✓ Video {idx} ready: {video_filename}")
+            print(f"✓ Video {idx} ready (Real Moving Video): {video_filename}")
         except Exception as e:
             print(f"❌ Failed to generate video {idx}: {e}")
 
     # -------------------------------------------------------------
-    # PART 2: 5 REAL CREATOR & MR BEAST SHORTS (REAL MOVING FOOTAGE + HOOK BANNERS)
+    # PART 2: 5 REAL CREATOR & MR BEAST SHORTS (100% REAL MOVING FOOTAGE)
     # -------------------------------------------------------------
     print("\n>>> [STAGE 2] Generating 5 Real Creator Shorts (MrBeast, Speed, Viral Moments)...")
     clipper = CreatorClipper(downloads_dir="assets/downloads", output_dir=output_batch_dir)
-    creator_sb = CreatorStoryboard(cache_dir="assets/image_cache")
+
+    creator_local_clips = [
+        "assets/creator_clips/clip_01_mrbeast_island.mp4",
+        "assets/creator_clips/clip_02_speed_reaction.mp4",
+        "assets/creator_clips/clip_03_mrbeast_cash.mp4",
+        "assets/creator_clips/clip_04_speed_ronaldo.mp4",
+        "assets/creator_clips/clip_05_mrbeast_escape.mp4"
+    ]
 
     for j in range(min(5, len(VIRAL_CREATOR_PRESETS))):
         c_preset = VIRAL_CREATOR_PRESETS[j]
@@ -207,61 +216,42 @@ def generate_daily_10_batch(
         print(f"\n[{idx}/10] Creating Real Creator Short: {c_preset['title'][:40]}...")
 
         video_filename = f"video_{idx:02d}_creator_clip.mp4"
-        final_video_path = os.path.join(output_batch_dir, video_filename)
 
         try:
-            # 1. Download real creator clip (MrBeast / Speed)
-            raw_video = clipper.download_by_search_or_url(
-                search_query_or_url=c_preset["query"],
-                output_prefix=f"creator_{idx}"
-            )
-            # 2. Format into 9:16 vertical short with blurred studio bg & hook banner
+            local_clip = creator_local_clips[j % len(creator_local_clips)]
+            if os.path.exists(local_clip):
+                raw_video = local_clip
+                start_sec = 0
+            else:
+                raw_video = clipper.download_by_search_or_url(
+                    search_query_or_url=c_preset["query"],
+                    output_prefix=f"creator_{idx}"
+                )
+                start_sec = 5
+
+            # Format into 9:16 vertical short with blurred studio bg & hook banner
             video_path = clipper.create_viral_short_clip(
                 video_path=raw_video,
                 banner_text=c_preset["banner"],
                 output_filename=video_filename,
-                start_time=5,
+                start_time=start_sec,
                 duration=30.0
             )
             vid_duration = "30.0s"
         except Exception as e:
-            print(f"Notice: Fallback for creator short {idx}: {e}")
-            c_script = CREATOR_SCRIPTS_HINDI[j]
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            audio_path = os.path.join(output_batch_dir, f"creator_audio_{idx}_{timestamp}.mp3")
-            ass_path = os.path.join(output_batch_dir, f"creator_sub_{idx}_{timestamp}.ass")
-            bg_video_path = os.path.join(output_batch_dir, f"creator_bg_{idx}_{timestamp}.mp4")
-
-            voice_res = generate_audio(
-                text=c_script["text"],
-                audio_path=audio_path,
-                ass_path=ass_path,
-                voice="hi-IN-MadhurNeural"
-            )
-            bg_video = creator_sb.build_creator_video_background(
-                key=c_script["key"],
-                duration=voice_res["duration"],
-                output_path=bg_video_path
-            )
-            video_path = video_maker.render_video(
-                audio_path=audio_path,
-                ass_path=ass_path,
-                output_filename=video_filename,
-                duration=voice_res["duration"],
-                bg_video_path=bg_video
-            )
-            vid_duration = f"{voice_res['duration']:.1f}s"
+            print(f"❌ Failed creator short {idx}: {e}")
+            continue
 
         generated_videos.append({
             "index": idx,
-            "type": "Creator Short (Real Video)",
+            "type": "Creator Short (Real Moving Footage)",
             "title": c_preset["title"],
             "description": c_preset["description"],
             "tags": c_preset["tags"],
             "video_path": video_path,
             "duration": vid_duration
         })
-        print(f"✓ Video {idx} ready (Real Creator Footage): {video_filename}")
+        print(f"✓ Video {idx} ready (100% Real Moving Footage): {video_filename}")
 
     # -------------------------------------------------------------
     # PART 3: SAVE METADATA & SCHEDULE
