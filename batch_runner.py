@@ -107,7 +107,7 @@ def get_staggered_schedule(num_videos: int = 10, interval_minutes: int = 90):
     """
     from datetime import datetime, timedelta, timezone
     now_utc = datetime.now(timezone.utc)
-    start_slot = now_utc.replace(hour=3, minute=0, second=0, microsecond=0)
+    start_slot = now_utc.replace(hour=2, minute=30, second=0, microsecond=0)
 
     schedules = []
     for i in range(num_videos):
