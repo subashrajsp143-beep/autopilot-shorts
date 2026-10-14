@@ -125,12 +125,18 @@ class CreatorClipper:
         output_path = os.path.join(self.output_dir, output_filename)
         clean_banner = banner_text.replace(":", "\\:").replace("'", "").replace('"', "")
 
-        # Select available font cross-platform
+        # Select available font cross-platform (Windows & Linux / Ubuntu)
         font_opt = ""
         if os.path.exists("C:/Windows/Fonts/impact.ttf"):
             font_opt = "fontfile='C\\:/Windows/Fonts/impact.ttf':"
         elif os.path.exists("C:/Windows/Fonts/arialbd.ttf"):
             font_opt = "fontfile='C\\:/Windows/Fonts/arialbd.ttf':"
+        elif os.path.exists("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"):
+            font_opt = "fontfile='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf':"
+        elif os.path.exists("/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf"):
+            font_opt = "fontfile='/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf':"
+        elif os.path.exists("/usr/share/fonts/truetype/freefont/FreeSansBold.ttf"):
+            font_opt = "fontfile='/usr/share/fonts/truetype/freefont/FreeSansBold.ttf':"
 
         filter_complex = (
             "[0:v]split=2[bg][fg];"
