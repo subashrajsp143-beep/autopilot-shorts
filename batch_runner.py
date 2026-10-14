@@ -103,24 +103,27 @@ CREATOR_PRESETS: List[Dict[str, Any]] = [
 def get_staggered_schedule(num_videos: int = 10, interval_minutes: int = 90):
     """
     Calculates strictly staggered publishing slots spaced every 90 minutes.
-    Guarantees videos are never dumped all at once.
+    Guarantees videos are strictly chronological and never out of order.
     """
     from datetime import datetime, timedelta, timezone
     now_utc = datetime.now(timezone.utc)
-    planned_start = now_utc.replace(hour=2, minute=30, second=0, microsecond=0)
+
+    # Base time is 02:30 UTC (08:00 AM IST)
+    base_time = now_utc.replace(hour=2, minute=30, second=0, microsecond=0)
+
+    # If already past 08:15 AM IST, base time moves to current time
+    if now_utc > base_time + timedelta(minutes=15):
+        base_time = now_utc
 
     schedules = []
     for i in range(num_videos):
-        planned_slot = planned_start + timedelta(minutes=i * interval_minutes)
-        if planned_slot <= now_utc + timedelta(minutes=15):
-            if i == 0:
-                schedules.append(None)  # Only video 1 goes live immediately
-            else:
-                # Stagger subsequent videos forward every 90 minutes
-                future_slot = now_utc + timedelta(minutes=i * interval_minutes)
-                schedules.append(future_slot.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+        if i == 0:
+            schedules.append(None)  # Video 1 goes live immediately
         else:
-            schedules.append(planned_slot.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+            slot = base_time + timedelta(minutes=i * interval_minutes)
+            if slot <= now_utc + timedelta(minutes=5):
+                slot = now_utc + timedelta(minutes=i * interval_minutes)
+            schedules.append(slot.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
 
     return schedules
 
