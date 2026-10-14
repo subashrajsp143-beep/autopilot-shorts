@@ -7,3 +7,4 @@ __pycache__/
 config/client_secrets.json
 config/youtube_token.json
 config/login_url.txt
+trigger_daily_autopilot.ps1

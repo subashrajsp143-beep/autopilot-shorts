@@ -102,20 +102,26 @@ CREATOR_PRESETS: List[Dict[str, Any]] = [
 
 def get_staggered_schedule(num_videos: int = 10, interval_minutes: int = 90):
     """
-    Calculates staggered publishing slots every 90 minutes throughout the day.
-    Slots are converted to UTC RFC 3339 format for YouTube publishAt.
+    Calculates strictly staggered publishing slots spaced every 90 minutes.
+    Guarantees videos are never dumped all at once.
     """
     from datetime import datetime, timedelta, timezone
     now_utc = datetime.now(timezone.utc)
-    start_slot = now_utc.replace(hour=2, minute=30, second=0, microsecond=0)
+    planned_start = now_utc.replace(hour=2, minute=30, second=0, microsecond=0)
 
     schedules = []
     for i in range(num_videos):
-        slot = start_slot + timedelta(minutes=i * interval_minutes)
-        if slot <= now_utc + timedelta(minutes=10):
-            schedules.append(None)  # Release immediately
+        planned_slot = planned_start + timedelta(minutes=i * interval_minutes)
+        if planned_slot <= now_utc + timedelta(minutes=15):
+            if i == 0:
+                schedules.append(None)  # Only video 1 goes live immediately
+            else:
+                # Stagger subsequent videos forward every 90 minutes
+                future_slot = now_utc + timedelta(minutes=i * interval_minutes)
+                schedules.append(future_slot.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
         else:
-            schedules.append(slot.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+            schedules.append(planned_slot.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+
     return schedules
 
 
