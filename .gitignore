@@ -8,3 +8,7 @@ config/client_secrets.json
 config/youtube_token.json
 config/login_url.txt
 trigger_daily_autopilot.ps1
+config/daily_state.json
+check_*.py
+monitor_*.py
+get_*.py

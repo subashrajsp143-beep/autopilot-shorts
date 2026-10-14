@@ -60,44 +60,232 @@ def ensure_credentials():
             print(f"Warning: Could not unpack credentials: {e}")
 
 
-# Creator highlights library (sample moments with hook banners)
-CREATOR_PRESETS: List[Dict[str, Any]] = [
-    {
-        "creator": "MrBeast",
-        "title": "MR BEAST: $1,000,000 INCREDIBLE CHALLENGE 😱 #Shorts #MrBeast",
-        "banner": "MR BEAST: $1,000,000 CHALLENGE 😱",
-        "description": "Watch what happens in this insane MrBeast challenge!\n\n#Shorts #MrBeast #MrBeastHindi #Viral",
-        "tags": ["mrbeast", "mrbeast hindi", "shorts", "challenge", "viral"]
-    },
-    {
-        "creator": "MrBeast",
-        "title": "MR BEAST: SURVIVING 100 HOURS IN DESERT 🏜️ #Shorts #MrBeastHindi",
-        "banner": "SURVIVING 100 HOURS IN DESERT 🏜️",
-        "description": "Can they survive 100 hours with nothing?\n\n#Shorts #MrBeast #MrBeastHindi #Challenge",
-        "tags": ["mrbeast", "mrbeast in hindi", "survival", "shorts", "viral"]
-    },
-    {
-        "creator": "Podcast Highlight",
-        "title": "THIS ADVICE WILL CHANGE YOUR 20s FOREVER 💡 #Shorts #Motivation",
-        "banner": "THIS ADVICE WILL CHANGE YOUR 20s 💡",
-        "description": "The most powerful life lesson you will hear today.\n\n#Shorts #LifeLessons #MotivationHindi #PodcastClips",
-        "tags": ["podcast", "motivation hindi", "life advice", "success", "shorts"]
-    },
-    {
-        "creator": "MrBeast",
-        "title": "MR BEAST: I GAVE AWAY A PRIVATE ISLAND 🏝️ #Shorts #CrazyMoments",
-        "banner": "I GAVE AWAY A PRIVATE ISLAND 🏝️",
-        "description": "Unbelievable moment when a subscriber won an island!\n\n#Shorts #MrBeast #WinAnIsland #Viral",
-        "tags": ["mrbeast", "island challenge", "giveaway", "shorts", "viral"]
-    },
-    {
-        "creator": "Crazy Experiments",
-        "title": "WHAT HAPPENS IF YOU DROP AN ANVIL FROM 1000 FT? 💥 #Shorts #Experiment",
-        "banner": "ANVIL DROPPED FROM 1000 FEET! 💥",
-        "description": "Crazy physics experiment in slow motion!\n\n#Shorts #Experiments #SlowMotion #ViralScience",
-        "tags": ["experiment", "destruction", "slow motion", "shorts", "viral"]
-    }
+# Multi-variation Creator highlights library (Rotating variations for MrBeast, Speed, etc.)
+CREATOR_VARIATIONS: List[List[Dict[str, Any]]] = [
+    # Clip 1: MrBeast Private Island Giveaway
+    [
+        {
+            "creator": "MrBeast",
+            "title": "मिस्टर बीस्ट का 50 करोड़ का प्राइवेट आइलैंड! 🏝️ #Shorts #MrBeast",
+            "banner": "MR BEAST: PRIVATE ISLAND CHALLENGE 🏝️",
+            "description": "मिस्टर बीस्ट का अब तक का सबसे महंगा चैलेंज!\n\n#Shorts #MrBeast #MrBeastHindi #ViralShorts #Trending",
+            "tags": ["mrbeast", "mrbeast hindi", "private island", "shorts", "viral"],
+            "start_time": 0.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "MrBeast",
+            "title": "जब इस लड़के ने मिस्टर बीस्ट से जीता पूरा द्वीप! 😱 #Shorts #MrBeastHindi",
+            "banner": "HE WON AN ENTIRE ISLAND! 🏝️😱",
+            "description": "अनजान लड़के ने जीता 50 करोड़ का प्राइवेट आइलैंड!\n\n#Shorts #MrBeast #IslandChallenge #Trending #Giveaway",
+            "tags": ["mrbeast", "mrbeast hindi", "challenge", "shorts", "giveaway"],
+            "start_time": 2.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "MrBeast",
+            "title": "$1,000,000 का आइलैंड गिवअवे! 🏝️💰 #Shorts #Viral",
+            "banner": "MOST EXPENSIVE GIVEAWAY EVER! 💰",
+            "description": "क्या आप 24 घंटे आइलैंड पर रहकर जीत सकते हैं?\n\n#Shorts #MrBeastHindi #MillionDollar #Trending #Viral",
+            "tags": ["mrbeast", "island", "viral shorts", "trending", "shorts"],
+            "start_time": 4.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "MrBeast",
+            "title": "आइलैंड पर 24 घंटे का सबसे खतरनाक चैलेंज! 🏝️🔥 #Shorts #MrBeast",
+            "banner": "24 HOURS SURVIVING ON ISLAND! 🏝️",
+            "description": "मिस्टर बीस्ट का पागलपन भरा आइलैंड मुकाबला!\n\n#Shorts #MrBeast #Survival #Viral #MrBeastHindi",
+            "tags": ["mrbeast in hindi", "island", "challenge", "shorts", "viral"],
+            "start_time": 1.0,
+            "duration": 30.0
+        }
+    ],
+    # Clip 2: IShowSpeed Rage & Crazy Reactions
+    [
+        {
+            "creator": "IShowSpeed",
+            "title": "स्पीड का सबसे पागलपन भरा रिएक्शन! 😂🔥 #Shorts #IShowSpeed #SpeedHindi",
+            "banner": "SPEED UNCONTROLLABLE RAGE! 😂",
+            "description": "स्पीड का यह रिएक्शन देखकर आपकी हंसी नहीं रुकेगी!\n\n#Shorts #IShowSpeed #SpeedHindi #FunnyShorts #Trending",
+            "tags": ["ishowspeed", "speed clips", "funny shorts", "hindi shorts", "shorts"],
+            "start_time": 0.0,
+            "duration": 29.0
+        },
+        {
+            "creator": "IShowSpeed",
+            "title": "जब स्पीड ने गुस्से में सेटअप तोड़ दिया! 💥😂 #Shorts #SpeedHindi",
+            "banner": "SPEED BROKE HIS SETUP! 💥",
+            "description": "लाइव स्ट्रीम पर जब स्पीड का दिमाग पूरी तरह घूम गया!\n\n#Shorts #IShowSpeed #Rage #SpeedReaction #Gaming",
+            "tags": ["speed rage", "ishowspeed", "funny", "shorts", "gaming"],
+            "start_time": 0.0,
+            "duration": 29.0
+        },
+        {
+            "creator": "IShowSpeed",
+            "title": "स्पीड का अब तक का सबसे फनी मोमेंट! 😂⚡ #Shorts #IShowSpeed",
+            "banner": "FUNNIEST SPEED MOMENT EVER! 😂",
+            "description": "इंटरनेट का सबसे अनोखा और मजेदार क्रिएटर स्पीड!\n\n#Shorts #IShowSpeed #FunnyClips #ViralHindi #Shorts",
+            "tags": ["ishowspeed hindi", "funny moments", "shorts", "viral", "speed"],
+            "start_time": 0.0,
+            "duration": 29.0
+        },
+        {
+            "creator": "IShowSpeed",
+            "title": "स्पीड के इस रिएक्शन ने इंटरनेट हिला दिया! 🤣🔥 #Shorts #Viral",
+            "banner": "WHEN SPEED LOSES HIS MIND! 🤣",
+            "description": "स्पीड की ऐसी कॉमेडी आपने पहले कभी नहीं देखी होगी!\n\n#Shorts #IShowSpeed #Comedy #Trending #YouTubeShorts",
+            "tags": ["ishowspeed", "speed clips hindi", "viral shorts", "trending"],
+            "start_time": 0.0,
+            "duration": 29.0
+        }
+    ],
+    # Clip 3: MrBeast $1,000,000 Cash Giveaway
+    [
+        {
+            "creator": "MrBeast",
+            "title": "मिस्टर बीस्ट ने दिया 10 लाख डॉलर कैश! 💰 MR BEAST CASH GIVEAWAY #Shorts #MrBeastHindi",
+            "banner": "10 LAKH DOLLAR CASH DE DIYA! 💰",
+            "description": "जब मिस्टर बीस्ट ने अनजान लड़के को करोड़ों रुपये दे दिए!\n\n#Shorts #MrBeast #MrBeastHindi #MoneyChallenge #Cash",
+            "tags": ["mrbeast hindi", "million dollars", "mrbeast giveaway", "shorts"],
+            "start_time": 0.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "MrBeast",
+            "title": "सूटकेस भरकर कैश दे दिया! 💼💵 #Shorts #MrBeastHindi #Challenge",
+            "banner": "SUITCASE FULL OF $100 BILLS! 💼💵",
+            "description": "कांच के बक्से में 8 करोड़ रुपये कैश! जो छूटेगा वो हारेगा।\n\n#Shorts #MrBeast #Money #ViralShorts #Trending",
+            "tags": ["mrbeast", "cash challenge", "giveaway", "shorts", "viral"],
+            "start_time": 2.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "MrBeast",
+            "title": "1 मिनट में 1 करोड़ रुपये जीतने का मौका! ⏱️💰 #Shorts #MoneyChallenge",
+            "banner": "CAN YOU WIN $1,000,000? ⏱️💰",
+            "description": "मिस्टर बीस्ट का सबसे बड़ा पैसे का खेल!\n\n#Shorts #MrBeastHindi #Cash #Trending #MoneyShorts",
+            "tags": ["mrbeast in hindi", "money challenge", "shorts", "viral"],
+            "start_time": 4.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "MrBeast",
+            "title": "जब इस लड़के की किस्मत 1 सेकंड में बदल गई! 😱💰 #Shorts #Viral",
+            "banner": "HIS LIFE CHANGED IN 1 SECOND! 😱",
+            "description": "मिस्टर बीस्ट ने आम लड़के को बना दिया करोड़पति!\n\n#Shorts #MrBeast #LifeChanging #Viral #Giveaway",
+            "tags": ["mrbeast", "millionaire", "giveaway", "shorts", "trending"],
+            "start_time": 1.0,
+            "duration": 30.0
+        }
+    ],
+    # Clip 4: IShowSpeed Meets Cristiano Ronaldo
+    [
+        {
+            "creator": "IShowSpeed",
+            "title": "स्पीड जब रोनाल्डो से पहली बार मिला! 🐐 SPEED MEETS RONALDO #Shorts #IShowSpeed #CR7",
+            "banner": "SPEED MEETS RONALDO! 🐐🔥",
+            "description": "स्पीड और क्रिस्टियानो रोनाल्डो का सबसे यादगार पल!\n\n#Shorts #IShowSpeed #Ronaldo #CR7 #HindiShorts",
+            "tags": ["ishowspeed", "ronaldo", "cr7", "speed and ronaldo", "shorts"],
+            "start_time": 0.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "IShowSpeed",
+            "title": "रोनाल्डो को देखकर स्पीड के आंसू निकल गए! 😭🐐 #Shorts #IShowSpeed",
+            "banner": "SPEED CRIED AFTER MEETING CR7! 😭",
+            "description": "जब सालों का इंतजार खत्म हुआ और स्पीड अपने भगवान से मिला!\n\n#Shorts #IShowSpeed #CR7 #EmotionalMoment #Football",
+            "tags": ["speed meets ronaldo", "cr7", "ishowspeed", "shorts", "emotional"],
+            "start_time": 10.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "IShowSpeed",
+            "title": "स्पीड और रोनाल्डो का सबसे आइकॉनिक मोमेंट! ❤️🔥 #Shorts #CR7 #IShowSpeed",
+            "banner": "MOST ICONIC MOMENT EVER! ❤️🐐",
+            "description": "फुटबॉल इतिहास का सबसे वायरल और प्यारा मोमेंट!\n\n#Shorts #Ronaldo #IShowSpeed #FootballViral #GOAT",
+            "tags": ["ronaldo", "cr7 goat", "ishowspeed", "shorts", "viral"],
+            "start_time": 16.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "IShowSpeed",
+            "title": "स्पीड का सपना आखिरकार पूरा हो गया! 🐐✨ #Shorts #IShowSpeed #CR7",
+            "banner": "SPEED'S GREATEST DREAM CAME TRUE! 🐐✨",
+            "description": "क्रिस्टियानो रोनाल्डो और स्पीड की यह मुलाकात हमेशा याद रहेगी!\n\n#Shorts #IShowSpeed #Ronaldo #DreamComeTrue #Shorts",
+            "tags": ["speed", "cr7", "ronaldo meeting", "shorts", "viral"],
+            "start_time": 5.0,
+            "duration": 30.0
+        }
+    ],
+    # Clip 5: MrBeast Impossible Escape Room
+    [
+        {
+            "creator": "MrBeast",
+            "title": "दुनिया का सबसे खतरनाक एस्केप रूम! 🔒🔥 MR BEAST IMPOSSIBLE ESCAPE #Shorts #MrBeastHindi",
+            "banner": "DUNIYA KA SABSE KHATARNAK ESCAPE! 🔒",
+            "description": "क्या ये लोग दुनिया के सबसे मुश्किल कमरे से बाहर निकल पाए?\n\n#Shorts #MrBeast #EscapeRoom #ViralShorts #Hindi",
+            "tags": ["mrbeast", "escape room", "mrbeast hindi", "challenge", "shorts"],
+            "start_time": 0.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "MrBeast",
+            "title": "100 घंटे में इस कमरे से बाहर निकल कर दिखाओ! ⏱️🔒 #Shorts #MrBeast",
+            "banner": "CAN THEY ESCAPE IN TIME? 🔒⚠️",
+            "description": "चारों तरफ जाल और सिर्फ 100 घंटे का समय!\n\n#Shorts #MrBeastHindi #EscapeChallenge #Viral #Survival",
+            "tags": ["mrbeast in hindi", "escape room", "survival", "shorts", "trending"],
+            "start_time": 2.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "MrBeast",
+            "title": "मिस्टर बीस्ट का इम्पॉसिबल ट्रैप चैलेंज! 😱🔥 #Shorts #EscapeRoom #MrBeast",
+            "banner": "IMPOSSIBLE TRAP CHALLENGE! 😱",
+            "description": "जिसने भी यह दरवाजा खोला, उसके होश उड़ गए!\n\n#Shorts #MrBeast #ImpossibleEscape #ViralShorts #Challenge",
+            "tags": ["mrbeast", "trap challenge", "shorts", "viral", "escape room"],
+            "start_time": 4.0,
+            "duration": 30.0
+        },
+        {
+            "creator": "MrBeast",
+            "title": "जो बाहर निकलेगा उसे मिलेंगे 5 लाख डॉलर! 💰🔒 #Shorts #MrBeastHindi",
+            "banner": "ESCAPE AND WIN $500,000! 💰🔒",
+            "description": "जिंदगी का सबसे कठिन और महंगा एस्केप गेम!\n\n#Shorts #MrBeast #CashPrize #Viral #Trending",
+            "tags": ["mrbeast giveaway", "escape room", "shorts", "mrbeast hindi"],
+            "start_time": 1.0,
+            "duration": 30.0
+        }
+    ]
 ]
+
+
+def get_todays_creator_presets() -> List[Dict[str, Any]]:
+    """
+    Returns 5 distinct creator presets for today, rotating variations daily based on calendar date.
+    Guarantees different titles, banners, tags, and visual cuts every single day!
+    """
+    from datetime import date
+    base_date = date(2026, 10, 15)
+    days_passed = max(0, (date.today() - base_date).days)
+
+    clip_files = [
+        "assets/creator_clips/clip_01_mrbeast_island.mp4",
+        "assets/creator_clips/clip_02_speed_reaction.mp4",
+        "assets/creator_clips/clip_03_mrbeast_cash.mp4",
+        "assets/creator_clips/clip_04_speed_ronaldo.mp4",
+        "assets/creator_clips/clip_05_mrbeast_escape.mp4"
+    ]
+
+    presets = []
+    for j in range(5):
+        variations = CREATOR_VARIATIONS[j]
+        var_idx = (days_passed + j) % len(variations)
+        preset = dict(variations[var_idx])
+        preset["clip_path"] = clip_files[j]
+        presets.append(preset)
+
+    return presets
 
 
 def get_staggered_schedule(num_videos: int = 10, interval_minutes: int = 90):
@@ -147,8 +335,17 @@ def generate_daily_10_batch(
     # -------------------------------------------------------------
     print("\n>>> [STAGE 1] Generating 5 AI Hindi Shorts (Real Moving Background Footage)...")
     hindi_gen = HindiScriptGenerator()
-    all_scripts = hindi_gen.get_all_preset_scripts()
+    todays_scripts = hindi_gen.get_todays_5_scripts()
     video_maker = VideoMaker(assets_dir="assets", output_dir=output_batch_dir)
+
+    NICHE_BG_MAP = {
+        "Dark Psychology": "assets/ai_video_clips/bg_psychology.mp4",
+        "Ancient Mysteries": "assets/ai_video_clips/bg_space.mp4",
+        "Ocean Mysteries": "assets/ai_video_clips/bg_ocean.mp4",
+        "Money Mindset": "assets/ai_video_clips/bg_money.mp4",
+        "Brain Power": "assets/ai_video_clips/bg_brain.mp4",
+        "Space Wonders": "assets/ai_video_clips/bg_space.mp4"
+    }
 
     ai_bg_clips = [
         "assets/ai_video_clips/bg_psychology.mp4",
@@ -158,8 +355,7 @@ def generate_daily_10_batch(
         "assets/ai_video_clips/bg_space.mp4"
     ]
 
-    for i in range(min(5, len(all_scripts))):
-        script = all_scripts[i]
+    for i, script in enumerate(todays_scripts):
         idx = i + 1
         print(f"\n[{idx}/10] Creating AI Hindi Short: {script['title'][:40]}...")
 
@@ -177,8 +373,11 @@ def generate_daily_10_batch(
                 voice="hi-IN-MadhurNeural"
             )
 
-            # Assign real moving HD video background
-            bg_video = ai_bg_clips[i % len(ai_bg_clips)]
+            # Assign real moving HD video background based on topic
+            niche = script.get("niche", "")
+            bg_video = NICHE_BG_MAP.get(niche, ai_bg_clips[i % len(ai_bg_clips)])
+            if not os.path.exists(bg_video):
+                bg_video = ai_bg_clips[i % len(ai_bg_clips)]
             if not os.path.exists(bg_video):
                 print(f"Warning: {bg_video} not found, falling back to any available bg")
                 bg_video = None
@@ -210,33 +409,27 @@ def generate_daily_10_batch(
     # -------------------------------------------------------------
     print("\n>>> [STAGE 2] Generating 5 Real Creator Shorts (MrBeast, Speed, Viral Moments)...")
     clipper = CreatorClipper(downloads_dir="assets/downloads", output_dir=output_batch_dir)
+    creator_presets = get_todays_creator_presets()
 
-    creator_local_clips = [
-        "assets/creator_clips/clip_01_mrbeast_island.mp4",
-        "assets/creator_clips/clip_02_speed_reaction.mp4",
-        "assets/creator_clips/clip_03_mrbeast_cash.mp4",
-        "assets/creator_clips/clip_04_speed_ronaldo.mp4",
-        "assets/creator_clips/clip_05_mrbeast_escape.mp4"
-    ]
-
-    for j in range(min(5, len(VIRAL_CREATOR_PRESETS))):
-        c_preset = VIRAL_CREATOR_PRESETS[j]
+    for j, c_preset in enumerate(creator_presets):
         idx = 5 + j + 1
         print(f"\n[{idx}/10] Creating Real Creator Short: {c_preset['title'][:40]}...")
 
         video_filename = f"video_{idx:02d}_creator_clip.mp4"
 
         try:
-            local_clip = creator_local_clips[j % len(creator_local_clips)]
+            local_clip = c_preset["clip_path"]
+            start_sec = c_preset.get("start_time", 0.0)
+            duration_sec = c_preset.get("duration", 29.0)
+
             if os.path.exists(local_clip):
                 raw_video = local_clip
-                start_sec = 0
             else:
                 raw_video = clipper.download_by_search_or_url(
-                    search_query_or_url=c_preset["query"],
+                    search_query_or_url=c_preset.get("query", "MrBeast challenge"),
                     output_prefix=f"creator_{idx}"
                 )
-                start_sec = 5
+                start_sec = 5.0
 
             # Format into 9:16 vertical short with blurred studio bg & hook banner
             video_path = clipper.create_viral_short_clip(
@@ -244,9 +437,9 @@ def generate_daily_10_batch(
                 banner_text=c_preset["banner"],
                 output_filename=video_filename,
                 start_time=start_sec,
-                duration=30.0
+                duration=duration_sec
             )
-            vid_duration = "30.0s"
+            vid_duration = f"{duration_sec:.1f}s"
         except Exception as e:
             print(f"❌ Failed creator short {idx}: {e}")
             continue
