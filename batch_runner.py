@@ -40,22 +40,26 @@ from creator_storyboard import CreatorStoryboard, CREATOR_SCRIPTS_HINDI
 
 
 def ensure_credentials():
-    """Restores client_secrets and youtube_token if running in cloud runner."""
+    """Restores client_secrets, youtube_token, and gemini_api_key if running in cloud runner."""
     cs_path = "config/client_secrets.json"
     yt_path = "config/youtube_token.json"
     dat_path = "config/credentials.dat"
-    if (not os.path.exists(cs_path) or not os.path.exists(yt_path)) and os.path.exists(dat_path):
+    if os.path.exists(dat_path):
         import base64
         try:
             with open(dat_path, "r", encoding="utf-8") as f:
                 encoded = f.read()
             payload = json.loads(base64.b85decode(encoded.encode("utf-8")).decode("utf-8"))
             os.makedirs("config", exist_ok=True)
-            with open(cs_path, "w", encoding="utf-8") as f:
-                f.write(payload["client_secrets"])
-            with open(yt_path, "w", encoding="utf-8") as f:
-                f.write(payload["youtube_token"])
-            print("Credentials unpacked successfully.")
+            if not os.path.exists(cs_path) and "client_secrets" in payload:
+                with open(cs_path, "w", encoding="utf-8") as f:
+                    f.write(payload["client_secrets"])
+            if not os.path.exists(yt_path) and "youtube_token" in payload:
+                with open(yt_path, "w", encoding="utf-8") as f:
+                    f.write(payload["youtube_token"])
+            if "gemini_api_key" in payload and not os.environ.get("GEMINI_API_KEY"):
+                os.environ["GEMINI_API_KEY"] = payload["gemini_api_key"]
+            print("Credentials unpacked successfully (including Gemini API Key).")
         except Exception as e:
             print(f"Warning: Could not unpack credentials: {e}")
 

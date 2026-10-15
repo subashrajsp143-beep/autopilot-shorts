@@ -24,6 +24,17 @@ class FlowVideoGenerator:
 
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
+        if not self.api_key and os.path.exists(".env"):
+            try:
+                with open(".env", "r", encoding="utf-8") as f:
+                    for line in f:
+                        if line.startswith("GEMINI_API_KEY="):
+                            self.api_key = line.split("=", 1)[1].strip()
+                            os.environ["GEMINI_API_KEY"] = self.api_key
+                            break
+            except Exception:
+                pass
+
         self.client = None
         if self.api_key and GENAI_AVAILABLE:
             try:

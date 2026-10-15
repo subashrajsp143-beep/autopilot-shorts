@@ -12,7 +12,7 @@ import os
 import random
 import subprocess
 import glob
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
 
 class VideoMaker:
