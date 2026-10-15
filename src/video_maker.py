@@ -10,10 +10,19 @@ Features:
 """
 
 import os
+import sys
 import random
 import subprocess
 import glob
 from typing import Optional, Dict, Any, List
+
+# Fix Windows console UTF-8 output
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 
 class VideoMaker:
@@ -81,46 +90,54 @@ class VideoMaker:
         # MODE 1: HUMAN PRESENTER / HOST ON CAMERA (The User's Top Priority!)
         # ------------------------------------------------------------------
         if presenter_video_path and os.path.exists(presenter_video_path):
-            print(f"🎬 Rendering with Human Presenter: {os.path.basename(presenter_video_path)}")
-            cmd = ["ffmpeg", "-y"]
-
-            # Background input [0:v]
-            if primary_bg and os.path.exists(primary_bg):
-                cmd += ["-stream_loop", "-1", "-i", primary_bg]
-            else:
-                cmd += ["-f", "lavfi", "-i", f"color=c=0x0a0f1d:s=1080x1920:d={duration + 1.0}"]
-
-            # Presenter input [1:v]
-            cmd += ["-stream_loop", "-1", "-i", presenter_video_path]
-
-            # Voiceover input [2:a]
-            cmd += ["-i", audio_path]
-
-            # Determine whether presenter has green screen
             p_name = os.path.basename(presenter_video_path).lower()
             green_screen = is_green_screen and not ("motivational" in p_name or "raw_talking" in p_name)
+            print(f"Rendering with Human Presenter ({'GreenScreen' if green_screen else 'Direct'}): {os.path.basename(presenter_video_path)}")
+
+            cmd = ["ffmpeg", "-y"]
 
             if green_screen:
-                # Precision chromakey + despill for ultra-clean edge blending
+                # Background input [0:v]
+                if primary_bg and os.path.exists(primary_bg):
+                    cmd += ["-stream_loop", "-1", "-i", primary_bg]
+                else:
+                    cmd += ["-f", "lavfi", "-i", f"color=c=0x0a0f1d:s=1080x1920:d={duration + 1.0}"]
+
+                # Presenter input [1:v]
+                cmd += ["-stream_loop", "-1", "-i", presenter_video_path]
+
+                # Voiceover input [2:a]
+                cmd += ["-i", audio_path]
+
+                # Precision chromakey + despill for clean studio edge blending
                 filter_complex = (
                     f"[0:v]trim=duration={duration:.2f},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=PTS-STARTPTS[bg];"
                     f"[1:v]trim=duration={duration:.2f},chromakey=0x00c400:0.16:0.04,despill=type=green:mix=0.8,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=PTS-STARTPTS[fg];"
                     f"[bg][fg]overlay=0:0[vcomp];"
                     f"[vcomp]ass='{escaped_ass}'[vout]"
                 )
+                voice_idx = 2
+                music_idx = 3
             else:
                 # Direct centered scale & crop
+                # Presenter input [0:v]
+                cmd += ["-stream_loop", "-1", "-i", presenter_video_path]
+                # Voiceover input [1:a]
+                cmd += ["-i", audio_path]
+
                 filter_complex = (
-                    f"[1:v]trim=duration={duration:.2f},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=PTS-STARTPTS[vcomp];"
+                    f"[0:v]trim=duration={duration:.2f},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=PTS-STARTPTS[vcomp];"
                     f"[vcomp]ass='{escaped_ass}'[vout]"
                 )
+                voice_idx = 1
+                music_idx = 2
 
             if bg_music:
                 cmd += ["-stream_loop", "-1", "-i", bg_music]
-                audio_filter = "[2:a]volume=1.0[v];[3:a]volume=0.10[m];[v][m]amix=inputs=2:duration=first[aout]"
+                audio_filter = f"[{voice_idx}:a]volume=1.0[v];[{music_idx}:a]volume=0.10[m];[v][m]amix=inputs=2:duration=first[aout]"
                 cmd += ["-filter_complex", f"{filter_complex};{audio_filter}", "-map", "[vout]", "-map", "[aout]"]
             else:
-                cmd += ["-filter_complex", filter_complex, "-map", "[vout]", "-map", "2:a"]
+                cmd += ["-filter_complex", filter_complex, "-map", "[vout]", "-map", f"{voice_idx}:a"]
 
         # ------------------------------------------------------------------
         # MODE 2: MULTI-SCENE DYNAMIC MONTAGE (Fallback if no presenter)
@@ -148,7 +165,7 @@ class VideoMaker:
             if bg_music:
                 cmd += ["-stream_loop", "-1", "-i", bg_music]
                 music_idx = audio_idx + 1
-                audio_filter = f"[{audio_idx}:a]volume=1.0[v];[{music_idx}:a]volume=0.12[m];[v][m]amix=inputs=2:duration=first[aout]"
+                audio_filter = f"[{audio_idx}:a]volume=1.0[v];[{music_idx}:a]volume=0.10[m];[v][m]amix=inputs=2:duration=first[aout]"
                 cmd += ["-filter_complex", f"{full_video_filter};{audio_filter}", "-map", "[vout]", "-map", "[aout]"]
             else:
                 cmd += ["-filter_complex", full_video_filter, "-map", "[vout]", "-map", f"{audio_idx}:a"]
@@ -174,7 +191,7 @@ class VideoMaker:
 
             if bg_music:
                 cmd += ["-stream_loop", "-1", "-i", bg_music]
-                audio_filter = "[1:a]volume=1.0[v];[2:a]volume=0.12[m];[v][m]amix=inputs=2:duration=first[aout]"
+                audio_filter = "[1:a]volume=1.0[v];[2:a]volume=0.10[m];[v][m]amix=inputs=2:duration=first[aout]"
                 cmd += ["-filter_complex", f"[0:v]{video_filter}[vout];{audio_filter}", "-map", "[vout]", "-map", "[aout]"]
             else:
                 cmd += ["-vf", video_filter, "-map", "0:v", "-map", "1:a"]
