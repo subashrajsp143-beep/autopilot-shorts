@@ -425,22 +425,23 @@ def generate_daily_10_batch(
                 voice="hi-IN-MadhurNeural"
             )
 
-            # Assign real moving HD video background based on topic
+            # Multi-scene dynamic montage: 4 changing moving video scenes per short!
             niche = script.get("niche", "")
-            bg_video = NICHE_BG_MAP.get(niche, ai_bg_clips[i % len(ai_bg_clips)])
-            if not os.path.exists(bg_video):
-                bg_video = ai_bg_clips[i % len(ai_bg_clips)]
-            if not os.path.exists(bg_video):
-                print(f"Warning: {bg_video} not found, falling back to any available bg")
-                bg_video = None
+            primary_bg = NICHE_BG_MAP.get(niche, ai_bg_clips[i % len(ai_bg_clips)])
+            bg_scenes = [primary_bg]
+            for bg in ai_bg_clips:
+                if bg != primary_bg and bg not in bg_scenes:
+                    bg_scenes.append(bg)
+                if len(bg_scenes) >= 4:
+                    break
 
-            # Render 9:16 vertical video with REAL MOVING VIDEO & burnt subtitles
+            # Render 9:16 vertical video with DYNAMIC MULTI-SCENE VIDEO MONTAGE & burnt subtitles
             video_path = video_maker.render_video(
                 audio_path=audio_path,
                 ass_path=ass_path,
                 output_filename=video_filename,
                 duration=voice_res["duration"],
-                bg_video_path=bg_video
+                bg_video_paths=bg_scenes
             )
 
             generated_videos.append({
