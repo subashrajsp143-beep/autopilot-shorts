@@ -387,9 +387,9 @@ def generate_daily_10_batch(
     generated_videos: List[Dict[str, Any]] = []
 
     # -------------------------------------------------------------
-    # PART 1: 5 AI HINDI SHORTS (100% REAL MOVING VIDEO FOOTAGE)
+    # PART 1: 5 AI HINDI SHORTS (REAL HUMAN PRESENTER ON CAMERA + 3D MOVING BACKGROUNDS)
     # -------------------------------------------------------------
-    print("\n>>> [STAGE 1] Generating 5 AI Hindi Shorts (Real Moving Background Footage)...")
+    print("\n>>> [STAGE 1] Generating 5 AI Hindi Shorts (Real Human Presenter on Camera)...")
     hindi_gen = HindiScriptGenerator()
     todays_scripts = hindi_gen.get_todays_5_scripts()
     video_maker = VideoMaker(assets_dir="assets", output_dir=output_batch_dir)
@@ -403,17 +403,32 @@ def generate_daily_10_batch(
         "Space Wonders": "assets/ai_video_clips/bg_space.mp4"
     }
 
-    ai_bg_clips = [
-        "assets/ai_video_clips/bg_psychology.mp4",
-        "assets/ai_video_clips/bg_ocean.mp4",
-        "assets/ai_video_clips/bg_money.mp4",
-        "assets/ai_video_clips/bg_brain.mp4",
-        "assets/ai_video_clips/bg_space.mp4"
+    PRESENTER_CONFIGS = [
+        {
+            "presenter": "assets/human_presenters/host_01_anchor.mp4",
+            "fallback_bg": "assets/ai_video_clips/bg_psychology.mp4"
+        },
+        {
+            "presenter": "assets/human_presenters/host_02_woman.mp4",
+            "fallback_bg": "assets/ai_video_clips/bg_space.mp4"
+        },
+        {
+            "presenter": "assets/human_presenters/host_03_stylish.mp4",
+            "fallback_bg": "assets/ai_video_clips/bg_money.mp4"
+        },
+        {
+            "presenter": "assets/human_presenters/host_04_business.mp4",
+            "fallback_bg": "assets/ai_video_clips/bg_ocean.mp4"
+        },
+        {
+            "presenter": "assets/human_presenters/host_01_anchor.mp4",
+            "fallback_bg": "assets/ai_video_clips/bg_brain.mp4"
+        }
     ]
 
     for i, script in enumerate(todays_scripts):
         idx = i + 1
-        print(f"\n[{idx}/10] Creating AI Hindi Short: {script['title'][:40]}...")
+        print(f"\n[{idx}/10] Creating Human Presenter Fact Short: {script['title'][:40]}...")
 
         try:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -429,35 +444,32 @@ def generate_daily_10_batch(
                 voice="hi-IN-MadhurNeural"
             )
 
-            # Multi-scene dynamic montage: 4 changing moving video scenes per short!
+            # Assign human presenter and thematic background
+            p_cfg = PRESENTER_CONFIGS[i % len(PRESENTER_CONFIGS)]
             niche = script.get("niche", "")
-            primary_bg = NICHE_BG_MAP.get(niche, ai_bg_clips[i % len(ai_bg_clips)])
-            bg_scenes = [primary_bg]
-            for bg in ai_bg_clips:
-                if bg != primary_bg and bg not in bg_scenes:
-                    bg_scenes.append(bg)
-                if len(bg_scenes) >= 4:
-                    break
+            bg_video = NICHE_BG_MAP.get(niche, p_cfg["fallback_bg"])
+            presenter_file = p_cfg["presenter"]
 
-            # Render 9:16 vertical video with DYNAMIC MULTI-SCENE VIDEO MONTAGE & burnt subtitles
+            # Render 9:16 vertical video with REAL HUMAN PRESENTER ON CAMERA & burnt subtitles
             video_path = video_maker.render_video(
                 audio_path=audio_path,
                 ass_path=ass_path,
                 output_filename=video_filename,
                 duration=voice_res["duration"],
-                bg_video_paths=bg_scenes
+                bg_video_path=bg_video,
+                presenter_video_path=presenter_file
             )
 
             generated_videos.append({
                 "index": idx,
-                "type": "AI Hindi Short (Real Video)",
+                "type": "AI Hindi Short (Human Presenter)",
                 "title": script["title"],
                 "description": script["description"],
                 "tags": script["tags"],
                 "video_path": video_path,
                 "duration": f"{voice_res['duration']:.1f}s"
             })
-            print(f"✓ Video {idx} ready (Real Moving Video): {video_filename}")
+            print(f"✓ Video {idx} ready (Human Presenter on Camera): {video_filename}")
         except Exception as e:
             print(f"❌ Failed to generate video {idx}: {e}")
 
