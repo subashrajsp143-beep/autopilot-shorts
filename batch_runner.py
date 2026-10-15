@@ -403,6 +403,10 @@ def generate_daily_10_batch(
         "Space Wonders": "assets/ai_video_clips/bg_space.mp4"
     }
 
+    from datetime import date
+    base_date = date(2026, 10, 15)
+    days_passed = max(0, (date.today() - base_date).days)
+
     PRESENTER_CONFIGS = [
         {
             "presenter": "assets/human_presenters/host_01_anchor.mp4",
@@ -421,7 +425,7 @@ def generate_daily_10_batch(
             "fallback_bg": "assets/ai_video_clips/bg_ocean.mp4"
         },
         {
-            "presenter": "assets/human_presenters/host_01_anchor.mp4",
+            "presenter": "assets/human_presenters/host_05_motivational.mp4",
             "fallback_bg": "assets/ai_video_clips/bg_brain.mp4"
         }
     ]
@@ -444,8 +448,9 @@ def generate_daily_10_batch(
                 voice="hi-IN-MadhurNeural"
             )
 
-            # Assign human presenter and thematic background
-            p_cfg = PRESENTER_CONFIGS[i % len(PRESENTER_CONFIGS)]
+            # Assign human presenter and thematic background (Rotates daily!)
+            p_idx = (days_passed + i) % len(PRESENTER_CONFIGS)
+            p_cfg = PRESENTER_CONFIGS[p_idx]
             niche = script.get("niche", "")
             bg_video = NICHE_BG_MAP.get(niche, p_cfg["fallback_bg"])
             presenter_file = p_cfg["presenter"]
