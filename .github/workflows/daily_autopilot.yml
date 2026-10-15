@@ -2,10 +2,14 @@ name: Daily YouTube Shorts Autopilot
 
 on:
   schedule:
-    # 02:23 UTC = 07:53 AM IST (Off-peak minute avoids GitHub traffic queue, ready by 08:00 AM)
-    - cron: '23 2 * * *'
-    # 02:43 UTC = 08:13 AM IST (Secondary off-peak backup)
-    - cron: '43 2 * * *'
+    # 02:00 UTC = 07:30 AM IST (Early warm-up trigger)
+    - cron: '0 2 * * *'
+    # 02:15 UTC = 07:45 AM IST (Pre-8AM trigger)
+    - cron: '15 2 * * *'
+    # 02:30 UTC = 08:00 AM IST (8:00 AM IST target)
+    - cron: '30 2 * * *'
+    # 02:45 UTC = 08:15 AM IST (Immediate backup trigger)
+    - cron: '45 2 * * *'
   workflow_dispatch:
 
 jobs:
@@ -34,5 +38,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: 🚀 Generate 10 Shorts & Auto-Upload to YouTube
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python batch_runner.py --upload-yt

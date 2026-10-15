@@ -316,6 +316,53 @@ def get_staggered_schedule(num_videos: int = 10, interval_minutes: int = 90):
     return schedules
 
 
+def check_already_uploaded_today() -> bool:
+    """
+    Checks if a successful batch upload has already occurred today (IST).
+    Prevents duplicate uploads and protects YouTube 24-hour daily quota
+    if multiple cron triggers or manual triggers run on the same day.
+    """
+    if os.environ.get("GITHUB_ACTIONS") != "true":
+        return False
+
+    token = os.environ.get("GITHUB_TOKEN")
+    if not token:
+        return False
+    repo = os.environ.get("GITHUB_REPOSITORY", "subashrajsp143-beep/autopilot-shorts")
+    current_run_id = int(os.environ.get("GITHUB_RUN_ID", 0))
+
+    import urllib.request
+    from datetime import datetime, timezone, timedelta
+    try:
+        url = f"https://api.github.com/repos/{repo}/actions/runs?status=success&per_page=5"
+        req = urllib.request.Request(
+            url,
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Accept": "application/vnd.github+json",
+                "User-Agent": "AutopilotGuard"
+            }
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            runs = data.get("workflow_runs", [])
+            ist_now = datetime.now(timezone(timedelta(hours=5, minutes=30)))
+            today_str = ist_now.strftime("%Y-%m-%d")
+
+            for r in runs:
+                if r["id"] == current_run_id:
+                    continue
+                created_utc = datetime.fromisoformat(r["created_at"].replace("Z", "+00:00"))
+                created_ist = created_utc.astimezone(timezone(timedelta(hours=5, minutes=30)))
+                if created_ist.strftime("%Y-%m-%d") == today_str:
+                    print(f"⚠️ A successful batch run already finished today ({created_ist.strftime('%H:%M:%S IST')}).")
+                    print("🛡️ Skipping duplicate upload to protect YouTube 24-hr quota and avoid duplicate videos.")
+                    return True
+    except Exception as e:
+        print(f"Daily guard note: {e}")
+    return False
+
+
 def generate_daily_10_batch(
     output_batch_dir: str = "output/batch_today",
     copy_to_desktop: bool = False,
@@ -327,6 +374,11 @@ def generate_daily_10_batch(
     print("=" * 65)
 
     ensure_credentials()
+
+    if upload_yt and check_already_uploaded_today():
+        print("✅ Daily quota safe. Today's 10 videos are already uploaded on schedule.")
+        return
+
     os.makedirs(output_batch_dir, exist_ok=True)
     generated_videos: List[Dict[str, Any]] = []
 
