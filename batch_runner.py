@@ -37,6 +37,8 @@ from youtube_uploader import YouTubeUploader
 from meta_uploader import MetaUploader
 from visual_storyboard import VisualStoryboard
 from creator_storyboard import CreatorStoryboard, CREATOR_SCRIPTS_HINDI
+from history_tracker import HistoryTracker
+from dynamic_creator_engine import DynamicCreatorEngine
 
 
 def ensure_credentials():
@@ -392,12 +394,13 @@ def generate_daily_10_batch(
     generated_videos: List[Dict[str, Any]] = []
 
     # -------------------------------------------------------------
-    # PART 1: 5 AI HINDI SHORTS (REAL HUMAN PRESENTER ON CAMERA + 3D MOVING BACKGROUNDS)
+    # PART 1: 5 HIGH-RETENTION FACT & MYSTERY SHORTS (MULTI-SCENE DYNAMIC MONTAGE)
     # -------------------------------------------------------------
-    print("\n>>> [STAGE 1] Generating 5 AI Hindi Shorts (Real Human Presenter on Camera)...")
+    print("\n>>> [STAGE 1] Generating 5 High-Retention Fact & Mystery Shorts (Multi-Scene Montage)...")
     hindi_gen = HindiScriptGenerator()
     todays_scripts = hindi_gen.get_todays_5_scripts()
     video_maker = VideoMaker(assets_dir="assets", output_dir=output_batch_dir)
+    storyboard = VisualStoryboard(cache_dir="assets/image_cache")
 
     NICHE_BG_MAP = {
         "Dark Psychology": "assets/ai_video_clips/bg_psychology.mp4",
@@ -412,32 +415,9 @@ def generate_daily_10_batch(
     base_date = date(2026, 10, 15)
     days_passed = max(0, (date.today() - base_date).days)
 
-    PRESENTER_CONFIGS = [
-        {
-            "presenter": "assets/human_presenters/host_01_anchor.mp4",
-            "fallback_bg": "assets/ai_video_clips/bg_psychology.mp4"
-        },
-        {
-            "presenter": "assets/human_presenters/host_02_woman.mp4",
-            "fallback_bg": "assets/ai_video_clips/bg_space.mp4"
-        },
-        {
-            "presenter": "assets/human_presenters/host_03_stylish.mp4",
-            "fallback_bg": "assets/ai_video_clips/bg_money.mp4"
-        },
-        {
-            "presenter": "assets/human_presenters/host_04_business.mp4",
-            "fallback_bg": "assets/ai_video_clips/bg_ocean.mp4"
-        },
-        {
-            "presenter": "assets/human_presenters/host_05_motivational.mp4",
-            "fallback_bg": "assets/ai_video_clips/bg_brain.mp4"
-        }
-    ]
-
     for i, script in enumerate(todays_scripts):
         idx = i + 1
-        print(f"\n[{idx}/10] Creating Human Presenter Fact Short: {script['title'][:40]}...")
+        print(f"\n[{idx}/10] Creating FactTechz-Style Mystery Short: {script['title'][:40]}...")
 
         try:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -445,7 +425,7 @@ def generate_daily_10_batch(
             ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
             video_filename = f"video_{idx:02d}_hindi_ai.mp4"
 
-            # Generate Hindi voiceover and subtitles
+            # Generate Hindi neural voiceover and styled ASS subtitles
             voice_res = generate_audio(
                 text=script["text"],
                 audio_path=audio_path,
@@ -453,86 +433,111 @@ def generate_daily_10_batch(
                 voice="hi-IN-MadhurNeural"
             )
 
-            # Assign human presenter and thematic background (Rotates daily!)
-            p_idx = (days_passed + i) % len(PRESENTER_CONFIGS)
-            p_cfg = PRESENTER_CONFIGS[p_idx]
+            # Build multi-scene dynamic background montage matching each sentence
             niche = script.get("niche", "")
-            bg_video = NICHE_BG_MAP.get(niche, p_cfg["fallback_bg"])
-            presenter_file = p_cfg["presenter"]
+            sentences = voice_res.get("sentences", [])
+            bg_video_file = None
 
-            # Render 9:16 vertical video with REAL HUMAN PRESENTER ON CAMERA & burnt subtitles
+            if sentences and len(sentences) >= 2:
+                try:
+                    scene_bg_path = os.path.join(output_batch_dir, f"montage_{idx}_{timestamp}.mp4")
+                    bg_video_file = storyboard.build_multi_scene_background(sentences, scene_bg_path)
+                except Exception as sb_err:
+                    print(f"Notice: Storyboard dynamic assembly fallback: {sb_err}")
+                    bg_video_file = NICHE_BG_MAP.get(niche, "assets/ai_video_clips/bg_space.mp4")
+            else:
+                bg_video_file = NICHE_BG_MAP.get(niche, "assets/ai_video_clips/bg_space.mp4")
+
+            # Render 9:16 vertical video (NO fake green-screen presenter, pure high-energy documentary)
             video_path = video_maker.render_video(
                 audio_path=audio_path,
                 ass_path=ass_path,
                 output_filename=video_filename,
                 duration=voice_res["duration"],
-                bg_video_path=bg_video,
-                presenter_video_path=presenter_file
+                bg_video_path=bg_video_file,
+                presenter_video_path=None
             )
 
             generated_videos.append({
                 "index": idx,
-                "type": "AI Hindi Short (Human Presenter)",
+                "type": "Fact & Mystery Short (Multi-Scene Montage)",
                 "title": script["title"],
                 "description": script["description"],
                 "tags": script["tags"],
                 "video_path": video_path,
-                "duration": f"{voice_res['duration']:.1f}s"
+                "duration": f"{voice_res['duration']:.1f}s",
+                "source_id": f"script_{idx}_{script.get('niche', 'fact')}",
+                "query": script.get("niche", "fact")
             })
-            print(f"✓ Video {idx} ready (Human Presenter on Camera): {video_filename}")
+            print(f"✓ Video {idx} ready (Multi-Scene FactTechz Style): {video_filename}")
         except Exception as e:
             print(f"❌ Failed to generate video {idx}: {e}")
 
     # -------------------------------------------------------------
-    # PART 2: 5 REAL CREATOR & MR BEAST SHORTS (100% REAL MOVING FOOTAGE)
+    # PART 2: 5 REAL CREATOR & VIRAL MOMENT SHORTS (100% REAL FRESH FOOTAGE)
     # -------------------------------------------------------------
     print("\n>>> [STAGE 2] Generating 5 Real Creator Shorts (MrBeast, Speed, Viral Moments)...")
-    clipper = CreatorClipper(downloads_dir="assets/downloads", output_dir=output_batch_dir)
-    creator_presets = get_todays_creator_presets()
+    dynamic_engine = DynamicCreatorEngine(
+        downloads_dir="assets/downloads",
+        output_dir=output_batch_dir
+    )
 
-    for j, c_preset in enumerate(creator_presets):
+    creator_niches = [
+        "mrbeast",
+        "ishowspeed",
+        "football",
+        "world_records",
+        "mind_blowing"
+    ]
+
+    for j, niche in enumerate(creator_niches):
         idx = 5 + j + 1
-        print(f"\n[{idx}/10] Creating Real Creator Short: {c_preset['title'][:40]}...")
+        print(f"\n[{idx}/10] Discovering & Clipping Fresh '{niche.upper()}' Viral Footage...")
 
         video_filename = f"video_{idx:02d}_creator_clip.mp4"
 
         try:
-            local_clip = c_preset["clip_path"]
-            start_sec = c_preset.get("start_time", 0.0)
-            duration_sec = c_preset.get("duration", 29.0)
-
-            if os.path.exists(local_clip):
-                raw_video = local_clip
-            else:
-                raw_video = clipper.download_by_search_or_url(
-                    search_query_or_url=c_preset.get("query", "MrBeast challenge"),
-                    output_prefix=f"creator_{idx}"
-                )
-                start_sec = 5.0
-
-            # Format into 9:16 vertical short with blurred studio bg & hook banner
-            video_path = clipper.create_viral_short_clip(
-                video_path=raw_video,
-                banner_text=c_preset["banner"],
-                output_filename=video_filename,
-                start_time=start_sec,
-                duration=duration_sec
+            # 1. Dynamically download fresh, non-repeating footage from YouTube
+            fresh_clip_data = dynamic_engine.download_fresh_clip(
+                niche=niche,
+                day_offset=days_passed + j
             )
-            vid_duration = f"{duration_sec:.1f}s"
+
+            if not fresh_clip_data or not os.path.exists(fresh_clip_data["clip_path"]):
+                raise RuntimeError(f"Could not find or download fresh footage for niche '{niche}'")
+
+            raw_video = fresh_clip_data["clip_path"]
+            banner_text = fresh_clip_data["banner"]
+            clip_title = fresh_clip_data["title"]
+            clip_desc = fresh_clip_data["description"]
+            clip_tags = fresh_clip_data["tags"]
+            source_id = fresh_clip_data["source_id"]
+            query_used = fresh_clip_data["query"]
+
+            # 2. Format into 9:16 vertical short with studio blurred background & top hook banner
+            video_path = dynamic_engine.format_to_vertical_short(
+                video_path=raw_video,
+                banner_text=banner_text,
+                output_filename=video_filename,
+                duration=29.0
+            )
+
+            generated_videos.append({
+                "index": idx,
+                "type": f"Real Creator Short ({niche})",
+                "title": clip_title,
+                "description": clip_desc,
+                "tags": clip_tags,
+                "video_path": video_path,
+                "duration": "29.0s",
+                "source_id": source_id,
+                "query": query_used
+            })
+            print(f"✓ Video {idx} ready (100% Fresh Moving Footage): {video_filename}")
+
         except Exception as e:
             print(f"❌ Failed creator short {idx}: {e}")
             continue
-
-        generated_videos.append({
-            "index": idx,
-            "type": "Creator Short (Real Moving Footage)",
-            "title": c_preset["title"],
-            "description": c_preset["description"],
-            "tags": c_preset["tags"],
-            "video_path": video_path,
-            "duration": vid_duration
-        })
-        print(f"✓ Video {idx} ready (100% Real Moving Footage): {video_filename}")
 
     # -------------------------------------------------------------
     # PART 3: SAVE METADATA & SCHEDULE
@@ -561,12 +566,13 @@ def generate_daily_10_batch(
     if upload_yt:
         print("\n>> Uploading all 10 videos with Smart Staggered Schedule (Every 1.5 Hours)...")
         yt_uploader = YouTubeUploader()
+        tracker = HistoryTracker()
         schedules = get_staggered_schedule(len(generated_videos), interval_minutes=90)
         successful_uploads = 0
         for idx, v in enumerate(generated_videos):
             slot = schedules[idx]
             try:
-                yt_uploader.upload_short(
+                upload_res = yt_uploader.upload_short(
                     video_path=v["video_path"],
                     title=v["title"],
                     description=v["description"],
@@ -575,6 +581,13 @@ def generate_daily_10_batch(
                     publish_at=slot
                 )
                 successful_uploads += 1
+                tracker.record_upload(
+                    title=v["title"],
+                    video_type=v["type"],
+                    youtube_video_id=upload_res.get("video_id"),
+                    source_id=v.get("source_id"),
+                    query=v.get("query")
+                )
                 time.sleep(4)  # pause between uploads
             except Exception as e:
                 print(f"YouTube upload failed for {v['title']}: {e}")

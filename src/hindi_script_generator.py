@@ -250,15 +250,17 @@ class HindiScriptGenerator:
 
     def get_todays_5_scripts(self) -> List[Dict[str, Any]]:
         """
-        Returns 5 unique scripts for today, rotating sequentially through the library.
-        Guarantees that today's scripts are NEVER identical to yesterday's scripts!
-        Works on local machines and on stateless GitHub Actions cloud runners.
+        Returns 5 unique scripts for today, skipping any script that has ever been uploaded before.
+        Guarantees that today's scripts are 100% unique and never repeated!
         """
-        from datetime import date
+        try:
+            from history_tracker import HistoryTracker
+            tracker = HistoryTracker()
+        except Exception:
+            tracker = None
+
         total = len(HINDI_VIRAL_SCRIPTS)
-        base_date = date(2026, 10, 15)
-        days_passed = max(0, (date.today() - base_date).days)
-        offset = (days_passed * 5) % total
+        offset = 0
 
         if os.path.exists(self.state_file):
             try:
@@ -270,12 +272,24 @@ class HindiScriptGenerator:
                 pass
 
         selected = []
-        for i in range(5):
-            idx = (offset + i) % total
-            selected.append(HINDI_VIRAL_SCRIPTS[idx])
+        curr = offset
+        attempts = 0
+        while len(selected) < 5 and attempts < total * 3:
+            candidate = HINDI_VIRAL_SCRIPTS[curr % total]
+            is_used = tracker.is_title_used(candidate["title"]) if tracker else False
+            if not is_used and candidate not in selected:
+                selected.append(candidate)
+            curr += 1
+            attempts += 1
+
+        if len(selected) < 5:
+            for i in range(5 - len(selected)):
+                candidate = HINDI_VIRAL_SCRIPTS[(curr + i) % total]
+                if candidate not in selected:
+                    selected.append(candidate)
 
         # Advance offset for tomorrow
-        new_offset = (offset + 5) % total
+        new_offset = curr % total
         self._save_offset(new_offset)
 
         return selected

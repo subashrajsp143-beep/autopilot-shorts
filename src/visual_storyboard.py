@@ -5,7 +5,8 @@ and stitches them into a cinematic multi-scene 9:16 vertical video matching the 
 """
 
 import os
-import requests
+import urllib.request
+import json
 import subprocess
 from typing import List, Dict, Any, Optional
 from PIL import Image, ImageDraw
@@ -83,9 +84,10 @@ class VisualStoryboard:
         """Fetches direct HD image URL from Wikimedia API."""
         try:
             url = f"https://en.wikipedia.org/w/api.php?action=query&titles={query}&prop=pageimages&format=json&pithumbsize=1080"
-            r = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=5)
-            if r.status_code == 200:
-                pages = r.json().get("query", {}).get("pages", {})
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=6) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                pages = data.get("query", {}).get("pages", {})
                 for p in pages.values():
                     if "thumbnail" in p:
                         return p["thumbnail"]["source"]
@@ -100,10 +102,10 @@ class VisualStoryboard:
             return local_path
 
         try:
-            r = requests.get(image_url, headers={"User-Agent": USER_AGENT}, timeout=8)
-            if r.status_code == 200:
+            req = urllib.request.Request(image_url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=8) as resp:
                 with open(local_path, "wb") as f:
-                    f.write(r.content)
+                    f.write(resp.read())
                 return local_path
         except Exception:
             pass
