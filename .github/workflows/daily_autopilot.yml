@@ -11,6 +11,12 @@ on:
     # 02:45 UTC = 08:15 AM IST (Immediate backup trigger)
     - cron: '45 2 * * *'
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force upload bypassing duplicate guard'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   run-daily-shorts:
@@ -44,4 +50,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python batch_runner.py --upload-yt
+          if [ "${{ inputs.force }}" = "true" ]; then
+            python batch_runner.py --upload-yt --force
+          else
+            python batch_runner.py --upload-yt
+          fi

@@ -320,12 +320,16 @@ def get_staggered_schedule(num_videos: int = 10, interval_minutes: int = 90):
     return schedules
 
 
-def check_already_uploaded_today() -> bool:
+def check_already_uploaded_today(force: bool = False) -> bool:
     """
     Checks if a successful batch upload has already occurred today (IST).
     Prevents duplicate uploads and protects YouTube 24-hour daily quota
     if multiple cron triggers or manual triggers run on the same day.
     """
+    if force or os.environ.get("FORCE_UPLOAD") == "true":
+        print("⚡ Force upload enabled. Bypassing daily duplicate guard.")
+        return False
+
     if os.environ.get("GITHUB_ACTIONS") != "true":
         return False
 
@@ -371,7 +375,8 @@ def generate_daily_10_batch(
     output_batch_dir: str = "output/batch_today",
     copy_to_desktop: bool = False,
     upload_yt: bool = False,
-    upload_meta: bool = False
+    upload_meta: bool = False,
+    force: bool = False
 ):
     print("=" * 65)
     print("🚀 GENERATING DAILY BATCH OF 10 VIRAL SHORTS (HINDI & CREATORS)")
@@ -379,7 +384,7 @@ def generate_daily_10_batch(
 
     ensure_credentials()
 
-    if upload_yt and check_already_uploaded_today():
+    if upload_yt and check_already_uploaded_today(force=force):
         print("✅ Daily quota safe. Today's 10 videos are already uploaded on schedule.")
         return
 
@@ -557,6 +562,7 @@ def generate_daily_10_batch(
         print("\n>> Uploading all 10 videos with Smart Staggered Schedule (Every 1.5 Hours)...")
         yt_uploader = YouTubeUploader()
         schedules = get_staggered_schedule(len(generated_videos), interval_minutes=90)
+        successful_uploads = 0
         for idx, v in enumerate(generated_videos):
             slot = schedules[idx]
             try:
@@ -568,9 +574,13 @@ def generate_daily_10_batch(
                     privacy_status="public",
                     publish_at=slot
                 )
+                successful_uploads += 1
                 time.sleep(4)  # pause between uploads
             except Exception as e:
                 print(f"YouTube upload failed for {v['title']}: {e}")
+
+        if generated_videos and successful_uploads == 0:
+            raise RuntimeError("All YouTube uploads failed (likely daily quota or upload limit exceeded).")
 
     if upload_meta:
         print("\n>> Uploading to Facebook/Instagram...")
@@ -597,6 +607,7 @@ if __name__ == "__main__":
     parser.add_argument("--upload-meta", action="store_true", help="Upload to Facebook & Instagram")
     parser.add_argument("--upload-all", action="store_true", help="Upload to all platforms")
     parser.add_argument("--skip-gen", action="store_true", help="Upload existing generated batch without re-rendering")
+    parser.add_argument("--force", action="store_true", help="Force upload bypassing daily duplicate guard")
     args = parser.parse_args()
 
     upload_yt = args.upload_yt or args.upload_all
@@ -621,5 +632,6 @@ if __name__ == "__main__":
         generate_daily_10_batch(
             copy_to_desktop=False,
             upload_yt=upload_yt,
-            upload_meta=upload_meta
+            upload_meta=upload_meta,
+            force=args.force
         )
