@@ -577,15 +577,24 @@ def generate_daily_10_batch(
     desktop_folder = None
     if copy_to_desktop:
         try:
-            desktop_path = os.path.join(os.environ["USERPROFILE"], "Desktop")
-            desktop_folder = os.path.join(desktop_path, "Daily_10_Shorts")
-            os.makedirs(desktop_folder, exist_ok=True)
-            for v in generated_videos:
-                dest = os.path.join(desktop_folder, os.path.basename(v["video_path"]))
-                shutil.copy2(v["video_path"], dest)
-            # Copy metadata json too
-            shutil.copy2(metadata_path, os.path.join(desktop_folder, "titles_and_tags.json"))
-            print(f"\n📂 All 10 videos copied to Desktop -> {desktop_folder}")
+            # Check OneDrive Desktop first (standard on modern Windows)
+            onedrive_desktop = os.path.join(os.environ.get("USERPROFILE", ""), "OneDrive", "Desktop")
+            local_desktop = os.path.join(os.environ.get("USERPROFILE", ""), "Desktop")
+            target_desktops = []
+            if os.path.exists(onedrive_desktop):
+                target_desktops.append(onedrive_desktop)
+            if os.path.exists(local_desktop) and local_desktop not in target_desktops:
+                target_desktops.append(local_desktop)
+
+            for d_path in target_desktops:
+                folder = os.path.join(d_path, "Daily_10_Shorts")
+                os.makedirs(folder, exist_ok=True)
+                for v in generated_videos:
+                    dest = os.path.join(folder, os.path.basename(v["video_path"]))
+                    shutil.copy2(v["video_path"], dest)
+                shutil.copy2(metadata_path, os.path.join(folder, "titles_and_tags.json"))
+                desktop_folder = folder
+                print(f"\n📂 All 10 videos copied to Desktop -> {desktop_folder}")
         except Exception as e:
             print(f"Warning: Could not copy to desktop: {e}")
 
