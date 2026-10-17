@@ -171,9 +171,12 @@ class VideoMaker:
 
             banner_filter = ""
             if banner_text:
-                clean_banner = banner_text.replace(":", "\\:").replace("'", "").replace('"', "")
-                font_opt = self._get_font_opt()
-                banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
+                import re
+                clean_banner = re.sub(r'[^\x00-\x7F]+', '', banner_text)
+                clean_banner = clean_banner.replace(":", "\\:").replace("'", "").replace('"', "").strip()
+                if clean_banner:
+                    font_opt = self._get_font_opt()
+                    banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
 
             concat_filter = "".join(concat_inputs) + f"concat=n={num_clips}:v=1:a=0[vcat];[vcat]{banner_filter}ass='{escaped_ass}'[vout]"
             full_video_filter = ";".join(filter_parts) + ";" + concat_filter
@@ -198,9 +201,12 @@ class VideoMaker:
 
             banner_filter = ""
             if banner_text:
-                clean_banner = banner_text.replace(":", "\\:").replace("'", "").replace('"', "")
-                font_opt = self._get_font_opt()
-                banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
+                import re
+                clean_banner = re.sub(r'[^\x00-\x7F]+', '', banner_text)
+                clean_banner = clean_banner.replace(":", "\\:").replace("'", "").replace('"', "").strip()
+                if clean_banner:
+                    font_opt = self._get_font_opt()
+                    banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
 
             if bg_video and os.path.exists(bg_video):
                 cmd += ["-stream_loop", "-1", "-i", bg_video]

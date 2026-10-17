@@ -40,6 +40,7 @@ from creator_storyboard import CreatorStoryboard, CREATOR_SCRIPTS_HINDI
 from history_tracker import HistoryTracker
 from dynamic_creator_engine import DynamicCreatorEngine
 from gemini_engine import GeminiEngine
+from hoodie_presenter_engine import HoodiePresenterEngine
 
 
 def ensure_credentials():
@@ -447,6 +448,7 @@ def generate_daily_10_batch(
     gemini_engine = GeminiEngine()
     hindi_gen = HindiScriptGenerator()
     video_maker = VideoMaker(assets_dir="assets", output_dir=output_batch_dir)
+    hoodie_engine = HoodiePresenterEngine(assets_dir="assets", output_dir=output_batch_dir)
 
     fact_niches = [
         "Dark Psychology & Manipulation Secrets",
@@ -515,16 +517,31 @@ def generate_daily_10_batch(
             if not valid_scenes:
                 valid_scenes = ["assets/ai_video_clips/bg_space.mp4"]
 
-            # 4. Render 9:16 vertical video with top hook banner & real 1080p video montage
-            video_path = video_maker.render_video(
-                audio_path=audio_path,
-                ass_path=ass_path,
-                output_filename=video_filename,
-                duration=voice_res["duration"],
-                bg_video_paths=valid_scenes,
-                presenter_video_path=None,
-                banner_text=top_banner
-            )
+            # 4. Render 9:16 vertical video featuring Red Hoodie Guy speaking over real HD video animations
+            rendered = False
+            try:
+                video_path = hoodie_engine.render_short_with_hoodie_presenter(
+                    audio_path=audio_path,
+                    ass_path=ass_path,
+                    bg_video_paths=valid_scenes,
+                    output_filename=video_filename,
+                    duration=voice_res["duration"],
+                    banner_text=top_banner
+                )
+                rendered = True
+            except Exception as he:
+                print(f"Notice: Hoodie presenter render failed ({he}), falling back to video montage.")
+
+            if not rendered:
+                video_path = video_maker.render_video(
+                    audio_path=audio_path,
+                    ass_path=ass_path,
+                    output_filename=video_filename,
+                    duration=voice_res["duration"],
+                    bg_video_paths=valid_scenes,
+                    presenter_video_path=None,
+                    banner_text=top_banner
+                )
 
             generated_videos.append({
                 "index": idx,
