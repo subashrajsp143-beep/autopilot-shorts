@@ -108,8 +108,8 @@ class DynamicCreatorEngine:
         query = selected_cfg["q"]
         print(f"🔍 Searching YouTube for fresh '{niche}' viral footage: '{query}'...")
 
-        # Search for top 4 candidates to find an unused one
-        search_target = f"ytsearch4:{query}"
+        # Search for top 6 candidates to find unused ones
+        search_target = f"ytsearch6:{query}"
         search_cmd = [
             "yt-dlp",
             "--flat-playlist",
@@ -117,64 +117,59 @@ class DynamicCreatorEngine:
             search_target
         ]
 
-        chosen_id = None
-        chosen_title = selected_cfg["banner"]
+        candidate_ids = []
         try:
-            res = subprocess.run(search_cmd, capture_output=True, text=True, timeout=20)
+            res = subprocess.run(search_cmd, capture_output=True, text=True, timeout=25)
             for line in res.stdout.splitlines():
                 parts = line.strip().split("|||", 1)
                 if len(parts) == 2:
                     vid_id, vid_title = parts[0].strip(), parts[1].strip()
                     if not self.tracker.is_source_used(vid_id):
-                        chosen_id = vid_id
-                        chosen_title = vid_title
-                        break
+                        candidate_ids.append((vid_id, vid_title))
         except Exception as e:
             print(f"Warning: yt-dlp search error: {e}")
 
-        # Download target video
-        target = f"https://www.youtube.com/watch?v={chosen_id}" if chosen_id else f"ytsearch1:{query}"
-        out_prefix = f"fresh_{niche}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-        output_tmpl = os.path.join(self.downloads_dir, f"{out_prefix}_%(id)s.%(ext)s")
+        # Download target 30-second section using Android player client (fast ~3s, avoids bot checks)
+        downloaded_file = None
+        actual_source_id = None
 
-        dl_cmd = [
-            "yt-dlp",
-            "-f", "bv*[height<=1080]+ba/b[height<=1080]/best",
-            "--merge-output-format", "mp4",
-            "-o", output_tmpl,
-            "--no-playlist",
-            target
-        ]
+        for vid_id, vid_title in candidate_ids:
+            target = f"https://www.youtube.com/watch?v={vid_id}"
+            out_prefix = f"fresh_{niche}_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{vid_id}"
+            output_tmpl = os.path.join(self.downloads_dir, f"{out_prefix}.%(ext)s")
 
-        print(f"📥 Downloading selected fresh clip: {target}...")
-        try:
-            subprocess.run(dl_cmd, capture_output=True, text=True, timeout=90)
-        except Exception as e:
-            print(f"Download timeout or error: {e}")
+            dl_cmd = [
+                "yt-dlp",
+                "--extractor-args", "youtube:player_client=android",
+                "-f", "b[height<=720]/best",
+                "--download-sections", "*00:00:20-00:00:52",
+                "--force-keyframes-at-cuts",
+                "-o", output_tmpl,
+                "--no-playlist",
+                target
+            ]
 
-        # Find downloaded file
-        candidates = glob.glob(os.path.join(self.downloads_dir, f"{out_prefix}_*.*"))
-        valid = [f for f in candidates if not f.endswith(".part") and os.path.getsize(f) > 500000]
+            print(f"📥 Downloading selected fresh clip ({niche}): {target}...")
+            try:
+                res = subprocess.run(dl_cmd, capture_output=True, text=True, timeout=45)
+                if res.returncode != 0:
+                    print(f"Notice: Candidate {vid_id} returned code {res.returncode}. Trying next candidate...")
+                    continue
+            except Exception as e:
+                print(f"Download timeout or error for {vid_id}: {e}")
+                continue
 
-        if not valid:
-            # Fallback to existing creator clips if download failed on rate-limit
-            print(f"Notice: Live download didn't produce file. Using local high-energy clip...")
-            local_clips = sorted(glob.glob("assets/creator_clips/*.mp4"))
-            if local_clips:
-                chosen_file = local_clips[day_offset % len(local_clips)]
-                return {
-                    "clip_path": chosen_file,
-                    "banner": selected_cfg["banner"],
-                    "title": f"{selected_cfg['title_prefix']} 😱 #Shorts #Viral",
-                    "description": f"{selected_cfg['title_prefix']}\n\n#Shorts #Viral #Trending",
-                    "tags": ["shorts", "viral", niche, "trending"],
-                    "source_id": os.path.basename(chosen_file),
-                    "query": query
-                }
-            return None
+            # Find downloaded file
+            candidates = glob.glob(os.path.join(self.downloads_dir, f"{out_prefix}*.*"))
+            valid = [f for f in candidates if not f.endswith(".part") and os.path.getsize(f) > 200000]
+            if valid:
+                downloaded_file = valid[0]
+                actual_source_id = vid_id
+                break
 
-        downloaded_file = valid[0]
-        actual_source_id = chosen_id or os.path.basename(downloaded_file)
+        if not downloaded_file:
+            raise RuntimeError(f"Could not download any fresh viral clip for niche '{niche}'. Stopping to prevent duplicate uploads.")
+
         self.tracker.history.setdefault("used_source_ids", []).append(actual_source_id)
         self.tracker.save()
 
@@ -209,12 +204,8 @@ class DynamicCreatorEngine:
         """
         output_path = os.path.join(self.output_dir, output_filename)
         total_dur = self._get_video_duration(video_path)
-
-        # Smart start time: capture peak action (avoid boring intros)
-        if total_dur > duration + 15:
-            start_time = max(5.0, (total_dur - duration) * 0.35)
-        else:
-            start_time = max(0.0, (total_dur - duration) / 2.0)
+        start_time = 0.0
+        dur_to_render = min(duration, total_dur) if total_dur > 5.0 else duration
 
         clean_banner = banner_text.replace(":", "\\:").replace("'", "").replace('"', "")
 
@@ -240,7 +231,7 @@ class DynamicCreatorEngine:
             "ffmpeg", "-y",
             "-ss", f"{start_time:.2f}",
             "-i", video_path,
-            "-t", f"{duration:.2f}",
+            "-t", f"{dur_to_render:.2f}",
             "-filter_complex", filter_complex,
             "-map", "[v]",
             "-map", "0:a?",
@@ -252,7 +243,7 @@ class DynamicCreatorEngine:
             output_path
         ]
 
-        print(f"🎬 Rendering vertical Short -> {output_path} (from {start_time:.1f}s to {start_time + duration:.1f}s)...")
+        print(f"🎬 Rendering vertical Short -> {output_path} (from {start_time:.1f}s to {start_time + dur_to_render:.1f}s)...")
         res = subprocess.run(cmd, capture_output=True, text=True)
         if res.returncode != 0:
             print("FFmpeg error:", res.stderr[-400:])

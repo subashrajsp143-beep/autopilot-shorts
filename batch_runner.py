@@ -373,6 +373,50 @@ def check_already_uploaded_today(force: bool = False) -> bool:
     return False
 
 
+def get_cinematic_scenes_for_script(script: Dict[str, Any]) -> List[str]:
+    """
+    Selects matching HD moving video B-roll clips for a dynamic multi-scene documentary montage.
+    100% real moving footage, zero static images.
+    """
+    title = script.get("title", "").lower()
+    text = script.get("text", "").lower()
+    niche = script.get("niche", "")
+    combined = f"{title} {text} {niche}".lower()
+
+    if "मंदिर" in combined or "जगन्नाथ" in combined or "temple" in combined:
+        return ["assets/ai_video_clips/bg_temple.mp4", "assets/ai_video_clips/bg_space.mp4"]
+    if "पिरामिड" in combined or "मिस्र" in combined or "pyramid" in combined:
+        return ["assets/ai_video_clips/bg_pyramid.mp4", "assets/ai_video_clips/bg_space.mp4"]
+    if "बरमूडा" in combined or "ट्रायंगल" in combined or "जहाज" in combined:
+        return ["assets/ai_video_clips/bg_bermuda.mp4", "assets/ai_video_clips/bg_ocean.mp4"]
+    if "मेगालोडन" in combined or "शार्क" in combined or "ब्लूप" in combined or "गहराई" in combined:
+        return ["assets/ai_video_clips/bg_deepsea.mp4", "assets/ai_video_clips/bg_ocean.mp4"]
+    if "समुद्र" in combined or "ocean" in combined:
+        return ["assets/ai_video_clips/bg_ocean.mp4", "assets/ai_video_clips/bg_deepsea.mp4"]
+    if "झूठ" in combined or "पुलिस" in combined or "आंख" in combined or "ट्रिक" in combined:
+        return ["assets/ai_video_clips/bg_darkpsych.mp4", "assets/ai_video_clips/bg_psychology.mp4"]
+    if "मनोविज्ञान" in combined or "psychology" in combined or "पर्सनालिटी" in combined:
+        return ["assets/ai_video_clips/bg_psychology.mp4", "assets/ai_video_clips/bg_darkpsych.mp4"]
+    if "अमीर" in combined or "करोड़पति" in combined or "बैंक" in combined or "लोन" in combined:
+        return ["assets/ai_video_clips/bg_wealth.mp4", "assets/ai_video_clips/bg_money.mp4"]
+    if "पैसा" in combined or "इन्वेस्ट" in combined or "कमाई" in combined or "money" in combined:
+        return ["assets/ai_video_clips/bg_money.mp4", "assets/ai_video_clips/bg_wealth.mp4"]
+    if "नींद" in combined or "सोने" in combined or "रात" in combined:
+        return ["assets/ai_video_clips/bg_sleepbrain.mp4", "assets/ai_video_clips/bg_brain.mp4"]
+    if "दिमाग" in combined or "मेमोरी" in combined or "brain" in combined:
+        return ["assets/ai_video_clips/bg_brain.mp4", "assets/ai_video_clips/bg_sleepbrain.mp4"]
+
+    NICHE_SCENE_MAP = {
+        "Dark Psychology": ["assets/ai_video_clips/bg_darkpsych.mp4", "assets/ai_video_clips/bg_psychology.mp4"],
+        "Ancient Mysteries": ["assets/ai_video_clips/bg_temple.mp4", "assets/ai_video_clips/bg_pyramid.mp4"],
+        "Ocean Mysteries": ["assets/ai_video_clips/bg_deepsea.mp4", "assets/ai_video_clips/bg_ocean.mp4"],
+        "Money Mindset": ["assets/ai_video_clips/bg_wealth.mp4", "assets/ai_video_clips/bg_money.mp4"],
+        "Brain Power": ["assets/ai_video_clips/bg_brain.mp4", "assets/ai_video_clips/bg_sleepbrain.mp4"],
+        "Space Wonders": ["assets/ai_video_clips/bg_space.mp4", "assets/ai_video_clips/bg_ocean.mp4"]
+    }
+    return NICHE_SCENE_MAP.get(niche, ["assets/ai_video_clips/bg_space.mp4", "assets/ai_video_clips/bg_ocean.mp4"])
+
+
 def generate_daily_10_batch(
     output_batch_dir: str = "output/batch_today",
     copy_to_desktop: bool = False,
@@ -394,22 +438,12 @@ def generate_daily_10_batch(
     generated_videos: List[Dict[str, Any]] = []
 
     # -------------------------------------------------------------
-    # PART 1: 5 HIGH-RETENTION FACT & MYSTERY SHORTS (MULTI-SCENE DYNAMIC MONTAGE)
+    # PART 1: 5 HIGH-RETENTION FACT & MYSTERY SHORTS (REAL VIDEO MULTI-SCENE MONTAGE)
     # -------------------------------------------------------------
     print("\n>>> [STAGE 1] Generating 5 High-Retention Fact & Mystery Shorts (Multi-Scene Montage)...")
     hindi_gen = HindiScriptGenerator()
     todays_scripts = hindi_gen.get_todays_5_scripts()
     video_maker = VideoMaker(assets_dir="assets", output_dir=output_batch_dir)
-    storyboard = VisualStoryboard(cache_dir="assets/image_cache")
-
-    NICHE_BG_MAP = {
-        "Dark Psychology": "assets/ai_video_clips/bg_psychology.mp4",
-        "Ancient Mysteries": "assets/ai_video_clips/bg_space.mp4",
-        "Ocean Mysteries": "assets/ai_video_clips/bg_ocean.mp4",
-        "Money Mindset": "assets/ai_video_clips/bg_money.mp4",
-        "Brain Power": "assets/ai_video_clips/bg_brain.mp4",
-        "Space Wonders": "assets/ai_video_clips/bg_space.mp4"
-    }
 
     from datetime import date
     base_date = date(2026, 10, 15)
@@ -433,28 +467,19 @@ def generate_daily_10_batch(
                 voice="hi-IN-MadhurNeural"
             )
 
-            # Build multi-scene dynamic background montage matching each sentence
-            niche = script.get("niche", "")
-            sentences = voice_res.get("sentences", [])
-            bg_video_file = None
+            # Assign 2 matching HD moving video scenes for dynamic cut montage
+            scenes = get_cinematic_scenes_for_script(script)
+            valid_scenes = [s for s in scenes if os.path.exists(s)]
+            if not valid_scenes:
+                valid_scenes = ["assets/ai_video_clips/bg_space.mp4"]
 
-            if sentences and len(sentences) >= 2:
-                try:
-                    scene_bg_path = os.path.join(output_batch_dir, f"montage_{idx}_{timestamp}.mp4")
-                    bg_video_file = storyboard.build_multi_scene_background(sentences, scene_bg_path)
-                except Exception as sb_err:
-                    print(f"Notice: Storyboard dynamic assembly fallback: {sb_err}")
-                    bg_video_file = NICHE_BG_MAP.get(niche, "assets/ai_video_clips/bg_space.mp4")
-            else:
-                bg_video_file = NICHE_BG_MAP.get(niche, "assets/ai_video_clips/bg_space.mp4")
-
-            # Render 9:16 vertical video (NO fake green-screen presenter, pure high-energy documentary)
+            # Render 9:16 vertical video with multi-scene real video montage
             video_path = video_maker.render_video(
                 audio_path=audio_path,
                 ass_path=ass_path,
                 output_filename=video_filename,
                 duration=voice_res["duration"],
-                bg_video_path=bg_video_file,
+                bg_video_paths=valid_scenes,
                 presenter_video_path=None
             )
 
