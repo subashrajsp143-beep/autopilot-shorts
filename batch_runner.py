@@ -39,6 +39,7 @@ from visual_storyboard import VisualStoryboard
 from creator_storyboard import CreatorStoryboard, CREATOR_SCRIPTS_HINDI
 from history_tracker import HistoryTracker
 from dynamic_creator_engine import DynamicCreatorEngine
+from gemini_engine import GeminiEngine
 
 
 def ensure_credentials():
@@ -440,20 +441,59 @@ def generate_daily_10_batch(
     generated_videos: List[Dict[str, Any]] = []
 
     # -------------------------------------------------------------
-    # PART 1: 5 HIGH-RETENTION FACT & MYSTERY SHORTS (REAL VIDEO MULTI-SCENE MONTAGE)
+    # PART 1: 5 HIGH-RETENTION FACT & MYSTERY SHORTS (GEMINI AI + REAL VIDEO MONTAGE)
     # -------------------------------------------------------------
-    print("\n>>> [STAGE 1] Generating 5 High-Retention Fact & Mystery Shorts (Multi-Scene Montage)...")
+    print("\n>>> [STAGE 1] Generating 5 High-Retention Fact & Mystery Shorts (Gemini AI Scripting + 1080p Video Montage)...")
+    gemini_engine = GeminiEngine()
     hindi_gen = HindiScriptGenerator()
-    todays_scripts = hindi_gen.get_todays_5_scripts()
     video_maker = VideoMaker(assets_dir="assets", output_dir=output_batch_dir)
+
+    fact_niches = [
+        "Dark Psychology & Manipulation Secrets",
+        "Ancient Mysteries & Lost Civilizations",
+        "Deep Ocean Abyss & Monster Creatures",
+        "Money Mindset & Billionaire Wealth Secrets",
+        "Brain Power & Sleep Science Hacks"
+    ]
+
+    THEME_SCENE_MAP = {
+        "dark_psychology": ["assets/ai_video_clips/bg_darkpsych.mp4", "assets/ai_video_clips/bg_psychology.mp4"],
+        "ancient_temple": ["assets/ai_video_clips/bg_temple.mp4", "assets/ai_video_clips/bg_pyramid.mp4"],
+        "pyramid": ["assets/ai_video_clips/bg_pyramid.mp4", "assets/ai_video_clips/bg_space.mp4"],
+        "bermuda_ocean": ["assets/ai_video_clips/bg_bermuda.mp4", "assets/ai_video_clips/bg_ocean.mp4"],
+        "deep_sea": ["assets/ai_video_clips/bg_deepsea.mp4", "assets/ai_video_clips/bg_ocean.mp4"],
+        "wealth_money": ["assets/ai_video_clips/bg_wealth.mp4", "assets/ai_video_clips/bg_money.mp4"],
+        "brain_sleep": ["assets/ai_video_clips/bg_sleepbrain.mp4", "assets/ai_video_clips/bg_brain.mp4"],
+        "deep_space": ["assets/ai_video_clips/bg_space.mp4", "assets/ai_video_clips/bg_ocean.mp4"]
+    }
 
     from datetime import date
     base_date = date(2026, 10, 15)
     days_passed = max(0, (date.today() - base_date).days)
+    fallback_scripts = hindi_gen.get_todays_5_scripts()
 
-    for i, script in enumerate(todays_scripts):
+    for i, niche in enumerate(fact_niches):
         idx = i + 1
-        print(f"\n[{idx}/10] Creating FactTechz-Style Mystery Short: {script['title'][:40]}...")
+        print(f"\n[{idx}/10] Generating Viral Fact Short via Gemini AI ({niche})...")
+
+        # 1. Generate script using Gemini AI (with fallback)
+        script = None
+        if gemini_engine.is_available():
+            try:
+                script = gemini_engine.generate_fact_script(niche=niche)
+                print(f"✨ Gemini Script Generated: '{script['title'][:45]}...'")
+            except Exception as e:
+                print(f"Notice: Gemini script generation failed ({e}), using preset fallback.")
+
+        if not script:
+            script = fallback_scripts[i] if i < len(fallback_scripts) else fallback_scripts[0]
+
+        script_title = script["title"]
+        script_desc = script["description"]
+        script_tags = script["tags"]
+        spoken_text = script.get("spoken_text") or script.get("text", "")
+        top_banner = script.get("top_hook") or "FACTTECHZ MYSTERY ⚡"
+        visual_theme = script.get("visual_theme", "")
 
         try:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -461,42 +501,43 @@ def generate_daily_10_batch(
             ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
             video_filename = f"video_{idx:02d}_hindi_ai.mp4"
 
-            # Generate Hindi neural voiceover and styled ASS subtitles
+            # 2. Generate Hindi neural voiceover and styled center-screen ASS subtitles
             voice_res = generate_audio(
-                text=script["text"],
+                text=spoken_text,
                 audio_path=audio_path,
                 ass_path=ass_path,
                 voice="hi-IN-MadhurNeural"
             )
 
-            # Assign 2 matching HD moving video scenes for dynamic cut montage
-            scenes = get_cinematic_scenes_for_script(script)
+            # 3. Assign 2 matching HD moving video scenes for dynamic cut montage
+            scenes = THEME_SCENE_MAP.get(visual_theme) or get_cinematic_scenes_for_script(script)
             valid_scenes = [s for s in scenes if os.path.exists(s)]
             if not valid_scenes:
                 valid_scenes = ["assets/ai_video_clips/bg_space.mp4"]
 
-            # Render 9:16 vertical video with multi-scene real video montage
+            # 4. Render 9:16 vertical video with top hook banner & real 1080p video montage
             video_path = video_maker.render_video(
                 audio_path=audio_path,
                 ass_path=ass_path,
                 output_filename=video_filename,
                 duration=voice_res["duration"],
                 bg_video_paths=valid_scenes,
-                presenter_video_path=None
+                presenter_video_path=None,
+                banner_text=top_banner
             )
 
             generated_videos.append({
                 "index": idx,
-                "type": "Fact & Mystery Short (Multi-Scene Montage)",
-                "title": script["title"],
-                "description": script["description"],
-                "tags": script["tags"],
+                "type": f"Gemini Fact Short ({niche.split('&')[0].strip()})",
+                "title": script_title,
+                "description": script_desc,
+                "tags": script_tags,
                 "video_path": video_path,
                 "duration": f"{voice_res['duration']:.1f}s",
-                "source_id": f"script_{idx}_{script.get('niche', 'fact')}",
-                "query": script.get("niche", "fact")
+                "source_id": f"gemini_{idx}_{visual_theme or niche[:10]}",
+                "query": niche
             })
-            print(f"✓ Video {idx} ready (Multi-Scene FactTechz Style): {video_filename}")
+            print(f"✓ Video {idx} ready (Gemini AI + HD Montage): {video_filename}")
         except Exception as e:
             print(f"❌ Failed to generate video {idx}: {e}")
 
@@ -540,6 +581,19 @@ def generate_daily_10_batch(
             clip_tags = fresh_clip_data["tags"]
             source_id = fresh_clip_data["source_id"]
             query_used = fresh_clip_data["query"]
+
+            # Optimize title & top banner using Gemini for maximum CTR
+            if gemini_engine.is_available():
+                try:
+                    c_meta = gemini_engine.generate_creator_metadata(niche, query_used)
+                    if c_meta.get("title"):
+                        clip_title = c_meta["title"]
+                    if c_meta.get("banner"):
+                        banner_text = c_meta["banner"]
+                    if c_meta.get("description"):
+                        clip_desc = c_meta["description"]
+                except Exception as e:
+                    print(f"Notice: Gemini metadata optimization skipped for {niche}: {e}")
 
             # 2. Format into 9:16 vertical short with studio blurred background & top hook banner
             video_path = dynamic_engine.format_to_vertical_short(

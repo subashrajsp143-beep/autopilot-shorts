@@ -55,6 +55,18 @@ class VideoMaker:
             return random.choice(candidates)
         return None
 
+    def _get_font_opt(self) -> str:
+        """Finds bold display font on Windows or Linux."""
+        if os.path.exists("C:/Windows/Fonts/impact.ttf"):
+            return "fontfile='C\\:/Windows/Fonts/impact.ttf':"
+        elif os.path.exists("C:/Windows/Fonts/arialbd.ttf"):
+            return "fontfile='C\\:/Windows/Fonts/arialbd.ttf':"
+        elif os.path.exists("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"):
+            return "fontfile='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf':"
+        elif os.path.exists("/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf"):
+            return "fontfile='/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf':"
+        return ""
+
     def get_presenters(self) -> List[str]:
         """Returns sorted list of available human presenter video files."""
         return sorted(glob.glob(os.path.join(self.presenters_dir, "*.mp4")))
@@ -68,7 +80,8 @@ class VideoMaker:
         bg_video_path: Optional[str] = None,
         bg_video_paths: Optional[List[str]] = None,
         presenter_video_path: Optional[str] = None,
-        is_green_screen: bool = True
+        is_green_screen: bool = True,
+        banner_text: Optional[str] = None
     ) -> str:
         """
         Renders a full 1080x1920 vertical video with burned subtitles and audio.
@@ -156,7 +169,13 @@ class VideoMaker:
                 )
                 concat_inputs.append(f"[v{idx}]")
 
-            concat_filter = "".join(concat_inputs) + f"concat=n={num_clips}:v=1:a=0[vcat];[vcat]ass='{escaped_ass}'[vout]"
+            banner_filter = ""
+            if banner_text:
+                clean_banner = banner_text.replace(":", "\\:").replace("'", "").replace('"', "")
+                font_opt = self._get_font_opt()
+                banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
+
+            concat_filter = "".join(concat_inputs) + f"concat=n={num_clips}:v=1:a=0[vcat];[vcat]{banner_filter}ass='{escaped_ass}'[vout]"
             full_video_filter = ";".join(filter_parts) + ";" + concat_filter
 
             cmd += ["-i", audio_path]
@@ -177,15 +196,21 @@ class VideoMaker:
             cmd = ["ffmpeg", "-y"]
             bg_video = primary_bg
 
+            banner_filter = ""
+            if banner_text:
+                clean_banner = banner_text.replace(":", "\\:").replace("'", "").replace('"', "")
+                font_opt = self._get_font_opt()
+                banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
+
             if bg_video and os.path.exists(bg_video):
                 cmd += ["-stream_loop", "-1", "-i", bg_video]
-                video_filter = f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,ass='{escaped_ass}'"
+                video_filter = f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,{banner_filter}ass='{escaped_ass}'"
             else:
                 cmd += [
                     "-f", "lavfi",
                     "-i", f"color=c=0x0a0f1d:s=1080x1920:d={duration + 1.0}"
                 ]
-                video_filter = f"ass='{escaped_ass}'"
+                video_filter = f"{banner_filter}ass='{escaped_ass}'"
 
             cmd += ["-i", audio_path]
 
