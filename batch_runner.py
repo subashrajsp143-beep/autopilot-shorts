@@ -391,6 +391,8 @@ def get_cinematic_scenes_for_script(script: Dict[str, Any]) -> List[str]:
         return ["assets/ai_video_clips/bg_bermuda.mp4", "assets/ai_video_clips/bg_ocean.mp4"]
     if "मेगालोडन" in combined or "शार्क" in combined or "ब्लूप" in combined or "गहराई" in combined:
         return ["assets/ai_video_clips/bg_deepsea.mp4", "assets/ai_video_clips/bg_ocean.mp4"]
+    if "अंतरिक्ष" in combined or "ब्रह्मांड" in combined or "तारा" in combined or "सूरज" in combined or "space" in combined:
+        return ["assets/ai_video_clips/bg_space.mp4", "assets/ai_video_clips/bg_ocean.mp4"]
     if "समुद्र" in combined or "ocean" in combined:
         return ["assets/ai_video_clips/bg_ocean.mp4", "assets/ai_video_clips/bg_deepsea.mp4"]
     if "झूठ" in combined or "पुलिस" in combined or "आंख" in combined or "ट्रिक" in combined:
@@ -646,10 +648,12 @@ if __name__ == "__main__":
     parser.add_argument("--upload-all", action="store_true", help="Upload to all platforms")
     parser.add_argument("--skip-gen", action="store_true", help="Upload existing generated batch without re-rendering")
     parser.add_argument("--force", action="store_true", help="Force upload bypassing daily duplicate guard")
+    parser.add_argument("--desktop", action="store_true", help="Copy all 10 generated videos to Desktop folder")
     args = parser.parse_args()
 
     upload_yt = args.upload_yt or args.upload_all
     upload_meta = args.upload_meta or args.upload_all
+    copy_to_desktop = args.desktop
 
     if args.skip_gen:
         # Load existing batch metadata
@@ -668,7 +672,7 @@ if __name__ == "__main__":
             print("No existing batch found. Run without --skip-gen first.")
     else:
         generate_daily_10_batch(
-            copy_to_desktop=False,
+            copy_to_desktop=copy_to_desktop,
             upload_yt=upload_yt,
             upload_meta=upload_meta,
             force=args.force
