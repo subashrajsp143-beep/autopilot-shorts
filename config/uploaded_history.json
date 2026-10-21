@@ -18,7 +18,12 @@
     "g8k1ndtHwEc",
     "Gh9WZfEbgMQ",
     "fmypupdUGFc",
-    "rMu5P6Kac4o"
+    "rMu5P6Kac4o",
+    "m5JymPsFuTw",
+    "rbhGxC29MN8",
+    "egcUVj-h15E",
+    "7azJLS4GvHU",
+    "5GqtEGY8C8o"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -36,7 +41,12 @@
     "wtndQw9GXdQ",
     "at_jeLqBTJk",
     "KSWYF3racCQ",
-    "akU5vXCWGQg"
+    "akU5vXCWGQg",
+    "gemini_1_dark_psychology",
+    "gemini_2_ancient_temple",
+    "gemini_3_deep_sea",
+    "gemini_4_Money Mind",
+    "gemini_5_Brain Powe"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -48,7 +58,12 @@
     "IShowSpeed playing FIFA funny rage",
     "Ronaldo high jump header physics",
     "Insane Guinness World Records compilation",
-    "Mind blowing optical illusions shorts"
+    "Mind blowing optical illusions shorts",
+    "Dark Psychology & Manipulation Secrets",
+    "Ancient Mysteries & Lost Civilizations",
+    "Deep Ocean Abyss & Monster Creatures",
+    "Money Mindset & Billionaire Wealth Secrets",
+    "Brain Power & Sleep Science Hacks"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -60,7 +75,12 @@
     "किसी को भी अपनी बात मनवाने का यह सीक्रेट नियम! 💡 #Shorts #Persuasion",
     "लोग आपकी इज्जत क्यों नहीं करते? यह 1 गलती तुरंत सुधारें! ⚠️ #Shorts #SelfRespect",
     "बरमूडा ट्रायंगल में गायब हुए जहाजों के साथ क्या होता है? 🚢⚠️ #Shorts #BermudaTriangle",
-    "भारत का यह मंदिर गुरुत्वाकर्षण के नियमों को झुठलाता है! 🛕✨ #Shorts #IndianTemples"
+    "भारत का यह मंदिर गुरुत्वाकर्षण के नियमों को झुठलाता है! 🛕✨ #Shorts #IndianTemples",
+    "किसी से भी सच उगलवाने की डार्क ट्रिक! 🧠🤫 #Shorts",
+    "कैलाश मंदिर का अनसुलझा रहस्य! 😱 Impossible Ancient Tech #Shorts",
+    "समुद्र की सबसे डरावनी गहराई! 🌊😱 #Shorts",
+    "अमीर लोग टैक्स कैसे बचाते हैं? अमीर बनने का 1 नियम! 💸 #Shorts #WealthSecret",
+    "अगर आपके पास 10,000 रुपये हैं, तो इसे यहाँ लगाओ! 📈 #Shorts #Investment"
   ],
   "upload_logs": [
     {
@@ -72,6 +92,46 @@
       "timestamp": "2026-10-17T10:30:00",
       "batch_date": "2026-10-17",
       "status": "batch_oct17_uploaded"
+    },
+    {
+      "timestamp": "2026-10-21T05:20:34.530123",
+      "title": "किसी से भी सच उगलवाने की डार्क ट्रिक! 🧠🤫 #Shorts",
+      "type": "Gemini Fact Short (Dark Psychology)",
+      "youtube_id": "m5JymPsFuTw",
+      "source_id": "gemini_1_dark_psychology",
+      "query": "Dark Psychology & Manipulation Secrets"
+    },
+    {
+      "timestamp": "2026-10-21T05:20:40.433043",
+      "title": "कैलाश मंदिर का अनसुलझा रहस्य! 😱 Impossible Ancient Tech #Shorts",
+      "type": "Gemini Fact Short (Ancient Mysteries)",
+      "youtube_id": "rbhGxC29MN8",
+      "source_id": "gemini_2_ancient_temple",
+      "query": "Ancient Mysteries & Lost Civilizations"
+    },
+    {
+      "timestamp": "2026-10-21T05:20:46.168377",
+      "title": "समुद्र की सबसे डरावनी गहराई! 🌊😱 #Shorts",
+      "type": "Gemini Fact Short (Deep Ocean Abyss)",
+      "youtube_id": "egcUVj-h15E",
+      "source_id": "gemini_3_deep_sea",
+      "query": "Deep Ocean Abyss & Monster Creatures"
+    },
+    {
+      "timestamp": "2026-10-21T05:20:53.221429",
+      "title": "अमीर लोग टैक्स कैसे बचाते हैं? अमीर बनने का 1 नियम! 💸 #Shorts #WealthSecret",
+      "type": "Gemini Fact Short (Money Mindset)",
+      "youtube_id": "7azJLS4GvHU",
+      "source_id": "gemini_4_Money Mind",
+      "query": "Money Mindset & Billionaire Wealth Secrets"
+    },
+    {
+      "timestamp": "2026-10-21T05:20:59.446171",
+      "title": "अगर आपके पास 10,000 रुपये हैं, तो इसे यहाँ लगाओ! 📈 #Shorts #Investment",
+      "type": "Gemini Fact Short (Brain Power)",
+      "youtube_id": "5GqtEGY8C8o",
+      "source_id": "gemini_5_Brain Powe",
+      "query": "Brain Power & Sleep Science Hacks"
     }
   ]
 }
