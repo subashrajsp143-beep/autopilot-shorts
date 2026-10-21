@@ -23,7 +23,17 @@
     "rbhGxC29MN8",
     "egcUVj-h15E",
     "7azJLS4GvHU",
-    "5GqtEGY8C8o"
+    "5GqtEGY8C8o",
+    "Ydfe2PYyJZY",
+    "iMhjnBKxa6w",
+    "tsWTRj79UvI",
+    "Eko20Jnfa_s",
+    "3p64Zip0c68",
+    "gBlZ6YFI5I0",
+    "G8SEPRZhxhQ",
+    "ZCz0UAAa6qQ",
+    "vV-oXzkdEJo",
+    "EcS0I3X8eeo"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -46,7 +56,22 @@
     "gemini_2_ancient_temple",
     "gemini_3_deep_sea",
     "gemini_4_Money Mind",
-    "gemini_5_Brain Powe"
+    "gemini_5_Brain Powe",
+    "48h57PspBec",
+    "SykgD0PGMAI",
+    "OWOjRdmpM6I",
+    "vbjko3M0JT4",
+    "CFmmCp3X7vA",
+    "gemini_1_dark_psychology",
+    "gemini_2_pyramid",
+    "gemini_3_deep_sea",
+    "gemini_4_Money Mind",
+    "gemini_5_Brain Powe",
+    "48h57PspBec",
+    "SykgD0PGMAI",
+    "OWOjRdmpM6I",
+    "vbjko3M0JT4",
+    "CFmmCp3X7vA"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -63,7 +88,17 @@
     "Ancient Mysteries & Lost Civilizations",
     "Deep Ocean Abyss & Monster Creatures",
     "Money Mindset & Billionaire Wealth Secrets",
-    "Brain Power & Sleep Science Hacks"
+    "Brain Power & Sleep Science Hacks",
+    "Dark Psychology & Manipulation Secrets",
+    "Ancient Mysteries & Lost Civilizations",
+    "Deep Ocean Abyss & Monster Creatures",
+    "Money Mindset & Billionaire Wealth Secrets",
+    "Brain Power & Sleep Science Hacks",
+    "MrBeast $1,000,000 yacht challenge",
+    "IShowSpeed emotional moment stream",
+    "Neymar Jr best skills ever",
+    "World largest Domino chain reaction",
+    "Satisfying hydraulic press vs diamond"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -80,7 +115,17 @@
     "कैलाश मंदिर का अनसुलझा रहस्य! 😱 Impossible Ancient Tech #Shorts",
     "समुद्र की सबसे डरावनी गहराई! 🌊😱 #Shorts",
     "अमीर लोग टैक्स कैसे बचाते हैं? अमीर बनने का 1 नियम! 💸 #Shorts #WealthSecret",
-    "अगर आपके पास 10,000 रुपये हैं, तो इसे यहाँ लगाओ! 📈 #Shorts #Investment"
+    "अगर आपके पास 10,000 रुपये हैं, तो इसे यहाँ लगाओ! 📈 #Shorts #Investment",
+    "किसी का दिमाग कैसे पढ़ें? 🧠 #Shorts",
+    "क्या सच में एलियंस ने पिरामिड बनाए थे? 👽 #Shorts",
+    "Ocean Abyss Ka Sabse Khatarnak Raaz! 🌊😱 #Shorts",
+    "अजंता एलोरा की गुफाएं आखिर किसने बनाईं? 🛕⚡ #Shorts #AncientIndia",
+    "समुद्र के 11,000 मीटर नीचे मिला यह एलियन जीव! 🐙🌊 #Shorts #MarianaTrench",
+    "$1,000,000 Yacht पर ये क्या हुआ? 😱 #Shorts",
+    "Speed के आँखों में आँसू! 😭 Emotional Moment #Shorts",
+    "NEYMAR के ये SKILLS UNBELIEVABLE हैं! 😱 #Shorts",
+    "दुनिया का सबसे बड़ा Domino Effect! 😱 #Shorts",
+    "क्या Diamond को Hydraulic Press तोड़ पाएगा? 😱 #Shorts"
   ],
   "upload_logs": [
     {
@@ -132,6 +177,86 @@
       "youtube_id": "5GqtEGY8C8o",
       "source_id": "gemini_5_Brain Powe",
       "query": "Brain Power & Sleep Science Hacks"
+    },
+    {
+      "timestamp": "2026-10-21T14:07:09.020873",
+      "title": "किसी का दिमाग कैसे पढ़ें? 🧠 #Shorts",
+      "type": "Gemini Fact Short (Dark Psychology)",
+      "youtube_id": "Ydfe2PYyJZY",
+      "source_id": "gemini_1_dark_psychology",
+      "query": "Dark Psychology & Manipulation Secrets"
+    },
+    {
+      "timestamp": "2026-10-21T14:07:30.463903",
+      "title": "क्या सच में एलियंस ने पिरामिड बनाए थे? 👽 #Shorts",
+      "type": "Gemini Fact Short (Ancient Mysteries)",
+      "youtube_id": "iMhjnBKxa6w",
+      "source_id": "gemini_2_pyramid",
+      "query": "Ancient Mysteries & Lost Civilizations"
+    },
+    {
+      "timestamp": "2026-10-21T14:07:46.837022",
+      "title": "Ocean Abyss Ka Sabse Khatarnak Raaz! 🌊😱 #Shorts",
+      "type": "Gemini Fact Short (Deep Ocean Abyss)",
+      "youtube_id": "tsWTRj79UvI",
+      "source_id": "gemini_3_deep_sea",
+      "query": "Deep Ocean Abyss & Monster Creatures"
+    },
+    {
+      "timestamp": "2026-10-21T14:08:07.206355",
+      "title": "अजंता एलोरा की गुफाएं आखिर किसने बनाईं? 🛕⚡ #Shorts #AncientIndia",
+      "type": "Gemini Fact Short (Money Mindset)",
+      "youtube_id": "Eko20Jnfa_s",
+      "source_id": "gemini_4_Money Mind",
+      "query": "Money Mindset & Billionaire Wealth Secrets"
+    },
+    {
+      "timestamp": "2026-10-21T14:08:23.106807",
+      "title": "समुद्र के 11,000 मीटर नीचे मिला यह एलियन जीव! 🐙🌊 #Shorts #MarianaTrench",
+      "type": "Gemini Fact Short (Brain Power)",
+      "youtube_id": "3p64Zip0c68",
+      "source_id": "gemini_5_Brain Powe",
+      "query": "Brain Power & Sleep Science Hacks"
+    },
+    {
+      "timestamp": "2026-10-21T14:08:41.489173",
+      "title": "$1,000,000 Yacht पर ये क्या हुआ? 😱 #Shorts",
+      "type": "Real Creator Short (mrbeast)",
+      "youtube_id": "gBlZ6YFI5I0",
+      "source_id": "48h57PspBec",
+      "query": "MrBeast $1,000,000 yacht challenge"
+    },
+    {
+      "timestamp": "2026-10-21T14:08:51.581883",
+      "title": "Speed के आँखों में आँसू! 😭 Emotional Moment #Shorts",
+      "type": "Real Creator Short (ishowspeed)",
+      "youtube_id": "G8SEPRZhxhQ",
+      "source_id": "SykgD0PGMAI",
+      "query": "IShowSpeed emotional moment stream"
+    },
+    {
+      "timestamp": "2026-10-21T14:09:10.714072",
+      "title": "NEYMAR के ये SKILLS UNBELIEVABLE हैं! 😱 #Shorts",
+      "type": "Real Creator Short (football)",
+      "youtube_id": "ZCz0UAAa6qQ",
+      "source_id": "OWOjRdmpM6I",
+      "query": "Neymar Jr best skills ever"
+    },
+    {
+      "timestamp": "2026-10-21T14:09:24.800933",
+      "title": "दुनिया का सबसे बड़ा Domino Effect! 😱 #Shorts",
+      "type": "Real Creator Short (world_records)",
+      "youtube_id": "vV-oXzkdEJo",
+      "source_id": "vbjko3M0JT4",
+      "query": "World largest Domino chain reaction"
+    },
+    {
+      "timestamp": "2026-10-21T14:09:39.563381",
+      "title": "क्या Diamond को Hydraulic Press तोड़ पाएगा? 😱 #Shorts",
+      "type": "Real Creator Short (mind_blowing)",
+      "youtube_id": "EcS0I3X8eeo",
+      "source_id": "CFmmCp3X7vA",
+      "query": "Satisfying hydraulic press vs diamond"
     }
   ]
 }
