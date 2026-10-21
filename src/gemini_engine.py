@@ -1,6 +1,6 @@
 """
 Gemini AI Engine for High-Retention YouTube Shorts
-Powered by Google Gemini (gemini-3.8-flash)
+Powered by Google Gemini (Multi-model resilient fallback: gemini-3.6-flash, gemini-3.1-flash-lite, etc.)
 Generates:
 1. FactTechz-style psychological hooks & high-retention Hindi scripts
 2. Dynamic B-roll visual theme tagging
@@ -12,6 +12,7 @@ import os
 import sys
 import json
 import base64
+import re
 import requests
 from typing import Dict, Any, List, Optional
 
@@ -27,7 +28,12 @@ if sys.platform == "win32":
 class GeminiEngine:
     """Interface to Gemini for viral short-form script & metadata generation."""
 
-    MODEL_NAME = "gemini-3.8-flash"
+    CANDIDATE_MODELS = [
+        "gemini-3.6-flash",
+        "gemini-3.1-flash-lite",
+        "gemini-3-flash-preview",
+        "gemini-3.5-flash"
+    ]
 
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
@@ -51,6 +57,31 @@ class GeminiEngine:
     def is_available(self) -> bool:
         return bool(self.api_key)
 
+    def _call_gemini_json(self, prompt: str) -> Dict[str, Any]:
+        """Calls Gemini with automatic fallback across candidate models."""
+        if not self.api_key:
+            raise RuntimeError("Gemini API key is not configured.")
+
+        last_error = "Unknown error"
+        for model in self.CANDIDATE_MODELS:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={self.api_key}"
+            data = {
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {"response_mime_type": "application/json"}
+            }
+            try:
+                response = requests.post(url, json=data, timeout=20)
+                if response.status_code == 200:
+                    res_json = response.json()
+                    raw_text = res_json["candidates"][0]["content"]["parts"][0]["text"]
+                    return json.loads(raw_text)
+                else:
+                    last_error = f"{model} returned {response.status_code}: {response.text[:120]}"
+            except Exception as e:
+                last_error = f"{model} error: {e}"
+
+        raise RuntimeError(f"All Gemini candidate models failed. Last error: {last_error}")
+
     def generate_fact_script(self, niche: str, specific_topic: Optional[str] = None) -> Dict[str, Any]:
         """
         Generates a 30-second viral FactTechz-style Hindi script.
@@ -62,9 +93,6 @@ class GeminiEngine:
         - visual_theme: One of dark_psychology, ancient_temple, pyramid, bermuda_ocean, deep_sea, wealth_money, brain_sleep, deep_space
         - top_hook: 2-4 word bold uppercase English/Hindi text for top banner
         """
-        if not self.api_key:
-            raise RuntimeError("Gemini API key is not configured.")
-
         topic_instruction = f"Specific topic focus: {specific_topic}" if specific_topic else f"Niche category: {niche}"
 
         prompt = f"""
@@ -99,24 +127,10 @@ Return strictly valid JSON with this exact schema:
   "top_hook": "BANNER HOOK TEXT"
 }}
 """
-
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.MODEL_NAME}:generateContent?key={self.api_key}"
-        data = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"response_mime_type": "application/json"}
-        }
-
-        response = requests.post(url, json=data, timeout=30)
-        if response.status_code != 200:
-            raise RuntimeError(f"Gemini API request failed ({response.status_code}): {response.text}")
-
-        res_json = response.json()
-        raw_text = res_json["candidates"][0]["content"]["parts"][0]["text"]
-        parsed = json.loads(raw_text)
+        parsed = self._call_gemini_json(prompt)
 
         # Sanitize spoken_text just in case any brackets leaked through
         cleaned_spoken = parsed.get("spoken_text", "")
-        import re
         cleaned_spoken = re.sub(r'\[.*?\]', '', cleaned_spoken)
         cleaned_spoken = re.sub(r'\(.*?\)', '', cleaned_spoken)
         cleaned_spoken = re.sub(r'\s+', ' ', cleaned_spoken).strip()
@@ -128,13 +142,6 @@ Return strictly valid JSON with this exact schema:
         """
         Generates high-CTR Hindi title and top hook banner for creator clips.
         """
-        if not self.api_key:
-            return {
-                "title": f"Viral {niche.title()} Moment! 😱 #Shorts",
-                "banner": f"{niche.upper()} INSANE MOMENT! 😱",
-                "description": f"Must watch {niche} viral moment! #Shorts #viral #trending"
-            }
-
         prompt = f"""
 You are an expert YouTube title and thumbnail optimizer for viral creator shorts (MrBeast, IShowSpeed, Football/Ronaldo, World Records, Satisfying Experiments).
 Niche: {niche}
@@ -152,18 +159,8 @@ Return strictly valid JSON:
   "description": "..."
 }}
 """
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.MODEL_NAME}:generateContent?key={self.api_key}"
-        data = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"response_mime_type": "application/json"}
-        }
-
         try:
-            response = requests.post(url, json=data, timeout=20)
-            if response.status_code == 200:
-                res_json = response.json()
-                raw_text = res_json["candidates"][0]["content"]["parts"][0]["text"]
-                return json.loads(raw_text)
+            return self._call_gemini_json(prompt)
         except Exception as e:
             print(f"Notice: Gemini creator metadata generation failed ({e}), using default.")
 

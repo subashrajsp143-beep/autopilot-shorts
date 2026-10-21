@@ -140,7 +140,7 @@ class DynamicCreatorEngine:
 
             dl_cmd = [
                 "yt-dlp",
-                "--extractor-args", "youtube:player_client=android",
+                "--extractor-args", "youtube:player_client=android,ios,mweb",
                 "-f", "b[height<=720]/best",
                 "--download-sections", "*00:00:20-00:00:52",
                 "--force-keyframes-at-cuts",
@@ -153,7 +153,8 @@ class DynamicCreatorEngine:
             try:
                 res = subprocess.run(dl_cmd, capture_output=True, text=True, timeout=45)
                 if res.returncode != 0:
-                    print(f"Notice: Candidate {vid_id} returned code {res.returncode}. Trying next candidate...")
+                    err = res.stderr.strip()[:100] if res.stderr else f"code {res.returncode}"
+                    print(f"Notice: Candidate {vid_id} failed ({err}). Trying next candidate...")
                     continue
             except Exception as e:
                 print(f"Download timeout or error for {vid_id}: {e}")
@@ -168,7 +169,8 @@ class DynamicCreatorEngine:
                 break
 
         if not downloaded_file:
-            raise RuntimeError(f"Could not download any fresh viral clip for niche '{niche}'. Stopping to prevent duplicate uploads.")
+            print(f"Notice: Could not download any fresh viral clip for niche '{niche}'.")
+            return None
 
         self.tracker.history.setdefault("used_source_ids", []).append(actual_source_id)
         self.tracker.save()

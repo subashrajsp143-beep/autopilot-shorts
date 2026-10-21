@@ -127,7 +127,7 @@ class VideoMaker:
                     f"[0:v]trim=duration={duration:.2f},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=PTS-STARTPTS[bg];"
                     f"[1:v]trim=duration={duration:.2f},chromakey=0x00c400:0.16:0.04,despill=type=green:mix=0.8,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=PTS-STARTPTS[fg];"
                     f"[bg][fg]overlay=0:0[vcomp];"
-                    f"[vcomp]ass='{escaped_ass}'[vout]"
+                    f"[vcomp]subtitles='{escaped_ass}'[vout]"
                 )
                 voice_idx = 2
                 music_idx = 3
@@ -140,7 +140,7 @@ class VideoMaker:
 
                 filter_complex = (
                     f"[0:v]trim=duration={duration:.2f},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=PTS-STARTPTS[vcomp];"
-                    f"[vcomp]ass='{escaped_ass}'[vout]"
+                    f"[vcomp]subtitles='{escaped_ass}'[vout]"
                 )
                 voice_idx = 1
                 music_idx = 2
@@ -157,7 +157,7 @@ class VideoMaker:
         # ------------------------------------------------------------------
         elif valid_scenes and len(valid_scenes) > 1:
             num_clips = len(valid_scenes)
-            clip_dur = duration / num_clips
+            clip_dur = (duration / num_clips) + 0.35
             cmd = ["ffmpeg", "-y"]
             filter_parts = []
             concat_inputs = []
@@ -165,7 +165,7 @@ class VideoMaker:
             for idx, vp in enumerate(valid_scenes):
                 cmd += ["-stream_loop", "-1", "-i", vp]
                 filter_parts.append(
-                    f"[{idx}:v]trim=duration={clip_dur:.2f},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=PTS-STARTPTS[v{idx}]"
+                    f"[{idx}:v]trim=duration={clip_dur:.2f},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,setpts=PTS-STARTPTS[v{idx}]"
                 )
                 concat_inputs.append(f"[v{idx}]")
 
@@ -178,7 +178,8 @@ class VideoMaker:
                     font_opt = self._get_font_opt()
                     banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
 
-            concat_filter = "".join(concat_inputs) + f"concat=n={num_clips}:v=1:a=0[vcat];[vcat]{banner_filter}ass='{escaped_ass}'[vout]"
+            clean_ass_path = ass_path.replace("\\", "/")
+            concat_filter = "".join(concat_inputs) + f"concat=n={num_clips}:v=1:a=0[vcat];[vcat]{banner_filter}subtitles={clean_ass_path}[vout]"
             full_video_filter = ";".join(filter_parts) + ";" + concat_filter
 
             cmd += ["-i", audio_path]
@@ -208,15 +209,16 @@ class VideoMaker:
                     font_opt = self._get_font_opt()
                     banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
 
+            clean_ass_path = ass_path.replace("\\", "/")
             if bg_video and os.path.exists(bg_video):
                 cmd += ["-stream_loop", "-1", "-i", bg_video]
-                video_filter = f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,{banner_filter}ass='{escaped_ass}'"
+                video_filter = f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,{banner_filter}subtitles={clean_ass_path}"
             else:
                 cmd += [
                     "-f", "lavfi",
                     "-i", f"color=c=0x0a0f1d:s=1080x1920:d={duration + 1.0}"
                 ]
-                video_filter = f"{banner_filter}ass='{escaped_ass}'"
+                video_filter = f"{banner_filter}subtitles={clean_ass_path}"
 
             cmd += ["-i", audio_path]
 

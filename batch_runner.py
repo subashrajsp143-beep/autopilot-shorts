@@ -484,6 +484,7 @@ def generate_daily_10_batch(
             try:
                 script = gemini_engine.generate_fact_script(niche=niche)
                 print(f"✨ Gemini Script Generated: '{script['title'][:45]}...'")
+                time.sleep(2.0)
             except Exception as e:
                 print(f"Notice: Gemini script generation failed ({e}), using preset fallback.")
 
@@ -517,31 +518,16 @@ def generate_daily_10_batch(
             if not valid_scenes:
                 valid_scenes = ["assets/ai_video_clips/bg_space.mp4"]
 
-            # 4. Render 9:16 vertical video featuring Red Hoodie Guy speaking over real HD video animations
-            rendered = False
-            try:
-                video_path = hoodie_engine.render_short_with_hoodie_presenter(
-                    audio_path=audio_path,
-                    ass_path=ass_path,
-                    bg_video_paths=valid_scenes,
-                    output_filename=video_filename,
-                    duration=voice_res["duration"],
-                    banner_text=top_banner
-                )
-                rendered = True
-            except Exception as he:
-                print(f"Notice: Hoodie presenter render failed ({he}), falling back to video montage.")
-
-            if not rendered:
-                video_path = video_maker.render_video(
-                    audio_path=audio_path,
-                    ass_path=ass_path,
-                    output_filename=video_filename,
-                    duration=voice_res["duration"],
-                    bg_video_paths=valid_scenes,
-                    presenter_video_path=None,
-                    banner_text=top_banner
-                )
+            # 4. Render 9:16 vertical video with FactTechz-style HD dynamic video montage
+            video_path = video_maker.render_video(
+                audio_path=audio_path,
+                ass_path=ass_path,
+                output_filename=video_filename,
+                duration=voice_res["duration"],
+                bg_video_paths=valid_scenes,
+                presenter_video_path=None,
+                banner_text=top_banner
+            )
 
             generated_videos.append({
                 "index": idx,
@@ -588,8 +574,66 @@ def generate_daily_10_batch(
                 day_offset=days_passed + j
             )
 
-            if not fresh_clip_data or not os.path.exists(fresh_clip_data["clip_path"]):
-                raise RuntimeError(f"Could not find or download fresh footage for niche '{niche}'")
+            if not fresh_clip_data or not os.path.exists(fresh_clip_data.get("clip_path", "")):
+                print(f"⚡ Creator download unavailable on runner for {niche}. Generating high-retention FactTechz Short for slot {idx}...")
+                backup_niches = [
+                    "Bermuda Triangle & Lost Ships Mystery",
+                    "Ancient Egyptian Pyramids & Alien Tech",
+                    "Deep Space Black Holes & Time Travel",
+                    "Dark Psychology & Lie Detection Tricks",
+                    "Billionaire Secret Habits & Rich Mindset"
+                ]
+                backup_niche = backup_niches[j % len(backup_niches)]
+                script = None
+                if gemini_engine.is_available():
+                    try:
+                        script = gemini_engine.generate_fact_script(niche=backup_niche)
+                        time.sleep(2.0)
+                    except Exception as ge:
+                        print(f"Notice: Gemini backup script note: {ge}")
+                if not script:
+                    script = hindi_gen.get_todays_5_scripts()[(j + 2) % len(hindi_gen.get_todays_5_scripts())]
+
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                audio_path = os.path.join(output_batch_dir, f"hindi_audio_{idx}_{timestamp}.mp3")
+                ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
+                spoken_text = script.get("spoken_text") or script.get("text", "")
+                top_banner = script.get("top_hook") or "FACTTECHZ VIRAL ⚡"
+                scenes = THEME_SCENE_MAP.get(script.get("visual_theme", "")) or get_cinematic_scenes_for_script(script)
+                valid_scenes = [s for s in scenes if os.path.exists(s)]
+                if not valid_scenes:
+                    valid_scenes = ["assets/ai_video_clips/bg_space.mp4"]
+
+                voice_res = generate_audio(
+                    text=spoken_text,
+                    audio_path=audio_path,
+                    ass_path=ass_path,
+                    voice="hi-IN-MadhurNeural"
+                )
+
+                video_path = video_maker.render_video(
+                    audio_path=audio_path,
+                    ass_path=ass_path,
+                    output_filename=video_filename,
+                    duration=voice_res["duration"],
+                    bg_video_paths=valid_scenes,
+                    presenter_video_path=None,
+                    banner_text=top_banner
+                )
+
+                generated_videos.append({
+                    "index": idx,
+                    "type": f"FactTechz Viral Short ({backup_niche.split('&')[0].strip()})",
+                    "title": script["title"],
+                    "description": script["description"],
+                    "tags": script["tags"],
+                    "video_path": video_path,
+                    "duration": f"{voice_res['duration']:.1f}s",
+                    "source_id": f"fact_fallback_{idx}_{niche}",
+                    "query": backup_niche
+                })
+                print(f"✓ Video {idx} ready (High-Retention FactTechz Montage): {video_filename}")
+                continue
 
             raw_video = fresh_clip_data["clip_path"]
             banner_text = fresh_clip_data["banner"]
@@ -609,6 +653,7 @@ def generate_daily_10_batch(
                         banner_text = c_meta["banner"]
                     if c_meta.get("description"):
                         clip_desc = c_meta["description"]
+                    time.sleep(1.5)
                 except Exception as e:
                     print(f"Notice: Gemini metadata optimization skipped for {niche}: {e}")
 
