@@ -296,32 +296,61 @@ def get_todays_creator_presets() -> List[Dict[str, Any]]:
     return presets
 
 
-def get_staggered_schedule(num_videos: int = 10, interval_minutes: int = 90):
+def get_indian_peak_schedule(num_videos: int = 10):
     """
-    Calculates strictly staggered publishing slots spaced every 90 minutes.
-    Guarantees videos are strictly chronological and never out of order.
+    Calculates 10 publishing slots strictly aligned to Indian Peak Viewing Hours (11 AM - 10:30 PM IST).
+    Guarantees videos are strictly chronological, never out of order, and NEVER posted in the middle of the night!
     """
     from datetime import datetime, timedelta, timezone
-    now_utc = datetime.now(timezone.utc)
+    ist = timezone(timedelta(hours=5, minutes=30))
+    now_ist = datetime.now(ist)
 
-    # Base time is 02:30 UTC (08:00 AM IST)
-    base_time = now_utc.replace(hour=2, minute=30, second=0, microsecond=0)
+    # 10 Peak Indian audience slots
+    target_hours_ist = [
+        (11, 15),  # Slot 1: Morning wake-up / tea break
+        (12, 30),  # Slot 2: Lunch / College break
+        (13, 45),  # Slot 3: Afternoon scroll
+        (15, 0),   # Slot 4: Mid-afternoon
+        (16, 15),  # Slot 5: Evening tea break
+        (17, 30),  # Slot 6: Commute / Free time
+        (18, 45),  # Slot 7: Early evening peak
+        (20, 0),   # Slot 8: PRIME EVENING SUPER PEAK (8 PM)
+        (21, 0),   # Slot 9: PRIME DINNER SUPER PEAK (9 PM)
+        (22, 0)    # Slot 10: LATE NIGHT SCROLLING PEAK (10 PM)
+    ]
 
-    # If already past 08:15 AM IST, base time moves to current time
-    if now_utc > base_time + timedelta(minutes=15):
-        base_time = now_utc
-
-    schedules = []
+    slots = []
+    last_slot_ist = now_ist
     for i in range(num_videos):
         if i == 0:
-            schedules.append(None)  # Video 1 goes live immediately
-        else:
-            slot = base_time + timedelta(minutes=i * interval_minutes)
-            if slot <= now_utc + timedelta(minutes=5):
-                slot = now_utc + timedelta(minutes=i * interval_minutes)
-            schedules.append(slot.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+            slots.append(None)  # First video goes live immediately!
+            continue
 
-    return schedules
+        idx = min(i, len(target_hours_ist) - 1)
+        h, m = target_hours_ist[idx]
+        slot_ist = now_ist.replace(hour=h, minute=m, second=0, microsecond=0)
+
+        # If target slot is in past or too close to previous slot, push forward by at least 28 minutes
+        min_allowed = last_slot_ist + timedelta(minutes=28)
+        if slot_ist < min_allowed:
+            slot_ist = min_allowed
+
+        # If pushed beyond 10:45 PM IST, schedule remaining for tomorrow morning starting at 11:15 AM
+        if slot_ist.hour >= 23 or (slot_ist.hour < 10 and slot_ist.day == now_ist.day):
+            tomorrow_ist = (now_ist + timedelta(days=1)).replace(hour=11, minute=15, second=0, microsecond=0)
+            if min_allowed < tomorrow_ist:
+                slot_ist = tomorrow_ist + timedelta(minutes=45 * (i - 1))
+            else:
+                slot_ist = min_allowed
+
+        last_slot_ist = slot_ist
+        slot_utc = slot_ist.astimezone(timezone.utc)
+        slots.append(slot_utc.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+
+    return slots
+
+
+get_staggered_schedule = get_indian_peak_schedule
 
 
 def check_already_uploaded_today(force: bool = False) -> bool:
@@ -442,21 +471,17 @@ def generate_daily_10_batch(
     generated_videos: List[Dict[str, Any]] = []
 
     # -------------------------------------------------------------
-    # PART 1: 5 HIGH-RETENTION FACT & MYSTERY SHORTS (GEMINI AI + REAL VIDEO MONTAGE)
+    # 70/30 DYNAMIC VIRAL MIX (7 Real Creator Footage / 3 FactTechz Cinematic)
+    # Based directly on channel analytics: MrBeast & Speed get 500-1,000+ views!
+    # Strictly alternates types to maximize algorithm engagement & prevent monotony.
     # -------------------------------------------------------------
-    print("\n>>> [STAGE 1] Generating 5 High-Retention Fact & Mystery Shorts (Gemini AI Scripting + 1080p Video Montage)...")
     gemini_engine = GeminiEngine()
     hindi_gen = HindiScriptGenerator()
     video_maker = VideoMaker(assets_dir="assets", output_dir=output_batch_dir)
-    hoodie_engine = HoodiePresenterEngine(assets_dir="assets", output_dir=output_batch_dir)
-
-    fact_niches = [
-        "Dark Psychology & Manipulation Secrets",
-        "Ancient Mysteries & Lost Civilizations",
-        "Deep Ocean Abyss & Monster Creatures",
-        "Money Mindset & Billionaire Wealth Secrets",
-        "Brain Power & Sleep Science Hacks"
-    ]
+    dynamic_engine = DynamicCreatorEngine(
+        downloads_dir="assets/downloads",
+        output_dir=output_batch_dir
+    )
 
     THEME_SCENE_MAP = {
         "dark_psychology": ["assets/ai_video_clips/bg_darkpsych.mp4", "assets/ai_video_clips/bg_psychology.mp4"],
@@ -474,135 +499,173 @@ def generate_daily_10_batch(
     days_passed = max(0, (date.today() - base_date).days)
     fallback_scripts = hindi_gen.get_todays_5_scripts()
 
-    for i, niche in enumerate(fact_niches):
-        idx = i + 1
-        print(f"\n[{idx}/10] Generating Viral Fact Short via Gemini AI ({niche})...")
-
-        # 1. Generate script using Gemini AI (with fallback)
-        script = None
-        if gemini_engine.is_available():
-            try:
-                script = gemini_engine.generate_fact_script(niche=niche)
-                print(f"✨ Gemini Script Generated: '{script['title'][:45]}...'")
-                time.sleep(2.0)
-            except Exception as e:
-                print(f"Notice: Gemini script generation failed ({e}), using preset fallback.")
-
-        if not script:
-            script = fallback_scripts[i] if i < len(fallback_scripts) else fallback_scripts[0]
-
-        script_title = script["title"]
-        script_desc = script["description"]
-        script_tags = script["tags"]
-        spoken_text = script.get("spoken_text") or script.get("text", "")
-        top_banner = script.get("top_hook") or "FACTTECHZ MYSTERY ⚡"
-        visual_theme = script.get("visual_theme", "")
-
-        try:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            audio_path = os.path.join(output_batch_dir, f"hindi_audio_{idx}_{timestamp}.mp3")
-            ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
-            video_filename = f"video_{idx:02d}_hindi_ai.mp4"
-
-            # 2. Generate Hindi neural voiceover and styled center-screen ASS subtitles
-            voice_res = generate_audio(
-                text=spoken_text,
-                audio_path=audio_path,
-                ass_path=ass_path,
-                voice="hi-IN-MadhurNeural"
-            )
-
-            # 3. Assign 2 matching HD moving video scenes for dynamic cut montage
-            scenes = THEME_SCENE_MAP.get(visual_theme) or get_cinematic_scenes_for_script(script)
-            valid_scenes = [s for s in scenes if os.path.exists(s)]
-            if not valid_scenes:
-                valid_scenes = ["assets/ai_video_clips/bg_space.mp4"]
-
-            # 4. Render 9:16 vertical video with FactTechz-style HD dynamic video montage
-            video_path = video_maker.render_video(
-                audio_path=audio_path,
-                ass_path=ass_path,
-                output_filename=video_filename,
-                duration=voice_res["duration"],
-                bg_video_paths=valid_scenes,
-                presenter_video_path=None,
-                banner_text=top_banner
-            )
-
-            generated_videos.append({
-                "index": idx,
-                "type": f"Gemini Fact Short ({niche.split('&')[0].strip()})",
-                "title": script_title,
-                "description": script_desc,
-                "tags": script_tags,
-                "video_path": video_path,
-                "duration": f"{voice_res['duration']:.1f}s",
-                "source_id": f"gemini_{idx}_{visual_theme or niche[:10]}",
-                "query": niche
-            })
-            print(f"✓ Video {idx} ready (Gemini AI + HD Montage): {video_filename}")
-        except Exception as e:
-            print(f"❌ Failed to generate video {idx}: {e}")
-
-    # -------------------------------------------------------------
-    # PART 2: 5 REAL CREATOR & VIRAL MOMENT SHORTS (100% REAL FRESH FOOTAGE)
-    # -------------------------------------------------------------
-    print("\n>>> [STAGE 2] Generating 5 Real Creator Shorts (MrBeast, Speed, Viral Moments)...")
-    dynamic_engine = DynamicCreatorEngine(
-        downloads_dir="assets/downloads",
-        output_dir=output_batch_dir
-    )
-
-    creator_niches = [
-        "mrbeast",
-        "ishowspeed",
-        "football",
-        "world_records",
-        "mind_blowing"
+    DAILY_SLOT_BLUEPRINTS = [
+        # Slot 1: MrBeast Viral Opener (Proven 1,000+ views)
+        {"slot": 1, "type": "creator", "niche": "mrbeast", "offset": 0},
+        # Slot 2: Hindi Dark Psychology / Mind Trick Short
+        {"slot": 2, "type": "fact", "niche": "Dark Psychology & Manipulation Secrets", "theme": "dark_psychology", "fallback_idx": 0},
+        # Slot 3: IShowSpeed Crazy Comedy & Energy (Proven 550+ views)
+        {"slot": 3, "type": "creator", "niche": "ishowspeed", "offset": 0},
+        # Slot 4: Football Magic Skills (Ronaldo / Messi / Neymar)
+        {"slot": 4, "type": "creator", "niche": "football", "offset": 0},
+        # Slot 5: Ocean Abyss & Deep Sea Monster Mystery
+        {"slot": 5, "type": "fact", "niche": "Deep Ocean Abyss & Monster Creatures", "theme": "deep_sea", "fallback_idx": 1},
+        # Slot 6: Insane Guinness World Records & Stunts
+        {"slot": 6, "type": "creator", "niche": "world_records", "offset": 0},
+        # Slot 7: Mind-Blowing Science & Hydraulic Press
+        {"slot": 7, "type": "creator", "niche": "mind_blowing", "offset": 0},
+        # Slot 8: MrBeast Survival / Island Challenge (Evening Super Peak)
+        {"slot": 8, "type": "creator", "niche": "mrbeast", "offset": 2},
+        # Slot 9: IShowSpeed Gaming Rage / Emotional Moment (Evening Super Peak)
+        {"slot": 9, "type": "creator", "niche": "ishowspeed", "offset": 2},
+        # Slot 10: Billionaire Wealth Secrets & Rich Mindset (Night Mindset)
+        {"slot": 10, "type": "fact", "niche": "Money Mindset & Billionaire Wealth Secrets", "theme": "wealth_money", "fallback_idx": 2},
     ]
 
-    for j, niche in enumerate(creator_niches):
-        idx = 5 + j + 1
-        print(f"\n[{idx}/10] Discovering & Clipping Fresh '{niche.upper()}' Viral Footage...")
+    print("\n>>> Generating 10 High-Velocity Viral Shorts (70% Viral Creator / 30% FactTechz Cinematic)...")
 
-        video_filename = f"video_{idx:02d}_creator_clip.mp4"
+    for bp in DAILY_SLOT_BLUEPRINTS:
+        idx = bp["slot"]
+        b_type = bp["type"]
 
-        try:
-            # 1. Dynamically download fresh, non-repeating footage from YouTube
-            fresh_clip_data = dynamic_engine.download_fresh_clip(
-                niche=niche,
-                day_offset=days_passed + j
-            )
+        if b_type == "creator":
+            niche = bp["niche"]
+            print(f"\n[{idx}/10] Discovering & Clipping Fresh '{niche.upper()}' Viral Footage...")
+            video_filename = f"video_{idx:02d}_creator_clip.mp4"
 
-            if not fresh_clip_data or not os.path.exists(fresh_clip_data.get("clip_path", "")):
-                print(f"⚡ Creator download unavailable on runner for {niche}. Generating high-retention FactTechz Short for slot {idx}...")
-                backup_niches = [
-                    "Bermuda Triangle & Lost Ships Mystery",
-                    "Ancient Egyptian Pyramids & Alien Tech",
-                    "Deep Space Black Holes & Time Travel",
-                    "Dark Psychology & Lie Detection Tricks",
-                    "Billionaire Secret Habits & Rich Mindset"
-                ]
-                backup_niche = backup_niches[j % len(backup_niches)]
-                script = None
+            try:
+                fresh_clip_data = dynamic_engine.download_fresh_clip(
+                    niche=niche,
+                    day_offset=days_passed + bp["offset"]
+                )
+
+                if not fresh_clip_data or not os.path.exists(fresh_clip_data.get("clip_path", "")):
+                    print(f"⚡ Creator download fallback for {niche}. Generating FactTechz Short for slot {idx}...")
+                    backup_niche = f"Mind-Blowing {niche.capitalize()} Secrets & Facts"
+                    script = None
+                    if gemini_engine.is_available():
+                        try:
+                            script = gemini_engine.generate_fact_script(niche=backup_niche)
+                            time.sleep(1.5)
+                        except Exception:
+                            pass
+                    if not script:
+                        script = fallback_scripts[(idx) % len(fallback_scripts)]
+
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    audio_path = os.path.join(output_batch_dir, f"hindi_audio_{idx}_{timestamp}.mp3")
+                    ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
+                    spoken_text = script.get("spoken_text") or script.get("text", "")
+                    top_banner = script.get("top_hook") or "FACTTECHZ VIRAL ⚡"
+                    scenes = THEME_SCENE_MAP.get(script.get("visual_theme", "")) or get_cinematic_scenes_for_script(script)
+                    valid_scenes = [s for s in scenes if os.path.exists(s)] or ["assets/ai_video_clips/bg_space.mp4"]
+
+                    voice_res = generate_audio(
+                        text=spoken_text,
+                        audio_path=audio_path,
+                        ass_path=ass_path,
+                        voice="hi-IN-MadhurNeural"
+                    )
+
+                    video_path = video_maker.render_video(
+                        audio_path=audio_path,
+                        ass_path=ass_path,
+                        output_filename=video_filename,
+                        duration=voice_res["duration"],
+                        bg_video_paths=valid_scenes,
+                        presenter_video_path=None,
+                        banner_text=top_banner
+                    )
+
+                    generated_videos.append({
+                        "index": idx,
+                        "type": f"FactTechz Fallback ({niche})",
+                        "title": script["title"],
+                        "description": script["description"],
+                        "tags": script["tags"],
+                        "video_path": video_path,
+                        "duration": f"{voice_res['duration']:.1f}s",
+                        "source_id": f"fact_fallback_{idx}_{niche}",
+                        "query": backup_niche
+                    })
+                    print(f"✓ Video {idx} ready (FactTechz Fallback): {video_filename}")
+                    continue
+
+                raw_video = fresh_clip_data["clip_path"]
+                banner_text = fresh_clip_data["banner"]
+                clip_title = fresh_clip_data["title"]
+                clip_desc = fresh_clip_data["description"]
+                clip_tags = fresh_clip_data["tags"]
+                source_id = fresh_clip_data["source_id"]
+                query_used = fresh_clip_data["query"]
+
                 if gemini_engine.is_available():
                     try:
-                        script = gemini_engine.generate_fact_script(niche=backup_niche)
-                        time.sleep(2.0)
-                    except Exception as ge:
-                        print(f"Notice: Gemini backup script note: {ge}")
-                if not script:
-                    script = hindi_gen.get_todays_5_scripts()[(j + 2) % len(hindi_gen.get_todays_5_scripts())]
+                        c_meta = gemini_engine.generate_creator_metadata(niche, query_used)
+                        if c_meta.get("title"):
+                            clip_title = c_meta["title"]
+                        if c_meta.get("banner"):
+                            banner_text = c_meta["banner"]
+                        if c_meta.get("description"):
+                            clip_desc = c_meta["description"]
+                        time.sleep(1.5)
+                    except Exception as e:
+                        print(f"Notice: Gemini metadata note for {niche}: {e}")
 
+                video_path = dynamic_engine.format_to_vertical_short(
+                    video_path=raw_video,
+                    banner_text=banner_text,
+                    output_filename=video_filename,
+                    duration=29.0
+                )
+
+                generated_videos.append({
+                    "index": idx,
+                    "type": f"Real Creator Short ({niche})",
+                    "title": clip_title,
+                    "description": clip_desc,
+                    "tags": clip_tags,
+                    "video_path": video_path,
+                    "duration": "29.0s",
+                    "source_id": source_id,
+                    "query": query_used
+                })
+                print(f"✓ Video {idx} ready (100% Fresh Moving Footage): {video_filename}")
+
+            except Exception as e:
+                print(f"❌ Failed creator short {idx}: {e}")
+                continue
+
+        else:
+            # Fact Short
+            niche = bp["niche"]
+            visual_theme = bp.get("theme", "")
+            print(f"\n[{idx}/10] Generating Viral Fact Short via Gemini AI ({niche})...")
+
+            script = None
+            if gemini_engine.is_available():
+                try:
+                    script = gemini_engine.generate_fact_script(niche=niche)
+                    print(f"✨ Gemini Script Generated: '{script['title'][:45]}...'")
+                    time.sleep(2.0)
+                except Exception as e:
+                    print(f"Notice: Gemini script fallback for slot {idx}: {e}")
+
+            if not script:
+                fb_i = bp.get("fallback_idx", 0) % len(fallback_scripts)
+                script = fallback_scripts[fb_i]
+
+            script_title = script["title"]
+            script_desc = script["description"]
+            script_tags = script["tags"]
+            spoken_text = script.get("spoken_text") or script.get("text", "")
+            top_banner = script.get("top_hook") or "FACTTECHZ MYSTERY ⚡"
+
+            try:
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 audio_path = os.path.join(output_batch_dir, f"hindi_audio_{idx}_{timestamp}.mp3")
                 ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
-                spoken_text = script.get("spoken_text") or script.get("text", "")
-                top_banner = script.get("top_hook") or "FACTTECHZ VIRAL ⚡"
-                scenes = THEME_SCENE_MAP.get(script.get("visual_theme", "")) or get_cinematic_scenes_for_script(script)
-                valid_scenes = [s for s in scenes if os.path.exists(s)]
-                if not valid_scenes:
-                    valid_scenes = ["assets/ai_video_clips/bg_space.mp4"]
+                video_filename = f"video_{idx:02d}_hindi_ai.mp4"
 
                 voice_res = generate_audio(
                     text=spoken_text,
@@ -610,6 +673,11 @@ def generate_daily_10_batch(
                     ass_path=ass_path,
                     voice="hi-IN-MadhurNeural"
                 )
+
+                scenes = THEME_SCENE_MAP.get(visual_theme) or get_cinematic_scenes_for_script(script)
+                valid_scenes = [s for s in scenes if os.path.exists(s)]
+                if not valid_scenes:
+                    valid_scenes = ["assets/ai_video_clips/bg_space.mp4"]
 
                 video_path = video_maker.render_video(
                     audio_path=audio_path,
@@ -623,64 +691,18 @@ def generate_daily_10_batch(
 
                 generated_videos.append({
                     "index": idx,
-                    "type": f"FactTechz Viral Short ({backup_niche.split('&')[0].strip()})",
-                    "title": script["title"],
-                    "description": script["description"],
-                    "tags": script["tags"],
+                    "type": f"Gemini Fact Short ({niche.split('&')[0].strip()})",
+                    "title": script_title,
+                    "description": script_desc,
+                    "tags": script_tags,
                     "video_path": video_path,
                     "duration": f"{voice_res['duration']:.1f}s",
-                    "source_id": f"fact_fallback_{idx}_{niche}",
-                    "query": backup_niche
+                    "source_id": f"gemini_{idx}_{visual_theme or niche[:10]}",
+                    "query": niche
                 })
-                print(f"✓ Video {idx} ready (High-Retention FactTechz Montage): {video_filename}")
-                continue
-
-            raw_video = fresh_clip_data["clip_path"]
-            banner_text = fresh_clip_data["banner"]
-            clip_title = fresh_clip_data["title"]
-            clip_desc = fresh_clip_data["description"]
-            clip_tags = fresh_clip_data["tags"]
-            source_id = fresh_clip_data["source_id"]
-            query_used = fresh_clip_data["query"]
-
-            # Optimize title & top banner using Gemini for maximum CTR
-            if gemini_engine.is_available():
-                try:
-                    c_meta = gemini_engine.generate_creator_metadata(niche, query_used)
-                    if c_meta.get("title"):
-                        clip_title = c_meta["title"]
-                    if c_meta.get("banner"):
-                        banner_text = c_meta["banner"]
-                    if c_meta.get("description"):
-                        clip_desc = c_meta["description"]
-                    time.sleep(1.5)
-                except Exception as e:
-                    print(f"Notice: Gemini metadata optimization skipped for {niche}: {e}")
-
-            # 2. Format into 9:16 vertical short with studio blurred background & top hook banner
-            video_path = dynamic_engine.format_to_vertical_short(
-                video_path=raw_video,
-                banner_text=banner_text,
-                output_filename=video_filename,
-                duration=29.0
-            )
-
-            generated_videos.append({
-                "index": idx,
-                "type": f"Real Creator Short ({niche})",
-                "title": clip_title,
-                "description": clip_desc,
-                "tags": clip_tags,
-                "video_path": video_path,
-                "duration": "29.0s",
-                "source_id": source_id,
-                "query": query_used
-            })
-            print(f"✓ Video {idx} ready (100% Fresh Moving Footage): {video_filename}")
-
-        except Exception as e:
-            print(f"❌ Failed creator short {idx}: {e}")
-            continue
+                print(f"✓ Video {idx} ready (Gemini AI + HD Montage): {video_filename}")
+            except Exception as e:
+                print(f"❌ Failed to generate video {idx}: {e}")
 
     # -------------------------------------------------------------
     # PART 3: SAVE METADATA & SCHEDULE
@@ -716,10 +738,10 @@ def generate_daily_10_batch(
 
     # Optional Auto-Upload
     if upload_yt:
-        print("\n>> Uploading all 10 videos with Smart Staggered Schedule (Every 1.5 Hours)...")
+        print("\n>> Uploading all 10 videos with Indian Peak Hours Schedule (11:00 AM - 10:00 PM IST)...")
         yt_uploader = YouTubeUploader()
         tracker = HistoryTracker()
-        schedules = get_staggered_schedule(len(generated_videos), interval_minutes=90)
+        schedules = get_indian_peak_schedule(len(generated_videos))
         successful_uploads = 0
         for idx, v in enumerate(generated_videos):
             slot = schedules[idx]

@@ -147,7 +147,7 @@ class VideoMaker:
 
             if bg_music:
                 cmd += ["-stream_loop", "-1", "-i", bg_music]
-                audio_filter = f"[{voice_idx}:a]volume=1.0[v];[{music_idx}:a]volume=0.10[m];[v][m]amix=inputs=2:duration=first[aout]"
+                audio_filter = f"[{voice_idx}:a]volume=1.0[v];[{music_idx}:a]volume=0.22[m];[v][m]amix=inputs=2:duration=first[aout]"
                 cmd += ["-filter_complex", f"{filter_complex};{audio_filter}", "-map", "[vout]", "-map", "[aout]"]
             else:
                 cmd += ["-filter_complex", filter_complex, "-map", "[vout]", "-map", f"{voice_idx}:a"]
@@ -188,7 +188,7 @@ class VideoMaker:
             if bg_music:
                 cmd += ["-stream_loop", "-1", "-i", bg_music]
                 music_idx = audio_idx + 1
-                audio_filter = f"[{audio_idx}:a]volume=1.0[v];[{music_idx}:a]volume=0.10[m];[v][m]amix=inputs=2:duration=first[aout]"
+                audio_filter = f"[{audio_idx}:a]volume=1.0[v];[{music_idx}:a]volume=0.22[m];[v][m]amix=inputs=2:duration=first[aout]"
                 cmd += ["-filter_complex", f"{full_video_filter};{audio_filter}", "-map", "[vout]", "-map", "[aout]"]
             else:
                 cmd += ["-filter_complex", full_video_filter, "-map", "[vout]", "-map", f"{audio_idx}:a"]
@@ -224,7 +224,7 @@ class VideoMaker:
 
             if bg_music:
                 cmd += ["-stream_loop", "-1", "-i", bg_music]
-                audio_filter = "[1:a]volume=1.0[v];[2:a]volume=0.10[m];[v][m]amix=inputs=2:duration=first[aout]"
+                audio_filter = "[1:a]volume=1.0[v];[2:a]volume=0.22[m];[v][m]amix=inputs=2:duration=first[aout]"
                 cmd += ["-filter_complex", f"[0:v]{video_filter}[vout];{audio_filter}", "-map", "[vout]", "-map", "[aout]"]
             else:
                 cmd += ["-vf", video_filter, "-map", "0:v", "-map", "1:a"]
