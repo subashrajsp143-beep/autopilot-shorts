@@ -33,7 +33,17 @@
     "G8SEPRZhxhQ",
     "ZCz0UAAa6qQ",
     "vV-oXzkdEJo",
-    "EcS0I3X8eeo"
+    "EcS0I3X8eeo",
+    "-dSVjPwiKwM",
+    "vH7Rr0_61HQ",
+    "UbyJw0qESeY",
+    "0Xi8fMOZZOY",
+    "o4tEoRjKC3U",
+    "celH-0A17qg",
+    "0jXZv5z9O4A",
+    "b0wWPkhjxRU",
+    "y0z7vb70Wzg",
+    "QTD8LZ7uczo"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -71,7 +81,17 @@
     "SykgD0PGMAI",
     "OWOjRdmpM6I",
     "vbjko3M0JT4",
-    "CFmmCp3X7vA"
+    "CFmmCp3X7vA",
+    "gemini_1_dark_psychology",
+    "gemini_2_pyramid",
+    "gemini_3_deep_sea",
+    "gemini_4_wealth_money",
+    "gemini_5_brain_sleep",
+    "fact_fallback_6_mrbeast",
+    "fact_fallback_7_ishowspeed",
+    "fact_fallback_8_football",
+    "fact_fallback_9_world_records",
+    "fact_fallback_10_mind_blowing"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -98,7 +118,17 @@
     "IShowSpeed emotional moment stream",
     "Neymar Jr best skills ever",
     "World largest Domino chain reaction",
-    "Satisfying hydraulic press vs diamond"
+    "Satisfying hydraulic press vs diamond",
+    "Dark Psychology & Manipulation Secrets",
+    "Ancient Mysteries & Lost Civilizations",
+    "Deep Ocean Abyss & Monster Creatures",
+    "Money Mindset & Billionaire Wealth Secrets",
+    "Brain Power & Sleep Science Hacks",
+    "Bermuda Triangle & Lost Ships Mystery",
+    "Ancient Egyptian Pyramids & Alien Tech",
+    "Deep Space Black Holes & Time Travel",
+    "Dark Psychology & Lie Detection Tricks",
+    "Billionaire Secret Habits & Rich Mindset"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -125,7 +155,17 @@
     "Speed के आँखों में आँसू! 😭 Emotional Moment #Shorts",
     "NEYMAR के ये SKILLS UNBELIEVABLE हैं! 😱 #Shorts",
     "दुनिया का सबसे बड़ा Domino Effect! 😱 #Shorts",
-    "क्या Diamond को Hydraulic Press तोड़ पाएगा? 😱 #Shorts"
+    "क्या Diamond को Hydraulic Press तोड़ पाएगा? 😱 #Shorts",
+    "किसी का भी दिमाग कंट्रोल करें! 🧠 #Shorts",
+    "क्या पिरामिड के अंदर बिजली बनती थी? ⚡ #Shorts",
+    "समुद्र के नीचे का डरावना सच! 🌊😱 #Shorts",
+    "अमीर कभी बैंक में पैसा क्यों नहीं रखते? 💸 #Shorts",
+    "दिमाग को धोएं और सुपरफास्ट बनें! 🧠 #Shorts",
+    "Bermuda Triangle का सबसे बड़ा रहस्य! 🚢 #Shorts",
+    "क्या एलियंस ने बनाए पिरामिड? 👽 #Shorts",
+    "Black Hole Time Travel Secret! 🕳️⏰ #Shorts",
+    "झूठ पकड़ने की 1 Dark Psychology Trick! 👁️ #Shorts",
+    "Billionaires का 5 Minute Secret 💰 #Shorts"
   ],
   "upload_logs": [
     {
@@ -257,6 +297,86 @@
       "youtube_id": "EcS0I3X8eeo",
       "source_id": "CFmmCp3X7vA",
       "query": "Satisfying hydraulic press vs diamond"
+    },
+    {
+      "timestamp": "2026-10-22T15:40:38.198838",
+      "title": "किसी का भी दिमाग कंट्रोल करें! 🧠 #Shorts",
+      "type": "Gemini Fact Short (Dark Psychology)",
+      "youtube_id": "-dSVjPwiKwM",
+      "source_id": "gemini_1_dark_psychology",
+      "query": "Dark Psychology & Manipulation Secrets"
+    },
+    {
+      "timestamp": "2026-10-22T15:41:00.491016",
+      "title": "क्या पिरामिड के अंदर बिजली बनती थी? ⚡ #Shorts",
+      "type": "Gemini Fact Short (Ancient Mysteries)",
+      "youtube_id": "vH7Rr0_61HQ",
+      "source_id": "gemini_2_pyramid",
+      "query": "Ancient Mysteries & Lost Civilizations"
+    },
+    {
+      "timestamp": "2026-10-22T15:41:17.697589",
+      "title": "समुद्र के नीचे का डरावना सच! 🌊😱 #Shorts",
+      "type": "Gemini Fact Short (Deep Ocean Abyss)",
+      "youtube_id": "UbyJw0qESeY",
+      "source_id": "gemini_3_deep_sea",
+      "query": "Deep Ocean Abyss & Monster Creatures"
+    },
+    {
+      "timestamp": "2026-10-22T15:41:31.879824",
+      "title": "अमीर कभी बैंक में पैसा क्यों नहीं रखते? 💸 #Shorts",
+      "type": "Gemini Fact Short (Money Mindset)",
+      "youtube_id": "0Xi8fMOZZOY",
+      "source_id": "gemini_4_wealth_money",
+      "query": "Money Mindset & Billionaire Wealth Secrets"
+    },
+    {
+      "timestamp": "2026-10-22T15:41:54.589637",
+      "title": "दिमाग को धोएं और सुपरफास्ट बनें! 🧠 #Shorts",
+      "type": "Gemini Fact Short (Brain Power)",
+      "youtube_id": "o4tEoRjKC3U",
+      "source_id": "gemini_5_brain_sleep",
+      "query": "Brain Power & Sleep Science Hacks"
+    },
+    {
+      "timestamp": "2026-10-22T15:42:10.439332",
+      "title": "Bermuda Triangle का सबसे बड़ा रहस्य! 🚢 #Shorts",
+      "type": "FactTechz Viral Short (Bermuda Triangle)",
+      "youtube_id": "celH-0A17qg",
+      "source_id": "fact_fallback_6_mrbeast",
+      "query": "Bermuda Triangle & Lost Ships Mystery"
+    },
+    {
+      "timestamp": "2026-10-22T15:42:32.041001",
+      "title": "क्या एलियंस ने बनाए पिरामिड? 👽 #Shorts",
+      "type": "FactTechz Viral Short (Ancient Egyptian Pyramids)",
+      "youtube_id": "0jXZv5z9O4A",
+      "source_id": "fact_fallback_7_ishowspeed",
+      "query": "Ancient Egyptian Pyramids & Alien Tech"
+    },
+    {
+      "timestamp": "2026-10-22T15:42:55.181953",
+      "title": "Black Hole Time Travel Secret! 🕳️⏰ #Shorts",
+      "type": "FactTechz Viral Short (Deep Space Black Holes)",
+      "youtube_id": "b0wWPkhjxRU",
+      "source_id": "fact_fallback_8_football",
+      "query": "Deep Space Black Holes & Time Travel"
+    },
+    {
+      "timestamp": "2026-10-22T15:43:10.428970",
+      "title": "झूठ पकड़ने की 1 Dark Psychology Trick! 👁️ #Shorts",
+      "type": "FactTechz Viral Short (Dark Psychology)",
+      "youtube_id": "y0z7vb70Wzg",
+      "source_id": "fact_fallback_9_world_records",
+      "query": "Dark Psychology & Lie Detection Tricks"
+    },
+    {
+      "timestamp": "2026-10-22T15:43:27.242340",
+      "title": "Billionaires का 5 Minute Secret 💰 #Shorts",
+      "type": "FactTechz Viral Short (Billionaire Secret Habits)",
+      "youtube_id": "QTD8LZ7uczo",
+      "source_id": "fact_fallback_10_mind_blowing",
+      "query": "Billionaire Secret Habits & Rich Mindset"
     }
   ]
 }
