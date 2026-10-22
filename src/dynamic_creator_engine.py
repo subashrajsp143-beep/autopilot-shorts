@@ -111,7 +111,7 @@ class DynamicCreatorEngine:
         # Search for top 6 candidates to find unused ones
         search_target = f"ytsearch6:{query}"
         search_cmd = [
-            "yt-dlp",
+            sys.executable, "-m", "yt_dlp",
             "--flat-playlist",
             "--print", "%(id)s|||%(title)s",
             search_target
@@ -139,7 +139,7 @@ class DynamicCreatorEngine:
             output_tmpl = os.path.join(self.downloads_dir, f"{out_prefix}.%(ext)s")
 
             dl_cmd = [
-                "yt-dlp",
+                sys.executable, "-m", "yt_dlp",
                 "--extractor-args", "youtube:player_client=android,ios,mweb",
                 "-f", "b[height<=720]/best",
                 "--download-sections", "*00:00:20-00:00:52",

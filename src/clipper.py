@@ -69,7 +69,7 @@ class CreatorClipper:
 
         output_tmpl = os.path.join(self.downloads_dir, f"{output_prefix}_%(id)s.%(ext)s")
         cmd = [
-            "yt-dlp",
+            sys.executable, "-m", "yt_dlp",
             "-f", "bv*[height<=1080]+ba/b[height<=1080]/bv*+ba/best",
             "--merge-output-format", "mp4",
             "-o", output_tmpl,
@@ -83,7 +83,7 @@ class CreatorClipper:
             print("yt-dlp warning:", res.stderr[-300:])
             # Fallback format if error
             cmd_fb = [
-                "yt-dlp",
+                sys.executable, "-m", "yt_dlp",
                 "-f", "best",
                 "-o", output_tmpl,
                 "--no-playlist",
