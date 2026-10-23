@@ -24,51 +24,40 @@ if sys.platform == "win32":
 
 from history_tracker import HistoryTracker
 
-# 50+ Rotating high-CTR viral queries across 5 popular niches
+# 50+ Rotating high-CTR viral queries across 5 popular niches (with verified direct IDs)
 VIRAL_NICHE_REGISTRY = {
     "mrbeast": [
-        {"q": "MrBeast craziest challenge moments", "banner": "MR BEAST CRAZIEST CHALLENGE! 😱", "title_prefix": "मिस्टर बीस्ट का सबसे पागलपन भरा चैलेंज!"},
-        {"q": "MrBeast last to leave circle wins", "banner": "LAST TO LEAVE WINS $500,000! 💰", "title_prefix": "जो आखिरी में निकलेगा उसे मिलेंगे 5 करोड़!"},
-        {"q": "MrBeast survive 100 days in circle", "banner": "100 DAYS SURVIVAL CHALLENGE! 🔥", "title_prefix": "100 दिन तक इस सर्कल में जीवित रहो!"},
-        {"q": "MrBeast extreme hide and seek", "banner": "WORLD'S BIGGEST HIDE & SEEK! 🏃‍♂️", "title_prefix": "दुनिया का सबसे बड़ा हाइड एंड सीक गेम!"},
-        {"q": "MrBeast giving away private island", "banner": "HE WON AN ENTIRE ISLAND! 🏝️", "title_prefix": "अनजान लड़के ने जीता पूरा प्राइवेट आइलैंड!"},
-        {"q": "MrBeast world's most dangerous trap", "banner": "WORLD'S DEADLIEST TRAP! ⚠️", "title_prefix": "दुनिया का सबसे खतरनाक जाल!"},
-        {"q": "MrBeast $1,000,000 yacht challenge", "banner": "$1,000,000 LUXURY YACHT! 🛥️", "title_prefix": "10 करोड़ की लग्जरी यॉट का चैलेंज!"},
-        {"q": "MrBeast train vs giant pit", "banner": "TRAIN VS GIANT CRATER! 💥", "title_prefix": "जब ट्रेन सीधे 100 फुट गड्ढे में गिरी!"},
-        {"q": "MrBeast 100 people vs world's biggest trap", "banner": "100 PEOPLE VS GIANT TRAP! 😱", "title_prefix": "100 लोग और दुनिया का सबसे बड़ा ट्रैप!"},
-        {"q": "MrBeast giving stranger $100,000 cash", "banner": "$100,000 CASH GIVEN AWAY! 💰", "title_prefix": "जब अनजान को बैग भरकर कैश दे दिया!"}
+        {"id": "LdMx2U5tby0", "q": "MrBeast extreme hide and seek", "banner": "WORLD'S BIGGEST HIDE & SEEK! 🏃‍♂️", "title_prefix": "दुनिया का सबसे बड़ा हाइड एंड सीक गेम!"},
+        {"id": "zxYjTTXc-J8", "q": "MrBeast last to leave circle wins", "banner": "LAST TO LEAVE WINS $500,000! 💰", "title_prefix": "जो आखिरी में निकलेगा उसे मिलेंगे 5 करोड़!"},
+        {"id": "0e3GPea1Tyg", "q": "MrBeast real life squid game", "banner": "REAL LIFE SQUID GAME $456,000! 🦑", "title_prefix": "असली जिंदगी का स्क्विड गेम!"},
+        {"id": "fuhE6PYnRMc", "q": "MrBeast train vs giant pit", "banner": "TRAIN VS GIANT CRATER! 💥", "title_prefix": "जब ट्रेन सीधे 100 फुट गड्ढे में गिरी!"},
+        {"id": "GLoeAJUcz38", "q": "MrBeast 100 days in bunker", "banner": "100 DAYS UNDERGROUND BUNKER! 🛡️", "title_prefix": "100 दिन तक जमीन के नीचे बंकर में!"},
+        {"id": "hxbgskN3Y3c", "q": "MrBeast world most dangerous trap", "banner": "WORLD'S DEADLIEST TRAP! ⚠️", "title_prefix": "दुनिया का सबसे खतरनाक जाल!"},
+        {"id": "48h57PspBec", "q": "MrBeast $1,000,000 yacht challenge", "banner": "$1,000,000 LUXURY YACHT! 🛥️", "title_prefix": "10 करोड़ की लग्जरी यॉट का चैलेंज!"},
+        {"id": "gHzuabZUd6c", "q": "MrBeast survive 100 days in circle", "banner": "100 DAYS SURVIVAL CHALLENGE! 🔥", "title_prefix": "100 दिन तक इस सर्कल में जीवित रहो!"},
     ],
     "ishowspeed": [
-        {"q": "IShowSpeed crazy stream moments", "banner": "SPEED GOES COMPLETELY CRAZY! 😂🔥", "title_prefix": "स्पीड का सबसे पागलपन भरा रिएक्शन!"},
-        {"q": "IShowSpeed funny screams compilation", "banner": "SPEED'S FUNNIEST SCREAMS! 😭⚡", "title_prefix": "स्पीड की ऐसी चीखें देखकर हंसी नहीं रुकेगी!"},
-        {"q": "IShowSpeed meet celebrities funny", "banner": "SPEED MEETS FAMOUS CELEBRITY! 😱", "title_prefix": "जब स्पीड अचानक बड़े सेलिब्रिटी से मिला!"},
-        {"q": "IShowSpeed playing FIFA funny rage", "banner": "SPEED CRAZIEST RAGE MOMENT! 🎮💥", "title_prefix": "स्पीड का सबसे खतरनाक गेमिंग रेज!"},
-        {"q": "IShowSpeed meeting football legends", "banner": "SPEED MEETS FOOTBALL LEGEND! 🐐🔥", "title_prefix": "जब स्पीड फुटबॉल के भगवान से मिला!"},
-        {"q": "IShowSpeed bark at camera funny", "banner": "SPEED ICONIC MOMENTS! 😂✨", "title_prefix": "स्पीड का सबसे वायरल और फनी मोमेंट!"},
-        {"q": "IShowSpeed trying weird food funny", "banner": "SPEED TRIES WEIRD FOOD! 🤢😂", "title_prefix": "जब स्पीड ने खाई यह अजीब चीज!"},
-        {"q": "IShowSpeed emotional moment stream", "banner": "SPEED'S GREATEST DREAM CAME TRUE! ❤️", "title_prefix": "स्पीड का सपना आखिरकार सच हो गया!"}
+        {"id": "s31RMcM44Mg", "q": "IShowSpeed funny screams compilation", "banner": "SPEED'S FUNNIEST SCREAMS! 😭⚡", "title_prefix": "स्पीड की ऐसी चीखें देखकर हंसी नहीं रुकेगी!"},
+        {"id": "LJ6CSIdQjCY", "q": "IShowSpeed playing FIFA funny rage", "banner": "SPEED CRAZIEST RAGE MOMENT! 🎮💥", "title_prefix": "स्पीड का सबसे खतरनाक गेमिंग रेज!"},
+        {"id": "n06mu4cXhQs", "q": "IShowSpeed meeting football legends", "banner": "SPEED MEETS FOOTBALL LEGEND! 🐐🔥", "title_prefix": "जब स्पीड फुटबॉल के भगवान से मिला!"},
+        {"id": "SykgD0PGMAI", "q": "IShowSpeed emotional moment stream", "banner": "SPEED'S GREATEST DREAM CAME TRUE! ❤️", "title_prefix": "स्पीड का सपना आखिरकार सच हो गया!"},
+        {"id": "e_z7u4n88i8", "q": "IShowSpeed crazy stream moments", "banner": "SPEED GOES COMPLETELY CRAZY! 😂🔥", "title_prefix": "स्पीड का सबसे पागलपन भरा रिएक्शन!"},
     ],
     "football": [
-        {"q": "Cristiano Ronaldo impossible goals skills", "banner": "CR7 IMPOSSIBLE GOAL! 🐐⚽", "title_prefix": "रोनाल्डो का यह गोल देखकर दुनिया दंग रह गई!"},
-        {"q": "Lionel Messi magic dribbles commentary", "banner": "MESSI ANKLE BREAKER MOMENTS! 👑🔥", "title_prefix": "मेसी का यह जादुई ड्रिबल कोई नहीं भूल सकता!"},
-        {"q": "Neymar Jr best skills ever", "banner": "NEYMAR UNSTOPPABLE SKILLS! 🇧🇷⚡", "title_prefix": "नेमार का ऐसा जादू जिसे देखकर डिफेंडर गिर पड़े!"},
-        {"q": "Most dramatic last minute goals football", "banner": "LAST SECOND CRAZIEST GOAL! ⚽😱", "title_prefix": "फुटबॉल इतिहास का सबसे नाटकीय आखिरी गोल!"},
-        {"q": "Ronaldo high jump header physics", "banner": "CR7 FLIES IN THE AIR! ✈️🐐", "title_prefix": "जब रोनाल्डो ने हवा में उड़कर गोल दागा!"},
-        {"q": "Goalkeeper impossible saves moments", "banner": "IMPOSSIBLE GOALKEEPER SAVES! 🧤🔥", "title_prefix": "गोलकीपर का ऐसा करिश्माई बचाव जो नामुमकिन था!"}
+        {"id": "OWOjRdmpM6I", "q": "Neymar Jr best skills ever", "banner": "NEYMAR UNSTOPPABLE SKILLS! 🇧🇷⚡", "title_prefix": "नेमार का ऐसा जादू जिसे देखकर डिफेंडर गिर पड़े!"},
+        {"id": "zajUgQLviwk", "q": "Ronaldo high jump header physics", "banner": "CR7 FLIES IN THE AIR! ✈️🐐", "title_prefix": "जब रोनाल्डो ने हवा में उड़कर गोल दागा!"},
+        {"id": "cnArVXTOvc0", "q": "Lionel Messi magic dribbles commentary", "banner": "MESSI ANKLE BREAKER MOMENTS! 👑🔥", "title_prefix": "मेसी का यह जादुई ड्रिबल कोई नहीं भूल सकता!"},
+        {"id": "wtndQw9GXdQ", "q": "Goalkeeper impossible saves moments", "banner": "IMPOSSIBLE GOALKEEPER SAVES! 🧤🔥", "title_prefix": "गोलकीपर का ऐसा करिश्माई बचाव जो नामुमकिन था!"},
     ],
     "world_records": [
-        {"q": "Insane Guinness World Records compilation", "banner": "INSANE WORLD RECORDS! 🏆😱", "title_prefix": "इंसान ने बनाया ऐसा वर्ल्ड रिकॉर्ड जो टूटना नामुमकिन है!"},
-        {"q": "Fastest human in the world records", "banner": "FASTEST HUMAN ON EARTH! ⚡🏃", "title_prefix": "दुनिया का सबसे तेज इंसान!"},
-        {"q": "Extreme human body records incredible", "banner": "INCREDIBLE HUMAN SUPERPOWERS! 💥", "title_prefix": "इस इंसान के पास है असली सुपरपावर!"},
-        {"q": "World craziest parkour stunts", "banner": "DEATH-DEFYING PARKOUR STUNTS! 🏙️⚠️", "title_prefix": "50 मंजिला इमारत पर बिना रस्सी के स्टंट!"},
-        {"q": "World largest Domino chain reaction", "banner": "LARGEST DOMINO CHAIN REACTION!  domino", "title_prefix": "लाखों डोमिनोज़ का सबसे खूबसूरत चेन रिएक्शन!"}
+        {"id": "vbjko3M0JT4", "q": "World largest Domino chain reaction", "banner": "LARGEST DOMINO CHAIN REACTION! 🧱", "title_prefix": "लाखों डोमिनोज़ का सबसे खूबसूरत चेन रिएक्शन!"},
+        {"id": "-IWk5NkxQF8", "q": "Insane Guinness World Records compilation", "banner": "INSANE WORLD RECORDS! 🏆😱", "title_prefix": "इंसान ने बनाया ऐसा वर्ल्ड रिकॉर्ड जो टूटना नामुमकिन है!"},
+        {"id": "at_jeLqBTJk", "q": "World craziest parkour stunts", "banner": "DEATH-DEFYING PARKOUR STUNTS! 🏙️⚠️", "title_prefix": "50 मंजिला इमारत पर बिना रस्सी के स्टंट!"},
     ],
     "mind_blowing": [
-        {"q": "Satisfying hydraulic press vs diamond", "banner": "HYDRAULIC PRESS VS DIAMOND! 💎💥", "title_prefix": "जब हाइड्रोलिक प्रेस के नीचे रखा गया हीरा!"},
-        {"q": "Mind blowing optical illusions shorts", "banner": "YOUR BRAIN WILL BE FOOLED! 🌀😱", "title_prefix": "यह ऑप्टिकल इल्यूजन आपके दिमाग को घुमा देगा!"},
-        {"q": "Crazy physics experiments that look like magic", "banner": "PHYSICS OR REAL MAGIC? 🧪✨", "title_prefix": "साइंस का यह जादुई एक्सपेरिमेंट होश उड़ा देगा!"},
-        {"q": "Satisfying crushing things with hydraulic press", "banner": "MOST SATISFYING CRUSHING! 🔨🔥", "title_prefix": "100 टन के प्रेस ने इस चीज को चकनाचूर कर दिया!"},
-        {"q": "Magnetic slime eating magnets science", "banner": "LIVING MAGNETIC MONSTER! 🧲🦠", "title_prefix": "जब चुंबक को निगलने लगा यह अजीब लिक्विड!"}
+        {"id": "CFmmCp3X7vA", "q": "Satisfying hydraulic press vs diamond", "banner": "HYDRAULIC PRESS VS DIAMOND! 💎💥", "title_prefix": "जब हाइड्रोलिक प्रेस के नीचे रखा गया हीरा!"},
+        {"id": "KSWYF3racCQ", "q": "Crazy physics experiments that look like magic", "banner": "PHYSICS OR REAL MAGIC? 🧪✨", "title_prefix": "साइंस का यह जादुई एक्सपेरिमेंट होश उड़ा देगा!"},
+        {"id": "akU5vXCWGQg", "q": "Satisfying crushing things with hydraulic press", "banner": "MOST SATISFYING CRUSHING! 🔨🔥", "title_prefix": "100 टन के प्रेस ने इस चीज को चकनाचूर कर दिया!"},
     ]
 }
 
@@ -108,23 +97,30 @@ class DynamicCreatorEngine:
         query = selected_cfg["q"]
         print(f"🔍 Searching YouTube for fresh '{niche}' viral footage: '{query}'...")
 
-        # Search for top 6 candidates to find unused ones
+        # 1. Add verified direct video IDs from registry if not yet used
+        candidate_ids = []
+        for item in registry:
+            v_id = item.get("id")
+            if v_id and not self.tracker.is_source_used(v_id):
+                candidate_ids.append((v_id, item.get("title_prefix", query)))
+
+        # 2. Search for dynamic candidates to find fresh viral footage
         search_target = f"ytsearch6:{query}"
         search_cmd = [
             sys.executable, "-m", "yt_dlp",
+            "--extractor-args", "youtube:player_client=android,ios,mweb",
             "--flat-playlist",
             "--print", "%(id)s|||%(title)s",
             search_target
         ]
 
-        candidate_ids = []
         try:
             res = subprocess.run(search_cmd, capture_output=True, text=True, timeout=25)
             for line in res.stdout.splitlines():
                 parts = line.strip().split("|||", 1)
                 if len(parts) == 2:
                     vid_id, vid_title = parts[0].strip(), parts[1].strip()
-                    if not self.tracker.is_source_used(vid_id):
+                    if not self.tracker.is_source_used(vid_id) and vid_id not in [c[0] for c in candidate_ids]:
                         candidate_ids.append((vid_id, vid_title))
         except Exception as e:
             print(f"Warning: yt-dlp search error: {e}")
