@@ -53,7 +53,17 @@
     "Iggqpbfw0mI",
     "hZ9iQ2sGAtQ",
     "1efUiUg82w0",
-    "ZCYacxxdh1k"
+    "ZCYacxxdh1k",
+    "ye9CpC-B8X0",
+    "Qvmxpqz-RWM",
+    "fwoh_2CcASg",
+    "1xRKsPWMVfQ",
+    "0m31CQfTfIQ",
+    "dEmz3PkomVY",
+    "vRkc32A-phc",
+    "lUiLfZXPfcU",
+    "CxL-4wYEizw",
+    "vzCBrtVHQYk"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -112,6 +122,16 @@
     "fact_fallback_7_mind_blowing",
     "fact_fallback_8_mrbeast",
     "fact_fallback_9_ishowspeed",
+    "gemini_10_wealth_money",
+    "fact_fallback_1_mrbeast",
+    "gemini_2_dark_psychology",
+    "fact_fallback_3_ishowspeed",
+    "fact_fallback_4_football",
+    "gemini_5_deep_sea",
+    "fact_fallback_6_world_records",
+    "fact_fallback_7_mind_blowing",
+    "fact_fallback_8_mrbeast",
+    "fact_fallback_9_ishowspeed",
     "gemini_10_wealth_money"
   ],
   "used_queries": [
@@ -150,6 +170,16 @@
     "Deep Space Black Holes & Time Travel",
     "Dark Psychology & Lie Detection Tricks",
     "Billionaire Secret Habits & Rich Mindset",
+    "Mind-Blowing Mrbeast Secrets & Facts",
+    "Dark Psychology & Manipulation Secrets",
+    "Mind-Blowing Ishowspeed Secrets & Facts",
+    "Mind-Blowing Football Secrets & Facts",
+    "Deep Ocean Abyss & Monster Creatures",
+    "Mind-Blowing World_records Secrets & Facts",
+    "Mind-Blowing Mind_blowing Secrets & Facts",
+    "Mind-Blowing Mrbeast Secrets & Facts",
+    "Mind-Blowing Ishowspeed Secrets & Facts",
+    "Money Mindset & Billionaire Wealth Secrets",
     "Mind-Blowing Mrbeast Secrets & Facts",
     "Dark Psychology & Manipulation Secrets",
     "Mind-Blowing Ishowspeed Secrets & Facts",
@@ -206,7 +236,17 @@
     "क्या आप सच में जाग रहे हैं? 🧠🤯 #Shorts",
     "सुबह उठते ही यह 1 गलती आपका दिमाग कमजोर कर देती है! 📱⚠️ #Shorts #BrainHacks",
     "IShowSpeed का असली राज़! 🤯 #Shorts",
-    "समुद्र का 'द ब्लोप' साउंड—जिसने वैज्ञानिकों को डरा दिया! 🔊🌊 #Shorts #TheBloop"
+    "समुद्र का 'द ब्लोप' साउंड—जिसने वैज्ञानिकों को डरा दिया! 🔊🌊 #Shorts #TheBloop",
+    "MrBeast का सबसे बड़ा सच! 😱 #Shorts",
+    "People Are Manipulating You! ⚠️ #Shorts",
+    "IShowSpeed का डार्क सीक्रेट! 🤯 #Shorts",
+    "Lionel Messi Ka Ye Raaz Nahi Jante Honge! ⚽🔥 #Shorts",
+    "समुद्र के नीचे का खौफनाक राज! 🌊😱 #Shorts",
+    "क्या आपको पता है? यह रिकॉर्ड आपको हैरान कर देगा! 😱 #Shorts",
+    "क्या आप सच में सो रहे हैं? 🧠 #Shorts",
+    "MrBeast के पास इतना पैसा कहाँ से आता है? 💸 #Shorts",
+    "IShowSpeed का असली राज़! 🤯 #Shorts",
+    "अमीर बनने का कड़वा सच! 💰 #Shorts"
   ],
   "upload_logs": [
     {
@@ -496,6 +536,86 @@
       "title": "समुद्र का 'द ब्लोप' साउंड—जिसने वैज्ञानिकों को डरा दिया! 🔊🌊 #Shorts #TheBloop",
       "type": "Gemini Fact Short (Money Mindset)",
       "youtube_id": "ZCYacxxdh1k",
+      "source_id": "gemini_10_wealth_money",
+      "query": "Money Mindset & Billionaire Wealth Secrets"
+    },
+    {
+      "timestamp": "2026-10-23T04:53:13.430989",
+      "title": "MrBeast का सबसे बड़ा सच! 😱 #Shorts",
+      "type": "FactTechz Fallback (mrbeast)",
+      "youtube_id": "ye9CpC-B8X0",
+      "source_id": "fact_fallback_1_mrbeast",
+      "query": "Mind-Blowing Mrbeast Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-23T04:53:19.369935",
+      "title": "People Are Manipulating You! ⚠️ #Shorts",
+      "type": "Gemini Fact Short (Dark Psychology)",
+      "youtube_id": "Qvmxpqz-RWM",
+      "source_id": "gemini_2_dark_psychology",
+      "query": "Dark Psychology & Manipulation Secrets"
+    },
+    {
+      "timestamp": "2026-10-23T04:53:25.814768",
+      "title": "IShowSpeed का डार्क सीक्रेट! 🤯 #Shorts",
+      "type": "FactTechz Fallback (ishowspeed)",
+      "youtube_id": "fwoh_2CcASg",
+      "source_id": "fact_fallback_3_ishowspeed",
+      "query": "Mind-Blowing Ishowspeed Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-23T04:53:31.825055",
+      "title": "Lionel Messi Ka Ye Raaz Nahi Jante Honge! ⚽🔥 #Shorts",
+      "type": "FactTechz Fallback (football)",
+      "youtube_id": "1xRKsPWMVfQ",
+      "source_id": "fact_fallback_4_football",
+      "query": "Mind-Blowing Football Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-23T04:53:37.893344",
+      "title": "समुद्र के नीचे का खौफनाक राज! 🌊😱 #Shorts",
+      "type": "Gemini Fact Short (Deep Ocean Abyss)",
+      "youtube_id": "0m31CQfTfIQ",
+      "source_id": "gemini_5_deep_sea",
+      "query": "Deep Ocean Abyss & Monster Creatures"
+    },
+    {
+      "timestamp": "2026-10-23T04:53:43.967223",
+      "title": "क्या आपको पता है? यह रिकॉर्ड आपको हैरान कर देगा! 😱 #Shorts",
+      "type": "FactTechz Fallback (world_records)",
+      "youtube_id": "dEmz3PkomVY",
+      "source_id": "fact_fallback_6_world_records",
+      "query": "Mind-Blowing World_records Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-23T04:53:50.320175",
+      "title": "क्या आप सच में सो रहे हैं? 🧠 #Shorts",
+      "type": "FactTechz Fallback (mind_blowing)",
+      "youtube_id": "vRkc32A-phc",
+      "source_id": "fact_fallback_7_mind_blowing",
+      "query": "Mind-Blowing Mind_blowing Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-23T04:53:56.150840",
+      "title": "MrBeast के पास इतना पैसा कहाँ से आता है? 💸 #Shorts",
+      "type": "FactTechz Fallback (mrbeast)",
+      "youtube_id": "lUiLfZXPfcU",
+      "source_id": "fact_fallback_8_mrbeast",
+      "query": "Mind-Blowing Mrbeast Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-23T04:54:01.904172",
+      "title": "IShowSpeed का असली राज़! 🤯 #Shorts",
+      "type": "FactTechz Fallback (ishowspeed)",
+      "youtube_id": "CxL-4wYEizw",
+      "source_id": "fact_fallback_9_ishowspeed",
+      "query": "Mind-Blowing Ishowspeed Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-23T04:54:07.901804",
+      "title": "अमीर बनने का कड़वा सच! 💰 #Shorts",
+      "type": "Gemini Fact Short (Money Mindset)",
+      "youtube_id": "vzCBrtVHQYk",
       "source_id": "gemini_10_wealth_money",
       "query": "Money Mindset & Billionaire Wealth Secrets"
     }
