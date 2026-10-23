@@ -499,30 +499,36 @@ def generate_daily_10_batch(
     days_passed = max(0, (date.today() - base_date).days)
     fallback_scripts = hindi_gen.get_todays_5_scripts()
 
+    # -------------------------------------------------------------
+    # 100% PURE VIRAL CREATOR & ACTION CLIPS (MrBeast, Speed, Football, Stunts)
+    # User Command: "jo video viral ho raha hai uss type ka hi banao"
+    # Channel Analytics Proof: MrBeast & Speed get 500 - 1,000+ views!
+    # Zero robotic AI text-to-speech. 100% High-Energy Viral Human Footage.
+    # -------------------------------------------------------------
     DAILY_SLOT_BLUEPRINTS = [
-        # Slot 1: MrBeast Viral Opener (Proven 1,000+ views)
+        # Slot 1: MrBeast Crazy Challenge & Island (Highest CTR Opener)
         {"slot": 1, "type": "creator", "niche": "mrbeast", "offset": 0},
-        # Slot 2: Hindi Dark Psychology / Mind Trick Short
-        {"slot": 2, "type": "fact", "niche": "Dark Psychology & Manipulation Secrets", "theme": "dark_psychology", "fallback_idx": 0},
-        # Slot 3: IShowSpeed Crazy Comedy & Energy (Proven 550+ views)
-        {"slot": 3, "type": "creator", "niche": "ishowspeed", "offset": 0},
-        # Slot 4: Football Magic Skills (Ronaldo / Messi / Neymar)
-        {"slot": 4, "type": "creator", "niche": "football", "offset": 0},
-        # Slot 5: Ocean Abyss & Deep Sea Monster Mystery
-        {"slot": 5, "type": "fact", "niche": "Deep Ocean Abyss & Monster Creatures", "theme": "deep_sea", "fallback_idx": 1},
-        # Slot 6: Insane Guinness World Records & Stunts
-        {"slot": 6, "type": "creator", "niche": "world_records", "offset": 0},
-        # Slot 7: Mind-Blowing Science & Hydraulic Press
-        {"slot": 7, "type": "creator", "niche": "mind_blowing", "offset": 0},
-        # Slot 8: MrBeast Survival / Island Challenge (Evening Super Peak)
-        {"slot": 8, "type": "creator", "niche": "mrbeast", "offset": 2},
-        # Slot 9: IShowSpeed Gaming Rage / Emotional Moment (Evening Super Peak)
-        {"slot": 9, "type": "creator", "niche": "ishowspeed", "offset": 2},
-        # Slot 10: Billionaire Wealth Secrets & Rich Mindset (Night Mindset)
-        {"slot": 10, "type": "fact", "niche": "Money Mindset & Billionaire Wealth Secrets", "theme": "wealth_money", "fallback_idx": 2},
+        # Slot 2: IShowSpeed Funniest Screams & Reactions
+        {"slot": 2, "type": "creator", "niche": "ishowspeed", "offset": 0},
+        # Slot 3: Cristiano Ronaldo & Lionel Messi Impossible Goals
+        {"slot": 3, "type": "creator", "niche": "football", "offset": 0},
+        # Slot 4: Insane Guinness World Records & Stunts
+        {"slot": 4, "type": "creator", "niche": "world_records", "offset": 0},
+        # Slot 5: Mind-Blowing Science & Hydraulic Press
+        {"slot": 5, "type": "creator", "niche": "mind_blowing", "offset": 0},
+        # Slot 6: MrBeast $1,000,000 Giveaway / Survival
+        {"slot": 6, "type": "creator", "niche": "mrbeast", "offset": 1},
+        # Slot 7: IShowSpeed Meets Celebrities & Football Legends
+        {"slot": 7, "type": "creator", "niche": "ishowspeed", "offset": 1},
+        # Slot 8: Neymar Jr & Ronaldo Ankle-Breaker Magic (Dinner Prime Time)
+        {"slot": 8, "type": "creator", "niche": "football", "offset": 1},
+        # Slot 9: MrBeast World's Most Dangerous Escape Room (Evening Super Peak)
+        {"slot": 9, "type": "creator", "niche": "mrbeast", "offset": 2},
+        # Slot 10: IShowSpeed Crazy Stream Rage & Iconic Comedy (Late Night Peak)
+        {"slot": 10, "type": "creator", "niche": "ishowspeed", "offset": 2},
     ]
 
-    print("\n>>> Generating 10 High-Velocity Viral Shorts (70% Viral Creator / 30% FactTechz Cinematic)...")
+    print("\n>>> Generating 10 High-Velocity 100% Viral Shorts (MrBeast, Speed, Football, Stunts)...")
 
     for bp in DAILY_SLOT_BLUEPRINTS:
         idx = bp["slot"]
@@ -538,6 +544,13 @@ def generate_daily_10_batch(
                     niche=niche,
                     day_offset=days_passed + bp["offset"]
                 )
+
+                if not fresh_clip_data or not os.path.exists(fresh_clip_data.get("clip_path", "")):
+                    print(f"Notice: First query failed for {niche}. Retrying with secondary viral query...")
+                    fresh_clip_data = dynamic_engine.download_fresh_clip(
+                        niche=niche,
+                        day_offset=days_passed + bp["offset"] + 5
+                    )
 
                 if not fresh_clip_data or not os.path.exists(fresh_clip_data.get("clip_path", "")):
                     print(f"⚡ Creator download fallback for {niche}. Generating FactTechz Short for slot {idx}...")
