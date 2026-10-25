@@ -83,7 +83,17 @@
     "2n0OG2DCcAQ",
     "loHZ9iwSSbk",
     "iN8BIcZHR14",
-    "A_4V-3dAea8"
+    "A_4V-3dAea8",
+    "DRNQ6LbOxJs",
+    "KYpZcFnNSpI",
+    "uXnaJF5564s",
+    "OjVh2k8rN1s",
+    "IjaG3DM7w3k",
+    "dlLP1Y3ZGy4",
+    "DCXZUKosWSI",
+    "AEqSwl1Z5kg",
+    "CBWdco-BmpM",
+    "m8vu94UJBYc"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -172,7 +182,27 @@
     "fact_fallback_7_ishowspeed",
     "fact_fallback_8_football",
     "fact_fallback_9_mrbeast",
-    "fact_fallback_10_ishowspeed"
+    "fact_fallback_10_ishowspeed",
+    "mrbeast_01",
+    "speed_01",
+    "football_01",
+    "records_03",
+    "science_03",
+    "mrbeast_05",
+    "speed_05",
+    "football_05",
+    "records_04",
+    "science_04",
+    "mrbeast_01",
+    "speed_01",
+    "football_01",
+    "records_03",
+    "science_03",
+    "mrbeast_05",
+    "speed_05",
+    "football_05",
+    "records_04",
+    "science_04"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -249,7 +279,17 @@
     "Mind-Blowing Ishowspeed Secrets & Facts",
     "Mind-Blowing Football Secrets & Facts",
     "Mind-Blowing Mrbeast Secrets & Facts",
-    "Mind-Blowing Ishowspeed Secrets & Facts"
+    "Mind-Blowing Ishowspeed Secrets & Facts",
+    "mrbeast - mrbeast_01",
+    "ishowspeed - speed_01",
+    "football - football_01",
+    "world_records - records_03",
+    "mind_blowing - science_03",
+    "mrbeast - mrbeast_05",
+    "ishowspeed - speed_05",
+    "football - football_05",
+    "world_records - records_04",
+    "mind_blowing - science_04"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -326,7 +366,17 @@
     "IShowSpeed का यह सीक्रेट जानकर उड़ जाएंगे होश! 😱 #Shorts",
     "Football का सबसे खतरनाक Mind Trick! ⚽😱 #Shorts",
     "MrBeast का असली अमीर बनने का राज! 💰 #Shorts",
-    "IShowSpeed का सबसे बड़ा राज! 😱 #Shorts"
+    "IShowSpeed का सबसे बड़ा राज! 😱 #Shorts",
+    "मिस्टर बीस्ट ने दिया करोड़ो का इनाम! 😱💸 #Shorts",
+    "Speed का सबसे CRAZY Moment! 😱 #Shorts",
+    "जब RONALDO ने किया Impossible Goal! 😱 #Shorts",
+    "सबसे अजीब वर्ल्ड रिकॉर्ड जो आपने कभी नहीं देखे! 🤯 #Shorts",
+    "यह CRAZY Science Trick सच में IMPOSSIBLE है! 😱 #Shorts",
+    "MrBeast ने दिया 1 Crore का Island! 😱 #Shorts",
+    "Speed का सबसे INSANE Moment! 😱 #Shorts",
+    "Impossible Football Skills! 😱 असंभव स्किल देख हैरान! #Shorts",
+    "दुनिया का सबसे अजीब वर्ल्ड रिकॉर्ड! 😱🤯 #Shorts",
+    "ये Mind-Blowing Science Trick देख के उड़ जाओगे! 😱 #Shorts"
   ],
   "upload_logs": [
     {
@@ -858,6 +908,86 @@
       "youtube_id": "A_4V-3dAea8",
       "source_id": "fact_fallback_10_ishowspeed",
       "query": "Mind-Blowing Ishowspeed Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T15:34:05.551262",
+      "title": "मिस्टर बीस्ट ने दिया करोड़ो का इनाम! 😱💸 #Shorts",
+      "type": "Real Creator Short (mrbeast)",
+      "youtube_id": "DRNQ6LbOxJs",
+      "source_id": "mrbeast_01",
+      "query": "mrbeast - mrbeast_01"
+    },
+    {
+      "timestamp": "2026-10-25T15:34:23.101504",
+      "title": "Speed का सबसे CRAZY Moment! 😱 #Shorts",
+      "type": "Real Creator Short (ishowspeed)",
+      "youtube_id": "KYpZcFnNSpI",
+      "source_id": "speed_01",
+      "query": "ishowspeed - speed_01"
+    },
+    {
+      "timestamp": "2026-10-25T15:34:37.425696",
+      "title": "जब RONALDO ने किया Impossible Goal! 😱 #Shorts",
+      "type": "Real Creator Short (football)",
+      "youtube_id": "uXnaJF5564s",
+      "source_id": "football_01",
+      "query": "football - football_01"
+    },
+    {
+      "timestamp": "2026-10-25T15:34:54.180826",
+      "title": "सबसे अजीब वर्ल्ड रिकॉर्ड जो आपने कभी नहीं देखे! 🤯 #Shorts",
+      "type": "Real Creator Short (world_records)",
+      "youtube_id": "OjVh2k8rN1s",
+      "source_id": "records_03",
+      "query": "world_records - records_03"
+    },
+    {
+      "timestamp": "2026-10-25T15:35:08.388384",
+      "title": "यह CRAZY Science Trick सच में IMPOSSIBLE है! 😱 #Shorts",
+      "type": "Real Creator Short (mind_blowing)",
+      "youtube_id": "IjaG3DM7w3k",
+      "source_id": "science_03",
+      "query": "mind_blowing - science_03"
+    },
+    {
+      "timestamp": "2026-10-25T15:35:24.189522",
+      "title": "MrBeast ने दिया 1 Crore का Island! 😱 #Shorts",
+      "type": "Real Creator Short (mrbeast)",
+      "youtube_id": "dlLP1Y3ZGy4",
+      "source_id": "mrbeast_05",
+      "query": "mrbeast - mrbeast_05"
+    },
+    {
+      "timestamp": "2026-10-25T15:35:34.788442",
+      "title": "Speed का सबसे INSANE Moment! 😱 #Shorts",
+      "type": "Real Creator Short (ishowspeed)",
+      "youtube_id": "DCXZUKosWSI",
+      "source_id": "speed_05",
+      "query": "ishowspeed - speed_05"
+    },
+    {
+      "timestamp": "2026-10-25T15:35:58.184490",
+      "title": "Impossible Football Skills! 😱 असंभव स्किल देख हैरान! #Shorts",
+      "type": "Real Creator Short (football)",
+      "youtube_id": "AEqSwl1Z5kg",
+      "source_id": "football_05",
+      "query": "football - football_05"
+    },
+    {
+      "timestamp": "2026-10-25T15:36:12.276414",
+      "title": "दुनिया का सबसे अजीब वर्ल्ड रिकॉर्ड! 😱🤯 #Shorts",
+      "type": "Real Creator Short (world_records)",
+      "youtube_id": "CBWdco-BmpM",
+      "source_id": "records_04",
+      "query": "world_records - records_04"
+    },
+    {
+      "timestamp": "2026-10-25T15:36:24.392770",
+      "title": "ये Mind-Blowing Science Trick देख के उड़ जाओगे! 😱 #Shorts",
+      "type": "Real Creator Short (mind_blowing)",
+      "youtube_id": "m8vu94UJBYc",
+      "source_id": "science_04",
+      "query": "mind_blowing - science_04"
     }
   ]
 }
