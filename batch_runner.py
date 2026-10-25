@@ -523,9 +523,9 @@ def generate_daily_10_batch(
         # Slot 8: Neymar Jr & Ronaldo Ankle-Breaker Magic (Dinner Prime Time)
         {"slot": 8, "type": "creator", "niche": "football", "offset": 1},
         # Slot 9: MrBeast World's Most Dangerous Escape Room (Evening Super Peak)
-        {"slot": 9, "type": "creator", "niche": "mrbeast", "offset": 2},
+        {"slot": 9, "type": "creator", "niche": "world_records", "offset": 1},
         # Slot 10: IShowSpeed Crazy Stream Rage & Iconic Comedy (Late Night Peak)
-        {"slot": 10, "type": "creator", "niche": "ishowspeed", "offset": 2},
+        {"slot": 10, "type": "creator", "niche": "mind_blowing", "offset": 1},
     ]
 
     print("\n>>> Generating 10 High-Velocity 100% Viral Shorts (MrBeast, Speed, Football, Stunts)...")
@@ -553,56 +553,21 @@ def generate_daily_10_batch(
                     )
 
                 if not fresh_clip_data or not os.path.exists(fresh_clip_data.get("clip_path", "")):
-                    print(f"⚡ Creator download fallback for {niche}. Generating FactTechz Short for slot {idx}...")
-                    backup_niche = f"Mind-Blowing {niche.capitalize()} Secrets & Facts"
-                    script = None
-                    if gemini_engine.is_available():
-                        try:
-                            script = gemini_engine.generate_fact_script(niche=backup_niche)
-                            time.sleep(1.5)
-                        except Exception:
-                            pass
-                    if not script:
-                        script = fallback_scripts[(idx) % len(fallback_scripts)]
-
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    audio_path = os.path.join(output_batch_dir, f"hindi_audio_{idx}_{timestamp}.mp3")
-                    ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
-                    spoken_text = script.get("spoken_text") or script.get("text", "")
-                    top_banner = script.get("top_hook") or "FACTTECHZ VIRAL ⚡"
-                    scenes = THEME_SCENE_MAP.get(script.get("visual_theme", "")) or get_cinematic_scenes_for_script(script)
-                    valid_scenes = [s for s in scenes if os.path.exists(s)] or ["assets/ai_video_clips/bg_space.mp4"]
-
-                    voice_res = generate_audio(
-                        text=spoken_text,
-                        audio_path=audio_path,
-                        ass_path=ass_path,
-                        voice="hi-IN-MadhurNeural"
-                    )
-
-                    video_path = video_maker.render_video(
-                        audio_path=audio_path,
-                        ass_path=ass_path,
-                        output_filename=video_filename,
-                        duration=voice_res["duration"],
-                        bg_video_paths=valid_scenes,
-                        presenter_video_path=None,
-                        banner_text=top_banner
-                    )
-
-                    generated_videos.append({
-                        "index": idx,
-                        "type": f"FactTechz Fallback ({niche})",
-                        "title": script["title"],
-                        "description": script["description"],
-                        "tags": script["tags"],
-                        "video_path": video_path,
-                        "duration": f"{voice_res['duration']:.1f}s",
-                        "source_id": f"fact_fallback_{idx}_{niche}",
-                        "query": backup_niche
-                    })
-                    print(f"✓ Video {idx} ready (FactTechz Fallback): {video_filename}")
-                    continue
+                    print(f"⚠️ Discovery failed for {niche}. Pulling from pre-cached library...")
+                    all_library = glob.glob(os.path.join("assets", "creator_clips", "*.mp4"))
+                    if all_library:
+                        chosen_clip = all_library[idx % len(all_library)]
+                        fresh_clip_data = {
+                            "clip_path": chosen_clip,
+                            "banner": "VIRAL CREATOR MOMENT! 🔥",
+                            "title": "दुनिया का सबसे हैरान कर देने वाला वीडियो! 😱 #Shorts #Viral",
+                            "description": "Watch till the end! #Shorts #Viral #Trending",
+                            "tags": ["shorts", "viral", niche, "trending"],
+                            "source_id": os.path.basename(chosen_clip),
+                            "query": niche
+                        }
+                    else:
+                        raise RuntimeError(f"No creator clips available for slot {idx} ({niche}).")
 
                 raw_video = fresh_clip_data["clip_path"]
                 banner_text = fresh_clip_data["banner"]

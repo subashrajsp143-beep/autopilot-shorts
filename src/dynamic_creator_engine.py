@@ -87,9 +87,44 @@ class DynamicCreatorEngine:
 
     def download_fresh_clip(self, niche: str, day_offset: int = 0) -> Optional[Dict[str, Any]]:
         """
-        Searches YouTube for fresh clips in the given niche, skipping any clip
-        that was already downloaded or uploaded before.
+        Retrieves a verified fresh viral creator clip for the niche.
+        Priority:
+        1. Pre-cached verified library (assets/creator_clips/clips_index.json) - 100% real human footage,
+           completely immune to datacenter IP blocks and PO token challenges on GitHub Actions.
+        2. Dynamic discovery via yt-dlp across rotating queries.
         """
+        # 1. Check pre-cached verified viral clips library (committed directly in repo)
+        clips_index_file = os.path.join("assets", "creator_clips", "clips_index.json")
+        if os.path.exists(clips_index_file):
+            try:
+                with open(clips_index_file, "r", encoding="utf-8") as f:
+                    cached_index = json.load(f)
+
+                niche_clips = [c for c in cached_index if c.get("niche") == niche]
+                if niche_clips:
+                    unused = [c for c in niche_clips if not self.tracker.is_source_used(c["id"])]
+                    if not unused:
+                        # If all clips in this niche were used in the past, cycle cleanly
+                        unused = niche_clips
+
+                    selected_clip = unused[day_offset % len(unused)]
+                    clip_full_path = os.path.join("assets", "creator_clips", selected_clip["filename"])
+                    if os.path.exists(clip_full_path) and os.path.getsize(clip_full_path) > 100000:
+                        print(f"🎯 Using verified viral clip from pre-cached library: {selected_clip['filename']} ({selected_clip['id']})")
+                        self.tracker.history.setdefault("used_source_ids", []).append(selected_clip["id"])
+                        self.tracker.save()
+                        return {
+                            "clip_path": clip_full_path,
+                            "banner": selected_clip["banner"],
+                            "title": selected_clip["title"],
+                            "description": selected_clip["description"],
+                            "tags": selected_clip["tags"],
+                            "source_id": selected_clip["id"],
+                            "query": f"{niche} - {selected_clip['id']}"
+                        }
+            except Exception as e:
+                print(f"Warning reading pre-cached clips index: {e}")
+
         registry = VIRAL_NICHE_REGISTRY.get(niche, VIRAL_NICHE_REGISTRY["mrbeast"])
         query_idx = (day_offset) % len(registry)
         selected_cfg = registry[query_idx]
@@ -165,6 +200,19 @@ class DynamicCreatorEngine:
                 break
 
         if not downloaded_file:
+            fallback_clips = glob.glob(os.path.join("assets", "creator_clips", "*.mp4"))
+            if fallback_clips:
+                chosen = fallback_clips[day_offset % len(fallback_clips)]
+                print(f"🎯 Using creator clip fallback: {chosen}")
+                return {
+                    "clip_path": chosen,
+                    "banner": selected_cfg["banner"],
+                    "title": f"{selected_cfg['title_prefix']} 😱 #Shorts #Viral",
+                    "description": f"{selected_cfg['title_prefix']}\n\n#Shorts #Viral #Trending #{niche}",
+                    "tags": ["shorts", "viral", niche, "trending"],
+                    "source_id": os.path.basename(chosen),
+                    "query": query
+                }
             print(f"Notice: Could not download any fresh viral clip for niche '{niche}'.")
             return None
 
