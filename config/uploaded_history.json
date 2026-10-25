@@ -73,7 +73,17 @@
     "0x2k-de1w24",
     "M8pgUk0ohoc",
     "4qsiRa3v3Fk",
-    "hVdksATQ64o"
+    "hVdksATQ64o",
+    "H96g8U0iMAM",
+    "SjSy4kzFCXQ",
+    "JfNZsX6oRL0",
+    "HvZhtuxt3_Q",
+    "N3Oqtvl7OH0",
+    "DJ_-hKpwpmk",
+    "2n0OG2DCcAQ",
+    "loHZ9iwSSbk",
+    "iN8BIcZHR14",
+    "A_4V-3dAea8"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -152,6 +162,16 @@
     "fact_fallback_7_ishowspeed",
     "fact_fallback_8_football",
     "fact_fallback_9_mrbeast",
+    "fact_fallback_10_ishowspeed",
+    "fact_fallback_1_mrbeast",
+    "fact_fallback_2_ishowspeed",
+    "fact_fallback_3_football",
+    "fact_fallback_4_world_records",
+    "fact_fallback_5_mind_blowing",
+    "fact_fallback_6_mrbeast",
+    "fact_fallback_7_ishowspeed",
+    "fact_fallback_8_football",
+    "fact_fallback_9_mrbeast",
     "fact_fallback_10_ishowspeed"
   ],
   "used_queries": [
@@ -210,6 +230,16 @@
     "Mind-Blowing Mrbeast Secrets & Facts",
     "Mind-Blowing Ishowspeed Secrets & Facts",
     "Money Mindset & Billionaire Wealth Secrets",
+    "Mind-Blowing Mrbeast Secrets & Facts",
+    "Mind-Blowing Ishowspeed Secrets & Facts",
+    "Mind-Blowing Football Secrets & Facts",
+    "Mind-Blowing World_records Secrets & Facts",
+    "Mind-Blowing Mind_blowing Secrets & Facts",
+    "Mind-Blowing Mrbeast Secrets & Facts",
+    "Mind-Blowing Ishowspeed Secrets & Facts",
+    "Mind-Blowing Football Secrets & Facts",
+    "Mind-Blowing Mrbeast Secrets & Facts",
+    "Mind-Blowing Ishowspeed Secrets & Facts",
     "Mind-Blowing Mrbeast Secrets & Facts",
     "Mind-Blowing Ishowspeed Secrets & Facts",
     "Mind-Blowing Football Secrets & Facts",
@@ -286,7 +316,17 @@
     "IShowSpeed का भयानक सच! ⚡ #Shorts",
     "Football Penalty Dark Psychology Secret ⚽ #Shorts",
     "MrBeast का सबसे गहरा सीक्रेट! 😱 #Shorts",
-    "IShowSpeed का खौफनाक सच! 😱 #Shorts"
+    "IShowSpeed का खौफनाक सच! 😱 #Shorts",
+    "MrBeast का सबसे बड़ा 100 Crore Secret! 🤫 #Shorts",
+    "IShowSpeed Earning Secret Exposed! 😱 #Shorts",
+    "Football Penalty Dark Psychology Trick ⚽️ #Shorts",
+    "11 दिन ना सोने का खौफनाक सच! 🧠 #Shorts",
+    "क्या आप सच में जाग रहे हैं? 🧠🤯 #Shorts",
+    "MrBeast का सबसे बड़ा Secret! 😱 #Shorts",
+    "IShowSpeed का यह सीक्रेट जानकर उड़ जाएंगे होश! 😱 #Shorts",
+    "Football का सबसे खतरनाक Mind Trick! ⚽😱 #Shorts",
+    "MrBeast का असली अमीर बनने का राज! 💰 #Shorts",
+    "IShowSpeed का सबसे बड़ा राज! 😱 #Shorts"
   ],
   "upload_logs": [
     {
@@ -736,6 +776,86 @@
       "title": "IShowSpeed का खौफनाक सच! 😱 #Shorts",
       "type": "FactTechz Fallback (ishowspeed)",
       "youtube_id": "hVdksATQ64o",
+      "source_id": "fact_fallback_10_ishowspeed",
+      "query": "Mind-Blowing Ishowspeed Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:03:35.314692",
+      "title": "MrBeast का सबसे बड़ा 100 Crore Secret! 🤫 #Shorts",
+      "type": "FactTechz Fallback (mrbeast)",
+      "youtube_id": "H96g8U0iMAM",
+      "source_id": "fact_fallback_1_mrbeast",
+      "query": "Mind-Blowing Mrbeast Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:03:41.605016",
+      "title": "IShowSpeed Earning Secret Exposed! 😱 #Shorts",
+      "type": "FactTechz Fallback (ishowspeed)",
+      "youtube_id": "SjSy4kzFCXQ",
+      "source_id": "fact_fallback_2_ishowspeed",
+      "query": "Mind-Blowing Ishowspeed Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:03:48.278783",
+      "title": "Football Penalty Dark Psychology Trick ⚽️ #Shorts",
+      "type": "FactTechz Fallback (football)",
+      "youtube_id": "JfNZsX6oRL0",
+      "source_id": "fact_fallback_3_football",
+      "query": "Mind-Blowing Football Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:03:55.381885",
+      "title": "11 दिन ना सोने का खौफनाक सच! 🧠 #Shorts",
+      "type": "FactTechz Fallback (world_records)",
+      "youtube_id": "HvZhtuxt3_Q",
+      "source_id": "fact_fallback_4_world_records",
+      "query": "Mind-Blowing World_records Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:04:02.845429",
+      "title": "क्या आप सच में जाग रहे हैं? 🧠🤯 #Shorts",
+      "type": "FactTechz Fallback (mind_blowing)",
+      "youtube_id": "N3Oqtvl7OH0",
+      "source_id": "fact_fallback_5_mind_blowing",
+      "query": "Mind-Blowing Mind_blowing Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:04:09.321606",
+      "title": "MrBeast का सबसे बड़ा Secret! 😱 #Shorts",
+      "type": "FactTechz Fallback (mrbeast)",
+      "youtube_id": "DJ_-hKpwpmk",
+      "source_id": "fact_fallback_6_mrbeast",
+      "query": "Mind-Blowing Mrbeast Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:04:15.750857",
+      "title": "IShowSpeed का यह सीक्रेट जानकर उड़ जाएंगे होश! 😱 #Shorts",
+      "type": "FactTechz Fallback (ishowspeed)",
+      "youtube_id": "2n0OG2DCcAQ",
+      "source_id": "fact_fallback_7_ishowspeed",
+      "query": "Mind-Blowing Ishowspeed Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:04:22.569364",
+      "title": "Football का सबसे खतरनाक Mind Trick! ⚽😱 #Shorts",
+      "type": "FactTechz Fallback (football)",
+      "youtube_id": "loHZ9iwSSbk",
+      "source_id": "fact_fallback_8_football",
+      "query": "Mind-Blowing Football Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:04:28.863968",
+      "title": "MrBeast का असली अमीर बनने का राज! 💰 #Shorts",
+      "type": "FactTechz Fallback (mrbeast)",
+      "youtube_id": "iN8BIcZHR14",
+      "source_id": "fact_fallback_9_mrbeast",
+      "query": "Mind-Blowing Mrbeast Secrets & Facts"
+    },
+    {
+      "timestamp": "2026-10-25T05:04:34.967705",
+      "title": "IShowSpeed का सबसे बड़ा राज! 😱 #Shorts",
+      "type": "FactTechz Fallback (ishowspeed)",
+      "youtube_id": "A_4V-3dAea8",
       "source_id": "fact_fallback_10_ishowspeed",
       "query": "Mind-Blowing Ishowspeed Secrets & Facts"
     }
