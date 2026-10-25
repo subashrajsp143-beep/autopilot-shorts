@@ -597,6 +597,14 @@ def generate_daily_10_batch(
                     duration=29.0
                 )
 
+                thumb_filename = f"thumb_{idx:02d}_{niche}.jpg"
+                thumb_path = dynamic_engine.generate_high_impact_thumbnail(
+                    video_path=raw_video,
+                    banner_text=banner_text,
+                    output_filename=thumb_filename,
+                    timestamp_sec=2.5
+                )
+
                 generated_videos.append({
                     "index": idx,
                     "type": f"Real Creator Short ({niche})",
@@ -604,6 +612,7 @@ def generate_daily_10_batch(
                     "description": clip_desc,
                     "tags": clip_tags,
                     "video_path": video_path,
+                    "thumbnail_path": thumb_path,
                     "duration": "29.0s",
                     "source_id": source_id,
                     "query": query_used
@@ -708,6 +717,8 @@ def generate_daily_10_batch(
                 for v in generated_videos:
                     dest = os.path.join(folder, os.path.basename(v["video_path"]))
                     shutil.copy2(v["video_path"], dest)
+                    if v.get("thumbnail_path") and os.path.exists(v["thumbnail_path"]):
+                        shutil.copy2(v["thumbnail_path"], os.path.join(folder, os.path.basename(v["thumbnail_path"])))
                 shutil.copy2(metadata_path, os.path.join(folder, "titles_and_tags.json"))
                 desktop_folder = folder
                 print(f"\n📂 All 10 videos copied to Desktop -> {desktop_folder}")
@@ -730,7 +741,8 @@ def generate_daily_10_batch(
                     description=v["description"],
                     tags=v["tags"],
                     privacy_status="public",
-                    publish_at=slot
+                    publish_at=slot,
+                    thumbnail_path=v.get("thumbnail_path")
                 )
                 successful_uploads += 1
                 tracker.record_upload(

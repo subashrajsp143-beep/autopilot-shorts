@@ -5,6 +5,7 @@ Features:
 - Handles OAuth2 browser login once and persists session in token.json
 - Automatically formats title & description for YouTube Shorts algorithm (#Shorts)
 - Sets Category (Education / Entertainment), Tags, and Privacy status
+- Sets High-Definition custom thumbnails via YouTube Data API
 """
 
 import os
@@ -80,6 +81,30 @@ class YouTubeUploader:
         self.youtube = build("youtube", "v3", credentials=creds)
         print("YouTube authentication successful!")
 
+    def set_thumbnail(self, video_id: str, thumbnail_path: str) -> bool:
+        """
+        Uploads and sets a high-definition custom thumbnail for a YouTube video.
+        """
+        if not self.youtube:
+            self.authenticate()
+
+        if not thumbnail_path or not os.path.exists(thumbnail_path):
+            print(f"Notice: Thumbnail file not found: {thumbnail_path}")
+            return False
+
+        try:
+            print(f"🖼️ Setting custom HD thumbnail for video {video_id}...")
+            thumb_media = MediaFileUpload(thumbnail_path, mimetype="image/jpeg")
+            res = self.youtube.thumbnails().set(
+                videoId=video_id,
+                media_body=thumb_media
+            ).execute()
+            print(f"✓ Custom HD thumbnail set successfully for {video_id}!")
+            return True
+        except Exception as e:
+            print(f"Notice: Could not set custom thumbnail for {video_id}: {e}")
+            return False
+
     def upload_short(
         self,
         video_path: str,
@@ -88,11 +113,13 @@ class YouTubeUploader:
         tags: Optional[List[str]] = None,
         privacy_status: str = "public",
         category_id: str = "27",  # 27 = Education, 24 = Entertainment
-        publish_at: Optional[str] = None
+        publish_at: Optional[str] = None,
+        thumbnail_path: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Uploads a video to YouTube as a Short.
         Supports scheduled publishing via publish_at (RFC 3339 formatted ISO UTC timestamp).
+        Optionally sets a custom high-definition thumbnail.
         """
         if not self.youtube:
             self.authenticate()
@@ -152,6 +179,9 @@ class YouTubeUploader:
         video_id = response.get("id")
         video_url = f"https://youtube.com/shorts/{video_id}"
         print(f"Upload complete! Watch live: {video_url}")
+
+        if thumbnail_path:
+            self.set_thumbnail(video_id, thumbnail_path)
 
         return {
             "platform": "YouTube",

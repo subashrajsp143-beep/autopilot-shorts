@@ -8,6 +8,7 @@ Guarantees 100% unique footage by integrating with HistoryTracker.
 
 import os
 import sys
+import re
 import glob
 import json
 import random
@@ -22,7 +23,10 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-from history_tracker import HistoryTracker
+try:
+    from history_tracker import HistoryTracker
+except ModuleNotFoundError:
+    from src.history_tracker import HistoryTracker
 
 # 50+ Rotating high-CTR viral queries across 5 popular niches (with verified direct IDs)
 VIRAL_NICHE_REGISTRY = {
@@ -72,6 +76,25 @@ class DynamicCreatorEngine:
         os.makedirs(self.downloads_dir, exist_ok=True)
         os.makedirs(self.output_dir, exist_ok=True)
 
+    @staticmethod
+    def _clean_banner(banner_text: str) -> str:
+        """Strips emojis to prevent missing-glyph rectangle boxes in ffmpeg drawtext."""
+        cleaned = re.sub(r'[^\w\s!?,.$#@\-%/:]', '', banner_text)
+        cleaned = cleaned.replace(":", "\\:").replace("'", "").replace('"', "").strip()
+        return cleaned
+
+    @staticmethod
+    def _get_font_opt() -> str:
+        if os.path.exists("C:/Windows/Fonts/impact.ttf"):
+            return "fontfile='C\\:/Windows/Fonts/impact.ttf':"
+        elif os.path.exists("C:/Windows/Fonts/arialbd.ttf"):
+            return "fontfile='C\\:/Windows/Fonts/arialbd.ttf':"
+        elif os.path.exists("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"):
+            return "fontfile='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf':"
+        elif os.path.exists("/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf"):
+            return "fontfile='/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf':"
+        return ""
+
     def _get_video_duration(self, file_path: str) -> float:
         try:
             cmd = [
@@ -89,8 +112,8 @@ class DynamicCreatorEngine:
         """
         Retrieves a verified fresh viral creator clip for the niche.
         Priority:
-        1. Pre-cached verified library (assets/creator_clips/clips_index.json) - 100% real human footage,
-           completely immune to datacenter IP blocks and PO token challenges on GitHub Actions.
+        1. Pre-cached verified library (assets/creator_clips/clips_index.json) - 100% native 1080x1920
+           full-screen HD creator footage, completely immune to datacenter IP blocks and PO token challenges.
         2. Dynamic discovery via yt-dlp across rotating queries.
         """
         # 1. Check pre-cached verified viral clips library (committed directly in repo)
@@ -243,34 +266,22 @@ class DynamicCreatorEngine:
     ) -> str:
         """
         Formats real creator video into high-retention 9:16 vertical Short:
-        - Studio blurred background
-        - Centered sharp foreground
-        - Eye-catching yellow top hook banner
-        - Audio amplification
+        - 100% Full-Screen 1080x1920 (ZERO blurred bars)
+        - Eye-catching yellow top hook banner (emojis stripped for font compatibility)
+        - Audio amplification & crisp encoding
         """
         output_path = os.path.join(self.output_dir, output_filename)
         total_dur = self._get_video_duration(video_path)
         start_time = 0.0
         dur_to_render = min(duration, total_dur) if total_dur > 5.0 else duration
 
-        clean_banner = banner_text.replace(":", "\\:").replace("'", "").replace('"', "")
+        clean_banner = self._clean_banner(banner_text)
+        font_opt = self._get_font_opt()
 
-        font_opt = ""
-        if os.path.exists("C:/Windows/Fonts/impact.ttf"):
-            font_opt = "fontfile='C\\:/Windows/Fonts/impact.ttf':"
-        elif os.path.exists("C:/Windows/Fonts/arialbd.ttf"):
-            font_opt = "fontfile='C\\:/Windows/Fonts/arialbd.ttf':"
-        elif os.path.exists("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"):
-            font_opt = "fontfile='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf':"
-        elif os.path.exists("/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf"):
-            font_opt = "fontfile='/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf':"
-
+        # 100% Full-Screen 1080x1920 scaling & cropping (ZERO letterbox / ZERO boxblur)
         filter_complex = (
-            "[0:v]split=2[bg][fg];"
-            "[bg]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=25:5[bgblur];"
-            "[fg]scale=1080:-1[fgscaled];"
-            "[bgblur][fgscaled]overlay=(W-w)/2:(H-h)/2[base];"
-            f"[base]drawtext={font_opt}text='{clean_banner}':fontsize=54:fontcolor=yellow:box=1:boxcolor=black@0.8:boxborderw=20:x=(w-text_w)/2:y=280[v]"
+            "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920[scaled];"
+            f"[scaled]drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=240[v]"
         )
 
         cmd = [
@@ -283,20 +294,69 @@ class DynamicCreatorEngine:
             "-map", "0:a?",
             "-c:v", "libx264",
             "-preset", "fast",
-            "-crf", "22",
+            "-crf", "20",
             "-c:a", "aac",
             "-b:a", "192k",
             output_path
         ]
 
-        print(f"🎬 Rendering vertical Short -> {output_path} (from {start_time:.1f}s to {start_time + dur_to_render:.1f}s)...")
+        print(f"🎬 Rendering 100% Full-Screen Short -> {output_path} (from {start_time:.1f}s to {start_time + dur_to_render:.1f}s)...")
         res = subprocess.run(cmd, capture_output=True, text=True)
         if res.returncode != 0:
             print("FFmpeg error:", res.stderr[-400:])
             raise RuntimeError(f"FFmpeg render failed: {res.stderr[-200:]}")
 
-        print(f"✓ Vertical Short ready: {output_path}")
+        print(f"✓ Full-Screen Vertical Short ready: {output_path}")
         return output_path
+
+    def generate_high_impact_thumbnail(
+        self,
+        video_path: str,
+        banner_text: str,
+        output_filename: str,
+        timestamp_sec: float = 2.5
+    ) -> str:
+        """
+        Extracts a high-contrast action frame and creates a 1080x1920 Full-Screen HD thumbnail
+        with vibrant contrast/saturation and bold yellow hook text.
+        """
+        output_path = os.path.join(self.output_dir, output_filename)
+        clean_banner = self._clean_banner(banner_text)
+        font_opt = self._get_font_opt()
+
+        vf = (
+            "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
+            "eq=contrast=1.12:saturation=1.2,"
+            f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=240"
+        )
+
+        cmd = [
+            "ffmpeg", "-y",
+            "-ss", f"{timestamp_sec:.3f}",
+            "-i", video_path,
+            "-vframes", "1",
+            "-vf", vf,
+            "-q:v", "2",
+            output_path
+        ]
+
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        if res.returncode != 0:
+            fallback_cmd = [
+                "ffmpeg", "-y",
+                "-ss", f"{timestamp_sec:.3f}",
+                "-i", video_path,
+                "-vframes", "1",
+                "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920",
+                "-q:v", "2",
+                output_path
+            ]
+            subprocess.run(fallback_cmd, capture_output=True, text=True)
+
+        if os.path.exists(output_path) and os.path.getsize(output_path) > 10000:
+            print(f"✓ High-Impact HD Thumbnail ready: {output_path} ({os.path.getsize(output_path)//1024} KB)")
+            return output_path
+        return ""
 
 
 if __name__ == "__main__":
