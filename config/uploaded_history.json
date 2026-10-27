@@ -103,7 +103,17 @@
     "U5nuGD3wjzg",
     "SZFEQhLAVb8",
     "ZWFswd2Vpjg",
-    "6Ih_cI50BS0"
+    "6Ih_cI50BS0",
+    "1PWsT4F4TwM",
+    "fb6eNicfnlU",
+    "xX8hkII_zkA",
+    "HfA8OWvELok",
+    "b1M0l2SVCr0",
+    "NA3vI75eVGI",
+    "9Svxo0m3vrs",
+    "v92xOpBv-DA",
+    "conU3OX6tLQ",
+    "NOQECrFR0-0"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -233,7 +243,27 @@
     "speed_native_01",
     "football_native_01",
     "records_native_01",
-    "science_native_01"
+    "science_native_01",
+    "mrbeast_native_03",
+    "speed_native_02",
+    "football_native_02",
+    "records_native_02",
+    "science_native_02",
+    "mrbeast_native_02",
+    "speed_native_03",
+    "football_native_03",
+    "records_native_03",
+    "science_native_03",
+    "mrbeast_native_03",
+    "speed_native_02",
+    "football_native_02",
+    "records_native_02",
+    "science_native_02",
+    "mrbeast_native_02",
+    "speed_native_03",
+    "football_native_03",
+    "records_native_03",
+    "science_native_03"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -330,7 +360,17 @@
     "ishowspeed - speed_native_01",
     "football - football_native_01",
     "world_records - records_native_01",
-    "mind_blowing - science_native_01"
+    "mind_blowing - science_native_01",
+    "mrbeast - mrbeast_native_03",
+    "ishowspeed - speed_native_02",
+    "football - football_native_02",
+    "world_records - records_native_02",
+    "mind_blowing - science_native_02",
+    "mrbeast - mrbeast_native_02",
+    "ishowspeed - speed_native_03",
+    "football - football_native_03",
+    "world_records - records_native_03",
+    "mind_blowing - science_native_03"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -427,7 +467,17 @@
     "जब Speed ने बोली Native Language! 😱 #Shorts",
     "सबसे घातक फ्री-किक! 😱 यह कैसे किया? #Shorts",
     "सबसे अजीब वर्ल्ड रिकॉर्ड्स! 😱 देखके होश उड़ जाएंगे #Shorts",
-    "ये Science Experiment होश उड़ा देगा! 😱 #Shorts"
+    "ये Science Experiment होश उड़ा देगा! 😱 #Shorts",
+    "जब MrBeast ने दिया $1,000,000 Cash! 😱 #Shorts",
+    "IShowSpeed की ये हरकत देख सब हैरान! 😱 #Shorts",
+    "यह Football Skill देखकर दंग रह जाओगे! 😱🔥 #Shorts",
+    "ये World Record देख कर होश उड़ जाएंगे! 😱 #Shorts",
+    "यह Science Experiment देखकर HOSH UD GAYE! 😱 #Shorts",
+    "MrBeast ने दिया सबसे बड़ा Challenge! 😱 #Shorts",
+    "जब Speed ने Native भाषा बोली! 😱 #Shorts",
+    "Football का सबसे खतरनाक Moment! 😱 #Shorts",
+    "सबसे अजीब वर्ल्ड रिकॉर्ड! 😱 Impossible Record #Shorts",
+    "यह Science Magic देख के दिमाग हिल जाएगा! 😱 #Shorts"
   ],
   "upload_logs": [
     {
@@ -1119,6 +1169,86 @@
       "youtube_id": "6Ih_cI50BS0",
       "source_id": "science_native_01",
       "query": "mind_blowing - science_native_01"
+    },
+    {
+      "timestamp": "2026-10-27T04:44:53.864374",
+      "title": "जब MrBeast ने दिया $1,000,000 Cash! 😱 #Shorts",
+      "type": "Real Creator Short (mrbeast)",
+      "youtube_id": "1PWsT4F4TwM",
+      "source_id": "mrbeast_native_03",
+      "query": "mrbeast - mrbeast_native_03"
+    },
+    {
+      "timestamp": "2026-10-27T04:45:03.206050",
+      "title": "IShowSpeed की ये हरकत देख सब हैरान! 😱 #Shorts",
+      "type": "Real Creator Short (ishowspeed)",
+      "youtube_id": "fb6eNicfnlU",
+      "source_id": "speed_native_02",
+      "query": "ishowspeed - speed_native_02"
+    },
+    {
+      "timestamp": "2026-10-27T04:45:12.388884",
+      "title": "यह Football Skill देखकर दंग रह जाओगे! 😱🔥 #Shorts",
+      "type": "Real Creator Short (football)",
+      "youtube_id": "xX8hkII_zkA",
+      "source_id": "football_native_02",
+      "query": "football - football_native_02"
+    },
+    {
+      "timestamp": "2026-10-27T04:45:22.947582",
+      "title": "ये World Record देख कर होश उड़ जाएंगे! 😱 #Shorts",
+      "type": "Real Creator Short (world_records)",
+      "youtube_id": "HfA8OWvELok",
+      "source_id": "records_native_02",
+      "query": "world_records - records_native_02"
+    },
+    {
+      "timestamp": "2026-10-27T04:45:32.242957",
+      "title": "यह Science Experiment देखकर HOSH UD GAYE! 😱 #Shorts",
+      "type": "Real Creator Short (mind_blowing)",
+      "youtube_id": "b1M0l2SVCr0",
+      "source_id": "science_native_02",
+      "query": "mind_blowing - science_native_02"
+    },
+    {
+      "timestamp": "2026-10-27T04:45:41.114964",
+      "title": "MrBeast ने दिया सबसे बड़ा Challenge! 😱 #Shorts",
+      "type": "Real Creator Short (mrbeast)",
+      "youtube_id": "NA3vI75eVGI",
+      "source_id": "mrbeast_native_02",
+      "query": "mrbeast - mrbeast_native_02"
+    },
+    {
+      "timestamp": "2026-10-27T04:45:54.652034",
+      "title": "जब Speed ने Native भाषा बोली! 😱 #Shorts",
+      "type": "Real Creator Short (ishowspeed)",
+      "youtube_id": "9Svxo0m3vrs",
+      "source_id": "speed_native_03",
+      "query": "ishowspeed - speed_native_03"
+    },
+    {
+      "timestamp": "2026-10-27T04:46:03.321446",
+      "title": "Football का सबसे खतरनाक Moment! 😱 #Shorts",
+      "type": "Real Creator Short (football)",
+      "youtube_id": "v92xOpBv-DA",
+      "source_id": "football_native_03",
+      "query": "football - football_native_03"
+    },
+    {
+      "timestamp": "2026-10-27T04:46:12.459289",
+      "title": "सबसे अजीब वर्ल्ड रिकॉर्ड! 😱 Impossible Record #Shorts",
+      "type": "Real Creator Short (world_records)",
+      "youtube_id": "conU3OX6tLQ",
+      "source_id": "records_native_03",
+      "query": "world_records - records_native_03"
+    },
+    {
+      "timestamp": "2026-10-27T04:46:21.669052",
+      "title": "यह Science Magic देख के दिमाग हिल जाएगा! 😱 #Shorts",
+      "type": "Real Creator Short (mind_blowing)",
+      "youtube_id": "NOQECrFR0-0",
+      "source_id": "science_native_03",
+      "query": "mind_blowing - science_native_03"
     }
   ]
 }
