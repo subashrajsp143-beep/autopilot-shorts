@@ -3,6 +3,7 @@ Daily Views & Performance Tracker
 ---------------------------------
 Fetches latest Shorts performance from channel @MiniTalesWorldTV,
 ranks them by view count, and provides actionable retention feedback.
+Uses python -m yt_dlp for Windows Application Control compliance.
 """
 
 import os
@@ -18,12 +19,13 @@ if sys.platform == "win32":
         pass
 
 
-def track_views(limit: int = 25):
+def track_views(limit: int = 35):
     channel_url = "https://www.youtube.com/@MiniTalesWorldTV/shorts"
     print(f"📊 Fetching latest {limit} Shorts performance from {channel_url}...\n")
 
     cmd = [
-        "yt-dlp",
+        sys.executable,
+        "-m", "yt_dlp",
         "--flat-playlist",
         "--dump-json",
         channel_url
@@ -55,17 +57,16 @@ def track_views(limit: int = 25):
     recent_videos = videos[:limit]
     total_recent_views = sum(v["views"] for v in recent_videos)
 
-    print("=" * 75)
-    print(f"🔥 TOP PERFORMING SHORTS (Last {len(recent_videos)} uploads | Total: {total_recent_views} views)")
-    print("=" * 75)
+    print("=" * 80)
+    print(f"🔥 LATEST SHORTS PERFORMANCE (Showing {len(recent_videos)} videos | Total: {total_recent_views} views)")
+    print("=" * 80)
     print(f"{'VIEWS':>8}  |  {'VIDEO ID':<12}  |  {'TITLE'}")
-    print("-" * 75)
+    print("-" * 80)
 
-    sorted_vids = sorted(recent_videos, key=lambda x: x["views"], reverse=True)
-    for v in sorted_vids:
-        print(f"{v['views']:>8}  |  {v['id']:<12}  |  {v['title'][:48]}")
+    for v in recent_videos:
+        print(f"{v['views']:>8}  |  {v['id']:<12}  |  {v['title'][:55]}")
 
-    print("=" * 75)
+    print("=" * 80)
 
 
 if __name__ == "__main__":
