@@ -5,7 +5,7 @@ __pycache__/
 *.pyc
 .env
 config/client_secrets.json
-config/youtube_token.json
+config/youtube_token*.json
 config/login_url.txt
 trigger_daily_autopilot.ps1
 config/daily_state.json
