@@ -61,6 +61,14 @@ def ensure_credentials():
             if not os.path.exists(yt_path) and "youtube_token" in payload:
                 with open(yt_path, "w", encoding="utf-8") as f:
                     f.write(payload["youtube_token"])
+            ch2_path = "config/youtube_token_ch2.json"
+            if not os.path.exists(ch2_path) and "youtube_token_ch2" in payload:
+                with open(ch2_path, "w", encoding="utf-8") as f:
+                    f.write(payload["youtube_token_ch2"])
+            ch3_path = "config/youtube_token_ch3.json"
+            if not os.path.exists(ch3_path) and "youtube_token_ch3" in payload:
+                with open(ch3_path, "w", encoding="utf-8") as f:
+                    f.write(payload["youtube_token_ch3"])
             if "gemini_api_key" in payload and not os.environ.get("GEMINI_API_KEY"):
                 os.environ["GEMINI_API_KEY"] = payload["gemini_api_key"]
             print("Credentials unpacked successfully (including Gemini API Key).")
@@ -506,26 +514,26 @@ def generate_daily_10_batch(
     # Zero robotic AI text-to-speech. 100% High-Energy Viral Human Footage.
     # -------------------------------------------------------------
     DAILY_SLOT_BLUEPRINTS = [
-        # Slot 1: MrBeast Crazy Challenge & Island (Highest CTR Opener)
+        # Slot 1: MrBeast Crazy Challenge & Big Money (Highest CTR Opener)
         {"slot": 1, "type": "creator", "niche": "mrbeast", "offset": 0},
         # Slot 2: IShowSpeed Funniest Screams & Reactions
         {"slot": 2, "type": "creator", "niche": "ishowspeed", "offset": 0},
-        # Slot 3: Cristiano Ronaldo & Lionel Messi Impossible Goals
+        # Slot 3: Cristiano Ronaldo Impossible Bicycle Kick & Goals
         {"slot": 3, "type": "creator", "niche": "football", "offset": 0},
-        # Slot 4: Insane Guinness World Records & Stunts
-        {"slot": 4, "type": "creator", "niche": "world_records", "offset": 0},
-        # Slot 5: Mind-Blowing Science & Hydraulic Press
-        {"slot": 5, "type": "creator", "niche": "mind_blowing", "offset": 0},
-        # Slot 6: MrBeast $1,000,000 Giveaway / Survival
-        {"slot": 6, "type": "creator", "niche": "mrbeast", "offset": 1},
-        # Slot 7: IShowSpeed Meets Celebrities & Football Legends
-        {"slot": 7, "type": "creator", "niche": "ishowspeed", "offset": 1},
-        # Slot 8: Neymar Jr & Ronaldo Ankle-Breaker Magic (Dinner Prime Time)
-        {"slot": 8, "type": "creator", "niche": "football", "offset": 1},
-        # Slot 9: MrBeast World's Most Dangerous Escape Room (Evening Super Peak)
-        {"slot": 9, "type": "creator", "niche": "world_records", "offset": 1},
-        # Slot 10: IShowSpeed Crazy Stream Rage & Iconic Comedy (Late Night Peak)
-        {"slot": 10, "type": "creator", "niche": "mind_blowing", "offset": 1},
+        # Slot 4: Cristiano Ronaldo World Cup Free Kicks & Magic
+        {"slot": 4, "type": "creator", "niche": "football", "offset": 1},
+        # Slot 5: MrBeast $1,000,000 Giveaway & Mystery Briefcase
+        {"slot": 5, "type": "creator", "niche": "mrbeast", "offset": 1},
+        # Slot 6: IShowSpeed Dude Perfect Obstacle Gauntlet & Comedy
+        {"slot": 6, "type": "creator", "niche": "ishowspeed", "offset": 1},
+        # Slot 7: Cristiano Ronaldo Juventus Standing Ovation
+        {"slot": 7, "type": "creator", "niche": "football", "offset": 2},
+        # Slot 8: MrBeast Last to Fall Wins $100,000
+        {"slot": 8, "type": "creator", "niche": "mrbeast", "offset": 2},
+        # Slot 9: IShowSpeed 60-Second Silence Challenge
+        {"slot": 9, "type": "creator", "niche": "ishowspeed", "offset": 2},
+        # Slot 10: Cristiano Ronaldo Miraculous Goalline Clearance
+        {"slot": 10, "type": "creator", "niche": "football", "offset": 3},
     ]
 
     print("\n>>> Generating 10 High-Velocity 100% Viral Shorts (MrBeast, Speed, Football, Stunts)...")
@@ -725,39 +733,58 @@ def generate_daily_10_batch(
         except Exception as e:
             print(f"Warning: Could not copy to desktop: {e}")
 
-    # Optional Auto-Upload
+    # Optional Auto-Upload (Multi-Channel Support)
     if upload_yt:
-        print("\n>> Uploading all 10 videos with Indian Peak Hours Schedule (11:00 AM - 10:00 PM IST)...")
-        yt_uploader = YouTubeUploader()
-        tracker = HistoryTracker()
-        schedules = get_indian_peak_schedule(len(generated_videos))
-        successful_uploads = 0
-        for idx, v in enumerate(generated_videos):
-            slot = schedules[idx]
-            try:
-                upload_res = yt_uploader.upload_short(
-                    video_path=v["video_path"],
-                    title=v["title"],
-                    description=v["description"],
-                    tags=v["tags"],
-                    privacy_status="public",
-                    publish_at=slot,
-                    thumbnail_path=v.get("thumbnail_path")
-                )
-                successful_uploads += 1
-                tracker.record_upload(
-                    title=v["title"],
-                    video_type=v["type"],
-                    youtube_video_id=upload_res.get("video_id"),
-                    source_id=v.get("source_id"),
-                    query=v.get("query")
-                )
-                time.sleep(4)  # pause between uploads
-            except Exception as e:
-                print(f"YouTube upload failed for {v['title']}: {e}")
+        channels = [
+            {"id": 1, "name": "Channel 1 (MiniTalesWorld)", "token": "config/youtube_token.json"}
+        ]
+        if os.path.exists("config/youtube_token_ch2.json"):
+            channels.append({"id": 2, "name": "Channel 2", "token": "config/youtube_token_ch2.json"})
+        if os.path.exists("config/youtube_token_ch3.json"):
+            channels.append({"id": 3, "name": "Channel 3", "token": "config/youtube_token_ch3.json"})
 
-        if generated_videos and successful_uploads == 0:
-            raise RuntimeError("All YouTube uploads failed (likely daily quota or upload limit exceeded).")
+        print(f"\n>> Detected {len(channels)} active YouTube channel(s) for auto-upload.")
+        tracker = HistoryTracker()
+        total_successful_uploads = 0
+
+        for ch in channels:
+            print("\n" + "=" * 55)
+            print(f"🚀 Uploading Batch to {ch['name']}...")
+            print("=" * 55)
+            try:
+                uploader = YouTubeUploader(token_path=ch["token"])
+                schedules = get_indian_peak_schedule(len(generated_videos))
+                ch_success = 0
+                for idx, v in enumerate(generated_videos):
+                    slot = schedules[idx]
+                    try:
+                        upload_res = uploader.upload_short(
+                            video_path=v["video_path"],
+                            title=v["title"],
+                            description=v["description"],
+                            tags=v["tags"],
+                            privacy_status="public",
+                            publish_at=slot,
+                            thumbnail_path=v.get("thumbnail_path")
+                        )
+                        ch_success += 1
+                        total_successful_uploads += 1
+                        tracker.record_upload(
+                            title=v["title"],
+                            video_type=f"{v['type']} [{ch['name']}]",
+                            youtube_video_id=upload_res.get("video_id"),
+                            source_id=v.get("source_id"),
+                            query=v.get("query")
+                        )
+                        time.sleep(4)  # pause between uploads
+                    except Exception as e:
+                        print(f"[{ch['name']}] YouTube upload failed for '{v['title']}': {e}")
+                print(f"✓ {ch_success} / {len(generated_videos)} videos uploaded to {ch['name']}!")
+            except Exception as e:
+                print(f"❌ Failed to upload to {ch['name']}: {e}")
+
+        if generated_videos and total_successful_uploads == 0:
+            raise RuntimeError("All YouTube uploads across all channels failed.")
 
     if upload_meta:
         print("\n>> Uploading to Facebook/Instagram...")
