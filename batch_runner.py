@@ -463,7 +463,8 @@ def generate_daily_10_batch(
     copy_to_desktop: bool = False,
     upload_yt: bool = False,
     upload_meta: bool = False,
-    force: bool = False
+    force: bool = False,
+    target_channels: Optional[List[int]] = None
 ):
     print("=" * 65)
     print("🚀 GENERATING DAILY BATCH OF 10 VIRAL SHORTS (HINDI & CREATORS)")
@@ -743,7 +744,10 @@ def generate_daily_10_batch(
         if os.path.exists("config/youtube_token_ch3.json"):
             channels.append({"id": 3, "name": "Channel 3", "token": "config/youtube_token_ch3.json"})
 
-        print(f"\n>> Detected {len(channels)} active YouTube channel(s) for auto-upload.")
+        if target_channels:
+            channels = [c for c in channels if c["id"] in target_channels]
+
+        print(f"\n>> Targeting {len(channels)} active YouTube channel(s) for auto-upload: {[c['name'] for c in channels]}")
         tracker = HistoryTracker()
         total_successful_uploads = 0
 
@@ -813,6 +817,7 @@ if __name__ == "__main__":
     parser.add_argument("--skip-gen", action="store_true", help="Upload existing generated batch without re-rendering")
     parser.add_argument("--force", action="store_true", help="Force upload bypassing daily duplicate guard")
     parser.add_argument("--desktop", action="store_true", help="Copy all 10 generated videos to Desktop folder")
+    parser.add_argument("--channels", type=str, default="", help="Target specific channel IDs, e.g. '2,3'")
     args = parser.parse_args()
 
     upload_yt = args.upload_yt or args.upload_all
@@ -835,9 +840,11 @@ if __name__ == "__main__":
         else:
             print("No existing batch found. Run without --skip-gen first.")
     else:
+        target_chs = [int(x.strip()) for x in args.channels.split(",") if x.strip().isdigit()] if args.channels else None
         generate_daily_10_batch(
             copy_to_desktop=copy_to_desktop,
             upload_yt=upload_yt,
             upload_meta=upload_meta,
-            force=args.force
+            force=args.force,
+            target_channels=target_chs
         )
