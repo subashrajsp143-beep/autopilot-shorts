@@ -123,7 +123,17 @@
     "o6NaQ1FVrl8",
     "sLChnQa9wcE",
     "PFTCoFTPkFQ",
-    "ylc_fR7YV6o"
+    "ylc_fR7YV6o",
+    "g5oNeGCH7HE",
+    "0QZ70vZTRjw",
+    "MewOCOaPXis",
+    "ahys-EMd4Nk",
+    "7mIm7zWW4mg",
+    "b4CiVqIQfPc",
+    "P5WRfpuM8xo",
+    "Ue0l_hi0y7M",
+    "fKO4CCi2lD4",
+    "a930lgGYcEA"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -293,7 +303,27 @@
     "speed_native_03",
     "football_native_03",
     "records_native_03",
-    "science_native_03"
+    "science_native_03",
+    "mrbeast_native_03",
+    "speed_native_03",
+    "football_native_03",
+    "records_native_03",
+    "science_native_03",
+    "mrbeast_native_04",
+    "speed_native_04",
+    "football_native_04",
+    "records_native_04",
+    "science_native_04",
+    "mrbeast_native_03",
+    "speed_native_03",
+    "football_native_03",
+    "records_native_03",
+    "science_native_03",
+    "mrbeast_native_04",
+    "speed_native_04",
+    "football_native_04",
+    "records_native_04",
+    "science_native_04"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -410,7 +440,17 @@
     "ishowspeed - speed_native_03",
     "football - football_native_03",
     "world_records - records_native_03",
-    "mind_blowing - science_native_03"
+    "mind_blowing - science_native_03",
+    "mrbeast - mrbeast_native_03",
+    "ishowspeed - speed_native_03",
+    "football - football_native_03",
+    "world_records - records_native_03",
+    "mind_blowing - science_native_03",
+    "mrbeast - mrbeast_native_04",
+    "ishowspeed - speed_native_04",
+    "football - football_native_04",
+    "world_records - records_native_04",
+    "mind_blowing - science_native_04"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -527,7 +567,17 @@
     "जब SPEED ने बोली HINDI! 😱 #Shorts",
     "Ronaldo का यह गोल देख दंग रह गए सब! 😱🔥 #Shorts",
     "दुनिया का सबसे CRAZY World Record! 😱 #Shorts",
-    "दुनिया का सबसे CRAZY Science Trick! 🤯 #Shorts"
+    "दुनिया का सबसे CRAZY Science Trick! 🤯 #Shorts",
+    "MrBeast ने कर दिया सबको हैरान! 😱 #Shorts",
+    "IShowSpeed का ये अजीब रिएक्शन देखा क्या? 😱🔥 #Shorts",
+    "जब Ronaldo ने बनाया IMPOSSIBLE Goal! 😱 #Shorts",
+    "99% लोग ये Record नहीं तोड़ सकते! 😱 #Shorts",
+    "यह Experiment होश उड़ा देगा! 😱 Science Magic #Shorts",
+    "MrBeast का सबसे Crazy Challenge! 😱 #Shorts",
+    "IShowSpeed का ये अजीब रिएक्शन देखा क्या? 😱 #Shorts",
+    "Ronaldo का सबसे CRAZY Goal Moment! 😱 #Shorts",
+    "इस बंदे ने बनाया Unbelievable RECORD! 😱 #Shorts",
+    "यह Experiment देख कर होश उड़ जाएंगे! 🤯 #Shorts"
   ],
   "upload_logs": [
     {
@@ -1379,6 +1429,86 @@
       "youtube_id": "ylc_fR7YV6o",
       "source_id": "science_native_03",
       "query": "mind_blowing - science_native_03"
+    },
+    {
+      "timestamp": "2026-10-29T05:04:43.802670",
+      "title": "MrBeast ने कर दिया सबको हैरान! 😱 #Shorts",
+      "type": "Real Creator Short (mrbeast)",
+      "youtube_id": "g5oNeGCH7HE",
+      "source_id": "mrbeast_native_03",
+      "query": "mrbeast - mrbeast_native_03"
+    },
+    {
+      "timestamp": "2026-10-29T05:05:01.417292",
+      "title": "IShowSpeed का ये अजीब रिएक्शन देखा क्या? 😱🔥 #Shorts",
+      "type": "Real Creator Short (ishowspeed)",
+      "youtube_id": "0QZ70vZTRjw",
+      "source_id": "speed_native_03",
+      "query": "ishowspeed - speed_native_03"
+    },
+    {
+      "timestamp": "2026-10-29T05:05:11.311888",
+      "title": "जब Ronaldo ने बनाया IMPOSSIBLE Goal! 😱 #Shorts",
+      "type": "Real Creator Short (football)",
+      "youtube_id": "MewOCOaPXis",
+      "source_id": "football_native_03",
+      "query": "football - football_native_03"
+    },
+    {
+      "timestamp": "2026-10-29T05:05:22.476827",
+      "title": "99% लोग ये Record नहीं तोड़ सकते! 😱 #Shorts",
+      "type": "Real Creator Short (world_records)",
+      "youtube_id": "ahys-EMd4Nk",
+      "source_id": "records_native_03",
+      "query": "world_records - records_native_03"
+    },
+    {
+      "timestamp": "2026-10-29T05:05:32.627429",
+      "title": "यह Experiment होश उड़ा देगा! 😱 Science Magic #Shorts",
+      "type": "Real Creator Short (mind_blowing)",
+      "youtube_id": "7mIm7zWW4mg",
+      "source_id": "science_native_03",
+      "query": "mind_blowing - science_native_03"
+    },
+    {
+      "timestamp": "2026-10-29T05:05:47.422076",
+      "title": "MrBeast का सबसे Crazy Challenge! 😱 #Shorts",
+      "type": "Real Creator Short (mrbeast)",
+      "youtube_id": "b4CiVqIQfPc",
+      "source_id": "mrbeast_native_04",
+      "query": "mrbeast - mrbeast_native_04"
+    },
+    {
+      "timestamp": "2026-10-29T05:06:03.199183",
+      "title": "IShowSpeed का ये अजीब रिएक्शन देखा क्या? 😱 #Shorts",
+      "type": "Real Creator Short (ishowspeed)",
+      "youtube_id": "P5WRfpuM8xo",
+      "source_id": "speed_native_04",
+      "query": "ishowspeed - speed_native_04"
+    },
+    {
+      "timestamp": "2026-10-29T05:06:13.844362",
+      "title": "Ronaldo का सबसे CRAZY Goal Moment! 😱 #Shorts",
+      "type": "Real Creator Short (football)",
+      "youtube_id": "Ue0l_hi0y7M",
+      "source_id": "football_native_04",
+      "query": "football - football_native_04"
+    },
+    {
+      "timestamp": "2026-10-29T05:06:23.939900",
+      "title": "इस बंदे ने बनाया Unbelievable RECORD! 😱 #Shorts",
+      "type": "Real Creator Short (world_records)",
+      "youtube_id": "fKO4CCi2lD4",
+      "source_id": "records_native_04",
+      "query": "world_records - records_native_04"
+    },
+    {
+      "timestamp": "2026-10-29T05:06:34.207273",
+      "title": "यह Experiment देख कर होश उड़ जाएंगे! 🤯 #Shorts",
+      "type": "Real Creator Short (mind_blowing)",
+      "youtube_id": "a930lgGYcEA",
+      "source_id": "science_native_04",
+      "query": "mind_blowing - science_native_04"
     }
   ]
 }
