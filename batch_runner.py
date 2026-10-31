@@ -1,3 +1,4 @@
+from __future__ import annotations
 """
 Daily 10 Videos Batch Generator & Scheduler
 -------------------------------------------
@@ -16,7 +17,7 @@ import json
 import shutil
 import time
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 # Fix Windows console UTF-8 output
 if sys.platform == "win32":
