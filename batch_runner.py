@@ -516,26 +516,26 @@ def generate_daily_10_batch(
     # Zero robotic AI text-to-speech. 100% High-Energy Viral Human Footage.
     # -------------------------------------------------------------
     DAILY_SLOT_BLUEPRINTS = [
-        # Slot 1: Cristiano Ronaldo Impossible Goal & Jump (Ronaldo Viral Hit)
-        {"slot": 1, "type": "creator", "niche": "football", "offset": 0},
-        # Slot 2: IShowSpeed Crazy Reaction & Funniest Screams (Speed Viral Hit)
-        {"slot": 2, "type": "creator", "niche": "ishowspeed", "offset": 0},
-        # Slot 3: Lionel Messi Impossible Dribbles & Magic (Messi Viral Hit)
-        {"slot": 3, "type": "creator", "niche": "football", "offset": 2},
-        # Slot 4: MrBeast Crazy Challenge & Big Money (MrBeast Viral Hit)
-        {"slot": 4, "type": "creator", "niche": "mrbeast", "offset": 0},
-        # Slot 5: Cristiano Ronaldo World Cup Free Kick & Skills (Ronaldo Iconic)
-        {"slot": 5, "type": "creator", "niche": "football", "offset": 1},
-        # Slot 6: IShowSpeed Meeting Football Legends & Comedy (Speed Iconic)
-        {"slot": 6, "type": "creator", "niche": "ishowspeed", "offset": 1},
-        # Slot 7: Lionel Messi vs Defenders Magic Moments (Messi World Cup)
-        {"slot": 7, "type": "creator", "niche": "football", "offset": 3},
-        # Slot 8: MrBeast $1,000,000 Cash & Secret Briefcase (MrBeast Money)
-        {"slot": 8, "type": "creator", "niche": "mrbeast", "offset": 1},
-        # Slot 9: Cristiano Ronaldo Standing Ovation & Bicycle Kick (Ronaldo GOAT)
-        {"slot": 9, "type": "creator", "niche": "football", "offset": 0},
-        # Slot 10: IShowSpeed Most Unhinged Live Stream Moment (Speed High Energy)
-        {"slot": 10, "type": "creator", "niche": "ishowspeed", "offset": 2},
+        # Slot 1: Cristiano Ronaldo Impossible Goal / Jump (English Audio -> English Title)
+        {"slot": 1, "type": "creator", "niche": "football", "offset": 0, "lang": "en"},
+        # Slot 2: MrBeast Official Hindi Dubbed (Hindi Audio -> Hindi Title)
+        {"slot": 2, "type": "creator", "niche": "mrbeast_hindi", "offset": 0, "lang": "hi"},
+        # Slot 3: IShowSpeed Crazy Reaction (English Audio -> English Title)
+        {"slot": 3, "type": "creator", "niche": "ishowspeed", "offset": 0, "lang": "en"},
+        # Slot 4: Virat Kohli / Cricket Aggression (Hindi Commentary -> Hindi Title)
+        {"slot": 4, "type": "creator", "niche": "cricket", "offset": 0, "lang": "hi"},
+        # Slot 5: Lionel Messi Impossible Dribbles (English Audio -> English Title)
+        {"slot": 5, "type": "creator", "niche": "football", "offset": 2, "lang": "en"},
+        # Slot 6: MrBeast Official Hindi Cash Challenge (Hindi Audio -> Hindi Title)
+        {"slot": 6, "type": "creator", "niche": "mrbeast_hindi", "offset": 1, "lang": "hi"},
+        # Slot 7: Cristiano Ronaldo Bicycle Kick / Ovation (English Audio -> English Title)
+        {"slot": 7, "type": "creator", "niche": "football", "offset": 1, "lang": "en"},
+        # Slot 8: IShowSpeed Meeting Ronaldo / Comedy (English Audio -> English Title)
+        {"slot": 8, "type": "creator", "niche": "ishowspeed", "offset": 1, "lang": "en"},
+        # Slot 9: MS Dhoni / Rohit Sharma Cricket Thriller (Hindi Commentary -> Hindi Title)
+        {"slot": 9, "type": "creator", "niche": "cricket", "offset": 1, "lang": "hi"},
+        # Slot 10: Today's Market Trending Hit (Viral Trend)
+        {"slot": 10, "type": "creator", "niche": "trending", "offset": 0, "lang": "en"},
     ]
 
     print("\n>>> Generating 10 High-Velocity 100% Viral Shorts (MrBeast, Speed, Football, Stunts)...")
@@ -593,7 +593,7 @@ def generate_daily_10_batch(
 
                 if gemini_engine.is_available():
                     try:
-                        c_meta = gemini_engine.generate_creator_metadata(niche, query_used)
+                        c_meta = gemini_engine.generate_creator_metadata(niche, query_used, lang=bp.get("lang", "en"))
                         if c_meta.get("title"):
                             clip_title = c_meta["title"]
                         if c_meta.get("banner"):

@@ -30,6 +30,25 @@ except ModuleNotFoundError:
 
 # 50+ Rotating high-CTR viral queries across 5 popular niches (with verified direct IDs)
 VIRAL_NICHE_REGISTRY = {
+    "mrbeast_hindi": [
+        {"id": "aNI2jv7lBPQ", "q": "MrBeast Hindi Giving $10,000 to random subscriber", "banner": "MRBEAST GIVES $10,000 IN HINDI! 💰", "title_prefix": "मिस्टर बीस्ट ने अनजान लड़के को दिए $10,000!"},
+        {"id": "CEJXqm2eiJ0", "q": "MrBeast Hindi what is inside briefcase", "banner": "WHAT IS INSIDE BRIEFCASE? 💼", "title_prefix": "मिस्टर बीस्ट के सीक्रेट ब्रीफकेस में क्या था?"},
+        {"id": "mND4T0lzg_g", "q": "MrBeast Hindi treating people by subscribers", "banner": "TREATING PEOPLE BY SUBSCRIBERS! 🏆", "title_prefix": "सब्सक्राइबर्स के हिसाब से लोगों का बर्ताव!"},
+        {"id": "Y8IJi7iP5vk", "q": "MrBeast Hindi last to fall wins cash", "banner": "LAST TO FALL WINS CHALLENGE! 🧗", "title_prefix": "जो आखिरी तक रहेगा उसे मिलेंगे 80 लाख कैश!"},
+        {"id": "41UzbuW6wJs", "q": "MrBeast Hindi can robot do my chores", "banner": "CAN A ROBOT DO MY CHORES? 🤖", "title_prefix": "जब रोबोट ने किया मिस्टर बीस्ट का काम!"},
+        {"id": "T_SMf9j50uc", "q": "MrBeast Hindi we built an entire village", "banner": "WE BUILT AN ENTIRE VILLAGE! 🏘️", "title_prefix": "मिस्टर बीस्ट ने बना दिया पूरा गांव!"},
+    ],
+    "cricket": [
+        {"id": "8Ji3FHZDE74", "q": "Virat Kohli angry aggressive moment shorts", "banner": "VIRAT KOHLI AGGRESSION! 👑🔥", "title_prefix": "विराट कोहली का यह गुस्सा देखकर कांप उठे विरोधी!"},
+        {"id": "fWfEU4_P0MM", "q": "Virat Kohli aggression status shorts", "banner": "KING KOHLI UNSTOPPABLE ROAR! 🦁⚡", "title_prefix": "किंग कोहली का वो ऐतिहासिक अग्रेशन!"},
+        {"id": "q6iqriO2niU", "q": "Virat Kohli 50th century celebration shorts", "banner": "VIRAT KOHLI 50TH ODI CENTURY! 🏆💯", "title_prefix": "विराट कोहली का 50वां ऐतिहासिक शतक!"},
+        {"id": "MSDhoni01", "q": "MS Dhoni fastest stumping impossible milliseconds shorts", "banner": "MS DHONI LIGHTNING STUMPING! 🧤⚡", "title_prefix": "धोनी की 0.08 सेकंड की जादुई स्टंपिंग!"},
+        {"id": "Rohit01", "q": "Rohit Sharma pull shot monster six shorts", "banner": "ROHIT SHARMA MONSTER SIX! 💥🏏", "title_prefix": "रोहित शर्मा का ऐसा छक्का जिसने स्टेडियम हिला दिया!"},
+    ],
+    "trending": [
+        {"id": "trend01", "q": "trending viral shorts india today", "banner": "INTERNET CRAZIEST MOMENT! 🚀🔥", "title_prefix": "Internet Ka Sabse Shocking Moment!"},
+        {"id": "trend02", "q": "most viral video on internet right now shorts", "banner": "MOST VIRAL MOMENT TODAY! 😱💥", "title_prefix": "This Video Is Breaking The Internet!"},
+    ],
     "mrbeast": [
         {"id": "LdMx2U5tby0", "q": "MrBeast extreme hide and seek", "banner": "WORLD'S BIGGEST HIDE & SEEK! 🏃‍♂️", "title_prefix": "MrBeast World's Biggest Hide & Seek!"},
         {"id": "zxYjTTXc-J8", "q": "MrBeast last to leave circle wins", "banner": "LAST TO LEAVE WINS $500,000! 💰", "title_prefix": "Last To Leave Circle Wins $500,000!"},

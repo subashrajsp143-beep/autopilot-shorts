@@ -138,19 +138,42 @@ Return strictly valid JSON with this exact schema:
 
         return parsed
 
-    def generate_creator_metadata(self, niche: str, original_query: str) -> Dict[str, Any]:
+    def generate_creator_metadata(self, niche: str, original_query: str, lang: str = "en") -> Dict[str, Any]:
         """
-        Generates high-CTR Hindi-English hybrid viral title and top hook banner for Ronaldo, Messi, Speed, MrBeast shorts.
+        Generates high-CTR viral title and top hook banner.
+        Strictly enforces:
+        - If lang == 'en': 100% English font (Latin script only, ZERO Devanagari) to match English audio.
+        - If lang == 'hi': 100% Hindi font (Devanagari) to match Hindi audio (MrBeast Hindi / Cricket).
         """
+        is_hindi = lang == "hi" or "hindi" in niche.lower() or "cricket" in niche.lower()
+
+        if is_hindi:
+            title_rule = """CRITICAL: The audio is in HINDI (MrBeast Official Hindi Dubbed or Cricket Hindi Commentary).
+Title MUST BE IN HINDI (Devanagari script) with high curiosity shock hook under 65 chars with emojis + #Shorts.
+Examples:
+- 'मिस्टर बीस्ट ने दिया $1,000,000 का सबसे बड़ा गिफ्ट! 💰😱 #Shorts #MrBeastHindi'
+- 'विराट कोहली का यह गुस्सा देखकर सब दंग रह गए! 😱🔥 #Shorts #ViratKohli'"""
+            fallback_title = f"{niche.replace('_', ' ').title()} का सबसे हैरान कर देने वाला वीडियो! 😱🔥 #Shorts"
+        else:
+            title_rule = """CRITICAL: The audio is in ENGLISH (Ronaldo, Messi, Speed, Football).
+Title MUST BE 100% IN ENGLISH FONT (Latin letters ONLY, STRICTLY ZERO DEVANAGARI CHARACTERS).
+Examples:
+- 'When Cristiano Ronaldo Scored That Impossible Goal! 😱⚽ #Shorts #Ronaldo'
+- 'IShowSpeed Craziest Reaction Ever On Live Stream! 😂🔥 #Shorts #Speed'
+- 'Lionel Messi Magic Dribble That Broke 4 Defenders! 😱👑 #Shorts #Messi'"""
+            fallback_title = f"{niche.replace('_', ' ').title()} Most INSANE Viral Moment! 😱🔥 #Shorts"
+
         prompt = f"""
-You are an expert YouTube title and thumbnail optimizer for viral shorts focused on Cristiano Ronaldo, Lionel Messi, IShowSpeed, and MrBeast.
+You are an expert YouTube title and thumbnail optimizer for viral shorts (Ronaldo, Messi, Speed, MrBeast, Cricket).
 Niche: {niche}
 Video query/topic: {original_query}
 
+{title_rule}
+
 Generate:
-1. title: High-CTR viral Hindi-English hybrid title under 65 chars with shock emoji + #Shorts (e.g. "जब Ronaldo ने बनाया IMPOSSIBLE Goal! 😱⚽ #Shorts", "Speed का सबसे पागलपन वाला पल! 😱🔥 #Shorts", "Messi का ये जादुई गोल देख होश उड़ जाएंगे! 😱👑 #Shorts")
-2. banner: 3-5 word high energy bold uppercase text to put at the top of the video (e.g. "RONALDO IMPOSSIBLE GOAL! 😱⚽", "SPEED CRAZIEST REACTION! 😂🔥")
-3. description: Short 2-line description with 5 trending hashtags (#Shorts #Ronaldo #Messi #IShowSpeed #Viral #Trending)
+1. title: Under 65 chars with shock emoji + #Shorts (following the strict language rule above)
+2. banner: 3-5 word high energy bold uppercase English text for the top hook banner (e.g. 'RONALDO IMPOSSIBLE GOAL! ⚽', 'MRBEAST $1M CHALLENGE! 💰')
+3. description: Short 2-line description with 5 trending hashtags
 
 Return strictly valid JSON:
 {{
@@ -165,9 +188,9 @@ Return strictly valid JSON:
             print(f"Notice: Gemini creator metadata generation failed ({e}), using default.")
 
         return {
-            "title": f"जब {niche.title()} ने सबको हैरान कर दिया! 😱🔥 #Shorts #Viral",
-            "banner": f"{niche.upper()} UNBELIEVABLE MOMENT! 💥",
-            "description": f"{niche.title()} viral moment.\n\n#Shorts #Viral #Trending #{niche}"
+            "title": fallback_title,
+            "banner": f"{niche.upper().replace('_', ' ')} UNBELIEVABLE MOMENT! 💥",
+            "description": f"{niche.replace('_', ' ').title()} viral moment.\n\n#Shorts #Viral #Trending"
         }
 
 
