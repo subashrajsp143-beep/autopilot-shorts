@@ -126,25 +126,24 @@ class DynamicCreatorEngine:
                 niche_clips = [c for c in cached_index if c.get("niche") == niche]
                 if niche_clips:
                     unused = [c for c in niche_clips if not self.tracker.is_source_used(c["id"])]
-                    if not unused:
-                        # If all clips in this niche were used in the past, cycle cleanly
-                        unused = niche_clips
-
-                    selected_clip = unused[day_offset % len(unused)]
-                    clip_full_path = os.path.join("assets", "creator_clips", selected_clip["filename"])
-                    if os.path.exists(clip_full_path) and os.path.getsize(clip_full_path) > 100000:
-                        print(f"🎯 Using verified viral clip from pre-cached library: {selected_clip['filename']} ({selected_clip['id']})")
-                        self.tracker.history.setdefault("used_source_ids", []).append(selected_clip["id"])
-                        self.tracker.save()
-                        return {
-                            "clip_path": clip_full_path,
-                            "banner": selected_clip["banner"],
-                            "title": selected_clip["title"],
-                            "description": selected_clip["description"],
-                            "tags": selected_clip["tags"],
-                            "source_id": selected_clip["id"],
-                            "query": f"{niche} - {selected_clip['id']}"
-                        }
+                    if unused:
+                        selected_clip = unused[day_offset % len(unused)]
+                        clip_full_path = os.path.join("assets", "creator_clips", selected_clip["filename"])
+                        if os.path.exists(clip_full_path) and os.path.getsize(clip_full_path) > 100000:
+                            print(f"🎯 Using verified fresh clip from pre-cached library: {selected_clip['filename']} ({selected_clip['id']})")
+                            self.tracker.history.setdefault("used_source_ids", []).append(selected_clip["id"])
+                            self.tracker.save()
+                            return {
+                                "clip_path": clip_full_path,
+                                "banner": selected_clip["banner"],
+                                "title": selected_clip["title"],
+                                "description": selected_clip["description"],
+                                "tags": selected_clip["tags"],
+                                "source_id": selected_clip["id"],
+                                "query": f"{niche} - {selected_clip['id']}"
+                            }
+                    else:
+                        print(f"Notice: All pre-cached clips for '{niche}' have already been used! Searching YouTube for 100% brand new footage...")
             except Exception as e:
                 print(f"Warning reading pre-cached clips index: {e}")
 
@@ -163,7 +162,7 @@ class DynamicCreatorEngine:
                 candidate_ids.append((v_id, item.get("title_prefix", query)))
 
         # 2. Search for dynamic candidates to find fresh viral footage
-        search_target = f"ytsearch6:{query}"
+        search_target = f"ytsearch15:{query}"
         search_cmd = [
             sys.executable, "-m", "yt_dlp",
             "--extractor-args", "youtube:player_client=android,ios,mweb",
@@ -223,10 +222,14 @@ class DynamicCreatorEngine:
                 break
 
         if not downloaded_file:
-            fallback_clips = glob.glob(os.path.join("assets", "creator_clips", "*.mp4"))
-            if fallback_clips:
-                chosen = fallback_clips[day_offset % len(fallback_clips)]
-                print(f"🎯 Using creator clip fallback: {chosen}")
+            # Fallback: only pick an asset that has NEVER been used before!
+            all_cached_clips = glob.glob(os.path.join("assets", "creator_clips", "*.mp4"))
+            fresh_fallbacks = [c for c in all_cached_clips if not self.tracker.is_source_used(os.path.basename(c))]
+            if fresh_fallbacks:
+                chosen = fresh_fallbacks[day_offset % len(fresh_fallbacks)]
+                print(f"🎯 Using strictly unused fallback clip: {chosen}")
+                self.tracker.history.setdefault("used_source_ids", []).append(os.path.basename(chosen))
+                self.tracker.save()
                 return {
                     "clip_path": chosen,
                     "banner": selected_cfg["banner"],
@@ -236,7 +239,7 @@ class DynamicCreatorEngine:
                     "source_id": os.path.basename(chosen),
                     "query": query
                 }
-            print(f"Notice: Could not download any fresh viral clip for niche '{niche}'.")
+            print(f"Notice: Could not download fresh clip and no unused fallbacks for niche '{niche}'.")
             return None
 
         self.tracker.history.setdefault("used_source_ids", []).append(actual_source_id)

@@ -563,10 +563,11 @@ def generate_daily_10_batch(
                     )
 
                 if not fresh_clip_data or not os.path.exists(fresh_clip_data.get("clip_path", "")):
-                    print(f"⚠️ Discovery failed for {niche}. Pulling from pre-cached library...")
+                    print(f"⚠️ Discovery failed for {niche}. Pulling strictly UNUSED clip from library...")
                     all_library = glob.glob(os.path.join("assets", "creator_clips", "*.mp4"))
-                    if all_library:
-                        chosen_clip = all_library[idx % len(all_library)]
+                    unused_library = [c for c in all_library if not tracker.is_source_used(os.path.basename(c))]
+                    if unused_library:
+                        chosen_clip = unused_library[idx % len(unused_library)]
                         fresh_clip_data = {
                             "clip_path": chosen_clip,
                             "banner": "VIRAL CREATOR MOMENT! 🔥",
@@ -577,7 +578,10 @@ def generate_daily_10_batch(
                             "query": niche
                         }
                     else:
-                        raise RuntimeError(f"No creator clips available for slot {idx} ({niche}).")
+                        print(f"Notice: All local creator clips used. Running forced deep search for fresh {niche}...")
+                        fresh_clip_data = dynamic_engine.download_fresh_clip(niche=niche, day_offset=idx + random.randint(10, 50))
+                        if not fresh_clip_data:
+                            raise RuntimeError(f"Could not find any fresh footage for slot {idx} ({niche}). Duplicate prevented.")
 
                 raw_video = fresh_clip_data["clip_path"]
                 banner_text = fresh_clip_data["banner"]
@@ -599,6 +603,13 @@ def generate_daily_10_batch(
                         time.sleep(1.5)
                     except Exception as e:
                         print(f"Notice: Gemini metadata note for {niche}: {e}")
+
+                # Ensure title has never been uploaded before
+                if tracker.is_title_used(clip_title):
+                    tag_part = " ".join([t for t in clip_title.split() if t.startswith("#")])
+                    main_part = " ".join([t for t in clip_title.split() if not t.startswith("#")])
+                    import random
+                    clip_title = f"{main_part} Part {random.randint(2, 99)} {tag_part or '#Shorts'}"
 
                 video_path = dynamic_engine.format_to_vertical_short(
                     video_path=raw_video,
