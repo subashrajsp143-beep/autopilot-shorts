@@ -516,26 +516,26 @@ def generate_daily_10_batch(
     # Zero robotic AI text-to-speech. 100% High-Energy Viral Human Footage.
     # -------------------------------------------------------------
     DAILY_SLOT_BLUEPRINTS = [
-        # Slot 1: Hindi Dark Psychology Fact (100% Hindi Voice + Moving HD B-Roll)
-        {"slot": 1, "type": "fact", "niche": "Dark Psychology", "theme": "dark_psychology", "fallback_idx": 0},
-        # Slot 2: MrBeast Viral Challenge Clip (English Audio + High-CTR English Title)
-        {"slot": 2, "type": "creator", "niche": "mrbeast", "offset": 0},
-        # Slot 3: Hindi Ancient Temple & Mystery Fact (100% Hindi Voice + HD B-Roll)
-        {"slot": 3, "type": "fact", "niche": "Ancient Mysteries", "theme": "ancient_temple", "fallback_idx": 1},
-        # Slot 4: IShowSpeed Crazy Reaction Clip (English Audio + High-CTR English Title)
-        {"slot": 4, "type": "creator", "niche": "ishowspeed", "offset": 0},
-        # Slot 5: Hindi Money Mindset & Rich Habits Fact (100% Hindi Voice + HD B-Roll)
-        {"slot": 5, "type": "fact", "niche": "Money & Wealth Secrets", "theme": "wealth_money", "fallback_idx": 2},
-        # Slot 6: Cristiano Ronaldo Impossible Goal Clip (Original Stadium Audio + English Title)
-        {"slot": 6, "type": "creator", "niche": "football", "offset": 0},
-        # Slot 7: Hindi Deep Sea & Bermuda Triangle Mystery (100% Hindi Voice + HD B-Roll)
-        {"slot": 7, "type": "fact", "niche": "Ocean & Bermuda Mysteries", "theme": "deep_sea", "fallback_idx": 3},
-        # Slot 8: MrBeast Huge Cash Challenge Clip (English Audio + English Title)
+        # Slot 1: Cristiano Ronaldo Impossible Goal & Jump (Ronaldo Viral Hit)
+        {"slot": 1, "type": "creator", "niche": "football", "offset": 0},
+        # Slot 2: IShowSpeed Crazy Reaction & Funniest Screams (Speed Viral Hit)
+        {"slot": 2, "type": "creator", "niche": "ishowspeed", "offset": 0},
+        # Slot 3: Lionel Messi Impossible Dribbles & Magic (Messi Viral Hit)
+        {"slot": 3, "type": "creator", "niche": "football", "offset": 2},
+        # Slot 4: MrBeast Crazy Challenge & Big Money (MrBeast Viral Hit)
+        {"slot": 4, "type": "creator", "niche": "mrbeast", "offset": 0},
+        # Slot 5: Cristiano Ronaldo World Cup Free Kick & Skills (Ronaldo Iconic)
+        {"slot": 5, "type": "creator", "niche": "football", "offset": 1},
+        # Slot 6: IShowSpeed Meeting Football Legends & Comedy (Speed Iconic)
+        {"slot": 6, "type": "creator", "niche": "ishowspeed", "offset": 1},
+        # Slot 7: Lionel Messi vs Defenders Magic Moments (Messi World Cup)
+        {"slot": 7, "type": "creator", "niche": "football", "offset": 3},
+        # Slot 8: MrBeast $1,000,000 Cash & Secret Briefcase (MrBeast Money)
         {"slot": 8, "type": "creator", "niche": "mrbeast", "offset": 1},
-        # Slot 9: Hindi Brain Power & Science Mystery Fact (100% Hindi Voice + HD B-Roll)
-        {"slot": 9, "type": "fact", "niche": "Brain Power & Science", "theme": "brain_sleep", "fallback_idx": 4},
-        # Slot 10: Cristiano Ronaldo Impossible Skills / Free Kick (Original Audio + English Title)
-        {"slot": 10, "type": "creator", "niche": "football", "offset": 1},
+        # Slot 9: Cristiano Ronaldo Standing Ovation & Bicycle Kick (Ronaldo GOAT)
+        {"slot": 9, "type": "creator", "niche": "football", "offset": 0},
+        # Slot 10: IShowSpeed Most Unhinged Live Stream Moment (Speed High Energy)
+        {"slot": 10, "type": "creator", "niche": "ishowspeed", "offset": 2},
     ]
 
     print("\n>>> Generating 10 High-Velocity 100% Viral Shorts (MrBeast, Speed, Football, Stunts)...")
