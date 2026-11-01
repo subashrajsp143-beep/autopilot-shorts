@@ -516,26 +516,26 @@ def generate_daily_10_batch(
     # Zero robotic AI text-to-speech. 100% High-Energy Viral Human Footage.
     # -------------------------------------------------------------
     DAILY_SLOT_BLUEPRINTS = [
-        # Slot 1: MrBeast Crazy Challenge & Big Money (Highest CTR Opener)
-        {"slot": 1, "type": "creator", "niche": "mrbeast", "offset": 0},
-        # Slot 2: IShowSpeed Funniest Screams & Reactions
-        {"slot": 2, "type": "creator", "niche": "ishowspeed", "offset": 0},
-        # Slot 3: Cristiano Ronaldo Impossible Bicycle Kick & Goals
-        {"slot": 3, "type": "creator", "niche": "football", "offset": 0},
-        # Slot 4: Cristiano Ronaldo World Cup Free Kicks & Magic
-        {"slot": 4, "type": "creator", "niche": "football", "offset": 1},
-        # Slot 5: MrBeast $1,000,000 Giveaway & Mystery Briefcase
-        {"slot": 5, "type": "creator", "niche": "mrbeast", "offset": 1},
-        # Slot 6: IShowSpeed Dude Perfect Obstacle Gauntlet & Comedy
-        {"slot": 6, "type": "creator", "niche": "ishowspeed", "offset": 1},
-        # Slot 7: Cristiano Ronaldo Juventus Standing Ovation
-        {"slot": 7, "type": "creator", "niche": "football", "offset": 2},
-        # Slot 8: MrBeast Last to Fall Wins $100,000
-        {"slot": 8, "type": "creator", "niche": "mrbeast", "offset": 2},
-        # Slot 9: IShowSpeed 60-Second Silence Challenge
-        {"slot": 9, "type": "creator", "niche": "ishowspeed", "offset": 2},
-        # Slot 10: Cristiano Ronaldo Miraculous Goalline Clearance
-        {"slot": 10, "type": "creator", "niche": "football", "offset": 3},
+        # Slot 1: Hindi Dark Psychology Fact (100% Hindi Voice + Moving HD B-Roll)
+        {"slot": 1, "type": "fact", "niche": "Dark Psychology", "theme": "dark_psychology", "fallback_idx": 0},
+        # Slot 2: MrBeast Viral Challenge Clip (English Audio + High-CTR English Title)
+        {"slot": 2, "type": "creator", "niche": "mrbeast", "offset": 0},
+        # Slot 3: Hindi Ancient Temple & Mystery Fact (100% Hindi Voice + HD B-Roll)
+        {"slot": 3, "type": "fact", "niche": "Ancient Mysteries", "theme": "ancient_temple", "fallback_idx": 1},
+        # Slot 4: IShowSpeed Crazy Reaction Clip (English Audio + High-CTR English Title)
+        {"slot": 4, "type": "creator", "niche": "ishowspeed", "offset": 0},
+        # Slot 5: Hindi Money Mindset & Rich Habits Fact (100% Hindi Voice + HD B-Roll)
+        {"slot": 5, "type": "fact", "niche": "Money & Wealth Secrets", "theme": "wealth_money", "fallback_idx": 2},
+        # Slot 6: Cristiano Ronaldo Impossible Goal Clip (Original Stadium Audio + English Title)
+        {"slot": 6, "type": "creator", "niche": "football", "offset": 0},
+        # Slot 7: Hindi Deep Sea & Bermuda Triangle Mystery (100% Hindi Voice + HD B-Roll)
+        {"slot": 7, "type": "fact", "niche": "Ocean & Bermuda Mysteries", "theme": "deep_sea", "fallback_idx": 3},
+        # Slot 8: MrBeast Huge Cash Challenge Clip (English Audio + English Title)
+        {"slot": 8, "type": "creator", "niche": "mrbeast", "offset": 1},
+        # Slot 9: Hindi Brain Power & Science Mystery Fact (100% Hindi Voice + HD B-Roll)
+        {"slot": 9, "type": "fact", "niche": "Brain Power & Science", "theme": "brain_sleep", "fallback_idx": 4},
+        # Slot 10: Cristiano Ronaldo Impossible Skills / Free Kick (Original Audio + English Title)
+        {"slot": 10, "type": "creator", "niche": "football", "offset": 1},
     ]
 
     print("\n>>> Generating 10 High-Velocity 100% Viral Shorts (MrBeast, Speed, Football, Stunts)...")
@@ -604,7 +604,7 @@ def generate_daily_10_batch(
                     video_path=raw_video,
                     banner_text=banner_text,
                     output_filename=video_filename,
-                    duration=29.0
+                    duration=18.0
                 )
 
                 thumb_filename = f"thumb_{idx:02d}_{niche}.jpg"
@@ -623,7 +623,7 @@ def generate_daily_10_batch(
                     "tags": clip_tags,
                     "video_path": video_path,
                     "thumbnail_path": thumb_path,
-                    "duration": "29.0s",
+                    "duration": "18.0s",
                     "source_id": source_id,
                     "query": query_used
                 })
