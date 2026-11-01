@@ -140,17 +140,22 @@ Return strictly valid JSON with this exact schema:
 
     def generate_creator_metadata(self, niche: str, original_query: str) -> Dict[str, Any]:
         """
-        Generates high-CTR Hindi title and top hook banner for creator clips.
+        Generates high-CTR English viral title and top hook banner for creator clips.
+        Ensures title matches the English audio/video content (never Devanagari for English clips).
         """
         prompt = f"""
 You are an expert YouTube title and thumbnail optimizer for viral creator shorts (MrBeast, IShowSpeed, Football/Ronaldo, World Records, Satisfying Experiments).
 Niche: {niche}
 Video query/topic: {original_query}
 
+CRITICAL RULE:
+The video footage features English creators (MrBeast, Speed, Football commentary).
+The title MUST BE IN PUNCHY, HIGH-CTR ENGLISH (in Latin script, NEVER in Devanagari script) so it perfectly matches the audio!
+
 Generate:
-1. title: High-CTR viral Hindi-English hybrid title under 65 chars with shock emoji + #Shorts (e.g. "जब मिस्टर बीस्ट ने दिया 10 लाख डॉलर! 😱 #Shorts")
-2. banner: 3-5 word high energy bold uppercase text to put at the top of the video (e.g. "MRBEAST CRAZY $1,000,000 REACTION! 💰")
-3. description: Short 2-line description with 5 trending hashtags
+1. title: Viral high-CTR English title under 65 chars with shock emoji + #Shorts (e.g. "MrBeast Gave $10,000 To Random Stranger! 😱💰 #Shorts")
+2. banner: 3-5 word high energy bold uppercase English text to put at the top of the video (e.g. "GIVING $10,000 TO RANDOM GUY! 💰")
+3. description: Short 2-line English description with 5 trending hashtags (#Shorts #{niche} #Viral #Trending)
 
 Return strictly valid JSON:
 {{
@@ -165,9 +170,9 @@ Return strictly valid JSON:
             print(f"Notice: Gemini creator metadata generation failed ({e}), using default.")
 
         return {
-            "title": f"{niche.title()} का सबसे खतरनाक मोमेंट! 😱 #Shorts #Viral",
+            "title": f"{niche.title()} Most INSANE Viral Moment! 😱🔥 #Shorts #Viral",
             "banner": f"{niche.upper()} UNBELIEVABLE MOMENT! 💥",
-            "description": f"{niche.title()} viral moment.\n\n#Shorts #Viral #Trending #{niche}"
+            "description": f"Most insane {niche} moment ever!\n\n#Shorts #Viral #Trending #{niche}"
         }
 
 

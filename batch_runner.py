@@ -570,7 +570,7 @@ def generate_daily_10_batch(
                         fresh_clip_data = {
                             "clip_path": chosen_clip,
                             "banner": "VIRAL CREATOR MOMENT! 🔥",
-                            "title": "दुनिया का सबसे हैरान कर देने वाला वीडियो! 😱 #Shorts #Viral",
+                            "title": f"{niche.title()} Most INSANE Viral Moment! 😱🔥 #Shorts #Viral",
                             "description": "Watch till the end! #Shorts #Viral #Trending",
                             "tags": ["shorts", "viral", niche, "trending"],
                             "source_id": os.path.basename(chosen_clip),
