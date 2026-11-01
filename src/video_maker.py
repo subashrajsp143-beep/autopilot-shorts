@@ -178,8 +178,8 @@ class VideoMaker:
                     font_opt = self._get_font_opt()
                     banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
 
-            clean_ass_path = ass_path.replace("\\", "/")
-            concat_filter = "".join(concat_inputs) + f"concat=n={num_clips}:v=1:a=0[vcat];[vcat]{banner_filter}subtitles={clean_ass_path}[vout]"
+            escaped_ass = ass_path.replace("\\", "/").replace(":", "\\:")
+            concat_filter = "".join(concat_inputs) + f"concat=n={num_clips}:v=1:a=0[vcat];[vcat]{banner_filter}subtitles='{escaped_ass}'[vout]"
             full_video_filter = ";".join(filter_parts) + ";" + concat_filter
 
             cmd += ["-i", audio_path]
@@ -209,16 +209,16 @@ class VideoMaker:
                     font_opt = self._get_font_opt()
                     banner_filter = f"drawtext={font_opt}text='{clean_banner}':fontsize=52:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=280,"
 
-            clean_ass_path = ass_path.replace("\\", "/")
+            escaped_ass = ass_path.replace("\\", "/").replace(":", "\\:")
             if bg_video and os.path.exists(bg_video):
                 cmd += ["-stream_loop", "-1", "-i", bg_video]
-                video_filter = f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,{banner_filter}subtitles={clean_ass_path}"
+                video_filter = f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,{banner_filter}subtitles='{escaped_ass}'"
             else:
                 cmd += [
                     "-f", "lavfi",
                     "-i", f"color=c=0x0a0f1d:s=1080x1920:d={duration + 1.0}"
                 ]
-                video_filter = f"{banner_filter}subtitles={clean_ass_path}"
+                video_filter = f"{banner_filter}subtitles='{escaped_ass}'"
 
             cmd += ["-i", audio_path]
 
