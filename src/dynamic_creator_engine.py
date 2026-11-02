@@ -42,12 +42,12 @@ VIRAL_NICHE_REGISTRY = {
         {"id": "8Ji3FHZDE74", "q": "Virat Kohli angry aggressive moment shorts", "banner": "VIRAT KOHLI AGGRESSION! 👑🔥", "title_prefix": "विराट कोहली का यह गुस्सा देखकर कांप उठे विरोधी!"},
         {"id": "fWfEU4_P0MM", "q": "Virat Kohli aggression status shorts", "banner": "KING KOHLI UNSTOPPABLE ROAR! 🦁⚡", "title_prefix": "किंग कोहली का वो ऐतिहासिक अग्रेशन!"},
         {"id": "q6iqriO2niU", "q": "Virat Kohli 50th century celebration shorts", "banner": "VIRAT KOHLI 50TH ODI CENTURY! 🏆💯", "title_prefix": "विराट कोहली का 50वां ऐतिहासिक शतक!"},
-        {"id": "MSDhoni01", "q": "MS Dhoni fastest stumping impossible milliseconds shorts", "banner": "MS DHONI LIGHTNING STUMPING! 🧤⚡", "title_prefix": "धोनी की 0.08 सेकंड की जादुई स्टंपिंग!"},
-        {"id": "Rohit01", "q": "Rohit Sharma pull shot monster six shorts", "banner": "ROHIT SHARMA MONSTER SIX! 💥🏏", "title_prefix": "रोहित शर्मा का ऐसा छक्का जिसने स्टेडियम हिला दिया!"},
+        {"id": "i3tcsO277qs", "q": "MS Dhoni fastest stumping impossible milliseconds shorts", "banner": "MS DHONI LIGHTNING STUMPING! 🧤⚡", "title_prefix": "धोनी की 0.08 सेकंड की जादुई स्टंपिंग!"},
+        {"id": "G4l4ZNtdRX0", "q": "Rohit Sharma pull shot monster six shorts", "banner": "ROHIT SHARMA MONSTER SIX! 💥🏏", "title_prefix": "रोहित शर्मा का ऐसा छक्का जिसने स्टेडियम हिला दिया!"},
     ],
     "trending": [
-        {"id": "trend01", "q": "trending viral shorts india today", "banner": "INTERNET CRAZIEST MOMENT! 🚀🔥", "title_prefix": "Internet Ka Sabse Shocking Moment!"},
-        {"id": "trend02", "q": "most viral video on internet right now shorts", "banner": "MOST VIRAL MOMENT TODAY! 😱💥", "title_prefix": "This Video Is Breaking The Internet!"},
+        {"id": "hQS54jBMhz0", "q": "trending viral shorts india today", "banner": "INTERNET CRAZIEST MOMENT! 🚀🔥", "title_prefix": "Internet Ka Sabse Shocking Moment!"},
+        {"id": "vDzIJLjZz30", "q": "most viral video on internet right now shorts", "banner": "MOST VIRAL MOMENT TODAY! 😱💥", "title_prefix": "This Video Is Breaking The Internet!"},
     ],
     "mrbeast": [
         {"id": "LdMx2U5tby0", "q": "MrBeast extreme hide and seek", "banner": "WORLD'S BIGGEST HIDE & SEEK! 🏃‍♂️", "title_prefix": "MrBeast World's Biggest Hide & Seek!"},
@@ -177,7 +177,7 @@ class DynamicCreatorEngine:
         candidate_ids = []
         for item in registry:
             v_id = item.get("id")
-            if v_id and not self.tracker.is_source_used(v_id):
+            if v_id and len(v_id) == 11 and not self.tracker.is_source_used(v_id):
                 candidate_ids.append((v_id, item.get("title_prefix", query)))
 
         # 2. Search for dynamic candidates to find fresh viral footage

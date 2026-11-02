@@ -479,6 +479,7 @@ def generate_daily_10_batch(
 
     os.makedirs(output_batch_dir, exist_ok=True)
     generated_videos: List[Dict[str, Any]] = []
+    tracker = HistoryTracker()
 
     # -------------------------------------------------------------
     # 70/30 DYNAMIC VIRAL MIX (7 Real Creator Footage / 3 FactTechz Cinematic)
