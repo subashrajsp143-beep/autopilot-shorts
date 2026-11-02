@@ -16,6 +16,8 @@ import re
 import json
 import shutil
 import time
+import glob
+import random
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
@@ -800,6 +802,8 @@ def generate_daily_10_batch(
             except Exception as e:
                 print(f"❌ Failed to upload to {ch['name']}: {e}")
 
+        if not generated_videos:
+            raise RuntimeError("Zero videos were generated! Batch generation failed.")
         if generated_videos and total_successful_uploads == 0:
             raise RuntimeError("All YouTube uploads across all channels failed.")
 
