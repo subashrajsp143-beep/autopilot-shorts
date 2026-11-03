@@ -44,6 +44,7 @@ from history_tracker import HistoryTracker
 from dynamic_creator_engine import DynamicCreatorEngine
 from gemini_engine import GeminiEngine
 from hoodie_presenter_engine import HoodiePresenterEngine
+from channel_generator import generate_channel_batch
 
 
 def ensure_credentials():
@@ -307,16 +308,26 @@ def get_todays_creator_presets() -> List[Dict[str, Any]]:
     return presets
 
 
-def get_indian_peak_schedule(num_videos: int = 10):
+def get_indian_peak_schedule(num_videos: int = 10, channel_id: int = 1):
     """
     Calculates 10 publishing slots strictly aligned to Indian Peak Viewing Hours (11 AM - 10:30 PM IST).
-    Guarantees videos are strictly chronological, never out of order, and NEVER posted in the middle of the night!
+    Staggers upload slots across different channels so they NEVER publish at the same time:
+    - Channel 3 (Next Level Facts): Offset 0 mins (Star channel gets top priority on the hour :00/:30)
+    - Channel 1 (MiniTalesWorld): Offset +20 mins (Publishes at :20/:50)
+    - Channel 2 (Pawsome Productions): Offset +40 mins (Publishes at :10/:40)
     """
     from datetime import datetime, timedelta, timezone
     ist = timezone(timedelta(hours=5, minutes=30))
     now_ist = datetime.now(ist)
 
-    # 10 Peak Indian audience slots
+    # Channel-specific time offsets to completely eliminate cross-channel upload clashes
+    channel_offsets = {
+        3: 0,   # Channel 3 gets priority (:00 / :30)
+        1: 20,  # Channel 1 publishes at :20 / :50
+        2: 40   # Channel 2 publishes at :10 / :40
+    }
+    ch_offset_mins = channel_offsets.get(channel_id, (channel_id - 1) * 20)
+
     target_hours_ist = [
         (11, 15),  # Slot 1: Morning wake-up / tea break
         (12, 30),  # Slot 2: Lunch / College break
@@ -334,21 +345,25 @@ def get_indian_peak_schedule(num_videos: int = 10):
     last_slot_ist = now_ist
     for i in range(num_videos):
         if i == 0:
-            slots.append(None)  # First video goes live immediately!
+            if channel_id == 3:
+                slots.append(None)  # Channel 3 first video goes live immediately!
+            else:
+                first_slot = now_ist + timedelta(minutes=ch_offset_mins)
+                slots.append(first_slot.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z"))
             continue
 
         idx = min(i, len(target_hours_ist) - 1)
         h, m = target_hours_ist[idx]
-        slot_ist = now_ist.replace(hour=h, minute=m, second=0, microsecond=0)
+        slot_ist = now_ist.replace(hour=h, minute=m, second=0, microsecond=0) + timedelta(minutes=ch_offset_mins)
 
-        # If target slot is in past or too close to previous slot, push forward by at least 28 minutes
-        min_allowed = last_slot_ist + timedelta(minutes=28)
+        # Minimum spacing between videos on the same channel
+        min_allowed = last_slot_ist + timedelta(minutes=25)
         if slot_ist < min_allowed:
             slot_ist = min_allowed
 
-        # If pushed beyond 10:45 PM IST, schedule remaining for tomorrow morning starting at 11:15 AM
-        if slot_ist.hour >= 23 or (slot_ist.hour < 10 and slot_ist.day == now_ist.day):
-            tomorrow_ist = (now_ist + timedelta(days=1)).replace(hour=11, minute=15, second=0, microsecond=0)
+        # If pushed beyond 11:30 PM IST, schedule for tomorrow morning
+        if slot_ist.hour >= 23 and slot_ist.minute > 30:
+            tomorrow_ist = (now_ist + timedelta(days=1)).replace(hour=11, minute=15, second=0, microsecond=0) + timedelta(minutes=ch_offset_mins)
             if min_allowed < tomorrow_ist:
                 slot_ist = tomorrow_ist + timedelta(minutes=45 * (i - 1))
             else:
@@ -470,360 +485,112 @@ def generate_daily_10_batch(
     target_channels: Optional[List[int]] = None
 ):
     print("=" * 65)
-    print("🚀 GENERATING DAILY BATCH OF 10 VIRAL SHORTS (HINDI & CREATORS)")
+    print("🚀 GENERATING DAILY BATCH OF VIRAL HINDI SHORTS ACROSS CHANNELS")
     print("=" * 65)
 
     ensure_credentials()
 
     if upload_yt and check_already_uploaded_today(force=force):
-        print("✅ Daily quota safe. Today's 10 videos are already uploaded on schedule.")
+        print("✅ Daily quota safe. Today's videos are already uploaded on schedule.")
         return
 
     os.makedirs(output_batch_dir, exist_ok=True)
-    generated_videos: List[Dict[str, Any]] = []
     tracker = HistoryTracker()
 
-    # -------------------------------------------------------------
-    # 70/30 DYNAMIC VIRAL MIX (7 Real Creator Footage / 3 FactTechz Cinematic)
-    # Based directly on channel analytics: MrBeast & Speed get 500-1,000+ views!
-    # Strictly alternates types to maximize algorithm engagement & prevent monotony.
-    # -------------------------------------------------------------
-    gemini_engine = GeminiEngine()
-    hindi_gen = HindiScriptGenerator()
-    video_maker = VideoMaker(assets_dir="assets", output_dir=output_batch_dir)
-    dynamic_engine = DynamicCreatorEngine(
-        downloads_dir="assets/downloads",
-        output_dir=output_batch_dir
-    )
-
-    THEME_SCENE_MAP = {
-        "dark_psychology": ["assets/ai_video_clips/bg_darkpsych.mp4", "assets/ai_video_clips/bg_psychology.mp4"],
-        "ancient_temple": ["assets/ai_video_clips/bg_temple.mp4", "assets/ai_video_clips/bg_pyramid.mp4"],
-        "pyramid": ["assets/ai_video_clips/bg_pyramid.mp4", "assets/ai_video_clips/bg_space.mp4"],
-        "bermuda_ocean": ["assets/ai_video_clips/bg_bermuda.mp4", "assets/ai_video_clips/bg_ocean.mp4"],
-        "deep_sea": ["assets/ai_video_clips/bg_deepsea.mp4", "assets/ai_video_clips/bg_ocean.mp4"],
-        "wealth_money": ["assets/ai_video_clips/bg_wealth.mp4", "assets/ai_video_clips/bg_money.mp4"],
-        "brain_sleep": ["assets/ai_video_clips/bg_sleepbrain.mp4", "assets/ai_video_clips/bg_brain.mp4"],
-        "deep_space": ["assets/ai_video_clips/bg_space.mp4", "assets/ai_video_clips/bg_ocean.mp4"]
-    }
-
-    from datetime import date
-    base_date = date(2026, 10, 15)
-    days_passed = max(0, (date.today() - base_date).days)
-    fallback_scripts = hindi_gen.get_todays_5_scripts()
-
-    # -------------------------------------------------------------
-    # 100% PURE VIRAL CREATOR & ACTION CLIPS (MrBeast, Speed, Football, Stunts)
-    # User Command: "jo video viral ho raha hai uss type ka hi banao"
-    # Channel Analytics Proof: MrBeast & Speed get 500 - 1,000+ views!
-    # Zero robotic AI text-to-speech. 100% High-Energy Viral Human Footage.
-    # -------------------------------------------------------------
-    DAILY_SLOT_BLUEPRINTS = [
-        # Slot 1: Cristiano Ronaldo Impossible Goal / Jump (English Audio -> English Title)
-        {"slot": 1, "type": "creator", "niche": "football", "offset": 0, "lang": "en"},
-        # Slot 2: MrBeast Official Hindi Dubbed (Hindi Audio -> Hindi Title)
-        {"slot": 2, "type": "creator", "niche": "mrbeast_hindi", "offset": 0, "lang": "hi"},
-        # Slot 3: IShowSpeed Crazy Reaction (English Audio -> English Title)
-        {"slot": 3, "type": "creator", "niche": "ishowspeed", "offset": 0, "lang": "en"},
-        # Slot 4: Virat Kohli / Cricket Aggression (Hindi Commentary -> Hindi Title)
-        {"slot": 4, "type": "creator", "niche": "cricket", "offset": 0, "lang": "hi"},
-        # Slot 5: Lionel Messi Impossible Dribbles (English Audio -> English Title)
-        {"slot": 5, "type": "creator", "niche": "football", "offset": 2, "lang": "en"},
-        # Slot 6: MrBeast Official Hindi Cash Challenge (Hindi Audio -> Hindi Title)
-        {"slot": 6, "type": "creator", "niche": "mrbeast_hindi", "offset": 1, "lang": "hi"},
-        # Slot 7: Cristiano Ronaldo Bicycle Kick / Ovation (English Audio -> English Title)
-        {"slot": 7, "type": "creator", "niche": "football", "offset": 1, "lang": "en"},
-        # Slot 8: IShowSpeed Meeting Ronaldo / Comedy (English Audio -> English Title)
-        {"slot": 8, "type": "creator", "niche": "ishowspeed", "offset": 1, "lang": "en"},
-        # Slot 9: MS Dhoni / Rohit Sharma Cricket Thriller (Hindi Commentary -> Hindi Title)
-        {"slot": 9, "type": "creator", "niche": "cricket", "offset": 1, "lang": "hi"},
-        # Slot 10: Today's Market Trending Hit (Viral Trend)
-        {"slot": 10, "type": "creator", "niche": "trending", "offset": 0, "lang": "en"},
+    # Channel configuration mapping (Channel 3 -> Channel 1 -> Channel 2)
+    channels = [
+        {"id": 3, "name": "Channel 3 (Next Level Facts)", "token": "config/youtube_token_ch3.json"},
+        {"id": 1, "name": "Channel 1 (MiniTalesWorld)", "token": "config/youtube_token.json"}
     ]
+    if os.path.exists("config/youtube_token_ch2.json"):
+        channels.append({"id": 2, "name": "Channel 2 (Pawsome Productions)", "token": "config/youtube_token_ch2.json"})
 
-    print("\n>>> Generating 10 High-Velocity 100% Viral Shorts (MrBeast, Speed, Football, Stunts)...")
+    if target_channels:
+        channels = [c for c in channels if c["id"] in target_channels]
 
-    for bp in DAILY_SLOT_BLUEPRINTS:
-        idx = bp["slot"]
-        b_type = bp["type"]
+    print(f"\n>> Active Channel Targets: {[c['name'] for c in channels]}")
 
-        if b_type == "creator":
-            niche = bp["niche"]
-            print(f"\n[{idx}/10] Discovering & Clipping Fresh '{niche.upper()}' Viral Footage...")
-            video_filename = f"video_{idx:02d}_creator_clip.mp4"
+    all_generated_videos: Dict[int, List[Dict[str, Any]]] = {}
+    total_successful_uploads = 0
 
+    for ch in channels:
+        ch_id = ch["id"]
+        ch_name = ch["name"]
+        print("\n" + "=" * 60)
+        print(f"🎬 Processing Batch for {ch_name} (Channel {ch_id})")
+        print("=" * 60)
+
+        # 1. Generate 10 unique, channel-specific videos
+        ch_videos = generate_channel_batch(ch_id, base_output_dir=output_batch_dir)
+        all_generated_videos[ch_id] = ch_videos
+
+        # 2. Copy to desktop if requested
+        if copy_to_desktop:
             try:
-                fresh_clip_data = dynamic_engine.download_fresh_clip(
-                    niche=niche,
-                    day_offset=days_passed + bp["offset"]
-                )
+                onedrive_desktop = os.path.join(os.environ.get("USERPROFILE", ""), "OneDrive", "Desktop")
+                local_desktop = os.path.join(os.environ.get("USERPROFILE", ""), "Desktop")
+                target_desktops = []
+                if os.path.exists(onedrive_desktop):
+                    target_desktops.append(onedrive_desktop)
+                if os.path.exists(local_desktop) and local_desktop not in target_desktops:
+                    target_desktops.append(local_desktop)
 
-                if not fresh_clip_data or not os.path.exists(fresh_clip_data.get("clip_path", "")):
-                    print(f"Notice: First query failed for {niche}. Retrying with secondary viral query...")
-                    fresh_clip_data = dynamic_engine.download_fresh_clip(
-                        niche=niche,
-                        day_offset=days_passed + bp["offset"] + 5
-                    )
-
-                if not fresh_clip_data or not os.path.exists(fresh_clip_data.get("clip_path", "")):
-                    print(f"⚠️ Discovery failed for {niche}. Pulling strictly UNUSED clip from library...")
-                    all_library = glob.glob(os.path.join("assets", "creator_clips", "*.mp4"))
-                    unused_library = [c for c in all_library if not tracker.is_source_used(os.path.basename(c))]
-                    if unused_library:
-                        chosen_clip = unused_library[idx % len(unused_library)]
-                        fresh_clip_data = {
-                            "clip_path": chosen_clip,
-                            "banner": "VIRAL CREATOR MOMENT! 🔥",
-                            "title": f"{niche.title()} Most INSANE Viral Moment! 😱🔥 #Shorts #Viral",
-                            "description": "Watch till the end! #Shorts #Viral #Trending",
-                            "tags": ["shorts", "viral", niche, "trending"],
-                            "source_id": os.path.basename(chosen_clip),
-                            "query": niche
-                        }
-                    else:
-                        print(f"Notice: All local creator clips used. Running forced deep search for fresh {niche}...")
-                        fresh_clip_data = dynamic_engine.download_fresh_clip(niche=niche, day_offset=idx + random.randint(10, 50))
-                        if not fresh_clip_data:
-                            raise RuntimeError(f"Could not find any fresh footage for slot {idx} ({niche}). Duplicate prevented.")
-
-                raw_video = fresh_clip_data["clip_path"]
-                banner_text = fresh_clip_data["banner"]
-                clip_title = fresh_clip_data["title"]
-                clip_desc = fresh_clip_data["description"]
-                clip_tags = fresh_clip_data["tags"]
-                source_id = fresh_clip_data["source_id"]
-                query_used = fresh_clip_data["query"]
-
-                if gemini_engine.is_available():
-                    try:
-                        c_meta = gemini_engine.generate_creator_metadata(niche, query_used, lang=bp.get("lang", "en"))
-                        if c_meta.get("title"):
-                            clip_title = c_meta["title"]
-                        if c_meta.get("banner"):
-                            banner_text = c_meta["banner"]
-                        if c_meta.get("description"):
-                            clip_desc = c_meta["description"]
-                        time.sleep(1.5)
-                    except Exception as e:
-                        print(f"Notice: Gemini metadata note for {niche}: {e}")
-
-                # Ensure title has never been uploaded before
-                if tracker.is_title_used(clip_title):
-                    tag_part = " ".join([t for t in clip_title.split() if t.startswith("#")])
-                    main_part = " ".join([t for t in clip_title.split() if not t.startswith("#")])
-                    import random
-                    clip_title = f"{main_part} Part {random.randint(2, 99)} {tag_part or '#Shorts'}"
-
-                video_path = dynamic_engine.format_to_vertical_short(
-                    video_path=raw_video,
-                    banner_text=banner_text,
-                    output_filename=video_filename,
-                    duration=18.0
-                )
-
-                thumb_filename = f"thumb_{idx:02d}_{niche}.jpg"
-                thumb_path = dynamic_engine.generate_high_impact_thumbnail(
-                    video_path=raw_video,
-                    banner_text=banner_text,
-                    output_filename=thumb_filename,
-                    timestamp_sec=2.5
-                )
-
-                generated_videos.append({
-                    "index": idx,
-                    "type": f"Real Creator Short ({niche})",
-                    "title": clip_title,
-                    "description": clip_desc,
-                    "tags": clip_tags,
-                    "video_path": video_path,
-                    "thumbnail_path": thumb_path,
-                    "duration": "18.0s",
-                    "source_id": source_id,
-                    "query": query_used
-                })
-                print(f"✓ Video {idx} ready (100% Fresh Moving Footage): {video_filename}")
-
+                for d_path in target_desktops:
+                    ch_clean = re.sub(r'[^\w\-_]', '_', ch_name)
+                    folder = os.path.join(d_path, "Daily_Shorts", ch_clean)
+                    os.makedirs(folder, exist_ok=True)
+                    for v in ch_videos:
+                        dest = os.path.join(folder, os.path.basename(v["video_path"]))
+                        shutil.copy2(v["video_path"], dest)
+                        if v.get("thumbnail_path") and os.path.exists(v["thumbnail_path"]):
+                            shutil.copy2(v["thumbnail_path"], os.path.join(folder, os.path.basename(v["thumbnail_path"])))
+                    meta_dest = os.path.join(folder, "titles_and_tags.json")
+                    with open(meta_dest, "w", encoding="utf-8") as f:
+                        json.dump(ch_videos, f, ensure_ascii=False, indent=2)
+                    print(f"📂 Copied {len(ch_videos)} videos to Desktop -> {folder}")
             except Exception as e:
-                print(f"❌ Failed creator short {idx}: {e}")
-                continue
+                print(f"Desktop copy notice: {e}")
 
-        else:
-            # Fact Short
-            niche = bp["niche"]
-            visual_theme = bp.get("theme", "")
-            print(f"\n[{idx}/10] Generating Viral Fact Short via Gemini AI ({niche})...")
+        # 3. Upload to YouTube if requested
+        if upload_yt:
+            print(f"\n🚀 Auto-Uploading 10 Shorts to {ch_name} with Staggered Indian Peak Schedule...")
+            uploader = YouTubeUploader(token_path=ch["token"])
+            schedules = get_indian_peak_schedule(len(ch_videos), channel_id=ch_id)
+            ch_success = 0
 
-            script = None
-            if gemini_engine.is_available():
+            for idx, v in enumerate(ch_videos):
+                slot = schedules[idx]
                 try:
-                    script = gemini_engine.generate_fact_script(niche=niche)
-                    print(f"✨ Gemini Script Generated: '{script['title'][:45]}...'")
-                    time.sleep(2.0)
+                    upload_res = uploader.upload_short(
+                        video_path=v["video_path"],
+                        title=v["title"],
+                        description=v["description"],
+                        tags=v["tags"],
+                        privacy_status="public",
+                        publish_at=slot,
+                        thumbnail_path=v.get("thumbnail_path")
+                    )
+                    ch_success += 1
+                    total_successful_uploads += 1
+                    tracker.record_upload(
+                        title=v["title"],
+                        video_type=f"{v['type']} [{ch_name}]",
+                        youtube_video_id=upload_res.get("video_id"),
+                        source_id=v.get("source_id"),
+                        query=v.get("query")
+                    )
+                    time.sleep(4)
                 except Exception as e:
-                    print(f"Notice: Gemini script fallback for slot {idx}: {e}")
+                    print(f"[{ch_name}] Upload failed for '{v['title']}': {e}")
+            print(f"✓ {ch_success} / {len(ch_videos)} videos successfully uploaded to {ch_name}!")
 
-            if not script:
-                fb_i = bp.get("fallback_idx", 0) % len(fallback_scripts)
-                script = fallback_scripts[fb_i]
-
-            script_title = script["title"]
-            script_desc = script["description"]
-            script_tags = script["tags"]
-            spoken_text = script.get("spoken_text") or script.get("text", "")
-            top_banner = script.get("top_hook") or "FACTTECHZ MYSTERY ⚡"
-
-            try:
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                audio_path = os.path.join(output_batch_dir, f"hindi_audio_{idx}_{timestamp}.mp3")
-                ass_path = os.path.join(output_batch_dir, f"hindi_sub_{idx}_{timestamp}.ass")
-                video_filename = f"video_{idx:02d}_hindi_ai.mp4"
-
-                voice_res = generate_audio(
-                    text=spoken_text,
-                    audio_path=audio_path,
-                    ass_path=ass_path,
-                    voice="hi-IN-MadhurNeural"
-                )
-
-                scenes = THEME_SCENE_MAP.get(visual_theme) or get_cinematic_scenes_for_script(script)
-                valid_scenes = [s for s in scenes if os.path.exists(s)]
-                if not valid_scenes:
-                    valid_scenes = ["assets/ai_video_clips/bg_space.mp4"]
-
-                video_path = video_maker.render_video(
-                    audio_path=audio_path,
-                    ass_path=ass_path,
-                    output_filename=video_filename,
-                    duration=voice_res["duration"],
-                    bg_video_paths=valid_scenes,
-                    presenter_video_path=None,
-                    banner_text=top_banner
-                )
-
-                generated_videos.append({
-                    "index": idx,
-                    "type": f"Gemini Fact Short ({niche.split('&')[0].strip()})",
-                    "title": script_title,
-                    "description": script_desc,
-                    "tags": script_tags,
-                    "video_path": video_path,
-                    "duration": f"{voice_res['duration']:.1f}s",
-                    "source_id": f"gemini_{idx}_{visual_theme or niche[:10]}",
-                    "query": niche
-                })
-                print(f"✓ Video {idx} ready (Gemini AI + HD Montage): {video_filename}")
-            except Exception as e:
-                print(f"❌ Failed to generate video {idx}: {e}")
-
-    # -------------------------------------------------------------
-    # PART 3: SAVE METADATA & SCHEDULE
-    # -------------------------------------------------------------
-    metadata_path = os.path.join(output_batch_dir, "daily_metadata.json")
-    with open(metadata_path, "w", encoding="utf-8") as f:
-        json.dump(generated_videos, f, ensure_ascii=False, indent=2)
-
-    # Copy to Desktop if requested
-    desktop_folder = None
-    if copy_to_desktop:
-        try:
-            # Check OneDrive Desktop first (standard on modern Windows)
-            onedrive_desktop = os.path.join(os.environ.get("USERPROFILE", ""), "OneDrive", "Desktop")
-            local_desktop = os.path.join(os.environ.get("USERPROFILE", ""), "Desktop")
-            target_desktops = []
-            if os.path.exists(onedrive_desktop):
-                target_desktops.append(onedrive_desktop)
-            if os.path.exists(local_desktop) and local_desktop not in target_desktops:
-                target_desktops.append(local_desktop)
-
-            for d_path in target_desktops:
-                folder = os.path.join(d_path, "Daily_10_Shorts")
-                os.makedirs(folder, exist_ok=True)
-                for v in generated_videos:
-                    dest = os.path.join(folder, os.path.basename(v["video_path"]))
-                    shutil.copy2(v["video_path"], dest)
-                    if v.get("thumbnail_path") and os.path.exists(v["thumbnail_path"]):
-                        shutil.copy2(v["thumbnail_path"], os.path.join(folder, os.path.basename(v["thumbnail_path"])))
-                shutil.copy2(metadata_path, os.path.join(folder, "titles_and_tags.json"))
-                desktop_folder = folder
-                print(f"\n📂 All 10 videos copied to Desktop -> {desktop_folder}")
-        except Exception as e:
-            print(f"Warning: Could not copy to desktop: {e}")
-
-    # Optional Auto-Upload (Multi-Channel Support)
-    if upload_yt:
-        channels = [
-            {"id": 1, "name": "Channel 1 (MiniTalesWorld)", "token": "config/youtube_token.json"}
-        ]
-        if os.path.exists("config/youtube_token_ch2.json"):
-            channels.append({"id": 2, "name": "Channel 2", "token": "config/youtube_token_ch2.json"})
-        if os.path.exists("config/youtube_token_ch3.json"):
-            channels.append({"id": 3, "name": "Channel 3", "token": "config/youtube_token_ch3.json"})
-
-        if target_channels:
-            channels = [c for c in channels if c["id"] in target_channels]
-
-        print(f"\n>> Targeting {len(channels)} active YouTube channel(s) for auto-upload: {[c['name'] for c in channels]}")
-        tracker = HistoryTracker()
-        total_successful_uploads = 0
-
-        for ch in channels:
-            print("\n" + "=" * 55)
-            print(f"🚀 Uploading Batch to {ch['name']}...")
-            print("=" * 55)
-            try:
-                uploader = YouTubeUploader(token_path=ch["token"])
-                schedules = get_indian_peak_schedule(len(generated_videos))
-                ch_success = 0
-                for idx, v in enumerate(generated_videos):
-                    slot = schedules[idx]
-                    try:
-                        upload_res = uploader.upload_short(
-                            video_path=v["video_path"],
-                            title=v["title"],
-                            description=v["description"],
-                            tags=v["tags"],
-                            privacy_status="public",
-                            publish_at=slot,
-                            thumbnail_path=v.get("thumbnail_path")
-                        )
-                        ch_success += 1
-                        total_successful_uploads += 1
-                        tracker.record_upload(
-                            title=v["title"],
-                            video_type=f"{v['type']} [{ch['name']}]",
-                            youtube_video_id=upload_res.get("video_id"),
-                            source_id=v.get("source_id"),
-                            query=v.get("query")
-                        )
-                        time.sleep(4)  # pause between uploads
-                    except Exception as e:
-                        print(f"[{ch['name']}] YouTube upload failed for '{v['title']}': {e}")
-                print(f"✓ {ch_success} / {len(generated_videos)} videos uploaded to {ch['name']}!")
-            except Exception as e:
-                print(f"❌ Failed to upload to {ch['name']}: {e}")
-
-        if not generated_videos:
-            raise RuntimeError("Zero videos were generated! Batch generation failed.")
-        if generated_videos and total_successful_uploads == 0:
-            raise RuntimeError("All YouTube uploads across all channels failed.")
-
-    if upload_meta:
-        print("\n>> Uploading to Facebook/Instagram...")
-        meta_uploader = MetaUploader()
-        for v in generated_videos:
-            try:
-                meta_uploader.upload_facebook_reel(
-                    video_path=v["video_path"],
-                    caption=f"{v['title']}\n\n{v['description']}"
-                )
-            except Exception as e:
-                print(f"Meta upload failed for {v['title']}: {e}")
+    if upload_yt and total_successful_uploads == 0:
+        raise RuntimeError("All YouTube uploads across all channels failed.")
 
     print("\n" + "=" * 65)
-    print("🎉 ALL 10 VIDEOS GENERATED SUCCESSFULLY!")
-    if desktop_folder:
-        print(f"📁 Check your Desktop folder: 'Daily_10_Shorts'")
+    print("🎉 ALL CHANNEL BATCHES PROCESSED SUCCESSFULLY!")
     print("=" * 65)
+
 
 if __name__ == "__main__":
     import argparse
