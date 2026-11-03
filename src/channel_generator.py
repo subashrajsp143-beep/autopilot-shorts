@@ -6,6 +6,8 @@ for each of the 3 YouTube channels:
 - Channel 3: Sports, Football & IShowSpeed with high-energy Hindi commentary
 - Channel 1: FactTechz-style HD moving video B-roll documentary Shorts
 - Channel 2: Mind-Blowing Science, Hydraulic Press & Guinness World Records
+
+Includes dynamic daily rotation so every single day gets fresh scripts & titles!
 """
 
 import os
@@ -20,20 +22,28 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-from src.channel_blueprints import CHANNEL_3_BLUEPRINTS, CHANNEL_1_BLUEPRINTS, CHANNEL_2_BLUEPRINTS
+from src.channel_blueprints import get_channel_blueprints
 from src.action_hindi_renderer import render_action_clip_hindi
 from src.video_maker import VideoMaker
 from src.voice_generator import generate_audio
 
 
-def generate_channel_batch(channel_id: int, base_output_dir: str = "output/batch_today", force_render: bool = False) -> List[Dict[str, Any]]:
+def generate_channel_batch(
+    channel_id: int,
+    base_output_dir: str = "output/batch_today",
+    force_render: bool = False,
+    day_offset: Optional[int] = None
+) -> List[Dict[str, Any]]:
     """
     Renders or loads 10 unique Shorts for the specified channel ID (1, 2, or 3).
-    Guarantees zero cross-channel duplicate videos or scripts.
+    Guarantees zero cross-channel duplicate videos or scripts with dynamic daily rotation.
     """
     channel_dir = os.path.join(base_output_dir, f"channel_{channel_id}")
     os.makedirs(channel_dir, exist_ok=True)
     results: List[Dict[str, Any]] = []
+
+    # Get today's dynamic rotating blueprints
+    blueprints = get_channel_blueprints(channel_id, count=10, day_offset=day_offset)
 
     print(f"\n=======================================================")
     print(f"🎬 Processing 10 Unique Hindi Shorts for Channel {channel_id}")
@@ -42,7 +52,6 @@ def generate_channel_batch(channel_id: int, base_output_dir: str = "output/batch
 
     if channel_id == 3:
         # CHANNEL 3: Football (Ronaldo/Messi) & IShowSpeed Viral Action
-        blueprints = CHANNEL_3_BLUEPRINTS
         for bp in blueprints:
             slot = bp["slot"]
             out_vid = os.path.join(channel_dir, f"ch3_v{slot:02d}.mp4")
@@ -89,7 +98,6 @@ def generate_channel_batch(channel_id: int, base_output_dir: str = "output/batch
 
     elif channel_id == 1:
         # CHANNEL 1: FactTechz-Style HD Moving B-Roll Documentary Shorts
-        blueprints = CHANNEL_1_BLUEPRINTS
         vm = VideoMaker(assets_dir="assets", output_dir=channel_dir)
 
         for bp in blueprints:
@@ -155,7 +163,6 @@ def generate_channel_batch(channel_id: int, base_output_dir: str = "output/batch
 
     elif channel_id == 2:
         # CHANNEL 2: Satisfying Science & Guinness World Records (Hindi Commentary)
-        blueprints = CHANNEL_2_BLUEPRINTS
         for bp in blueprints:
             slot = bp["slot"]
             out_vid = os.path.join(channel_dir, f"ch2_v{slot:02d}.mp4")
