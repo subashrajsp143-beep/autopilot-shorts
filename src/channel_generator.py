@@ -51,7 +51,10 @@ def generate_channel_batch(
     print(f"=======================================================\n")
 
     if channel_id == 3:
-        # CHANNEL 3: Football (Ronaldo/Messi) & IShowSpeed Viral Action
+        # CHANNEL 3: MrBeast Official Hindi Dubs + Football (Ronaldo) & Speed Viral Action
+        from src.mrbeast_hindi_engine import MrBeastHindiEngine
+        beast_engine = MrBeastHindiEngine(output_dir=channel_dir)
+
         for bp in blueprints:
             slot = bp["slot"]
             out_vid = os.path.join(channel_dir, f"ch3_v{slot:02d}.mp4")
@@ -62,29 +65,51 @@ def generate_channel_batch(
                 results.append({
                     "index": slot,
                     "channel_id": 3,
-                    "type": "Football & Speed Viral Short (Hindi Voice)",
+                    "type": bp.get("type", "Viral Creator Short"),
                     "title": bp["title"],
                     "description": bp["description"],
                     "tags": bp["tags"],
                     "video_path": out_vid,
                     "thumbnail_path": out_thumb if os.path.exists(out_thumb) else None,
-                    "duration": 15.0,
-                    "source_id": os.path.basename(bp["clip"]),
-                    "query": "football_and_speed_hindi"
+                    "duration": 25.0,
+                    "source_id": bp.get("id", os.path.basename(bp.get("clip", ""))),
+                    "query": bp.get("query", "channel3_viral")
                 })
-            else:
-                print(f"[{slot}/10] Channel 3: Rendering '{bp['title'][:45]}...'")
-                render_res = render_action_clip_hindi(
-                    clip_path=bp["clip"],
-                    hindi_text=bp["hindi_script"],
-                    banner_text=bp["banner"],
+            elif bp.get("engine") == "mrbeast_hindi":
+                print(f"[{slot}/10] Channel 3: Downloading & Formatting MrBeast Official Hindi Short '{bp['title'][:45]}...'")
+                render_res = beast_engine.render_mrbeast_short(
+                    item=bp,
                     output_video_path=out_vid,
                     output_thumb_path=out_thumb
                 )
                 results.append({
                     "index": slot,
                     "channel_id": 3,
-                    "type": "Football & Speed Viral Short (Hindi Voice)",
+                    "type": "MrBeast Official Hindi Dub Short",
+                    "title": render_res["title"],
+                    "description": render_res["description"],
+                    "tags": render_res["tags"],
+                    "video_path": render_res["video_path"],
+                    "thumbnail_path": render_res["thumbnail_path"],
+                    "duration": render_res["duration"],
+                    "source_id": render_res["source_id"],
+                    "query": render_res["query"]
+                })
+                print(f"  ✓ Rendered: {os.path.basename(render_res['video_path'])}")
+            else:
+                print(f"[{slot}/10] Channel 3: Rendering Action Short '{bp['title'][:45]}...'")
+                render_res = render_action_clip_hindi(
+                    clip_path=bp["clip"],
+                    hindi_text=bp.get("hindi_script", ""),
+                    banner_text=bp["banner"],
+                    output_video_path=out_vid,
+                    output_thumb_path=out_thumb,
+                    use_ai_voice=False  # Authentic crowd / stream audio! Zero AI voice
+                )
+                results.append({
+                    "index": slot,
+                    "channel_id": 3,
+                    "type": "Football & Speed Viral Short (Authentic Audio)",
                     "title": bp["title"],
                     "description": bp["description"],
                     "tags": bp["tags"],
@@ -92,7 +117,7 @@ def generate_channel_batch(
                     "thumbnail_path": render_res["thumbnail_path"],
                     "duration": render_res["duration"],
                     "source_id": os.path.basename(bp["clip"]),
-                    "query": "football_and_speed_hindi"
+                    "query": "football_and_speed_authentic"
                 })
                 print(f"  ✓ Rendered: {os.path.basename(render_res['video_path'])}")
 
@@ -190,9 +215,22 @@ def generate_channel_batch(
                     hindi_text=bp["hindi_script"],
                     banner_text=bp["banner"],
                     output_video_path=out_vid,
-                    output_thumb_path=out_thumb
+                    output_thumb_path=out_thumb,
+                    use_ai_voice=False  # Authentic crunch / stunt sounds! Zero robotic AI voice
                 )
                 results.append({
+                    "index": slot,
+                    "channel_id": 2,
+                    "type": "Science & Stunt Short (Authentic Audio)",
+                    "title": bp["title"],
+                    "description": bp["description"],
+                    "tags": bp["tags"],
+                    "video_path": render_res["video_path"],
+                    "thumbnail_path": render_res["thumbnail_path"],
+                    "duration": render_res["duration"],
+                    "source_id": os.path.basename(bp["clip"]),
+                    "query": "science_and_records_authentic"
+                })
                     "index": slot,
                     "channel_id": 2,
                     "type": "Science & Stunt Short (Hindi Voice)",

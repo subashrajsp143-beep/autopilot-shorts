@@ -21,6 +21,8 @@ except ModuleNotFoundError:
     from src.history_tracker import HistoryTracker
 
 from src.hindi_script_generator import HINDI_VIRAL_SCRIPTS
+from src.mrbeast_hindi_engine import MRBEAST_HINDI_REGISTRY
+
 
 
 # ==============================================================================
@@ -301,22 +303,31 @@ def get_channel_blueprints(channel_id: int, count: int = 10, day_offset: Optiona
     selected: List[Dict[str, Any]] = []
 
     if channel_id == 3:
-        # Channel 3: Sports, Football & Speed
-        total_pool = len(CHANNEL_3_POOL)
-        start_idx = (day_offset * count) % total_pool
-        for i in range(total_pool):
-            candidate = CHANNEL_3_POOL[(start_idx + i) % total_pool]
-            # Check if title was used
-            title = candidate["title"]
-            if tracker.is_title_used(title):
-                # Dynamically append Part counter to ensure 100% uniqueness
-                import random
-                candidate = dict(candidate)
-                candidate["title"] = f"{title.split('#')[0].strip()} Part {day_offset + 1} #{title.split('#')[-1] if '#' in title else 'Shorts'}"
-            if candidate not in selected:
-                selected.append(dict(candidate))
-            if len(selected) >= count:
-                break
+        # Channel 3: Super Viral Mix - 50% MrBeast Official Hindi Dubs + 50% Football/Speed
+        beast_pool = [dict(x, engine="mrbeast_hindi", type="MrBeast Official Hindi Dub Short") for x in MRBEAST_HINDI_REGISTRY]
+        action_pool = [dict(x, engine="action", type="Football & Speed Viral Short") for x in CHANNEL_3_POOL]
+
+        beast_start = (day_offset * 5) % len(beast_pool)
+        action_start = (day_offset * 5) % len(action_pool)
+
+        beast_items = [beast_pool[(beast_start + i) % len(beast_pool)] for i in range(5)]
+        action_items = [action_pool[(action_start + i) % len(action_pool)] for i in range(5)]
+
+        # Perfectly alternate: Beast -> Action -> Beast -> Action -> ...
+        chosen_beast_ids = set()
+        for i in range(5):
+            b_item = dict(beast_items[i])
+            if tracker.is_source_used(b_item["id"]) or b_item["id"] in chosen_beast_ids:
+                # Pick next strictly unused beast short
+                for alt in beast_pool:
+                    if not tracker.is_source_used(alt["id"]) and alt["id"] not in chosen_beast_ids:
+                        b_item = dict(alt)
+                        break
+            chosen_beast_ids.add(b_item["id"])
+            selected.append(b_item)
+
+            a_item = dict(action_items[i])
+            selected.append(a_item)
 
     elif channel_id == 1:
         # Channel 1: FactTechz 29 Rotating Scripts
