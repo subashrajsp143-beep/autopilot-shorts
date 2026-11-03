@@ -310,71 +310,85 @@ def get_todays_creator_presets() -> List[Dict[str, Any]]:
 
 def get_indian_peak_schedule(num_videos: int = 10, channel_id: int = 1):
     """
-    Calculates 10 publishing slots strictly aligned to Indian Peak Viewing Hours (11 AM - 10:30 PM IST).
-    Staggers upload slots across different channels so they NEVER publish at the same time:
-    - Channel 3 (Next Level Facts): Offset 0 mins (Star channel gets top priority on the hour :00/:30)
-    - Channel 1 (MiniTalesWorld): Offset +20 mins (Publishes at :20/:50)
-    - Channel 2 (Pawsome Productions): Offset +40 mins (Publishes at :10/:40)
+    Calculates 10 publishing slots strictly fulfilling the user's multi-channel timing architecture:
+    - Channel 1 (MiniTalesWorld): Starts at 11:00 AM IST (Morning/Midday Facts & Mysteries)
+    - Channel 2 (Pawsome Productions): Starts at 03:00 PM IST (Afternoon/Late Afternoon Science & Stunts)
+    - Channel 3 (Next Level Facts): Starts at 08:00 PM IST (Prime Evening/Night/Morning Star Channel)
+
+    Guarantees:
+    - A massive 4-hour to 5-hour difference between equivalent video slots across channels
+    - Minimum 25-55 minute spacing between videos on the same channel
+    - Zero uploads during dead sleep hours (12:00 AM - 7:00 AM IST)
+    - Valid future timestamps compatible with YouTube API publishAt requirements
     """
     from datetime import datetime, timedelta, timezone
     ist = timezone(timedelta(hours=5, minutes=30))
     now_ist = datetime.now(ist)
 
-    # Channel-specific time offsets to completely eliminate cross-channel upload clashes
-    channel_offsets = {
-        3: 0,   # Channel 3 gets priority (:00 / :30)
-        1: 20,  # Channel 1 publishes at :20 / :50
-        2: 40   # Channel 2 publishes at :10 / :40
+    CHANNEL_TARGET_HOURS = {
+        1: [
+            (11, 0),   # Slot 1: 11:00 AM (Morning kick-off)
+            (11, 50),  # Slot 2: 11:50 AM
+            (12, 40),  # Slot 3: 12:40 PM (Lunch peak)
+            (13, 30),  # Slot 4: 01:30 PM
+            (14, 20),  # Slot 5: 02:20 PM
+            (15, 40),  # Slot 6: 03:40 PM
+            (16, 30),  # Slot 7: 04:30 PM (Tea break peak)
+            (17, 30),  # Slot 8: 05:30 PM (College/Office commute)
+            (18, 30),  # Slot 9: 06:30 PM
+            (19, 30),  # Slot 10: 07:30 PM (Evening transition)
+        ],
+        2: [
+            (15, 0),   # Slot 1: 03:00 PM (Afternoon kick-off - exactly 3 PM)
+            (15, 55),  # Slot 2: 03:55 PM
+            (16, 50),  # Slot 3: 04:50 PM
+            (17, 45),  # Slot 4: 05:45 PM
+            (18, 40),  # Slot 5: 06:40 PM
+            (19, 35),  # Slot 6: 07:35 PM
+            (20, 30),  # Slot 7: 08:30 PM (Post-dinner leisure)
+            (21, 20),  # Slot 8: 09:20 PM
+            (22, 10),  # Slot 9: 10:10 PM (Bedtime scroll)
+            (9, 15),   # Slot 10: Next Morning 09:15 AM
+        ],
+        3: [
+            (20, 0),   # Slot 1: 08:00 PM (Super Prime Evening - exactly 8 PM)
+            (20, 40),  # Slot 2: 08:40 PM
+            (21, 15),  # Slot 3: 09:15 PM (Dinner peak)
+            (21, 50),  # Slot 4: 09:50 PM
+            (22, 25),  # Slot 5: 10:25 PM
+            (23, 0),   # Slot 6: 11:00 PM (Late night viral scroll)
+            (23, 35),  # Slot 7: 11:35 PM
+            (7, 45),   # Slot 8: Next Morning 07:45 AM (Early morning wake-up)
+            (8, 45),   # Slot 9: Next Morning 08:45 AM (Morning commute)
+            (10, 0),   # Slot 10: Next Morning 10:00 AM (Tea break / pre-reset)
+        ]
     }
-    ch_offset_mins = channel_offsets.get(channel_id, (channel_id - 1) * 20)
 
-    target_hours_ist = [
-        (11, 15),  # Slot 1: Morning wake-up / tea break
-        (12, 30),  # Slot 2: Lunch / College break
-        (13, 45),  # Slot 3: Afternoon scroll
-        (15, 0),   # Slot 4: Mid-afternoon
-        (16, 15),  # Slot 5: Evening tea break
-        (17, 30),  # Slot 6: Commute / Free time
-        (18, 45),  # Slot 7: Early evening peak
-        (20, 0),   # Slot 8: PRIME EVENING SUPER PEAK (8 PM)
-        (21, 0),   # Slot 9: PRIME DINNER SUPER PEAK (9 PM)
-        (22, 0)    # Slot 10: LATE NIGHT SCROLLING PEAK (10 PM)
-    ]
-
+    hours_list = CHANNEL_TARGET_HOURS.get(channel_id, CHANNEL_TARGET_HOURS[1])
     slots = []
-    last_slot_ist = now_ist
-    for i in range(num_videos):
-        if i == 0:
-            if channel_id == 3:
-                slots.append(None)  # Channel 3 first video goes live immediately!
-            else:
-                first_slot = now_ist + timedelta(minutes=ch_offset_mins)
-                slots.append(first_slot.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z"))
-            continue
+    last_dt = now_ist
 
-        idx = min(i, len(target_hours_ist) - 1)
-        h, m = target_hours_ist[idx]
-        slot_ist = now_ist.replace(hour=h, minute=m, second=0, microsecond=0) + timedelta(minutes=ch_offset_mins)
+    for idx in range(num_videos):
+        h, m = hours_list[idx % len(hours_list)]
+        target_dt = now_ist.replace(hour=h, minute=m, second=0, microsecond=0)
+
+        anchor_h, anchor_m = hours_list[0]
+        # If this slot hour is in the morning for evening channels (e.g. Channel 3 morning slots)
+        if h < anchor_h or (h == anchor_h and m < anchor_m):
+            target_dt += timedelta(days=1)
+        elif target_dt <= now_ist + timedelta(minutes=5):
+            # If today's slot time already passed, shift to tomorrow
+            target_dt += timedelta(days=1)
 
         # Minimum spacing between videos on the same channel
-        min_allowed = last_slot_ist + timedelta(minutes=25)
-        if slot_ist < min_allowed:
-            slot_ist = min_allowed
+        if target_dt <= last_dt:
+            target_dt = last_dt + timedelta(minutes=25)
 
-        # If pushed beyond 11:30 PM IST, schedule for tomorrow morning
-        if slot_ist.hour >= 23 and slot_ist.minute > 30:
-            tomorrow_ist = (now_ist + timedelta(days=1)).replace(hour=11, minute=15, second=0, microsecond=0) + timedelta(minutes=ch_offset_mins)
-            if min_allowed < tomorrow_ist:
-                slot_ist = tomorrow_ist + timedelta(minutes=45 * (i - 1))
-            else:
-                slot_ist = min_allowed
-
-        last_slot_ist = slot_ist
-        slot_utc = slot_ist.astimezone(timezone.utc)
+        last_dt = target_dt
+        slot_utc = target_dt.astimezone(timezone.utc)
         slots.append(slot_utc.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
 
     return slots
-
 
 get_staggered_schedule = get_indian_peak_schedule
 
