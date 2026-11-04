@@ -276,7 +276,11 @@ class MrBeastHindiEngine:
         Queries video metadata via yt-dlp -J to find the exact Hindi audio format ID
         and best vertical video format ID. Guarantees 100% that Hindi audio is selected.
         """
-        cmd = [sys.executable, "-m", "yt_dlp", "-J", target_url]
+        cmd = [
+            sys.executable, "-m", "yt_dlp",
+            "--extractor-args", "youtube:player_client=android,ios,mweb",
+            "-J", target_url
+        ]
         out = subprocess.check_output(cmd, text=True, timeout=25)
         info = json.loads(out)
         formats = info.get("formats", [])
@@ -301,7 +305,6 @@ class MrBeastHindiEngine:
         video_id = "bv*[height<=1080]"
         if not any(f.get("height") and f.get("height") <= 1080 for f in formats if f.get("vcodec") != "none"):
             video_id = "bestvideo"
-
 
         return video_id, audio_id
 
@@ -335,6 +338,7 @@ class MrBeastHindiEngine:
         print(f"📥 Downloading official MrBeast Hindi Short ({vid_id}) with format '{fmt_selector}'...")
         dl_cmd = [
             sys.executable, "-m", "yt_dlp",
+            "--extractor-args", "youtube:player_client=android,ios,mweb",
             "-f", fmt_selector,
             "--merge-output-format", "mp4",
             "-o", temp_tmpl,
@@ -353,9 +357,16 @@ class MrBeastHindiEngine:
         ]
 
         if not valid_raw:
-            raise RuntimeError(f"Failed to download MrBeast Hindi short {vid_id}: {res.stderr[-300:]}")
-
-        downloaded_raw = valid_raw[0]
+            # Fallback to pre-cached verified MrBeast Hindi clips if live download fails or is bot-blocked
+            cached_beast = glob.glob(os.path.join("assets", "creator_clips", "mrbeast_hindi_*.mp4"))
+            if cached_beast:
+                chosen = cached_beast[int(datetime.now().timestamp()) % len(cached_beast)]
+                print(f"🎯 Live download blocked/failed ({res.stderr[:80] if res.stderr else 'none'}). Using verified pre-cached MrBeast Hindi clip: {chosen}")
+                downloaded_raw = chosen
+            else:
+                raise RuntimeError(f"Failed to download MrBeast Hindi short {vid_id}: {res.stderr[-300:]}")
+        else:
+            downloaded_raw = valid_raw[0]
 
         # 3. Add modern sleek top-hook banner and format to 1080x1920
         font_opt = self._get_font_opt()
@@ -386,9 +397,10 @@ class MrBeastHindiEngine:
         print(f"🎬 Formatting MrBeast official Hindi short to 1080x1920 with top banner...")
         render_res = subprocess.run(render_cmd, capture_output=True, text=True)
 
-        # Cleanup raw temp file
+        # Cleanup raw temp file (never delete assets!)
         try:
-            if os.path.exists(downloaded_raw):
+            raw_normalized = str(downloaded_raw).replace('\\', '/')
+            if not raw_normalized.startswith("assets") and os.path.exists(downloaded_raw):
                 os.remove(downloaded_raw)
         except Exception:
             pass

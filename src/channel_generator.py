@@ -22,7 +22,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-from src.channel_blueprints import get_channel_blueprints
+from src.channel_blueprints import get_channel_blueprints, CHANNEL_3_POOL
 from src.action_hindi_renderer import render_action_clip_hindi
 from src.video_maker import VideoMaker
 from src.voice_generator import generate_audio
@@ -77,25 +77,51 @@ def generate_channel_batch(
                 })
             elif bp.get("engine") == "mrbeast_hindi":
                 print(f"[{slot}/10] Channel 3: Downloading & Formatting MrBeast Official Hindi Short '{bp['title'][:45]}...'")
-                render_res = beast_engine.render_mrbeast_short(
-                    item=bp,
-                    output_video_path=out_vid,
-                    output_thumb_path=out_thumb
-                )
-                results.append({
-                    "index": slot,
-                    "channel_id": 3,
-                    "type": "MrBeast Official Hindi Dub Short",
-                    "title": render_res["title"],
-                    "description": render_res["description"],
-                    "tags": render_res["tags"],
-                    "video_path": render_res["video_path"],
-                    "thumbnail_path": render_res["thumbnail_path"],
-                    "duration": render_res["duration"],
-                    "source_id": render_res["source_id"],
-                    "query": render_res["query"]
-                })
-                print(f"  ✓ Rendered: {os.path.basename(render_res['video_path'])}")
+                try:
+                    render_res = beast_engine.render_mrbeast_short(
+                        item=bp,
+                        output_video_path=out_vid,
+                        output_thumb_path=out_thumb
+                    )
+                    results.append({
+                        "index": slot,
+                        "channel_id": 3,
+                        "type": "MrBeast Official Hindi Dub Short",
+                        "title": render_res["title"],
+                        "description": render_res["description"],
+                        "tags": render_res["tags"],
+                        "video_path": render_res["video_path"],
+                        "thumbnail_path": render_res["thumbnail_path"],
+                        "duration": render_res["duration"],
+                        "source_id": render_res["source_id"],
+                        "query": render_res["query"]
+                    })
+                    print(f"  ✓ Rendered: {os.path.basename(render_res['video_path'])}")
+                except Exception as e:
+                    print(f"  ⚠️ Beast download notice ({e}). Falling back to local action short...")
+                    fallback_bp = CHANNEL_3_POOL[slot % len(CHANNEL_3_POOL)]
+                    render_res = render_action_clip_hindi(
+                        clip_path=fallback_bp["clip"],
+                        hindi_text=fallback_bp.get("hindi_script", ""),
+                        banner_text=fallback_bp["banner"],
+                        output_video_path=out_vid,
+                        output_thumb_path=out_thumb,
+                        use_ai_voice=False
+                    )
+                    results.append({
+                        "index": slot,
+                        "channel_id": 3,
+                        "type": "Football & Speed Viral Short (Authentic Audio)",
+                        "title": fallback_bp["title"],
+                        "description": fallback_bp["description"],
+                        "tags": fallback_bp["tags"],
+                        "video_path": render_res["video_path"],
+                        "thumbnail_path": render_res["thumbnail_path"],
+                        "duration": render_res["duration"],
+                        "source_id": os.path.basename(fallback_bp["clip"]),
+                        "query": "football_and_speed_fallback"
+                    })
+                    print(f"  ✓ Rendered fallback: {os.path.basename(render_res['video_path'])}")
             else:
                 print(f"[{slot}/10] Channel 3: Rendering Action Short '{bp['title'][:45]}...'")
                 render_res = render_action_clip_hindi(
