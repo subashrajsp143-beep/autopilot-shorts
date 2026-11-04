@@ -231,18 +231,6 @@ def generate_channel_batch(
                     "source_id": os.path.basename(bp["clip"]),
                     "query": "science_and_records_authentic"
                 })
-                    "index": slot,
-                    "channel_id": 2,
-                    "type": "Science & Stunt Short (Hindi Voice)",
-                    "title": bp["title"],
-                    "description": bp["description"],
-                    "tags": bp["tags"],
-                    "video_path": render_res["video_path"],
-                    "thumbnail_path": render_res["thumbnail_path"],
-                    "duration": render_res["duration"],
-                    "source_id": os.path.basename(bp["clip"]),
-                    "query": "science_and_records_hindi"
-                })
                 print(f"  ✓ Rendered: {os.path.basename(render_res['video_path'])}")
 
     print(f"\n✅ Ready with all 10 videos for Channel {channel_id}!\n")
