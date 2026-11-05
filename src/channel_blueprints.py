@@ -33,7 +33,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     # Pool A: Ronaldo & Speed
     {
         "clip": "assets/creator_clips/football_01_ronaldo_bicycle.mp4",
-        "title": "रोनाल्डो का यह बाइसिकल किक गोल देखकर विरोधी फैंस भी रो पड़े! 😱🐐 #Shorts #CR7 #Football",
+        "title": "जब Ronaldo ने बनाया IMPOSSIBLE Goal! 😱 CR7 BICYCLE #Shorts",
         "banner": "RONALDO IMPOSSIBLE BICYCLE KICK! 🚲🐐",
         "description": "फुटबॉल इतिहास का सबसे नामुमकिन गोल! हवा में 8 फीट ऊपर उछलकर रोनाल्डो ने सबको हैरान कर दिया।\n\n#Shorts #Ronaldo #BicycleKick #FootballViral #CR7",
         "tags": ["ronaldo", "cr7 bicycle kick", "football shorts", "viral shorts", "cr7 goat"],
@@ -41,7 +41,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     },
     {
         "clip": "assets/creator_clips/speed_01_dude_perfect.mp4",
-        "title": "स्पीड ने जब पहली बार मारा नामुमकिन बास्केटबॉल शॉट! 😱🏀 #Shorts #IShowSpeed",
+        "title": "Speed का सबसे CRAZY शॉट! 😱 ISHOWSPEED BASKETBALL #Shorts",
         "banner": "SPEED IMPOSSIBLE BASKETBALL SHOT! 🏀🔥",
         "description": "स्पीड और ड्यूट परफेक्ट का सबसे ऐतिहासिक और फनी मोमेंट!\n\n#Shorts #IShowSpeed #DudePerfect #TrickShot #Viral",
         "tags": ["ishowspeed", "speed trick shot", "dude perfect", "shorts", "viral"],
@@ -49,7 +49,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     },
     {
         "clip": "assets/creator_clips/football_02_ronaldo_freekick.mp4",
-        "title": "रोनाल्डो का वो 40 गज का फ्रीकिक जिसने फिजिक्स के नियम तोड़ दिए! 🚀⚽ #Shorts #Ronaldo",
+        "title": "Ronaldo का 40 गज का Free-Kick! 🚀⚽ CR7 KNUCKLEBALL #Shorts",
         "banner": "RONALDO 40-YARD KNUCKLEBALL! 🚀⚽",
         "description": "रोनाल्डो का नकल-बॉल फ्रीकिक जो हवा में सांप की तरह मुड़ गया!\n\n#Shorts #Ronaldo #FreeKick #Knuckleball #CR7",
         "tags": ["ronaldo freekick", "cr7 knuckleball", "football goals", "shorts", "viral"],
@@ -57,7 +57,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     },
     {
         "clip": "assets/creator_clips/speed_02_backflips.mp4",
-        "title": "स्पीड का सबसे खतरनाक बैकफ्लिप स्टंट! 😂🔥 #Shorts #IShowSpeed #CrazyMoments",
+        "title": "Speed का सबसे पागलपन भरा स्टंट! 😂🔥 ISHOWSPEED BACKFLIP #Shorts",
         "banner": "SPEED CRAZY BACKFLIP STUNT! 😂🔥",
         "description": "स्पीड ने लाइव स्ट्रीम पर लगाया ऐसा बैकफ्लिप कि पूरा इंटरनेट हंस पड़ा!\n\n#Shorts #Speed #Backflip #FunnyStream #IShowSpeed",
         "tags": ["speed backflip", "ishowspeed funny", "stream moments", "shorts", "viral"],
@@ -65,7 +65,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     },
     {
         "clip": "assets/creator_clips/football_03_ronaldo_juventus.mp4",
-        "title": "रोनाल्डो की हवा में 2.56 मीटर ऊंची छलांग! ✈️🐐 #Shorts #CR7Header #Football",
+        "title": "जब Ronaldo ने Gravity को किया फेल! ✈️🐐 CR7 SUPER JUMP #Shorts",
         "banner": "RONALDO FLIES IN THE AIR! ✈️🐐",
         "description": "रोनाल्डो ने ग्रैविटी को किया फेल! 2.56 मीटर की ऊंचाई पर डेढ़ सेकंड तक हवा में रुके रहे।\n\n#Shorts #Ronaldo #GravityDefying #CR7 #FootballViral",
         "tags": ["ronaldo jump", "cr7 header", "gravity defying", "shorts", "viral"],
@@ -73,7 +73,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     },
     {
         "clip": "assets/creator_clips/speed_03_silence_challenge.mp4",
-        "title": "स्पीड को जब कमरे में 1 मिनट शांत रहने को कहा गया! 😭⚡ #Shorts #IShowSpeed",
+        "title": "Speed 1 मिनट भी शांत नहीं रह पाया! 😭⚡ ISHOWSPEED FUNNY #Shorts",
         "banner": "CAN SPEED STAY SILENT FOR 1 MINUTE? 😭⚡",
         "description": "स्पीड का सबसे पागलपन भरा चैलेंज जिसमें वह 10 सेकंड भी शांत नहीं रह पाया!\n\n#Shorts #Speed #SilenceChallenge #IShowSpeedRage #Viral",
         "tags": ["speed silence", "ishowspeed rage", "speed funny moments", "shorts", "viral"],
@@ -81,7 +81,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     },
     {
         "clip": "assets/creator_clips/football_04_impossible_clearance.mp4",
-        "title": "गोल लाइन पर डिफेंडर का ऐसा करिश्मा जिसे देखकर सब दंग रह गए! 😱🧤 #Shorts #FootballSaves",
+        "title": "Football का सबसे हैरतअंगेज Save! 😱🧤 IMPOSSIBLE DEFENCE #Shorts",
         "banner": "IMPOSSIBLE GOAL-LINE CLEARANCE! 🧤🔥",
         "description": "फुटबॉल का सबसे हैरतअंगेज सेव! जब 99% निश्चित गोल को डिफेंडर ने हवा में उड़कर रोक लिया।\n\n#Shorts #GoalLineClearance #BestSaves #Football #Viral",
         "tags": ["impossible saves", "goal line clearance", "football defence", "shorts", "viral"],
@@ -89,7 +89,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     },
     {
         "clip": "assets/creator_clips/speed_04_iphone_duo.mp4",
-        "title": "स्पीड ने जब लाइव स्ट्रीम पर नया आईफोन अनबॉक्स किया! 😂📱 #Shorts #IShowSpeed",
+        "title": "Speed का नया iPhone Unboxing मोमेंट! 😂📱 ISHOWSPEED FUNNY #Shorts",
         "banner": "SPEED UNBOXING IPHONE GONE WRONG! 😂📱",
         "description": "स्पीड का आईफोन अनबॉक्सिंग जो पूरी तरह फनी आपदा बन गया!\n\n#Shorts #IShowSpeed #iPhone #FunnyUnboxing #Viral",
         "tags": ["speed iphone", "ishowspeed funny", "unboxing gone wrong", "shorts", "viral"],
@@ -97,7 +97,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     },
     {
         "clip": "assets/creator_clips/football_01_ronaldo_bicycle.mp4",
-        "title": "रोनाल्डो के इस गोल पर रियल मैड्रिड के कोच का रिएक्शन देखें! 🤯🐐 #Shorts #CR7",
+        "title": "Zidane Shocked Reaction To Ronaldo Goal! 🤯🐐 CR7 GOAT #Shorts",
         "banner": "ZIDANE REACTION TO RONALDO GOAL! 🤯🐐",
         "description": "जब कोच जिदान ने रोनाल्डो का गोल देखकर अपना सिर पकड़ लिया!\n\n#Shorts #Ronaldo #Zidane #ChampionsLeague #CR7",
         "tags": ["ronaldo zidane", "cr7 goat", "champions league", "shorts", "viral"],
@@ -105,7 +105,7 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
     },
     {
         "clip": "assets/creator_clips/speed_02_backflips.mp4",
-        "title": "स्पीड का 10 मिलियन सब्सक्राइबर्स सेलिब्रेशन! 🦁🔥 #Shorts #IShowSpeed #10Million",
+        "title": "Speed का 10M Celebration पागलपन! 🦁🔥 ISHOWSPEED 10 MILLION #Shorts",
         "banner": "SPEED 10M CELEBRATION CRAZINESS! 🦁🔥",
         "description": "स्पीड का सबसे एनर्जेटिक और अनफिल्टर्ड मोमेंट!\n\n#Shorts #IShowSpeed #Celebration #ViralStream #Shorts",
         "tags": ["speed celebration", "ishowspeed 10m", "viral streamer", "shorts", "cr7"],

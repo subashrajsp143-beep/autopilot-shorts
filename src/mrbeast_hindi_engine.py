@@ -34,70 +34,70 @@ except ModuleNotFoundError:
 MRBEAST_HINDI_REGISTRY: List[Dict[str, Any]] = [
     {
         "id": "aNI2jv7lBPQ",
-        "title": "मिस्टर बीस्ट ने अनजान लड़के को दिए $10,000! 💰 #Shorts #MrBeastHindi #Viral",
+        "title": "MrBeast ने अनजान लड़के को दिए $10,000! 💰 MRBEAST HINDI CASH #Shorts",
         "banner": "MRBEAST $10,000 CASH DROP!",
         "description": "मिस्टर बीस्ट ने अनजान सब्सक्राइबर को दिए $10,000 कैश!\n\n#Shorts #MrBeast #MrBeastHindi #Giveaway #Trending",
         "tags": ["mrbeast", "mrbeast hindi", "cash giveaway", "shorts", "viral"]
     },
     {
         "id": "CEJXqm2eiJ0",
-        "title": "मिस्टर बीस्ट के सीक्रेट ब्रीफकेस में क्या था? 💼 #Shorts #MrBeast #Mystery",
+        "title": "MrBeast Secret Briefcase में क्या था? 💼😱 MRBEAST MYSTERY #Shorts",
         "banner": "WHAT IS INSIDE THE BRIEFCASE?",
         "description": "सीक्रेट ब्रीफकेस खोलते ही होश उड़ गए!\n\n#Shorts #MrBeastHindi #MysteryBox #Viral #Challenge",
         "tags": ["mrbeast", "briefcase", "mrbeast hindi", "shorts", "mystery"]
     },
     {
         "id": "mND4T0lzg_g",
-        "title": "सब्सक्राइबर्स के हिसाब से लोगों का बर्ताव! 🏆 #Shorts #MrBeastHindi",
+        "title": "Subscribers के हिसाब से लोगों का बर्ताव! 🏆 MRBEAST EXPERIMENT #Shorts",
         "banner": "TREATING PEOPLE BY SUBSCRIBERS!",
         "description": "सब्सक्राइबर्स के आधार पर लोगों का रिएक्शन!\n\n#Shorts #MrBeast #SocialExperiment #Trending",
         "tags": ["mrbeast", "subscribers", "experiment", "shorts", "viral"]
     },
     {
         "id": "41UzbuW6wJs",
-        "title": "जब रोबोट ने किया मिस्टर बीस्ट का काम! 🤖 #Shorts #MrBeast #Robot",
+        "title": "जब Robot ने किया MrBeast का काम! 🤖 MRBEAST ROBOT #Shorts",
         "banner": "CAN A ROBOT DO MY CHORES?",
         "description": "क्या रोबोट मिस्टर बीस्ट के सारे काम कर सकता है?\n\n#Shorts #MrBeastHindi #AI #Robot #Tech",
         "tags": ["mrbeast", "robot", "mrbeast hindi", "shorts", "funny"]
     },
     {
         "id": "T_SMf9j50uc",
-        "title": "मिस्टर बीस्ट ने बना दिया पूरा गांव! 🏘️ #Shorts #MrBeastPhilanthropy",
+        "title": "MrBeast ने बना दिया पूरा गांव! 🏘️ MRBEAST BUILT A VILLAGE #Shorts",
         "banner": "WE BUILT AN ENTIRE VILLAGE!",
         "description": "मिस्टर बीस्ट ने जरूरतमंदों के लिए पूरा गांव बसा दिया!\n\n#Shorts #MrBeastHindi #HelpingPeople #Inspiration",
         "tags": ["mrbeast", "village", "mrbeast hindi", "shorts", "philanthropy"]
     },
     {
         "id": "f7y2XikE7sY",
-        "title": "मिस्टर बीस्ट ने कार देकर खरीदा खाना! 🚗 #Shorts #MrBeast #Crazy",
+        "title": "MrBeast Bought Food With A Car! 🚗😱 MRBEAST CRAZY HINDI #Shorts",
         "banner": "BUYING FOOD WITH MY CAR!",
         "description": "ड्राइव-थ्रू में बर्गर के बदले थमा दी कार!\n\n#Shorts #MrBeastHindi #CarGiveaway #Shocking #Funny",
         "tags": ["mrbeast", "car giveaway", "shorts", "mrbeast hindi", "funny"]
     },
     {
         "id": "xDuuM3ERr5Q",
-        "title": "यूट्यूबर पहचानो और $1,000 जीतो! 🎁 #Shorts #MrBeastGame",
+        "title": "YouTuber पहचानो और $1,000 जीतो! 🎁💰 MRBEAST GAME #Shorts",
         "banner": "GUESS THE YOUTUBER = WIN $1,000!",
         "description": "आवाज सुनकर पहचानना था यूट्यूबर!\n\n#Shorts #MrBeastHindi #GuessingGame #Prize",
         "tags": ["mrbeast", "youtuber", "game", "shorts", "mrbeast hindi"]
     },
     {
         "id": "y1UVAtHALaA",
-        "title": "अचानक सब्सक्राइबर को दिए 8 लाख रुपये! 💵 #Shorts #MrBeastGiveaway",
+        "title": "MrBeast ने अचानक दिए 8 लाख रुपये! 💵🔥 MRBEAST CASH DROP #Shorts",
         "banner": "SURPRISED SUBSCRIBER WITH $10,000!",
         "description": "सब्सक्राइबर की जिंदगी एक पल में बदल दी!\n\n#Shorts #MrBeastHindi #LifeChanging #Cash",
         "tags": ["mrbeast", "cash", "giveaway", "shorts", "viral"]
     },
     {
         "id": "3ih2bPKSWsQ",
-        "title": "मिस्टर बीस्ट ने स्पीड को अरेस्ट कर लिया! 🚔 #Shorts #MrBeastSpeed",
+        "title": "MrBeast ने Speed को किया Arrest! 🚔😂 MRBEAST SPEED #Shorts",
         "banner": "MRBEAST ARRESTS ISHOWSPEED!",
         "description": "जब मिस्टर बीस्ट ने आईशोस्पीड को हथकड़ी पहना दी!\n\n#Shorts #MrBeastHindi #IShowSpeed #FunnyMoments",
         "tags": ["mrbeast", "ishowspeed", "speed", "shorts", "funny"]
     },
     {
         "id": "uA9Zcg3vHvo",
-        "title": "मिस्टर बीस्ट vs आईशोस्पीड की महा रेस! 🏃 #Shorts #SpeedRace",
+        "title": "MrBeast vs IShowSpeed महा रेस! 🏃⚡ MRBEAST SPEED RACE #Shorts",
         "banner": "MRBEAST VS ISHOWSPEED RACE!",
         "description": "100 मीटर की रेस में कौन जीता?\n\n#Shorts #MrBeastHindi #IShowSpeed #Race #Viral",
         "tags": ["mrbeast", "ishowspeed", "sprint", "shorts", "speed"]
