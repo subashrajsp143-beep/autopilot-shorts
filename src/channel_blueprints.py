@@ -1,3 +1,4 @@
+import re
 """
 Channel Blueprints & Dynamic Daily Rotation Matrix
 ---------------------------------------------------
@@ -351,7 +352,21 @@ def get_channel_blueprints(channel_id: int, count: int = 10, day_offset: Optiona
             title = raw_script["title"]
 
             if tracker.is_title_used(title):
-                title = f"{title.split('#')[0].strip()} Part {day_offset + 1} #Shorts"
+                VIRAL_HOOKS = [
+                    "यह सच जानकर होश उड़ जाएंगे! 😱",
+                    "99% लोग यह गलती करते हैं! ⚠️",
+                    "दुनिया का सबसे रहस्यमयी सच! 🤯",
+                    "क्या आप इसका असली सच जानते हैं? 🧐",
+                    "कभी किसी ने यह नहीं सोचा था! ⚡",
+                    "इतिहास का सबसे खौफनाक रहस्य! 💀",
+                    "वैज्ञानिक भी हैरान रह गए! 🔬",
+                    "1 सेकंड में होश उड़ाने वाला सच! 🧠"
+                ]
+                clean_core = re.sub(r'\s*Part\s*\d+', '', title.split('#')[0]).strip()
+                hook = VIRAL_HOOKS[day_offset % len(VIRAL_HOOKS)]
+                title = f"{clean_core} ⚠️ {hook} #Shorts"
+                if len(title) > 95:
+                    title = title[:92].rsplit(' ', 1)[0] + " #Shorts"
 
             item = {
                 "niche": niche,
@@ -376,7 +391,20 @@ def get_channel_blueprints(channel_id: int, count: int = 10, day_offset: Optiona
             title = candidate["title"]
             if tracker.is_title_used(title):
                 candidate = dict(candidate)
-                candidate["title"] = f"{title.split('#')[0].strip()} Part {day_offset + 1} #{title.split('#')[-1] if '#' in title else 'Shorts'}"
+                SCIENCE_HOOKS = [
+                    "क्या आपने कभी ऐसा देखा है? 🤯",
+                    "1 सेकंड में होश उड़ जाएंगे! 😱",
+                    "गुरुत्वाकर्षण को किया पूरी तरह फेल! ⚡",
+                    "दुनिया का सबसे संतोषजनक पल! ✨",
+                    "यह नामुमकिन स्टंट देखकर आंखें खुली रह जाएंगी! 🔥",
+                    "100 टन का भयानक दबाव! 💥",
+                    "इंटरनेट का सबसे क्रेजी एक्सपेरिमेंट! 🚀"
+                ]
+                clean_core = re.sub(r'\s*Part\s*\d+', '', title.split('#')[0]).strip()
+                hook = SCIENCE_HOOKS[day_offset % len(SCIENCE_HOOKS)]
+                candidate["title"] = f"{clean_core} | {hook} #Shorts"
+                if len(candidate["title"]) > 95:
+                    candidate["title"] = candidate["title"][:92].rsplit(' ', 1)[0] + " #Shorts"
             if candidate not in selected:
                 selected.append(dict(candidate))
             if len(selected) >= count:

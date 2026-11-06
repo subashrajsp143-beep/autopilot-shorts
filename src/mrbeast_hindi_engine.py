@@ -27,6 +27,7 @@ try:
     from history_tracker import HistoryTracker
 except ModuleNotFoundError:
     from src.history_tracker import HistoryTracker
+from src.thumbnail_generator import ThumbnailGenerator
 
 
 # 60+ Verified MrBeast Official Hindi Shorts Registry
@@ -408,17 +409,30 @@ class MrBeastHindiEngine:
         if render_res.returncode != 0:
             raise RuntimeError(f"FFmpeg render failed for MrBeast Hindi short: {render_res.stderr[-300:]}")
 
-        # 4. Generate high-impact thumbnail at 2.5s
+        # 4. Generate high-impact thumbnail using ThumbnailGenerator
         thumb_path = output_thumb_path or os.path.splitext(output_video_path)[0] + "_thumb.jpg"
-        thumb_cmd = [
-            "ffmpeg", "-y",
-            "-ss", "00:00:02.500",
-            "-i", output_video_path,
-            "-vframes", "1",
-            "-q:v", "2",
-            thumb_path
-        ]
-        subprocess.run(thumb_cmd, capture_output=True, text=True)
+        try:
+            tg = ThumbnailGenerator(output_dir=os.path.dirname(thumb_path))
+            thumb_source = downloaded_raw if (downloaded_raw and os.path.exists(downloaded_raw)) else output_video_path
+            best_time = item.get("thumb_time", 2.8)
+            tg.generate(
+                video_path=thumb_source,
+                output_thumb_path=thumb_path,
+                badge_text=item.get("banner", "MRBEAST HINDI"),
+                timestamp_sec=best_time,
+                slot_index=item.get("slot", 1)
+            )
+        except Exception as e:
+            print(f"Notice: MrBeast thumbnail generator fallback: {e}")
+            thumb_cmd = [
+                "ffmpeg", "-y",
+                "-ss", "00:00:02.500",
+                "-i", output_video_path,
+                "-vframes", "1",
+                "-q:v", "2",
+                thumb_path
+            ]
+            subprocess.run(thumb_cmd, capture_output=True, text=True)
 
         # 5. Record source ID in history
         self.tracker.history.setdefault("used_source_ids", []).append(vid_id)

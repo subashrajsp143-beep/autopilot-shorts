@@ -1,3 +1,4 @@
+from src.thumbnail_generator import ThumbnailGenerator
 """
 Channel Batch Generator
 -----------------------
@@ -130,7 +131,9 @@ def generate_channel_batch(
                     banner_text=bp["banner"],
                     output_video_path=out_vid,
                     output_thumb_path=out_thumb,
-                    use_ai_voice=False  # Authentic crowd / stream audio! Zero AI voice
+                    use_ai_voice=False,  # Authentic crowd / stream audio! Zero AI voice
+                    thumb_time=bp.get("thumb_time", 3.2),
+                    slot_index=slot
                 )
                 results.append({
                     "index": slot,
@@ -192,10 +195,23 @@ def generate_channel_batch(
                     bg_video_paths=bp["scenes"]
                 )
 
-                subprocess.run([
-                    "ffmpeg", "-y", "-ss", "00:00:02.500", "-i", out_vid,
-                    "-vframes", "1", "-q:v", "2", out_thumb
-                ], capture_output=True)
+                # High-CTR Thumbnail from pristine B-roll (Zero subtitle clutter!)
+                try:
+                    tg = ThumbnailGenerator(output_dir=channel_dir)
+                    clean_bg = bp["scenes"][0] if (bp.get("scenes") and os.path.exists(bp["scenes"][0])) else out_vid
+                    tg.generate(
+                        video_path=clean_bg,
+                        output_thumb_path=out_thumb,
+                        badge_text=bp["banner"],
+                        timestamp_sec=bp.get("thumb_time", 2.0),
+                        slot_index=slot
+                    )
+                except Exception as tg_err:
+                    print(f"Notice: Ch1 thumbnail fallback: {tg_err}")
+                    subprocess.run([
+                        "ffmpeg", "-y", "-ss", "00:00:02.500", "-i", out_vid,
+                        "-vframes", "1", "-q:v", "2", out_thumb
+                    ], capture_output=True)
 
                 results.append({
                     "index": slot,
@@ -242,7 +258,9 @@ def generate_channel_batch(
                     banner_text=bp["banner"],
                     output_video_path=out_vid,
                     output_thumb_path=out_thumb,
-                    use_ai_voice=False  # Authentic crunch / stunt sounds! Zero robotic AI voice
+                    use_ai_voice=False,  # Authentic crunch / stunt sounds! Zero robotic AI voice
+                    thumb_time=bp.get("thumb_time", 4.0),
+                    slot_index=slot
                 )
                 results.append({
                     "index": slot,

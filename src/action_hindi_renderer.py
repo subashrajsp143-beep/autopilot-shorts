@@ -20,6 +20,7 @@ if sys.platform == "win32":
         pass
 
 from src.voice_generator import generate_audio
+from src.thumbnail_generator import ThumbnailGenerator
 
 
 def get_font_option() -> str:
@@ -47,7 +48,9 @@ def render_action_clip_hindi(
     output_video_path: str,
     output_thumb_path: Optional[str] = None,
     target_duration: Optional[float] = None,
-    use_ai_voice: bool = False
+    use_ai_voice: bool = False,
+    thumb_time: Optional[float] = None,
+    slot_index: int = 1
 ) -> Dict[str, Any]:
     """
     Renders an action short formatted to vertical 1080x1920 with a sleek top-hook banner.
@@ -139,17 +142,29 @@ def render_action_clip_hindi(
     if res.returncode != 0:
         raise RuntimeError(f"FFmpeg render failed: {res.stderr[-400:]}")
 
-    # Generate High-Impact Thumbnail at 2.5s
+    # Generate High-Impact Thumbnail from pristine source footage (Clean & Vibrant!)
     thumb_path = output_thumb_path or f"{base_name}_thumb.jpg"
-    thumb_cmd = [
-        "ffmpeg", "-y",
-        "-ss", "00:00:02.500",
-        "-i", output_video_path,
-        "-vframes", "1",
-        "-q:v", "2",
-        thumb_path
-    ]
-    subprocess.run(thumb_cmd, capture_output=True, text=True)
+    try:
+        tg = ThumbnailGenerator(output_dir=os.path.dirname(thumb_path))
+        best_time = thumb_time if thumb_time is not None else min(duration * 0.45, 4.0)
+        tg.generate(
+            video_path=clip_path,
+            output_thumb_path=thumb_path,
+            badge_text=banner_text,
+            timestamp_sec=best_time,
+            slot_index=slot_index
+        )
+    except Exception as e:
+        print(f"Notice: Thumbnail generator fallback: {e}")
+        thumb_cmd = [
+            "ffmpeg", "-y",
+            "-ss", f"{thumb_time or 3.0:.2f}",
+            "-i", clip_path,
+            "-vframes", "1",
+            "-q:v", "2",
+            thumb_path
+        ]
+        subprocess.run(thumb_cmd, capture_output=True, text=True)
 
     return {
         "video_path": output_video_path,
