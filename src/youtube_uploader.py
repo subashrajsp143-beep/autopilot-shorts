@@ -124,15 +124,24 @@ class YouTubeUploader:
         if not self.youtube:
             self.authenticate()
 
-        # Guarantee #Shorts tag in title and description
+        # Guarantee #Shorts tag in title
         if "#Shorts" not in title and "#shorts" not in title:
-            title = f"{title} #Shorts"
-        if "#Shorts" not in description:
-            description = f"{description}\n\n#Shorts #viral #trending"
+            if len(title) <= 91:
+                title = f"{title} #Shorts"
 
-        tags = tags or ["shorts", "viral", "facts"]
-        if "shorts" not in [t.lower() for t in tags]:
-            tags.append("shorts")
+        # Supercharged high-retention Hindi description & trending hashtags
+        if "#Shorts" not in description:
+            description = (
+                f"{description}\n\n"
+                "🔥 ऐसे ही और भी मजेदार व हैरतअंगेज वीडियोज़ के लिए चैनल को Subscribe ज़रूर करें! 🔔\n\n"
+                "#Shorts #shorts #viral #trending #youtubeshorts #viralvideo #facts"
+            )
+
+        tags = tags or ["shorts", "viral", "trending"]
+        essential_tags = ["shorts", "viral", "trending", "youtubeshorts", "shortsvideo"]
+        for et in essential_tags:
+            if et not in [t.lower() for t in tags]:
+                tags.append(et)
 
         # Configure video status (Scheduled release vs Immediate Public)
         status_dict = {

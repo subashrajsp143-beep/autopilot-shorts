@@ -573,6 +573,14 @@ def generate_daily_10_batch(
                 schedules = get_indian_peak_schedule(len(ch_videos), channel_id=ch_id)
                 ch_success = 0
 
+                # Strict Category IDs for perfect YouTube algorithm audience matching
+                CHANNEL_CATEGORIES = {
+                    1: "27",  # Education / Documentaries / Facts
+                    2: "28",  # Science & Technology / Hydraulic Press Experiments
+                    3: "24",  # Entertainment / MrBeast, Speed & Sports Viral Moments
+                }
+                ch_category = CHANNEL_CATEGORIES.get(ch_id, "24")
+
                 for idx, v in enumerate(ch_videos):
                     slot = schedules[idx]
                     try:
@@ -582,6 +590,7 @@ def generate_daily_10_batch(
                             description=v["description"],
                             tags=v["tags"],
                             privacy_status="public",
+                            category_id=ch_category,
                             publish_at=slot,
                             thumbnail_path=v.get("thumbnail_path")
                         )
