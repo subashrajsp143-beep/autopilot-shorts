@@ -369,6 +369,12 @@ def get_indian_peak_schedule(num_videos: int = 10, channel_id: int = 1):
     last_dt = now_ist
 
     for idx in range(num_videos):
+        if idx == 0:
+            # Slot 1 goes live IMMEDIATELY as PUBLIC!
+            # Bypasses YouTube API private schedule cold-start bug and triggers real-time Shorts Feed test
+            slots.append(None)
+            continue
+
         h, m = hours_list[idx % len(hours_list)]
         target_dt = now_ist.replace(hour=h, minute=m, second=0, microsecond=0)
 
@@ -393,54 +399,48 @@ def get_indian_peak_schedule(num_videos: int = 10, channel_id: int = 1):
 get_staggered_schedule = get_indian_peak_schedule
 
 
-def check_already_uploaded_today(force: bool = False) -> bool:
+def check_already_uploaded_today(force: bool = False, target_channels: Optional[List[int]] = None) -> bool:
     """
-    Checks if a successful batch upload has already occurred today (IST).
+    Checks if target channels have already completed their 10 uploads today (IST).
     Prevents duplicate uploads and protects YouTube 24-hour daily quota
-    if multiple cron triggers or manual triggers run on the same day.
+    while allowing staggered runs across different channels throughout the day.
     """
     if force or os.environ.get("FORCE_UPLOAD") == "true":
         print("⚡ Force upload enabled. Bypassing daily duplicate guard.")
         return False
 
-    if os.environ.get("GITHUB_ACTIONS") != "true":
-        return False
-
-    token = os.environ.get("GITHUB_TOKEN")
-    if not token:
-        return False
-    repo = os.environ.get("GITHUB_REPOSITORY", "subashrajsp143-beep/autopilot-shorts")
-    current_run_id = int(os.environ.get("GITHUB_RUN_ID", 0))
-
-    import urllib.request
-    from datetime import datetime, timezone, timedelta
-    try:
-        url = f"https://api.github.com/repos/{repo}/actions/runs?status=success&per_page=5"
-        req = urllib.request.Request(
-            url,
-            headers={
-                "Authorization": f"Bearer {token}",
-                "Accept": "application/vnd.github+json",
-                "User-Agent": "AutopilotGuard"
-            }
-        )
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            runs = data.get("workflow_runs", [])
+    history_file = "config/uploaded_history.json"
+    if os.path.exists(history_file):
+        try:
+            with open(history_file, "r", encoding="utf-8") as f:
+                h = json.load(f)
+            logs = h.get("upload_logs", [])
+            from datetime import datetime, timezone, timedelta
             ist_now = datetime.now(timezone(timedelta(hours=5, minutes=30)))
             today_str = ist_now.strftime("%Y-%m-%d")
 
-            for r in runs:
-                if r["id"] == current_run_id:
-                    continue
-                created_utc = datetime.fromisoformat(r["created_at"].replace("Z", "+00:00"))
-                created_ist = created_utc.astimezone(timezone(timedelta(hours=5, minutes=30)))
-                if created_ist.strftime("%Y-%m-%d") == today_str:
-                    print(f"⚠️ A successful batch run already finished today ({created_ist.strftime('%H:%M:%S IST')}).")
-                    print("🛡️ Skipping duplicate upload to protect YouTube 24-hr quota and avoid duplicate videos.")
-                    return True
-    except Exception as e:
-        print(f"Daily guard note: {e}")
+            chs_to_check = target_channels if target_channels else [1, 2, 3]
+            ch_names = {
+                1: ["Channel 1", "MiniTalesWorld"],
+                2: ["Channel 2", "Pawsome"],
+                3: ["Channel 3", "Next Level Facts"]
+            }
+
+            all_done = True
+            for ch in chs_to_check:
+                names = ch_names.get(ch, [f"Channel {ch}"])
+                count = sum(1 for item in logs if item.get("timestamp", "").startswith(today_str) and any(n in item.get("type", "") for n in names))
+                if count < 10:
+                    all_done = False
+                    break
+
+            if all_done:
+                print(f"🛑 Target channels {chs_to_check} already completed 10 uploads each for today ({today_str}).")
+                print("🔒 Skipping duplicate upload to protect YouTube 24-hr quota.")
+                return True
+        except Exception as e:
+            print(f"Daily guard note: {e}")
+
     return False
 
 
@@ -504,7 +504,7 @@ def generate_daily_10_batch(
 
     ensure_credentials()
 
-    if upload_yt and check_already_uploaded_today(force=force):
+    if upload_yt and check_already_uploaded_today(force=force, target_channels=target_channels):
         print("✅ Daily quota safe. Today's videos are already uploaded on schedule.")
         return
 

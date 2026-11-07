@@ -2,14 +2,19 @@ name: Daily YouTube Shorts Autopilot
 
 on:
   schedule:
-    # 05:15 UTC = 10:45 AM IST (Primary 24-hr quota window trigger)
-    - cron: '15 5 * * *'
-    # 05:30 UTC = 11:00 AM IST (Backup 24-hr quota window trigger)
+    # 05:30 UTC = 11:00 AM IST (Channel 1: MiniTalesWorld Kick-off)
     - cron: '30 5 * * *'
-    # 05:45 UTC = 11:15 AM IST (Final backup trigger)
-    - cron: '45 5 * * *'
+    # 09:30 UTC = 03:00 PM IST (Channel 2: Pawsome Productions Kick-off)
+    - cron: '30 9 * * *'
+    # 14:30 UTC = 08:00 PM IST (Channel 3: Next Level Facts Prime Time Kick-off)
+    - cron: '30 14 * * *'
   workflow_dispatch:
     inputs:
+      channel:
+        description: 'Target Channel (1, 2, 3, or all)'
+        required: false
+        default: 'all'
+        type: string
       force:
         description: 'Force upload bypassing duplicate guard'
         required: false
@@ -36,7 +41,7 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: 🎬 Install FFmpeg & Hindi Fonts
+      - name: ⚙️ Install FFmpeg & Hindi Fonts
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg fonts-noto-core fonts-deva fonts-dejavu-core
@@ -50,11 +55,30 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [ "${{ inputs.force }}" = "true" ]; then
-            python batch_runner.py --upload-yt --force
-          else
-            python batch_runner.py --upload-yt
+          TARGET_CH="${{ inputs.channel }}"
+          if [ -z "$TARGET_CH" ] || [ "$TARGET_CH" = "all" ] && [ "${{ github.event_name }}" = "schedule" ]; then
+            HOUR_UTC=$(date -u +%H)
+            if [ "$HOUR_UTC" -ge 4 ] && [ "$HOUR_UTC" -le 7 ]; then
+              TARGET_CH="1"
+            elif [ "$HOUR_UTC" -ge 8 ] && [ "$HOUR_UTC" -le 11 ]; then
+              TARGET_CH="2"
+            elif [ "$HOUR_UTC" -ge 13 ] && [ "$HOUR_UTC" -le 16 ]; then
+              TARGET_CH="3"
+            else
+              TARGET_CH="all"
+            fi
           fi
+
+          echo "Targeting Channel: $TARGET_CH"
+          CMD_ARGS="--upload-yt"
+          if [ "${{ inputs.force }}" = "true" ]; then
+            CMD_ARGS="$CMD_ARGS --force"
+          fi
+          if [ "$TARGET_CH" != "all" ] && [ -n "$TARGET_CH" ]; then
+            CMD_ARGS="$CMD_ARGS --channels $TARGET_CH"
+          fi
+
+          python batch_runner.py $CMD_ARGS
 
       - name: 💾 Persist Upload History & Generator State
         if: always()
