@@ -180,7 +180,7 @@ def generate_channel_batch(
             else:
                 print(f"[{slot}/10] Channel 1: Rendering '{bp['title'][:45]}...'")
                 voice_res = generate_audio(
-                    text=bp["hindi_script"],
+                    text=bp.get("hindi_script") or bp.get("script", ""),
                     audio_path=audio_path,
                     ass_path=ass_path,
                     voice="hi-IN-MadhurNeural"

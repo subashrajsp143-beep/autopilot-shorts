@@ -18,6 +18,9 @@ import shutil
 import time
 import glob
 import random
+import socket
+import ssl
+import http.client
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
@@ -426,11 +429,13 @@ def check_already_uploaded_today(force: bool = False, target_channels: Optional[
                 3: ["Channel 3", "Next Level Facts"]
             }
 
+            target_counts = {1: 10, 2: 8, 3: 10}
             all_done = True
             for ch in chs_to_check:
                 names = ch_names.get(ch, [f"Channel {ch}"])
+                req = target_counts.get(ch, 10)
                 count = sum(1 for item in logs if item.get("timestamp", "").startswith(today_str) and any(n in item.get("type", "") for n in names))
-                if count < 10:
+                if count < req:
                     all_done = False
                     break
 
@@ -490,6 +495,60 @@ def get_cinematic_scenes_for_script(script: Dict[str, Any]) -> List[str]:
     return NICHE_SCENE_MAP.get(niche, ["assets/ai_video_clips/bg_space.mp4", "assets/ai_video_clips/bg_ocean.mp4"])
 
 
+def is_uncertain_upload_error(err: Exception) -> bool:
+    """
+    Determines if an upload exception represents an uncertain outcome
+    where YouTube's server may have received the video or may still be processing it.
+    """
+    # 0. Local file / path / parameter errors before upload begins are DEFINITIVE failures
+    if isinstance(err, (FileNotFoundError, ValueError, KeyError)):
+        return False
+
+    # 1. Low-level socket, SSL, and HTTP client connection drops/timeouts
+    if isinstance(err, (TimeoutError, ConnectionError, socket.timeout, ssl.SSLError, http.client.HTTPException)):
+        return True
+
+    # 2. Google transport & auth errors
+    try:
+        from google.auth.exceptions import TransportError, RefreshError
+        if isinstance(err, RefreshError):
+            return False  # Authentication rejection is a definitive failure
+        if isinstance(err, TransportError):
+            return True
+    except ImportError:
+        pass
+
+    # 3. Google API HttpError: inspect HTTP status code
+    try:
+        from googleapiclient.errors import HttpError
+        if isinstance(err, HttpError):
+            status = getattr(err, 'status_code', None) or getattr(getattr(err, 'resp', None), 'status', None)
+            if status is not None:
+                try:
+                    status = int(status)
+                    # 408 (Request Timeout), 500 (Internal), 502 (Bad Gateway), 503 (Unavailable), 504 (Gateway Timeout)
+                    if status in (408, 500, 502, 503, 504):
+                        return True
+                    # 400, 401 (Auth rejected), 403 (quota limit), 404, 413: Definitive client rejection (FAILED)
+                    if 400 <= status < 500:
+                        return False
+                except (ValueError, TypeError):
+                    pass
+    except ImportError:
+        pass
+
+    # 4. Fallback string heuristic for wrapped or third-party network exceptions
+    err_str = str(err).lower()
+    if any(auth_kw in err_str for auth_kw in ["invalid_grant", "unauthorized", "token has been expired", "invalid_client"]):
+        return False
+
+    timeout_keywords = [
+        "timeout", "timed out", "connection reset", "connection aborted",
+        "broken pipe", "remote disconnected", "eof occurred", "503", "504", "gateway timeout"
+    ]
+    return any(kw in err_str for kw in timeout_keywords)
+
+
 def generate_daily_10_batch(
     output_batch_dir: str = "output/batch_today",
     copy_to_desktop: bool = False,
@@ -525,7 +584,10 @@ def generate_daily_10_batch(
     print(f"\n>> Active Channel Targets: {[c['name'] for c in channels]}")
 
     all_generated_videos: Dict[int, List[Dict[str, Any]]] = {}
-    total_successful_uploads = 0
+    total_newly_uploaded = 0
+    total_already_uploaded = 0
+    total_failed = 0
+    total_uncertain = 0
 
     for ch in channels:
         ch_id = ch["id"]
@@ -568,10 +630,13 @@ def generate_daily_10_batch(
 
             # 3. Upload to YouTube if requested
             if upload_yt:
-                print(f"\n🚀 Auto-Uploading 10 Shorts to {ch_name} with Staggered Indian Peak Schedule...")
+                print(f"\n🚀 Auto-Uploading Shorts to {ch_name} with Staggered Indian Peak Schedule...")
                 uploader = YouTubeUploader(token_path=ch["token"])
                 schedules = get_indian_peak_schedule(len(ch_videos), channel_id=ch_id)
-                ch_success = 0
+                ch_newly_uploaded = 0
+                ch_already_uploaded = 0
+                ch_failed = 0
+                ch_uncertain = 0
 
                 # Strict Category IDs for perfect YouTube algorithm audience matching
                 CHANNEL_CATEGORIES = {
@@ -583,6 +648,37 @@ def generate_daily_10_batch(
 
                 for idx, v in enumerate(ch_videos):
                     slot = schedules[idx]
+                    v_source_id = v.get("source_id")
+
+                    # Atomic per-source reservation check before starting upload
+                    res_status, pending_info, owner_token = tracker.reserve_source(
+                        source_id=v_source_id,
+                        channel_id=ch_id,
+                        title=v["title"]
+                    )
+
+                    if res_status == "already_uploaded":
+                        print(f"[{ch_name}] ⏭️ Skipping '{v['title'][:40]}...' — source '{v_source_id}' already uploaded today.")
+                        ch_already_uploaded += 1
+                        total_already_uploaded += 1
+                        continue
+
+                    if res_status == "reserved_by_other":
+                        other_pid = pending_info.get("pid") if pending_info else "unknown"
+                        print(f"[{ch_name}] ⏸️ Skipping '{v['title'][:40]}...' — actively reserved by another process (PID {other_pid}).")
+                        continue
+
+                    if res_status == "uncertain":
+                        print(f"[{ch_name}] ⚠️ Skipping '{v['title'][:40]}...' — previous upload outcome is UNCERTAIN (timed out).")
+                        print(f"[{ch_name}] 🔒 Automatic retry blocked until manual reconciliation via YouTube Studio.")
+                        ch_uncertain += 1
+                        total_uncertain += 1
+                        continue
+
+                    # Reservation acquired -> transition to uploading state
+                    tracker.mark_uploading(source_id=v_source_id, channel_id=ch_id, owner_token=owner_token)
+
+                    vid_id = None
                     try:
                         upload_res = uploader.upload_short(
                             video_path=v["video_path"],
@@ -594,24 +690,130 @@ def generate_daily_10_batch(
                             publish_at=slot,
                             thumbnail_path=v.get("thumbnail_path")
                         )
-                        ch_success += 1
-                        total_successful_uploads += 1
-                        tracker.record_upload(
-                            title=v["title"],
-                            video_type=f"{v['type']} [{ch_name}]",
-                            youtube_video_id=upload_res.get("video_id"),
-                            source_id=v.get("source_id"),
-                            query=v.get("query")
-                        )
-                        time.sleep(4)
-                    except Exception as e:
-                        print(f"[{ch_name}] Upload failed for '{v['title']}': {e}")
-                print(f"✓ {ch_success} / {len(ch_videos)} videos successfully uploaded to {ch_name}!")
+                        if upload_res and upload_res.get("video_id"):
+                            vid_id = upload_res.get("video_id")
+                        else:
+                            ch_failed += 1
+                            total_failed += 1
+                            tracker.mark_failed(
+                                source_id=v_source_id,
+                                channel_id=ch_id,
+                                error="Upload returned no video_id",
+                                owner_token=owner_token
+                            )
+                            print(f"[{ch_name}] ⚠️ Upload returned no video_id for '{v['title']}'. Marked as failed.")
+                    except Exception as upload_err:
+                        # Upload call failed before returning a video ID
+                        if is_uncertain_upload_error(upload_err):
+                            ch_uncertain += 1
+                            total_uncertain += 1
+                            tracker.mark_uncertain(
+                                source_id=v_source_id,
+                                channel_id=ch_id,
+                                error=str(upload_err),
+                                owner_token=owner_token
+                            )
+                            print(f"[{ch_name}] ⚠️ Uncertain upload outcome ({type(upload_err).__name__}: {upload_err}). Marked as UNCERTAIN.")
+                            print(f"[{ch_name}] 🔒 Blind retry aborted. Reconciliation required for '{v['title']}'.")
+                        else:
+                            ch_failed += 1
+                            total_failed += 1
+                            tracker.mark_failed(
+                                source_id=v_source_id,
+                                channel_id=ch_id,
+                                error=str(upload_err),
+                                owner_token=owner_token
+                            )
+                            print(f"[{ch_name}] ❌ Upload failed for '{v['title']}': {upload_err}")
+
+                    # Once YouTube returns a valid video ID, handle history confirmation in an isolated block
+                    if vid_id:
+                        try:
+                            tracker.confirm_upload(
+                                source_id=v_source_id,
+                                channel_id=ch_id,
+                                youtube_video_id=vid_id,
+                                title=v["title"],
+                                video_type=f"{v['type']} [{ch_name}]",
+                                query=v.get("query"),
+                                owner_token=owner_token
+                            )
+                            # Only confirmed new uploads increment newly_uploaded
+                            ch_newly_uploaded += 1
+                            total_newly_uploaded += 1
+                            print(f"[{ch_name}] ✅ Upload confirmed: {vid_id}")
+                            time.sleep(4)
+                        except Exception as confirm_err:
+                            # CRITICAL: YouTube accepted the video, but local history confirmation failed.
+                            # NEVER mark this as failed! Preserve the video ID in a recoverable uncertain state.
+                            ch_uncertain += 1
+                            total_uncertain += 1
+                            print(f"[{ch_name}] ⚠️ CRITICAL: YouTube upload succeeded (ID: {vid_id}), but confirm_upload failed: {confirm_err}")
+                            try:
+                                tracker.record_unconfirmed_video(
+                                    source_id=v_source_id,
+                                    channel_id=ch_id,
+                                    youtube_video_id=vid_id,
+                                    title=v["title"],
+                                    error=str(confirm_err),
+                                    owner_token=owner_token
+                                )
+                                print(f"[{ch_name}] 🔒 Recoverable pending state preserved with video ID '{vid_id}'. Marked as UNCERTAIN.")
+                            except Exception as rec_err:
+                                # Primary history tracker update failed: write to emergency standalone file
+                                emergency_record = {
+                                    "timestamp": datetime.now().isoformat(),
+                                    "source_id": v_source_id,
+                                    "channel_id": ch_id,
+                                    "youtube_video_id": vid_id,
+                                    "title": v["title"],
+                                    "confirm_error": str(confirm_err),
+                                    "tracker_error": str(rec_err)
+                                }
+                                emergency_path = os.path.join("config", "emergency_unconfirmed_uploads.jsonl")
+                                try:
+                                    os.makedirs("config", exist_ok=True)
+                                    with open(emergency_path, "a", encoding="utf-8") as ef:
+                                        ef.write(json.dumps(emergency_record) + "\n")
+                                    print(f"[{ch_name}] 🚨 Wrote unconfirmed upload to emergency log: {emergency_path}")
+                                except Exception as em_err:
+                                    print(f"[{ch_name}] 💥 FATAL: Could not write to emergency log: {em_err}")
+
+                                # Append to GITHUB_STEP_SUMMARY if supported by environment
+                                step_summary = os.environ.get("GITHUB_STEP_SUMMARY")
+                                if step_summary:
+                                    try:
+                                        with open(step_summary, "a", encoding="utf-8") as sf:
+                                            sf.write(
+                                                f"### 🚨 CRITICAL: Unconfirmed Video Uploaded to YouTube\n\n"
+                                                f"- **Channel**: `{ch_name}` (ID: `{ch_id}`)\n"
+                                                f"- **Source ID**: `{v_source_id}`\n"
+                                                f"- **YouTube Video ID**: `{vid_id}`\n"
+                                                f"- **Watch URL**: https://youtube.com/shorts/{vid_id}\n"
+                                                f"- **Title**: {v['title']}\n"
+                                                f"- **Status**: Preserved in `config/emergency_unconfirmed_uploads.jsonl` (UNCERTAIN)\n"
+                                                f"- **Error Details**: Confirmation failed: `{confirm_err}`; Pending update failed: `{rec_err}`\n\n"
+                                            )
+                                    except Exception as s_err:
+                                        print(f"[{ch_name}] Notice: Could not write to GITHUB_STEP_SUMMARY: {s_err}")
+
+                                # Do not silently swallow persistence failure of a live YouTube video!
+                                raise RuntimeError(
+                                    f"CRITICAL PERSISTENCE FAILURE: Video {vid_id} is live on YouTube, "
+                                    f"but failed history confirmation ({confirm_err}) AND pending state preservation ({rec_err}). "
+                                    f"Emergency log written: {emergency_path}"
+                                ) from rec_err
+
+                print(f"[{ch_name}] Summary: {ch_newly_uploaded} newly uploaded, {ch_already_uploaded} already uploaded, {ch_failed} failed, {ch_uncertain} uncertain (total: {len(ch_videos)} videos).")
         except Exception as ch_err:
             print(f"❌ Error processing batch for {ch_name}: {ch_err}")
 
-    if upload_yt and total_successful_uploads == 0:
-        raise RuntimeError("All YouTube uploads across all channels failed.")
+    if upload_yt:
+        total_attempted = total_newly_uploaded + total_failed + total_uncertain
+        if total_attempted > 0 and total_newly_uploaded == 0:
+            raise RuntimeError(f"All {total_attempted} attempted uploads in this session failed or timed out (failed={total_failed}, uncertain={total_uncertain}).")
+        elif total_attempted == 0 and total_already_uploaded > 0:
+            print("ℹ️ All videos across target channels were already uploaded today. No new uploads required.")
 
     print("\n" + "=" * 65)
     print("🎉 ALL CHANNEL BATCHES PROCESSED SUCCESSFULLY!")

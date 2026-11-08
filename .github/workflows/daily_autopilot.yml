@@ -1,5 +1,9 @@
 name: Daily YouTube Shorts Autopilot
 
+concurrency:
+  group: youtube-shorts-publisher
+  cancel-in-progress: false
+
 on:
   schedule:
     # 05:30 UTC = 11:00 AM IST (Channel 1: MiniTalesWorld Kick-off)
@@ -86,4 +90,33 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add -A config/
-          git diff --staged --quiet || (git commit -m "chore: persist uploaded history and state [skip ci]" && git push origin main)
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: persist uploaded history and state [skip ci]"
+            pushed=false
+            for i in 1 2 3 4 5; do
+              if git pull --rebase origin main && git push origin main; then
+                pushed=true
+                break
+              fi
+              echo "Push attempt $i failed, retrying in 5s..."
+              sleep 5
+            done
+            if [ "$pushed" != "true" ]; then
+              echo "Error: Failed to push config updates to origin main after 5 attempts."
+              if [ -n "$GITHUB_STEP_SUMMARY" ]; then
+                echo "### ❌ CRITICAL: Failed to Push Upload History to GitHub" >> "$GITHUB_STEP_SUMMARY"
+                echo "All 5 git push attempts failed. Changes remain unpushed on the runner." >> "$GITHUB_STEP_SUMMARY"
+                if [ -f "config/emergency_unconfirmed_uploads.jsonl" ]; then
+                  echo "#### Emergency Unconfirmed Upload Records:" >> "$GITHUB_STEP_SUMMARY"
+                  echo '```json' >> "$GITHUB_STEP_SUMMARY"
+                  cat config/emergency_unconfirmed_uploads.jsonl >> "$GITHUB_STEP_SUMMARY"
+                  echo '```' >> "$GITHUB_STEP_SUMMARY"
+                fi
+              fi
+              if [ -f "config/emergency_unconfirmed_uploads.jsonl" ]; then
+                echo "Contents of config/emergency_unconfirmed_uploads.jsonl:"
+                cat config/emergency_unconfirmed_uploads.jsonl
+              fi
+              exit 1
+            fi
+          fi

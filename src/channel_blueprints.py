@@ -63,36 +63,36 @@ CHANNEL_3_POOL: List[Dict[str, Any]] = [
         "hindi_script": "Speed ने जब नया आईफोन अनबॉक्स किया, तो उसकी अजीबोगरीब हरकतें देखकर सब दंग रह गए!"
     },
     {
-        "clip": "assets/creator_clips/records_01_table_tennis.mp4",
-        "title": "100 में से 99 लोग यह पिंग पॉन्ग शॉट मिस कर देंगे! 🏓🔥 #Shorts #Trickshot",
-        "banner": "WORLD\'S CRAZIEST PING PONG SHOT! 🏓🤯",
-        "description": "टेबल टेनिस का ऐसा नामुमकिन शॉट जिसे देखकर आंखें खुली की खुली रह जाएंगी!\n\n#Shorts #PingPong #TableTennis #WorldRecord #Skill",
-        "tags": ["ping pong", "table tennis", "trickshot", "shorts", "viral"],
-        "hindi_script": "टेबल टेनिस का ऐसा नामुमकिन शॉट जो 10 लाख कोशिशों में सिर्फ एक बार लगता है!"
+        "clip": "assets/creator_clips/mrbeast_01_giving_cash.mp4",
+        "title": "MrBeast ने अनजान लड़के को दिया $10,000! 💰 #Shorts #MrBeast",
+        "banner": "MRBEAST $10,000 CASH DROP! 💰",
+        "description": "मिस्टर बीस्ट ने अनजान लड़के को दिए $10,000 कैश!\n\n#Shorts #MrBeast #MrBeastHindi #Giveaway #Viral",
+        "tags": ["mrbeast", "mrbeast hindi", "cash giveaway", "shorts", "viral"],
+        "hindi_script": "मिस्टर बीस्ट ने जब अनजान लड़के को 10 हजार डॉलर कैश दिए, तो उसका रिएक्शन इंटरनेट पर वायरल हो गया!"
     },
     {
-        "clip": "assets/creator_clips/records_02_levitation_handstand.mp4",
-        "title": "गुरुत्वाकर्षण को चुनौती देने वाला नामुमकिन हैंडस्टैंड! 🤯🤸 #Shorts #Stunt",
-        "banner": "ONE-ARM IMPOSSIBLE BALANCE! 🤸🔥",
-        "description": "एक हाथ पर ऐसा बैलेंस जिसे देखकर विज्ञान भी हैरान रह जाए! क्या यह इंसान है?\n\n#Shorts #Handstand #Calisthenics #ImpossibleBalance #Viral",
-        "tags": ["handstand", "balance", "calisthenics", "shorts", "viral"],
-        "hindi_script": "इस एथलीट ने एक हाथ पर ऐसा हैरतअंगेज बैलेंस बनाया कि देखने वालों को लगा जैसे ग्रेविटी ही गायब हो गई हो!"
+        "clip": "assets/creator_clips/mrbeast_02_briefcase.mp4",
+        "title": "MrBeast Secret Briefcase में क्या था? 💼😱 #Shorts #MrBeast",
+        "banner": "WHAT IS INSIDE THE BRIEFCASE? 💼",
+        "description": "सीक्रेट ब्रीफकेस खोलते ही सबके होश उड़ गए!\n\n#Shorts #MrBeast #Mystery #Challenge #Shorts",
+        "tags": ["mrbeast", "briefcase", "mystery box", "shorts", "viral"],
+        "hindi_script": "मिस्टर बीस्ट के इस सीक्रेट ब्रीफकेस में ऐसा क्या था जिसे देखकर हर कोई दंग रह गया?"
     },
     {
-        "clip": "assets/creator_clips/records_04_human_catapult.mp4",
-        "title": "जब स्टंटबाज ने खुद को हवा में 10 मंजिला ऊपर उड़ाया! 🚀😱 #Shorts #HumanCatapult",
-        "banner": "EXTREME 10-STORY HUMAN LAUNCH! 🚀😱",
-        "description": "ह्यूमन कैटापुल्ट से हवा में उड़ने का यह खौफनाक मंजर देखकर रोंगटे खड़े हो जाएंगे!\n\n#Shorts #HumanCatapult #ExtremeStunt #Adrenaline #Viral",
-        "tags": ["human catapult", "extreme stunt", "adrenaline", "shorts", "viral"],
-        "hindi_script": "यह स्टंटबाज जब विशाल गुलेल से आसमान में लॉन्च हुआ, तो उसने मौत को मात देकर नया इतिहास रच दिया!"
+        "clip": "assets/creator_clips/mrbeast_03_subscribers.mp4",
+        "title": "Subscribers के हिसाब से लोगों का बर्ताव! 🏆 #Shorts #MrBeast",
+        "banner": "TREATING PEOPLE BY SUBSCRIBERS! 🏆",
+        "description": "सब्सक्राइबर्स के आधार पर लोगों का हैरतअंगेज रिएक्शन!\n\n#Shorts #MrBeast #SocialExperiment #Trending",
+        "tags": ["mrbeast", "subscribers", "social experiment", "shorts", "viral"],
+        "hindi_script": "अगर आपके पास 100 सब्सक्राइबर हों बनाम 1 करोड़ सब्सक्राइबर, तो लोग आपके साथ कैसा व्यवहार करते हैं?"
     },
     {
-        "clip": "assets/creator_clips/records_03_juggling_sword.mp4",
-        "title": "आंखों पर पट्टी बांधकर तलवारों से करतब! 🗡️😱 #Shorts #GuinnessRecord",
-        "banner": "BLINDFOLDED SWORD JUGGLING! 🗡️🔥",
-        "description": "गिनीज वर्ल्ड रिकॉर्ड का सबसे खतरनाक करतब! ज़रा सी चूक और जान जा सकती थी!\n\n#Shorts #SwordJuggling #WorldRecord #ExtremeSkill #Viral",
-        "tags": ["sword juggling", "guinness record", "extreme stunt", "shorts", "viral"],
-        "hindi_script": "आंखों पर काली पट्टी बांधकर तीन धारदार तलवारों को हवा में उछालना! यह करतब देखकर कोई भी कांप उठेगा!"
+        "clip": "assets/creator_clips/mrbeast_04_last_to_fall.mp4",
+        "title": "जो आखिरी तक रहेगा उसे मिलेंगे $100,000! 🧗‍♂️💰 #Shorts #MrBeast",
+        "banner": "LAST TO FALL WINS $100,000! 🧗‍♂️",
+        "description": "मिस्टर बीस्ट का सबसे पागलपन भरा लास्ट टू फॉल चैलेंज!\n\n#Shorts #MrBeast #Challenge #Money #Viral",
+        "tags": ["mrbeast", "challenge", "last to fall", "shorts", "trending"],
+        "hindi_script": "इस खंभे पर जो आखिरी तक टिका रहेगा, मिस्टर बीस्ट उसे देंगे 1 लाख डॉलर यानी 80 लाख रुपये कैश!"
     }
 ]
 
@@ -185,30 +185,50 @@ def get_channel_blueprints(channel_id: int, count: int = 10, day_offset: Optiona
     selected: List[Dict[str, Any]] = []
 
     if channel_id == 3:
-        # Channel 3: Super Viral Mix - 50% MrBeast Official Hindi Dubs + 50% Speed / Stunts (100% Safe)
+        # Channel 3: Super Viral Mix - 50% MrBeast Official Hindi Dubs + 50% Speed / MrBeast Stunts (Zero shared clips with Channel 2)
         beast_pool = [dict(x, engine="mrbeast_hindi", type="MrBeast Official Hindi Dub Short") for x in MRBEAST_HINDI_REGISTRY]
         action_pool = [dict(x, engine="action", type="Speed & Stunts Viral Short") for x in CHANNEL_3_POOL]
 
         beast_start = (day_offset * 5) % len(beast_pool)
         action_start = (day_offset * 5) % len(action_pool)
 
-        beast_items = [beast_pool[(beast_start + i) % len(beast_pool)] for i in range(5)]
-        action_items = [action_pool[(action_start + i) % len(action_pool)] for i in range(5)]
+        # Query upload history to prioritize action clips least recently uploaded
+        upload_logs = tracker.history.get("upload_logs", [])
+        last_used_action = {}
+        for idx, entry in enumerate(upload_logs):
+            src = entry.get("source_id")
+            if src:
+                last_used_action[src] = idx
+
+        rotated_actions = [action_pool[(action_start + i) % len(action_pool)] for i in range(len(action_pool))]
+        sorted_actions = sorted(
+            rotated_actions,
+            key=lambda c: last_used_action.get(os.path.basename(c["clip"]), -1)
+        )
 
         # Perfectly alternate: Beast -> Action -> Beast -> Action -> ...
         chosen_beast_ids = set()
+        chosen_action_clips = set()
         for i in range(5):
-            b_item = dict(beast_items[i])
-            if tracker.is_source_used(b_item["id"]) or b_item["id"] in chosen_beast_ids:
-                # Pick next strictly unused beast short
-                for alt in beast_pool:
-                    if not tracker.is_source_used(alt["id"]) and alt["id"] not in chosen_beast_ids:
-                        b_item = dict(alt)
-                        break
+            b_item = None
+            for alt in beast_pool:
+                cand = dict(alt)
+                if not tracker.is_source_used(cand["id"]) and cand["id"] not in chosen_beast_ids:
+                    b_item = cand
+                    break
+            if not b_item:
+                b_item = dict(beast_pool[(beast_start + i) % len(beast_pool)])
             chosen_beast_ids.add(b_item["id"])
             selected.append(b_item)
 
-            a_item = dict(action_items[i % len(action_items)])
+            a_item = None
+            for alt in sorted_actions:
+                if alt["clip"] not in chosen_action_clips:
+                    a_item = dict(alt)
+                    break
+            if not a_item:
+                a_item = dict(sorted_actions[i % len(sorted_actions)])
+            chosen_action_clips.add(a_item["clip"])
             selected.append(a_item)
 
     elif channel_id == 1:
@@ -265,24 +285,47 @@ def get_channel_blueprints(channel_id: int, count: int = 10, day_offset: Optiona
                 break
 
     elif channel_id == 2:
-        # Channel 2: 100% Unique Science & Stunts
+        # Channel 2: 100% Unique Science & Stunts (Zero shared clips with Channel 3)
         pool = CHANNEL_2_POOL
+        target_count = min(count, len(pool))
+
+        # Query upload history to prioritize clips least recently uploaded
+        upload_logs = tracker.history.get("upload_logs", [])
+        last_used_idx = {}
+        for idx, entry in enumerate(upload_logs):
+            src = entry.get("source_id")
+            if src:
+                last_used_idx[src] = idx
+
         start_idx = (day_offset * count) % len(pool)
-        for i in range(count):
-            candidate = dict(pool[(start_idx + i) % len(pool)])
+        rotated_pool = [pool[(start_idx + i) % len(pool)] for i in range(len(pool))]
+        sorted_candidates = sorted(
+            rotated_pool,
+            key=lambda c: last_used_idx.get(os.path.basename(c["clip"]), -1)
+        )
+
+        chosen_clips = set()
+        STUNT_HOOKS = [
+            "यह नामुमकिन स्टंट देखकर आंखें खुली रह जाएंगी! 🔥",
+            "विज्ञान का यह चमत्कार देखकर यकीन नहीं होगा! 🤯",
+            "100 में से 99 लोग यह शॉट मिस कर देंगे! 🏓",
+            "100 टन के दबाव में जो हुआ वो कोई सोच नहीं सकता! 💥",
+            "गिनीज वर्ल्ड रिकॉर्ड का सबसे हैरतअंगेज स्टंट! 🏆",
+            "गुरुत्वाकर्षण को चुनौती देने वाला नामुमकिन करतब! ⚡"
+        ]
+
+        for candidate_orig in sorted_candidates:
+            clip_path = candidate_orig["clip"]
+            if clip_path in chosen_clips:
+                continue
+            chosen_clips.add(clip_path)
+
+            candidate = dict(candidate_orig)
             title = candidate["title"]
 
             if tracker.is_title_used(title):
-                STUNT_HOOKS = [
-                    "यह नामुमकिन स्टंट देखकर आंखें खुली रह जाएंगी! 🔥",
-                    "विज्ञान का यह चमत्कार देखकर यकीन नहीं होगा! 🤯",
-                    "100 में से 99 लोग यह शॉट मिस कर देंगे! 🏓",
-                    "100 टन के दबाव में जो हुआ वो कोई सोच नहीं सकता! 💥",
-                    "गिनीज वर्ल्ड रिकॉर्ड का सबसे हैरतअंगेज स्टंट! 🏆",
-                    "गुरुत्वाकर्षण को चुनौती देने वाला नामुमकिन करतब! ⚡"
-                ]
                 clean_title = re.sub(r'\s*Part\s*\d+', '', title.split('#')[0]).strip()
-                hook = STUNT_HOOKS[(day_offset + i) % len(STUNT_HOOKS)]
+                hook = STUNT_HOOKS[(day_offset + len(selected)) % len(STUNT_HOOKS)]
                 candidate["title"] = f"{clean_title} | {hook} #Shorts"
                 if len(candidate["title"]) > 95:
                     candidate["title"] = candidate["title"][:92].rsplit(' ', 1)[0] + " #Shorts"
@@ -290,6 +333,8 @@ def get_channel_blueprints(channel_id: int, count: int = 10, day_offset: Optiona
             candidate["engine"] = "action"
             candidate["type"] = "Science & Stunt Short (Authentic Audio)"
             selected.append(candidate)
+            if len(selected) >= target_count:
+                break
 
     # Attach slots (1 to 10)
     for idx, item in enumerate(selected):
