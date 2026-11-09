@@ -418,7 +418,8 @@
     "1lqO94RTZzo",
     "s4KOw1yC_yo",
     "7Z30y068krQ",
-    "5_mmlsT-nFE"
+    "5_mmlsT-nFE",
+    "jRGT9pl65lc"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -948,7 +949,12 @@
     "CAOY8EKH1qU",
     "GGBy50KtvRk",
     "Y0cBiGUuB1Y",
-    "S_CUEOBZ0P4"
+    "S_CUEOBZ0P4",
+    "aNI2jv7lBPQ",
+    "CEJXqm2eiJ0",
+    "mND4T0lzg_g",
+    "41UzbuW6wJs",
+    "T_SMf9j50uc"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -1356,7 +1362,8 @@
     "science_and_records_authentic",
     "science_and_records_authentic",
     "science_and_records_authentic",
-    "science_and_records_authentic"
+    "science_and_records_authentic",
+    "mrbeast_official_hindi_41UzbuW6wJs"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -1768,7 +1775,8 @@
     "MrBeast ने अनजान लड़के को दिया $10,000! 💰 #Shorts #MrBeast",
     "MrBeast Secret Briefcase में क्या था? 💼😱 #Shorts #MrBeast",
     "Subscribers के हिसाब से लोगों का बर्ताव! 🏆 #Shorts #MrBeast",
-    "जो आखिरी तक रहेगा उसे मिलेंगे $100,000! 🧗‍♂️💰 #Shorts #MrBeast"
+    "जो आखिरी तक रहेगा उसे मिलेंगे $100,000! 🧗‍♂️💰 #Shorts #MrBeast",
+    "जब Robot ने किया MrBeast का काम! 🤖 MRBEAST ROBOT #Shorts"
   ],
   "upload_logs": [
     {
@@ -5014,6 +5022,15 @@
       "source_id": "mrbeast_04_last_to_fall.mp4",
       "query": "football_and_speed_authentic",
       "channel_id": 3
+    },
+    {
+      "timestamp": "2026-11-09T04:56:38.023247",
+      "title": "जब Robot ने किया MrBeast का काम! 🤖 MRBEAST ROBOT #Shorts",
+      "type": "MrBeast Official Hindi Dub Short [Channel 3 (Next Level Facts)]",
+      "youtube_id": "jRGT9pl65lc",
+      "source_id": "41UzbuW6wJs",
+      "query": "mrbeast_official_hindi_41UzbuW6wJs",
+      "channel_id": 3
     }
   ],
   "pending_uploads": {
@@ -5098,12 +5115,335 @@
       "channel_id": 3,
       "title": "Speed का नया iPhone Unboxing मोमेंट! 😂📱 ISHOWSPEED FUNNY #Shorts",
       "attempt_timestamp": "2026-11-08T19:01:17.464867",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3690,
       "owner_token": "tok_3690_1794164477464_3be24bf7",
       "uploading_timestamp": "2026-11-08T19:01:17.470669"
+    },
+    "channel_3:aNI2jv7lBPQ": {
+      "source_id": "aNI2jv7lBPQ",
+      "channel_id": 3,
+      "title": "MrBeast ने अनजान लड़के को दिए $10,000! 💰 MRBEAST HINDI CASH #Shorts",
+      "attempt_timestamp": "2026-11-09T04:55:40.290419",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200140290_4bc01db7",
+      "uploading_timestamp": "2026-11-09T04:55:40.343890"
+    },
+    "channel_3:CEJXqm2eiJ0": {
+      "source_id": "CEJXqm2eiJ0",
+      "channel_id": 3,
+      "title": "MrBeast Secret Briefcase में क्या था? 💼😱 MRBEAST MYSTERY #Shorts",
+      "attempt_timestamp": "2026-11-09T04:55:52.415264",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200152415_bcc94bc1",
+      "uploading_timestamp": "2026-11-09T04:55:52.419908"
+    },
+    "channel_3:speed_02_backflips.mp4": {
+      "source_id": "speed_02_backflips.mp4",
+      "channel_id": 3,
+      "title": "Speed का सबसे पागलपन भरा स्टंट! 😂🔥 ISHOWSPEED BACKFLIP #Shorts",
+      "attempt_timestamp": "2026-11-09T04:56:02.362017",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200162361_3d91eee9",
+      "uploading_timestamp": "2026-11-09T04:56:02.366782"
+    },
+    "channel_3:mND4T0lzg_g": {
+      "source_id": "mND4T0lzg_g",
+      "channel_id": 3,
+      "title": "Subscribers के हिसाब से लोगों का बर्ताव! 🏆 MRBEAST EXPERIMENT #Shorts",
+      "attempt_timestamp": "2026-11-09T04:56:12.505385",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200172505_3e1d0aa1",
+      "uploading_timestamp": "2026-11-09T04:56:12.510170"
+    },
+    "channel_3:speed_03_silence_challenge.mp4": {
+      "source_id": "speed_03_silence_challenge.mp4",
+      "channel_id": 3,
+      "title": "Speed 1 मिनट भी शांत नहीं रह पाया! 😭⚡ ISHOWSPEED FUNNY #Shorts",
+      "attempt_timestamp": "2026-11-09T04:56:21.727630",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200181727_a5e78499",
+      "uploading_timestamp": "2026-11-09T04:56:21.732440"
+    },
+    "channel_3:41UzbuW6wJs": {
+      "source_id": "41UzbuW6wJs",
+      "channel_id": 3,
+      "title": "जब Robot ने किया MrBeast का काम! 🤖 MRBEAST ROBOT #Shorts",
+      "attempt_timestamp": "2026-11-09T04:56:32.311831",
+      "status": "confirmed",
+      "youtube_video_id": "jRGT9pl65lc",
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200192311_4f7f6f7d",
+      "uploading_timestamp": "2026-11-09T04:56:32.316713",
+      "completed_timestamp": "2026-11-09T04:56:38.023222"
+    },
+    "channel_3:speed_01_dude_perfect.mp4": {
+      "source_id": "speed_01_dude_perfect.mp4",
+      "channel_id": 3,
+      "title": "Speed का सबसे CRAZY शॉट! 😱 ISHOWSPEED BASKETBALL #Shorts",
+      "attempt_timestamp": "2026-11-09T04:56:42.029000",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200202028_a5198959",
+      "uploading_timestamp": "2026-11-09T04:56:42.033879"
+    },
+    "channel_3:T_SMf9j50uc": {
+      "source_id": "T_SMf9j50uc",
+      "channel_id": 3,
+      "title": "MrBeast ने बना दिया पूरा गांव! 🏘️ MRBEAST BUILT A VILLAGE #Shorts",
+      "attempt_timestamp": "2026-11-09T04:56:52.761199",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200212761_5801497a",
+      "uploading_timestamp": "2026-11-09T04:56:52.766051"
+    },
+    "channel_1:facttechz_dark_psychology_1": {
+      "source_id": "facttechz_dark_psychology_1",
+      "channel_id": 1,
+      "title": "किसी को भी अपनी बात मनवाने का यह सीक्रेट नियम! 💡 ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:11.737004",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200351736_87bee0a2",
+      "uploading_timestamp": "2026-11-09T04:59:11.743649",
+      "failed_timestamp": "2026-11-09T04:59:12.072726"
+    },
+    "channel_1:facttechz_dark_psychology_2": {
+      "source_id": "facttechz_dark_psychology_2",
+      "channel_id": 1,
+      "title": "लोग आपकी इज्जत क्यों नहीं करते? यह 1 गलती तुरंत सुधारें! ⚠️ ⚠️ इतिहास का सबसे खौफनाक रहस्य! #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:12.077830",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200352077_68308ff2",
+      "uploading_timestamp": "2026-11-09T04:59:12.082628",
+      "failed_timestamp": "2026-11-09T04:59:12.193004"
+    },
+    "channel_1:facttechz_ancient_mysteries_3": {
+      "source_id": "facttechz_ancient_mysteries_3",
+      "channel_id": 1,
+      "title": "मिस्र के पिरामिडों का यह खौफनाक सच कोई नहीं बताता! 🏛️ ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:12.198061",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200352198_5ac34514",
+      "uploading_timestamp": "2026-11-09T04:59:12.202897",
+      "failed_timestamp": "2026-11-09T04:59:12.340645"
+    },
+    "channel_1:facttechz_ancient_mysteries_4": {
+      "source_id": "facttechz_ancient_mysteries_4",
+      "channel_id": 1,
+      "title": "बरमूडा ट्रायंगल में गायब हुए जहाजों के साथ क्या होता है? 🚢⚠️ ⚠️ इतिहास का सबसे खौफनाक #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:12.345840",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200352345_232f72d9",
+      "uploading_timestamp": "2026-11-09T04:59:12.350693",
+      "failed_timestamp": "2026-11-09T04:59:12.487845"
+    },
+    "channel_1:facttechz_ancient_mysteries_5": {
+      "source_id": "facttechz_ancient_mysteries_5",
+      "channel_id": 1,
+      "title": "भारत का यह मंदिर गुरुत्वाकर्षण के नियमों को झुठलाता है! 🛕✨ ⚠️ इतिहास का सबसे खौफनाक रहस्य! #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:12.493003",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200352492_8d3c4eac",
+      "uploading_timestamp": "2026-11-09T04:59:12.497852",
+      "failed_timestamp": "2026-11-09T04:59:12.626213"
+    },
+    "channel_1:facttechz_ancient_mysteries_6": {
+      "source_id": "facttechz_ancient_mysteries_6",
+      "channel_id": 1,
+      "title": "एंटार्कटिका की बर्फ के 2 मील नीचे वैज्ञानिकों को क्या मिला? ❄️😱 ⚠️ इतिहास का सबसे खौफनाक #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:12.631397",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200352631_17db3759",
+      "uploading_timestamp": "2026-11-09T04:59:12.636256",
+      "failed_timestamp": "2026-11-09T04:59:12.772474"
+    },
+    "channel_1:facttechz_ocean_mysteries_7": {
+      "source_id": "facttechz_ocean_mysteries_7",
+      "channel_id": 1,
+      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:12.777697",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200352777_d89ed69c",
+      "uploading_timestamp": "2026-11-09T04:59:12.782608",
+      "failed_timestamp": "2026-11-09T04:59:12.911065"
+    },
+    "channel_1:facttechz_ocean_mysteries_8": {
+      "source_id": "facttechz_ocean_mysteries_8",
+      "channel_id": 1,
+      "title": "मेगालोडन शार्क आज भी जिंदा है? यह सबूत देखिए! 🦈⚠️ ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:12.916258",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200352916_58600787",
+      "uploading_timestamp": "2026-11-09T04:59:12.921144",
+      "failed_timestamp": "2026-11-09T04:59:13.038112"
+    },
+    "channel_1:facttechz_ocean_mysteries_9": {
+      "source_id": "facttechz_ocean_mysteries_9",
+      "channel_id": 1,
+      "title": "समुद्र का 'द ब्लोप' साउंड—जिसने वैज्ञानिकों को डरा दिया! 🔊🌊 ⚠️ इतिहास का सबसे खौफनाक रहस्य! #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:13.043555",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200353043_e51e1df6",
+      "uploading_timestamp": "2026-11-09T04:59:13.048514",
+      "failed_timestamp": "2026-11-09T04:59:13.166991"
+    },
+    "channel_1:facttechz_money_mindset_10": {
+      "source_id": "facttechz_money_mindset_10",
+      "channel_id": 1,
+      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
+      "attempt_timestamp": "2026-11-09T04:59:13.172265",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200353172_64051db2",
+      "uploading_timestamp": "2026-11-09T04:59:13.177164",
+      "failed_timestamp": "2026-11-09T04:59:13.316055"
+    },
+    "channel_2:records_03_juggling_sword.mp4": {
+      "source_id": "records_03_juggling_sword.mp4",
+      "channel_id": 2,
+      "title": "खतरनाक तलवारों के साथ मौत का खेल! 🗡️⚠️ #Shorts #ExtremeSkill",
+      "attempt_timestamp": "2026-11-09T05:00:12.820300",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200412820_b3682b29",
+      "uploading_timestamp": "2026-11-09T05:00:12.825426"
+    },
+    "channel_2:science_01_helmet_press.mp4": {
+      "source_id": "science_01_helmet_press.mp4",
+      "channel_id": 2,
+      "title": "100 टन हाइड्रोलिक प्रेस बनाम मजबूत हेलमेट! 😱🔨 #Shorts #HydraulicPress",
+      "attempt_timestamp": "2026-11-09T05:00:22.164434",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200422164_b8f62058",
+      "uploading_timestamp": "2026-11-09T05:00:22.169582"
+    },
+    "channel_2:records_02_levitation_handstand.mp4": {
+      "source_id": "records_02_levitation_handstand.mp4",
+      "channel_id": 2,
+      "title": "हवा में तैरने वाला नामुमकिन बैलेंस स्टंट! 🤯🤸 #Shorts #ExtremeFitness",
+      "attempt_timestamp": "2026-11-09T05:00:35.136543",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200435136_1f6db2cc",
+      "uploading_timestamp": "2026-11-09T05:00:35.141721"
+    },
+    "channel_2:science_02_prettiest_crunch.mp4": {
+      "source_id": "science_02_prettiest_crunch.mp4",
+      "channel_id": 2,
+      "title": "दिन का सबसे संतोषजनक स्लो-मोशन क्रंच! 💆✨ #Shorts #SatisfyingCrunch",
+      "attempt_timestamp": "2026-11-09T05:00:47.532142",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200447532_6a5aa652",
+      "uploading_timestamp": "2026-11-09T05:00:47.537306"
+    },
+    "channel_2:records_01_table_tennis.mp4": {
+      "source_id": "records_01_table_tennis.mp4",
+      "channel_id": 2,
+      "title": "टेबल टेनिस का ऐसा नामुमकिन शॉट जिसे देखकर होश उड़ जाएं! 😱🏓 #Shorts",
+      "attempt_timestamp": "2026-11-09T05:01:00.702899",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200460702_f17ed243",
+      "uploading_timestamp": "2026-11-09T05:01:00.708120"
+    },
+    "channel_2:science_03_cards_press.mp4": {
+      "source_id": "science_03_cards_press.mp4",
+      "channel_id": 2,
+      "title": "जब 52 ताश के पत्तों पर 100 टन का वजन पड़ा! 🃏💥 | गुरुत्वाकर्षण को चुनौती देने वाला नामुमकिन #Shorts",
+      "attempt_timestamp": "2026-11-09T05:01:09.850504",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200469850_63d436d9",
+      "uploading_timestamp": "2026-11-09T05:01:09.855727"
+    },
+    "channel_2:records_04_human_catapult.mp4": {
+      "source_id": "records_04_human_catapult.mp4",
+      "channel_id": 2,
+      "title": "10 मंजिला इमारत जितना ऊंचा मानव प्रक्षेपण! 🚀😱 #Shorts #Daredevil",
+      "attempt_timestamp": "2026-11-09T05:01:21.809650",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200481809_2bb83eb5",
+      "uploading_timestamp": "2026-11-09T05:01:21.815052"
+    },
+    "channel_2:science_04_solar_panel.mp4": {
+      "source_id": "science_04_solar_panel.mp4",
+      "channel_id": 2,
+      "title": "क्या सोलर पैनल हाइड्रोलिक प्रेस को रोक पाया? ☀️💥 | विज्ञान का यह चमत्कार देखकर यकीन नहीं #Shorts",
+      "attempt_timestamp": "2026-11-09T05:01:31.843232",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3438,
+      "owner_token": "tok_3438_1794200491843_0c4453b2",
+      "uploading_timestamp": "2026-11-09T05:01:31.848520"
     }
   }
 }
