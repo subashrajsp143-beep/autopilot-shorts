@@ -21,8 +21,8 @@ import random
 import socket
 import ssl
 import http.client
-from datetime import datetime
-from typing import List, Dict, Any, Optional
+from datetime import datetime, timezone, timedelta
+from typing import List, Dict, Any, Optional, Tuple
 
 # Fix Windows console UTF-8 output
 if sys.platform == "win32":
@@ -402,9 +402,85 @@ def get_indian_peak_schedule(num_videos: int = 10, channel_id: int = 1):
 get_staggered_schedule = get_indian_peak_schedule
 
 
-def check_already_uploaded_today(force: bool = False, target_channels: Optional[List[int]] = None) -> bool:
+IST = timezone(timedelta(hours=5, minutes=30))
+
+# Known historical GitHub Actions uploads committed by github-actions[bot]
+# Verified from commits a235c0c and fb3020b (Nov 7 19:00 UTC and Nov 8 05:52 UTC runs)
+KNOWN_GHA_UPLOADS = {
+    # 20 uploads from Nov 7 19:01-19:09 UTC (commit a235c0c)
+    "Eo9IkUf-Vfw", "i0VzOuDSX5A", "0OxQRWyQfS4", "Gd3YKgB1Ggs", "r-wXwv9yc_M",
+    "YhDiTEVNO1Y", "bCstdTGAeHk", "8FhMAyuKRh8", "Ps3hbLJaqoU", "XCAtBJGwyEE",
+    "MlqO7ssOy8Y", "35n05H46exA", "yJp-2NdALOU", "pGxOM6nStkc", "prfmnlzxCc0",
+    "W0amwN_qa-w", "UzdNPZoqnJ0", "RkRBWfyP7Fs", "44dj3OsA2LY", "-ytUT0fpnzQ",
+    # 30 uploads from Nov 8 05:52-06:02 UTC (commit fb3020b)
+    "i3g8GUgY1WI", "gq7RKwGKCTw", "gZvQcCqUSeQ", "TrAqajshVsM", "kRAAOL_8NSo",
+    "B4WaUlOldlU", "rFWxzNYchso", "Kgw92iyPKN4", "hwJPGAJnE0A", "Rte8jiU0R1w",
+    "AFn3lFDssjA", "OYUL9ynn6Uo", "RcKqCPjJ3mY", "7KwmGPxTi_0", "8HQrw7MAvzo",
+    "nHSHoAaWRgU", "0ZPGbPyDKgg", "F5PFDOF2axI", "8K7LFq_3jN0", "qdenAJ6Zy3k",
+    "3nyxkJU0eOw", "vPImz4fbwqE", "fF8W8crffyo", "mKXgw9MRm8g", "NW7dWb3Bt3o",
+    "dblR9wfa7dw", "14W3gYEKqn4", "qqOJktXdbyA", "x--E7LgWkIY", "WQnhaRBhXmk"
+}
+
+
+def parse_iso_to_ist(ts_str: str, item: Optional[Dict[str, Any]] = None) -> Tuple[Optional[datetime], str]:
     """
-    Checks if target channels have already completed their 10 uploads today (IST).
+    Parses an ISO timestamp string into a timezone-aware datetime in IST.
+    1. If timestamp is timezone-aware, preserves existing offset and converts directly to IST.
+    2. If timestamp is timezone-naive:
+       - Uses explicit per-entry provenance where available:
+         a) origin in ('github_actions', 'github-actions', 'gh_actions', 'utc', 'ci') -> UTC to IST.
+         b) origin in ('ist', 'local_ist', 'asia/kolkata') -> IST directly.
+         c) origin in ('ambiguous', 'unknown') -> returns (None, 'ambiguous').
+       - For existing records without explicit origin field, verifies if they are confirmed
+         historical GitHub Actions uploads (e.g. in KNOWN_GHA_UPLOADS).
+       - Does NOT infer timezone from current process environment or generic field presence.
+       - If origin cannot be confirmed, returns (None, 'ambiguous') for separate reporting.
+    """
+    if not ts_str or not isinstance(ts_str, str):
+        return None, "invalid"
+
+    clean_ts = ts_str.strip()
+    try:
+        if clean_ts.endswith("Z") or clean_ts.endswith("z"):
+            dt = datetime.fromisoformat(clean_ts[:-1] + "+00:00")
+            return dt.astimezone(IST), "aware_utc"
+
+        dt = datetime.fromisoformat(clean_ts)
+        if dt.tzinfo is not None:
+            return dt.astimezone(IST), "aware"
+
+        # Timezone-naive timestamp: verify explicit per-entry provenance
+        item = item or {}
+        explicit_origin = item.get("origin") or item.get("timezone") or item.get("runner")
+
+        if explicit_origin:
+            explicit_clean = str(explicit_origin).strip().lower()
+            if explicit_clean in ["github_actions", "github-actions", "gh_actions", "utc", "ci"]:
+                return dt.replace(tzinfo=timezone.utc).astimezone(IST), "confirmed_utc"
+            elif explicit_clean in ["ist", "local_ist", "asia/kolkata"]:
+                return dt.replace(tzinfo=IST), "confirmed_ist"
+            elif explicit_clean in ["ambiguous", "unknown"]:
+                return None, "ambiguous"
+
+        # Check known verified historical GitHub Actions uploads
+        yt_id = item.get("youtube_id")
+        if yt_id and yt_id in KNOWN_GHA_UPLOADS:
+            return dt.replace(tzinfo=timezone.utc).astimezone(IST), "confirmed_utc"
+
+        # Origin is unverified / ambiguous
+        return None, "ambiguous"
+    except Exception as e:
+        return None, f"parse_error: {e}"
+
+
+def check_already_uploaded_today(
+    force: bool = False,
+    target_channels: Optional[List[int]] = None,
+    history_file: str = "config/uploaded_history.json",
+    reference_time: Optional[datetime] = None
+) -> bool:
+    """
+    Checks if target channels have already completed their upload targets today (IST).
     Prevents duplicate uploads and protects YouTube 24-hour daily quota
     while allowing staggered runs across different channels throughout the day.
     """
@@ -412,39 +488,117 @@ def check_already_uploaded_today(force: bool = False, target_channels: Optional[
         print("⚡ Force upload enabled. Bypassing daily duplicate guard.")
         return False
 
-    history_file = "config/uploaded_history.json"
-    if os.path.exists(history_file):
-        try:
-            with open(history_file, "r", encoding="utf-8") as f:
-                h = json.load(f)
-            logs = h.get("upload_logs", [])
-            from datetime import datetime, timezone, timedelta
-            ist_now = datetime.now(timezone(timedelta(hours=5, minutes=30)))
-            today_str = ist_now.strftime("%Y-%m-%d")
+    if not os.path.exists(history_file):
+        return False
 
-            chs_to_check = target_channels if target_channels else [1, 2, 3]
-            ch_names = {
-                1: ["Channel 1", "MiniTalesWorld"],
-                2: ["Channel 2", "Pawsome"],
-                3: ["Channel 3", "Next Level Facts"]
-            }
+    try:
+        with open(history_file, "r", encoding="utf-8") as f:
+            h = json.load(f)
+        logs = h.get("upload_logs", [])
 
-            target_counts = {1: 10, 2: 8, 3: 10}
-            all_done = True
+        if reference_time:
+            ist_now = reference_time.astimezone(IST) if reference_time.tzinfo else reference_time.replace(tzinfo=IST)
+        else:
+            ist_now = datetime.now(IST)
+
+        today_date = ist_now.date()
+        today_str = today_date.strftime("%Y-%m-%d")
+
+        chs_to_check = target_channels if target_channels else [1, 2, 3]
+        ch_names = {
+            1: ["Channel 1", "MiniTalesWorld"],
+            2: ["Channel 2", "Pawsome"],
+            3: ["Channel 3", "Next Level Facts"]
+        }
+        target_counts = {1: 10, 2: 8, 3: 10}
+
+        # Track and report duplicate history entries without altering history
+        seen_keys = set()
+        duplicates = []
+        for item in logs:
+            vid = item.get("youtube_id")
+            src = item.get("source_id") or item.get("title", "")
+            ch_val = item.get("channel_id")
+            ts_val = item.get("timestamp")
+            if ch_val is None:
+                item_type = item.get("type", "")
+                for c_id, n_list in ch_names.items():
+                    if any(n in item_type for n in n_list):
+                        ch_val = c_id
+                        break
+            dup_key = (ch_val, vid) if vid else (ch_val, src, ts_val)
+            if dup_key in seen_keys:
+                duplicates.append(item)
+            else:
+                seen_keys.add(dup_key)
+
+        if duplicates:
+            print(f"⚠️ Identified {len(duplicates)} duplicate history entry/entries in upload_logs (preserving history):")
+            for d in duplicates[:5]:
+                print(f"   - Duplicate: youtube_id={d.get('youtube_id')}, source_id={d.get('source_id')}, timestamp={d.get('timestamp')}")
+
+        # Count confirmed uploads per channel for today (IST)
+        counts = {ch: 0 for ch in chs_to_check}
+        counted_entry_keys = {ch: set() for ch in chs_to_check}
+        ambiguous_entries = []
+
+        for item in logs:
+            ts_str = item.get("timestamp")
+            dt_ist, origin_status = parse_iso_to_ist(ts_str, item)
+
+            if origin_status == "ambiguous":
+                ambiguous_entries.append(item)
+                continue
+            elif not dt_ist:
+                continue
+
+            if dt_ist.date() != today_date:
+                continue
+
+            # Channel matching: primary is channel_id; fallback is channel-name matching when channel_id is absent
+            item_ch = item.get("channel_id")
             for ch in chs_to_check:
                 names = ch_names.get(ch, [f"Channel {ch}"])
-                req = target_counts.get(ch, 10)
-                count = sum(1 for item in logs if item.get("timestamp", "").startswith(today_str) and any(n in item.get("type", "") for n in names))
-                if count < req:
-                    all_done = False
-                    break
+                if item_ch is not None:
+                    matches_channel = (item_ch == ch)
+                else:
+                    item_type = item.get("type", "")
+                    matches_channel = any(n in item_type for n in names)
 
-            if all_done:
-                print(f"🛑 Target channels {chs_to_check} already completed 10 uploads each for today ({today_str}).")
-                print("🔒 Skipping duplicate upload to protect YouTube 24-hr quota.")
-                return True
-        except Exception as e:
-            print(f"Daily guard note: {e}")
+                if matches_channel:
+                    yt_id = item.get("youtube_id")
+                    src_id = item.get("source_id") or item.get("title", "")
+                    ts_val = item.get("timestamp")
+                    # Unified deduplication identity
+                    entry_key = yt_id if yt_id else (src_id, ts_val)
+
+                    if entry_key not in counted_entry_keys[ch]:
+                        counted_entry_keys[ch].add(entry_key)
+                        counts[ch] += 1
+
+        if ambiguous_entries:
+            print(f"⚠️ Ambiguous naive timestamps found ({len(ambiguous_entries)} entry/entries). Not silently assumed (reported separately):")
+            for amb in ambiguous_entries[:5]:
+                print(f"   - Ambiguous entry: timestamp='{amb.get('timestamp')}', title='{amb.get('title', '')[:30]}'")
+
+        all_done = True
+        for ch in chs_to_check:
+            req = target_counts.get(ch, 10)
+            if counts.get(ch, 0) < req:
+                all_done = False
+                break
+
+        if all_done:
+            status_items = [
+                f"Channel {ch} ({ch_names.get(ch, [f'Channel {ch}'])[0]}): {counts.get(ch, 0)}/{target_counts.get(ch, 10)}"
+                for ch in chs_to_check
+            ]
+            print(f"🛑 Target channels already completed daily quota for {today_str}: {', '.join(status_items)}")
+            print("🔒 Skipping duplicate upload to protect YouTube 24-hr quota.")
+            return True
+
+    except Exception as e:
+        print(f"Daily guard note: {e}")
 
     return False
 

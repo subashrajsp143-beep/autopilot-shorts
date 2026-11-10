@@ -50,6 +50,11 @@ def is_pid_alive(pid: int) -> bool:
             return False
 
 
+def get_utc_iso_timestamp() -> str:
+    """Returns an explicit timezone-aware ISO 8601 UTC timestamp (+00:00)."""
+    return datetime.now(timezone.utc).isoformat()
+
+
 class HistoryTracker:
     def __init__(self, history_file: str = "config/uploaded_history.json"):
         self.history_file = history_file
@@ -283,7 +288,7 @@ class HistoryTracker:
                         pending["status"] = "reserved"
                         pending["pid"] = os.getpid()
                         pending["owner_token"] = token
-                        pending["attempt_timestamp"] = datetime.now().isoformat()
+                        pending["attempt_timestamp"] = get_utc_iso_timestamp()
                         pending["title"] = title
                         self.save()
                         return ("acquired", pending, token)
@@ -292,7 +297,7 @@ class HistoryTracker:
                     pending["status"] = "reserved"
                     pending["pid"] = os.getpid()
                     pending["owner_token"] = token
-                    pending["attempt_timestamp"] = datetime.now().isoformat()
+                    pending["attempt_timestamp"] = get_utc_iso_timestamp()
                     pending["title"] = title
                     pending["error_details"] = None
                     self.save()
@@ -303,7 +308,7 @@ class HistoryTracker:
                 "source_id": source_id,
                 "channel_id": channel_id,
                 "title": title,
-                "attempt_timestamp": datetime.now().isoformat(),
+                "attempt_timestamp": get_utc_iso_timestamp(),
                 "status": "reserved",
                 "youtube_video_id": None,
                 "error_details": None,
@@ -345,7 +350,7 @@ class HistoryTracker:
             entry["source_id"] = source_id
             entry["channel_id"] = channel_id
             entry["status"] = "uploading"
-            entry["uploading_timestamp"] = datetime.now().isoformat()
+            entry["uploading_timestamp"] = get_utc_iso_timestamp()
             self.save()
 
     def confirm_upload(
@@ -356,13 +361,16 @@ class HistoryTracker:
         title: str,
         video_type: str,
         query: Optional[str] = None,
-        owner_token: Optional[str] = None
+        owner_token: Optional[str] = None,
+        timestamp: Optional[str] = None,
+        origin: Optional[str] = None
     ) -> bool:
         """
         Atomically marks upload as confirmed and appends to permanent upload_logs.
         100% IDEMPOTENT: Multiple identical calls never duplicate logs or sets.
         Safely handles and rejects conflicting YouTube video IDs for the same source.
         Enforces reservation ownership.
+        Stores explicit timezone-aware ISO 8601 UTC timestamps with origin/timezone metadata.
         """
         with self.file_lock():
             self.reload()
@@ -406,12 +414,18 @@ class HistoryTracker:
                     # Genuinely idempotent: already confirmed in pending and present in upload_logs
                     return True
 
+            # Determine timestamp and origin for the confirmed upload
+            log_ts = timestamp or get_utc_iso_timestamp()
+            origin_val = origin or ("github_actions" if os.environ.get("GITHUB_ACTIONS") == "true" else "local")
+
             # 5. Transition pending entry to confirmed
             pending_entry["source_id"] = source_id
             pending_entry["channel_id"] = channel_id
             pending_entry["status"] = "confirmed"
             pending_entry["youtube_video_id"] = youtube_video_id
-            pending_entry["completed_timestamp"] = datetime.now().isoformat()
+            pending_entry["completed_timestamp"] = log_ts
+            pending_entry["origin"] = origin_val
+            pending_entry["timezone"] = "UTC"
             if title:
                 pending_entry["title"] = title
 
@@ -428,13 +442,15 @@ class HistoryTracker:
             # 7. Append to upload_logs only if not already present
             if matching_log is None:
                 log_entry = {
-                    "timestamp": datetime.now().isoformat(),
+                    "timestamp": log_ts,
                     "title": title,
                     "type": video_type,
                     "youtube_id": youtube_video_id,
                     "source_id": source_id,
                     "query": query,
-                    "channel_id": channel_id
+                    "channel_id": channel_id,
+                    "origin": origin_val,
+                    "timezone": "UTC"
                 }
                 self.history.setdefault("upload_logs", []).append(log_entry)
 
@@ -463,7 +479,7 @@ class HistoryTracker:
             entry["channel_id"] = channel_id
             entry["status"] = "uncertain"
             entry["error_details"] = error
-            entry["uncertain_timestamp"] = datetime.now().isoformat()
+            entry["uncertain_timestamp"] = get_utc_iso_timestamp()
             if youtube_video_id:
                 entry["youtube_video_id"] = youtube_video_id
             self.save()
@@ -494,7 +510,7 @@ class HistoryTracker:
             entry["youtube_video_id"] = youtube_video_id
             entry["status"] = "uncertain"
             entry["error_details"] = f"YouTube accepted upload (video_id={youtube_video_id}), but history confirmation failed: {error}"
-            entry["uncertain_timestamp"] = datetime.now().isoformat()
+            entry["uncertain_timestamp"] = get_utc_iso_timestamp()
             if youtube_video_id and youtube_video_id not in self.history.setdefault("uploaded_video_ids", []):
                 self.history["uploaded_video_ids"].append(youtube_video_id)
             self.save()
@@ -515,7 +531,7 @@ class HistoryTracker:
             entry["channel_id"] = channel_id
             entry["status"] = "failed"
             entry["error_details"] = error
-            entry["failed_timestamp"] = datetime.now().isoformat()
+            entry["failed_timestamp"] = get_utc_iso_timestamp()
             self.save()
 
     def _acknowledge_emergency_record(self, source_id: str, channel_id: int):

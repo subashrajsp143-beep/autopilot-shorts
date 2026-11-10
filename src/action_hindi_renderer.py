@@ -113,20 +113,21 @@ def render_action_clip_hindi(
         duration = target_duration if target_duration and target_duration > voice_duration else voice_duration + 0.5
 
         escaped_ass = ass_path.replace("\\", "/").replace(":", r"\:")
-        filter_complex = (
-            f"[0:v]trim=duration={duration:.2f},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,{banner_filter},subtitles='{escaped_ass}'[vout];"
-            f"[0:a]volume=0.20[bg_audio];"
-            f"[1:a]volume=1.0[voice_audio];"
-            f"[voice_audio][bg_audio]amix=inputs=2:duration=first[aout]"
-        )
 
+        # Completely mute unlicensed source audio [0:a].
+        # Unverified ambient_suspense.mp3 is removed from the Channel 3 pipeline.
+        # Audio consists exclusively of:
+        # - Input 1: Original Hindi voiceover narration (voice_audio) at normal audible volume [1:a]
+        filter_complex = (
+            f"[0:v]trim=duration={duration:.2f},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,{banner_filter},subtitles='{escaped_ass}'[vout]"
+        )
         cmd = [
             "ffmpeg", "-y",
             "-stream_loop", "-1", "-i", clip_path,
             "-i", audio_path,
             "-filter_complex", filter_complex,
             "-map", "[vout]",
-            "-map", "[aout]",
+            "-map", "1:a",
             "-c:v", "libx264",
             "-preset", "veryfast",
             "-crf", "18",

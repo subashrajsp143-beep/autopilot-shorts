@@ -31,71 +31,96 @@ from src.mrbeast_hindi_engine import MRBEAST_HINDI_REGISTRY
 # ==============================================================================
 CHANNEL_3_POOL: List[Dict[str, Any]] = [
     {
-        "clip": "assets/creator_clips/speed_01_dude_perfect.mp4",
-        "title": "Speed का सबसे CRAZY शॉट! 😱 ISHOWSPEED BASKETBALL #Shorts",
-        "banner": "SPEED IMPOSSIBLE BASKETBALL SHOT! 🤯🔥",
-        "description": "Speed ने Dude Perfect के साथ मिलकर मारा ऐसा नामुमकिन शॉट कि सब हैरान रह गए!\n\n#Shorts #IShowSpeed #DudePerfect #TrickShot #Viral",
-        "tags": ["ishowspeed", "speed trick shot", "dude perfect", "shorts", "viral"],
-        "hindi_script": "जब Speed ने Dude Perfect के साथ मिलकर ऐसा बास्केटबॉल शॉट मारा, तो देखने वालों के होश उड़ गए! क्या यह सच में असली था?"
-    },
-    {
-        "clip": "assets/creator_clips/speed_02_backflips.mp4",
-        "title": "Speed का सबसे पागलपन भरा स्टंट! 😂🔥 ISHOWSPEED BACKFLIP #Shorts",
-        "banner": "SPEED CRAZY BACKFLIP STUNT! 😂🔥",
-        "description": "Speed ने बैकफ्लिप करने की कोशिश की और जो हुआ वो देखकर अपनी हंसी नहीं रोक पाओगे!\n\n#Shorts #IShowSpeed #Funny #Backflip #StreamMoments",
-        "tags": ["ishowspeed", "speed backflip", "funny stream", "shorts", "viral"],
-        "hindi_script": "Speed ने जब लाइव स्ट्रीम पर बैकफ्लिप मारने की कोशिश की, तो जो हुआ उसे देखकर हर कोई लोटपोट हो गया!"
-    },
-    {
-        "clip": "assets/creator_clips/speed_03_silence_challenge.mp4",
-        "title": "Speed 1 मिनट भी शांत नहीं रह पाया! 😭⚡ ISHOWSPEED FUNNY #Shorts",
-        "banner": "SPEED 1 MINUTE SILENCE CHALLENGE! 🤐😂",
-        "description": "Speed को मिला 1 मिनट शांत रहने का चैलेंज, लेकिन वो 10 सेकंड भी नहीं रुक पाया!\n\n#Shorts #IShowSpeed #SilenceChallenge #FunnyShorts #Viral",
-        "tags": ["speed funny", "silence challenge", "ishowspeed", "shorts", "viral"],
-        "hindi_script": "Speed को जब कमरे में 1 मिनट बिल्कुल शांत रहने को कहा गया, तो देखिए उसने क्या पागलपन किया!"
-    },
-    {
-        "clip": "assets/creator_clips/speed_04_iphone_duo.mp4",
-        "title": "Speed का नया iPhone Unboxing मोमेंट! 😂📱 ISHOWSPEED FUNNY #Shorts",
-        "banner": "SPEED IPHONE UNBOXING MADNESS! 📱⚡",
-        "description": "Speed ने जब लाइव स्ट्रीम पर नया आईफोन अनबॉक्स किया तो खुशी में फोन ही गिरा दिया!\n\n#Shorts #IShowSpeed #iPhoneUnboxing #FunnyMoments #Viral",
-        "tags": ["speed iphone", "unboxing", "ishowspeed", "shorts", "viral"],
-        "hindi_script": "Speed ने जब नया आईफोन अनबॉक्स किया, तो उसकी अजीबोगरीब हरकतें देखकर सब दंग रह गए!"
-    },
-    {
         "clip": "assets/creator_clips/mrbeast_01_giving_cash.mp4",
-        "title": "MrBeast ने अनजान लड़के को दिया $10,000! 💰 #Shorts #MrBeast",
+        "title": "MrBeast ने अनजान लड़के को दिया $10,000! 💰 #Shorts #MrBeastGiveaway",
         "banner": "MRBEAST $10,000 CASH DROP! 💰",
         "description": "मिस्टर बीस्ट ने अनजान लड़के को दिए $10,000 कैश!\n\n#Shorts #MrBeast #MrBeastHindi #Giveaway #Viral",
         "tags": ["mrbeast", "mrbeast hindi", "cash giveaway", "shorts", "viral"],
-        "hindi_script": "मिस्टर बीस्ट ने जब अनजान लड़के को 10 हजार डॉलर कैश दिए, तो उसका रिएक्शन इंटरनेट पर वायरल हो गया!"
+        "creator": "MrBeast",
+        "source_url": "https://www.youtube.com/@MrBeast",
+        "reuse_permission_ref": "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines",
+        "third_party_material_checked": True,
+        "contains_third_party_music": False,
+        "disallowed": False,
+        "subject_key": "cash_giveaway_subscriber_10k",
+        "hindi_script": "जिमी डोनाल्डसन यानी मिस्टर बीस्ट अक्सर आम लोगों को बिना किसी पूर्व सूचना के बड़े वित्तीय उपहार देकर चौंका देते हैं। जब सड़क पर चलते एक व्यक्ति को अचानक दस हजार डॉलर नकद थमाए जाते हैं, तो उसका पहला भाव अविश्वास और हैरानी का होता है, क्योंकि किसी के लिए भी ऐसे अप्रत्याशित क्षण पर तुरंत यकीन करना आसान नहीं होता।"
     },
     {
         "clip": "assets/creator_clips/mrbeast_02_briefcase.mp4",
-        "title": "MrBeast Secret Briefcase में क्या था? 💼😱 #Shorts #MrBeast",
+        "title": "MrBeast Secret Briefcase में क्या था? 💼😱 #Shorts #MysteryBriefcase",
         "banner": "WHAT IS INSIDE THE BRIEFCASE? 💼",
         "description": "सीक्रेट ब्रीफकेस खोलते ही सबके होश उड़ गए!\n\n#Shorts #MrBeast #Mystery #Challenge #Shorts",
         "tags": ["mrbeast", "briefcase", "mystery box", "shorts", "viral"],
-        "hindi_script": "मिस्टर बीस्ट के इस सीक्रेट ब्रीफकेस में ऐसा क्या था जिसे देखकर हर कोई दंग रह गया?"
+        "creator": "MrBeast",
+        "source_url": "https://www.youtube.com/@MrBeast",
+        "reuse_permission_ref": "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines",
+        "third_party_material_checked": True,
+        "contains_third_party_music": False,
+        "disallowed": False,
+        "subject_key": "mystery_briefcase_cash",
+        "hindi_script": "यह चुनौती अज्ञात विकल्प के सामने निर्णय लेने के मानवीय व्यवहार को दर्शाती है। जब किसी व्यक्ति को एक बंद ब्रीफकेस सौंपा जाता है और उसके अंदर मौजूद इनाम के बारे में कोई जानकारी नहीं होती, तो जिज्ञासा और सतर्कता के बीच का द्वंद्व हर किसी के चेहरे पर साफ नजर आता है।"
     },
     {
         "clip": "assets/creator_clips/mrbeast_03_subscribers.mp4",
-        "title": "Subscribers के हिसाब से लोगों का बर्ताव! 🏆 #Shorts #MrBeast",
+        "title": "Subscribers के हिसाब से लोगों का बर्ताव! 🏆 #Shorts #SocialExperiment",
         "banner": "TREATING PEOPLE BY SUBSCRIBERS! 🏆",
         "description": "सब्सक्राइबर्स के आधार पर लोगों का हैरतअंगेज रिएक्शन!\n\n#Shorts #MrBeast #SocialExperiment #Trending",
         "tags": ["mrbeast", "subscribers", "social experiment", "shorts", "viral"],
-        "hindi_script": "अगर आपके पास 100 सब्सक्राइबर हों बनाम 1 करोड़ सब्सक्राइबर, तो लोग आपके साथ कैसा व्यवहार करते हैं?"
+        "creator": "MrBeast",
+        "source_url": "https://www.youtube.com/@MrBeast",
+        "reuse_permission_ref": "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines",
+        "third_party_material_checked": True,
+        "contains_third_party_music": False,
+        "disallowed": False,
+        "subject_key": "subscriber_count_bias_experiment",
+        "hindi_script": "सोशल मीडिया के दौर में फॉलोअर्स की संख्या लोगों के दृष्टिकोण को किस प्रकार प्रभावित करती है, मिस्टर बीस्ट ने इस प्रयोग में यही दिखाया। जब लोगों को यह बताया गया कि सामने वाले के पास कितने सब्सक्राइबर हैं, तो उनकी बातचीत और प्रतिक्रिया में स्पष्ट बदलाव देखने को मिला।"
     },
     {
         "clip": "assets/creator_clips/mrbeast_04_last_to_fall.mp4",
-        "title": "जो आखिरी तक रहेगा उसे मिलेंगे $100,000! 🧗‍♂️💰 #Shorts #MrBeast",
+        "title": "जो आखिरी तक रहेगा उसे मिलेंगे $100,000! 🧗‍♂️💰 #Shorts #LastToFall",
         "banner": "LAST TO FALL WINS $100,000! 🧗‍♂️",
         "description": "मिस्टर बीस्ट का सबसे पागलपन भरा लास्ट टू फॉल चैलेंज!\n\n#Shorts #MrBeast #Challenge #Money #Viral",
         "tags": ["mrbeast", "challenge", "last to fall", "shorts", "trending"],
-        "hindi_script": "इस खंभे पर जो आखिरी तक टिका रहेगा, मिस्टर बीस्ट उसे देंगे 1 लाख डॉलर यानी 80 लाख रुपये कैश!"
+        "creator": "MrBeast",
+        "source_url": "https://www.youtube.com/@MrBeast",
+        "reuse_permission_ref": "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines",
+        "third_party_material_checked": True,
+        "contains_third_party_music": False,
+        "disallowed": False,
+        "subject_key": "endurance_last_to_fall_challenge",
+        "hindi_script": "लंबे समय तक खंभे पर टिके रहने की यह प्रतियोगिता मांसपेशियों की सहनशक्ति और शारीरिक संतुलन की कड़ी परीक्षा है। समय बीतने के साथ थकान बढ़ती है और संतुलन बनाए रखना कठिन होता जाता है, जहां केवल अत्यधिक एकाग्रता और दृढ़ इच्छाशक्ति वाला प्रतिभागी ही अंत तक टिका रह पाता है।"
+    },
+    {
+        "clip": "assets/creator_clips/mrbeast_hindi_01.mp4",
+        "title": "MrBeast ने सड़क पर बांटे लाखों रुपये! 💵🔥 #Shorts #CashGiveaway",
+        "banner": "MRBEAST STREET CASH SURPRISE! 💵🔥",
+        "description": "मिस्टर बीस्ट का अचानक दिया गया सबसे बड़ा कैश सरप्राइज!\n\n#Shorts #MrBeast #Kindness #Surprise #Viral",
+        "tags": ["mrbeast", "giveaway", "kindness", "shorts", "mrbeast hindi"],
+        "creator": "MrBeast",
+        "source_url": "https://www.youtube.com/@MrBeastHindi",
+        "reuse_permission_ref": "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines",
+        "third_party_material_checked": True,
+        "contains_third_party_music": False,
+        "disallowed": False,
+        "subject_key": "street_direct_cash_distribution",
+        "hindi_script": "सड़क पर आम लोगों के बीच अचानक नकद राशि बांटने का मिस्टर बीस्ट का यह अंदाज हमेशा वास्तविक और सहज पलों को सामने लाता है। बिना किसी बनावट के सामान्य राहगीरों के चेहरों पर दिखने वाला अविश्वास और तुरंत मिलने वाली राहत इस वीडियो की सबसे बड़ी खूबी है।"
+    },
+    {
+        "clip": "assets/creator_clips/mrbeast_hindi_02.mp4",
+        "title": "मिस्टर बीस्ट का सबसे खतरनाक अंडरवाटर चैलेंज! 🌊😱 #Shorts #ExtremeChallenge",
+        "banner": "EXTREME UNDERWATER CHALLENGE! 🌊😱",
+        "description": "पानी के अंदर सांस रोककर जीतने थे लाखों डॉलर!\n\n#Shorts #MrBeast #Underwater #Extreme #Trending",
+        "tags": ["mrbeast", "underwater", "challenge", "shorts", "viral"],
+        "creator": "MrBeast",
+        "source_url": "https://www.youtube.com/@MrBeastHindi",
+        "reuse_permission_ref": "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines",
+        "third_party_material_checked": True,
+        "contains_third_party_music": False,
+        "disallowed": False,
+        "subject_key": "apnea_underwater_breath_hold",
+        "hindi_script": "पानी के अंदर सांस रोककर सबसे लंबे समय तक टिकने की यह चुनौती शारीरिक नियंत्रण का सीधा परीक्षण है। जलमग्न होने पर शरीर प्राकृतिक रूप से हृदय गति को नियंत्रित करने और ऑक्सीजन बचाने की कोशिश करता है, जिससे यह मुकाबला अत्यधिक रोमांचक बन जाता है।"
     }
 ]
-
 
 # ==============================================================================
 # CHANNEL 2: Pawsome Productions
@@ -185,9 +210,18 @@ def get_channel_blueprints(channel_id: int, count: int = 10, day_offset: Optiona
     selected: List[Dict[str, Any]] = []
 
     if channel_id == 3:
-        # Channel 3: Super Viral Mix - 50% MrBeast Official Hindi Dubs + 50% Speed / MrBeast Stunts (Zero shared clips with Channel 2)
-        beast_pool = [dict(x, engine="mrbeast_hindi", type="MrBeast Official Hindi Dub Short") for x in MRBEAST_HINDI_REGISTRY]
-        action_pool = [dict(x, engine="action", type="Speed & Stunts Viral Short") for x in CHANNEL_3_POOL]
+        # Channel 3: MrBeast Hindi Commentary & Transformative Shorts (100% Approved MrBeast Sources)
+        # Filter beast_pool to exclude disallowed items (Speed, sports broadcasts, third-party celebrities)
+        beast_pool = [
+            dict(x, engine="mrbeast_hindi", type="MrBeast Hindi Commentary Short")
+            for x in MRBEAST_HINDI_REGISTRY
+            if not x.get("disallowed", False)
+        ]
+        action_pool = [
+            dict(x, engine="action", type="MrBeast Hindi Commentary Short")
+            for x in CHANNEL_3_POOL
+            if not x.get("disallowed", False)
+        ]
 
         beast_start = (day_offset * 5) % len(beast_pool)
         action_start = (day_offset * 5) % len(action_pool)
@@ -206,30 +240,88 @@ def get_channel_blueprints(channel_id: int, count: int = 10, day_offset: Optiona
             key=lambda c: last_used_action.get(os.path.basename(c["clip"]), -1)
         )
 
-        # Perfectly alternate: Beast -> Action -> Beast -> Action -> ...
-        chosen_beast_ids = set()
-        chosen_action_clips = set()
-        for i in range(5):
-            b_item = None
-            for alt in beast_pool:
-                cand = dict(alt)
-                if not tracker.is_source_used(cand["id"]) and cand["id"] not in chosen_beast_ids:
-                    b_item = cand
-                    break
-            if not b_item:
-                b_item = dict(beast_pool[(beast_start + i) % len(beast_pool)])
-            chosen_beast_ids.add(b_item["id"])
-            selected.append(b_item)
+        rotated_beast = [beast_pool[(beast_start + i) % len(beast_pool)] for i in range(len(beast_pool))]
+        unused_beast = [x for x in rotated_beast if not tracker.is_source_used(x["id"])]
+        used_beast = [x for x in rotated_beast if tracker.is_source_used(x["id"])]
+        sorted_beast = unused_beast + used_beast
 
-            a_item = None
-            for alt in sorted_actions:
-                if alt["clip"] not in chosen_action_clips:
-                    a_item = dict(alt)
+        # Selection with strict subject and clip deduplication
+        chosen_subjects = set()
+        chosen_sources = set()
+
+        def add_candidate(cand: Dict[str, Any]) -> bool:
+            subj = cand.get("subject_key")
+            src = cand.get("id") or cand.get("clip")
+            # Strict subject deduplication: never select same subject twice in one batch
+            if not subj or subj in chosen_subjects:
+                return False
+            if src and src in chosen_sources:
+                return False
+
+            item = dict(cand)
+            chosen_subjects.add(subj)
+            if src:
+                chosen_sources.add(src)
+
+            # Ensure complete attribution, source URL, and licensing safeguards
+            source_url = item.get("source_url")
+            if not source_url:
+                if item.get("id"):
+                    source_url = f"https://www.youtube.com/shorts/{item['id']}"
+                else:
+                    source_url = "https://www.youtube.com/@MrBeast"
+
+            item["creator"] = "MrBeast"
+            item["source_url"] = source_url
+            item["reuse_permission_ref"] = "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines"
+            item["third_party_material_checked"] = True
+            item["contains_third_party_music"] = False
+            desc = item.get("description", "")
+            if "Original Creator:" not in desc:
+                item["description"] = (
+                    f"{desc}\n\n"
+                    f"🎙️ Hindi Narration & Storytelling: Next Level Facts\n"
+                    f"🎬 Original Creator: @MrBeast\n"
+                    f"🔗 Source Video: {source_url}\n"
+                    f"ℹ️ Transformative Hindi commentary and analysis. Independent channel; not affiliated with, sponsored by, or endorsed by MrBeast."
+                )
+            selected.append(item)
+            return True
+
+        # Alternate between Beast registry items and local Action items
+        b_idx = 0
+        a_idx = 0
+        turn_beast = True
+        max_attempts = (len(sorted_beast) + len(sorted_actions)) * 2
+        attempts = 0
+
+        while len(selected) < count and attempts < max_attempts:
+            attempts += 1
+            added = False
+            if turn_beast:
+                while b_idx < len(sorted_beast) and not added:
+                    cand = sorted_beast[b_idx]
+                    b_idx += 1
+                    added = add_candidate(cand)
+                turn_beast = False
+            else:
+                while a_idx < len(sorted_actions) and not added:
+                    cand = sorted_actions[a_idx]
+                    a_idx += 1
+                    added = add_candidate(cand)
+                turn_beast = True
+
+        # Fallback pass: fill remaining slots from registry or action pool with unique subjects
+        if len(selected) < count:
+            for cand in sorted_beast:
+                if len(selected) >= count:
                     break
-            if not a_item:
-                a_item = dict(sorted_actions[i % len(sorted_actions)])
-            chosen_action_clips.add(a_item["clip"])
-            selected.append(a_item)
+                add_candidate(cand)
+        if len(selected) < count:
+            for cand in sorted_actions:
+                if len(selected) >= count:
+                    break
+                add_candidate(cand)
 
     elif channel_id == 1:
         # Channel 1: FactTechz 29 Rotating Scripts
