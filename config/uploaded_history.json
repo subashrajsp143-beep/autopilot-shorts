@@ -419,7 +419,12 @@
     "s4KOw1yC_yo",
     "7Z30y068krQ",
     "5_mmlsT-nFE",
-    "jRGT9pl65lc"
+    "jRGT9pl65lc",
+    "ejB2jIz8gm0",
+    "FkpWJ46Q6js",
+    "OvHZydD-ssI",
+    "WLKvo8813Yw",
+    "gd6rBkc2yOM"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -969,7 +974,17 @@
     "3GNyw4uaAqU",
     "7aE4EhHXzlA",
     "uZY9xr-QAk0",
-    "JgJrQnDIRgg"
+    "JgJrQnDIRgg",
+    "_sBRk9ADpK8",
+    "3GNyw4uaAqU",
+    "7aE4EhHXzlA",
+    "uZY9xr-QAk0",
+    "JgJrQnDIRgg",
+    "facttechz_ancient_mysteries_3",
+    "facttechz_ocean_mysteries_6",
+    "facttechz_ocean_mysteries_7",
+    "facttechz_money_mindset_9",
+    "facttechz_money_mindset_10"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -1791,7 +1806,12 @@
     "MrBeast Secret Briefcase में क्या था? 💼😱 #Shorts #MrBeast",
     "Subscribers के हिसाब से लोगों का बर्ताव! 🏆 #Shorts #MrBeast",
     "जो आखिरी तक रहेगा उसे मिलेंगे $100,000! 🧗‍♂️💰 #Shorts #MrBeast",
-    "जब Robot ने किया MrBeast का काम! 🤖 MRBEAST ROBOT #Shorts"
+    "जब Robot ने किया MrBeast का काम! 🤖 MRBEAST ROBOT #Shorts",
+    "बरमूडा ट्रायंगल में गायब हुए जहाजों के साथ क्या होता है? 🚢⚠️ ⚠️ 99% लोग यह गलती करते हैं! #Shorts",
+    "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+    "मेगालोडन शार्क आज भी जिंदा है? यह सबूत देखिए! 🦈⚠️ ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+    "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+    "अमीर लोग टैक्स कैसे बचाते हैं? अमीर बनने का 1 नियम! 💸 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts"
   ],
   "upload_logs": [
     {
@@ -5046,6 +5066,51 @@
       "source_id": "41UzbuW6wJs",
       "query": "mrbeast_official_hindi_41UzbuW6wJs",
       "channel_id": 3
+    },
+    {
+      "timestamp": "2026-11-12T17:46:13.770842",
+      "title": "बरमूडा ट्रायंगल में गायब हुए जहाजों के साथ क्या होता है? 🚢⚠️ ⚠️ 99% लोग यह गलती करते हैं! #Shorts",
+      "type": "FactTechz Documentary Short (Ancient Mysteries) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "ejB2jIz8gm0",
+      "source_id": "facttechz_ancient_mysteries_3",
+      "query": "Ancient Mysteries",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-12T17:46:47.407299",
+      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "type": "FactTechz Documentary Short (Ocean Mysteries) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "FkpWJ46Q6js",
+      "source_id": "facttechz_ocean_mysteries_6",
+      "query": "Ocean Mysteries",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-12T17:46:57.534665",
+      "title": "मेगालोडन शार्क आज भी जिंदा है? यह सबूत देखिए! 🦈⚠️ ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "type": "FactTechz Documentary Short (Ocean Mysteries) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "OvHZydD-ssI",
+      "source_id": "facttechz_ocean_mysteries_7",
+      "query": "Ocean Mysteries",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-12T17:47:20.112167",
+      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "type": "FactTechz Documentary Short (Money Mindset) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "WLKvo8813Yw",
+      "source_id": "facttechz_money_mindset_9",
+      "query": "Money Mindset",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-12T17:47:30.877617",
+      "title": "अमीर लोग टैक्स कैसे बचाते हैं? अमीर बनने का 1 नियम! 💸 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "type": "FactTechz Documentary Short (Money Mindset) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "gd6rBkc2yOM",
+      "source_id": "facttechz_money_mindset_10",
+      "query": "Money Mindset",
+      "channel_id": 1
     }
   ],
   "pending_uploads": {
@@ -5237,14 +5302,14 @@
     "channel_1:facttechz_dark_psychology_1": {
       "source_id": "facttechz_dark_psychology_1",
       "channel_id": 1,
-      "title": "किसी को भी अपनी बात मनवाने का यह सीक्रेट नियम! 💡 ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
-      "attempt_timestamp": "2026-11-09T04:59:11.737004",
-      "status": "failed",
+      "title": "लोग आपकी इज्जत क्यों नहीं करते? यह 1 गलती तुरंत सुधारें! ⚠️ ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-12T17:45:40.690368",
+      "status": "uploading",
       "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3438,
-      "owner_token": "tok_3438_1794200351736_87bee0a2",
-      "uploading_timestamp": "2026-11-09T04:59:11.743649",
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505540690_9efa4165",
+      "uploading_timestamp": "2026-11-12T17:45:40.695205",
       "failed_timestamp": "2026-11-09T04:59:12.072726"
     },
     "channel_1:facttechz_dark_psychology_2": {
@@ -5263,40 +5328,41 @@
     "channel_1:facttechz_ancient_mysteries_3": {
       "source_id": "facttechz_ancient_mysteries_3",
       "channel_id": 1,
-      "title": "मिस्र के पिरामिडों का यह खौफनाक सच कोई नहीं बताता! 🏛️ ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
-      "attempt_timestamp": "2026-11-09T04:59:12.198061",
-      "status": "failed",
-      "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3438,
-      "owner_token": "tok_3438_1794200352198_5ac34514",
-      "uploading_timestamp": "2026-11-09T04:59:12.202897",
-      "failed_timestamp": "2026-11-09T04:59:12.340645"
+      "title": "बरमूडा ट्रायंगल में गायब हुए जहाजों के साथ क्या होता है? 🚢⚠️ ⚠️ 99% लोग यह गलती करते हैं! #Shorts",
+      "attempt_timestamp": "2026-11-12T17:46:05.290439",
+      "status": "confirmed",
+      "youtube_video_id": "ejB2jIz8gm0",
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505565290_ccde6f34",
+      "uploading_timestamp": "2026-11-12T17:46:05.295319",
+      "failed_timestamp": "2026-11-09T04:59:12.340645",
+      "completed_timestamp": "2026-11-12T17:46:13.770817"
     },
     "channel_1:facttechz_ancient_mysteries_4": {
       "source_id": "facttechz_ancient_mysteries_4",
       "channel_id": 1,
-      "title": "बरमूडा ट्रायंगल में गायब हुए जहाजों के साथ क्या होता है? 🚢⚠️ ⚠️ इतिहास का सबसे खौफनाक #Shorts",
-      "attempt_timestamp": "2026-11-09T04:59:12.345840",
-      "status": "failed",
+      "title": "भारत का यह मंदिर गुरुत्वाकर्षण के नियमों को झुठलाता है! 🛕✨ ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-12T17:46:17.776713",
+      "status": "uploading",
       "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3438,
-      "owner_token": "tok_3438_1794200352345_232f72d9",
-      "uploading_timestamp": "2026-11-09T04:59:12.350693",
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505577776_e65c0865",
+      "uploading_timestamp": "2026-11-12T17:46:17.781549",
       "failed_timestamp": "2026-11-09T04:59:12.487845"
     },
     "channel_1:facttechz_ancient_mysteries_5": {
       "source_id": "facttechz_ancient_mysteries_5",
       "channel_id": 1,
-      "title": "भारत का यह मंदिर गुरुत्वाकर्षण के नियमों को झुठलाता है! 🛕✨ ⚠️ इतिहास का सबसे खौफनाक रहस्य! #Shorts",
-      "attempt_timestamp": "2026-11-09T04:59:12.493003",
-      "status": "failed",
+      "title": "एंटार्कटिका की बर्फ के 2 मील नीचे वैज्ञानिकों को क्या मिला? ❄️😱 ⚠️ 99% लोग यह गलती करते #Shorts",
+      "attempt_timestamp": "2026-11-12T17:46:30.662083",
+      "status": "uploading",
       "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3438,
-      "owner_token": "tok_3438_1794200352492_8d3c4eac",
-      "uploading_timestamp": "2026-11-09T04:59:12.497852",
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505590662_7de1653e",
+      "uploading_timestamp": "2026-11-12T17:46:30.667169",
       "failed_timestamp": "2026-11-09T04:59:12.626213"
     },
     "channel_1:facttechz_ancient_mysteries_6": {
@@ -5315,27 +5381,28 @@
     "channel_1:facttechz_ocean_mysteries_7": {
       "source_id": "facttechz_ocean_mysteries_7",
       "channel_id": 1,
-      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
-      "attempt_timestamp": "2026-11-09T04:59:12.777697",
-      "status": "failed",
-      "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3438,
-      "owner_token": "tok_3438_1794200352777_d89ed69c",
-      "uploading_timestamp": "2026-11-09T04:59:12.782608",
-      "failed_timestamp": "2026-11-09T04:59:12.911065"
+      "title": "मेगालोडन शार्क आज भी जिंदा है? यह सबूत देखिए! 🦈⚠️ ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-12T17:46:51.412836",
+      "status": "confirmed",
+      "youtube_video_id": "OvHZydD-ssI",
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505611412_f884b9da",
+      "uploading_timestamp": "2026-11-12T17:46:51.417799",
+      "failed_timestamp": "2026-11-09T04:59:12.911065",
+      "completed_timestamp": "2026-11-12T17:46:57.534635"
     },
     "channel_1:facttechz_ocean_mysteries_8": {
       "source_id": "facttechz_ocean_mysteries_8",
       "channel_id": 1,
-      "title": "मेगालोडन शार्क आज भी जिंदा है? यह सबूत देखिए! 🦈⚠️ ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
-      "attempt_timestamp": "2026-11-09T04:59:12.916258",
-      "status": "failed",
+      "title": "समुद्र का 'द ब्लोप' साउंड—जिसने वैज्ञानिकों को डरा दिया! 🔊🌊 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-12T17:47:01.540272",
+      "status": "uploading",
       "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3438,
-      "owner_token": "tok_3438_1794200352916_58600787",
-      "uploading_timestamp": "2026-11-09T04:59:12.921144",
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505621540_5de5117a",
+      "uploading_timestamp": "2026-11-12T17:47:01.545369",
       "failed_timestamp": "2026-11-09T04:59:13.038112"
     },
     "channel_1:facttechz_ocean_mysteries_9": {
@@ -5354,15 +5421,16 @@
     "channel_1:facttechz_money_mindset_10": {
       "source_id": "facttechz_money_mindset_10",
       "channel_id": 1,
-      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ इतिहास का सबसे खौफनाक रहस्य! 💀 #Shorts",
-      "attempt_timestamp": "2026-11-09T04:59:13.172265",
-      "status": "failed",
-      "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3438,
-      "owner_token": "tok_3438_1794200353172_64051db2",
-      "uploading_timestamp": "2026-11-09T04:59:13.177164",
-      "failed_timestamp": "2026-11-09T04:59:13.316055"
+      "title": "अमीर लोग टैक्स कैसे बचाते हैं? अमीर बनने का 1 नियम! 💸 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-12T17:47:24.118025",
+      "status": "confirmed",
+      "youtube_video_id": "gd6rBkc2yOM",
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505644118_55e4b107",
+      "uploading_timestamp": "2026-11-12T17:47:24.123276",
+      "failed_timestamp": "2026-11-09T04:59:13.316055",
+      "completed_timestamp": "2026-11-12T17:47:30.877594"
     },
     "channel_2:records_03_juggling_sword.mp4": {
       "source_id": "records_03_juggling_sword.mp4",
@@ -5655,9 +5723,9 @@
       "channel_id": 3,
       "title": "सिक्का उछालो और 25 लाख जीतो! 🪙 #Shorts #CoinFlip",
       "attempt_timestamp": "2026-11-12T14:01:39.665685",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3629,
       "owner_token": "tok_3629_1794492099665_b656e02d",
       "uploading_timestamp": "2026-11-12T14:01:39.672240"
@@ -5667,9 +5735,9 @@
       "channel_id": 3,
       "title": "सब्सक्राइब करो और आईफोन ले जाओ! 📱 #Shorts #iPhoneGiveaway",
       "attempt_timestamp": "2026-11-12T14:01:51.183020",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3629,
       "owner_token": "tok_3629_1794492111182_31e2090c",
       "uploading_timestamp": "2026-11-12T14:01:51.192547"
@@ -5679,9 +5747,9 @@
       "channel_id": 3,
       "title": "ट्रैफिक में फंसे हर ड्राइवर को दिया कैश! 🚦 #Shorts #Kindness",
       "attempt_timestamp": "2026-11-12T14:02:05.721032",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3629,
       "owner_token": "tok_3629_1794492125721_536e3edd",
       "uploading_timestamp": "2026-11-12T14:02:05.727949"
@@ -5691,9 +5759,9 @@
       "channel_id": 3,
       "title": "सिक्का उछालो, कॉलेज की पूरी फीस माफ! 🎓 #Shorts #CollegeTuition",
       "attempt_timestamp": "2026-11-12T14:02:21.042586",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3629,
       "owner_token": "tok_3629_1794492141042_f1d4448e",
       "uploading_timestamp": "2026-11-12T14:02:21.049113"
@@ -5703,12 +5771,50 @@
       "channel_id": 3,
       "title": "जिसने फोन उठाया उसे मिले $10,000! 📞 #Shorts #PhoneCall",
       "attempt_timestamp": "2026-11-12T14:02:32.360947",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3629,
       "owner_token": "tok_3629_1794492152360_967d8de4",
       "uploading_timestamp": "2026-11-12T14:02:32.367515"
+    },
+    "channel_1:facttechz_ancient_mysteries_2": {
+      "source_id": "facttechz_ancient_mysteries_2",
+      "channel_id": 1,
+      "title": "मिस्र के पिरामिडों का यह खौफनाक सच कोई नहीं बताता! 🏛️ ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-12T17:45:53.842991",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505553842_0f7eb041",
+      "uploading_timestamp": "2026-11-12T17:45:53.847188"
+    },
+    "channel_1:facttechz_ocean_mysteries_6": {
+      "source_id": "facttechz_ocean_mysteries_6",
+      "channel_id": 1,
+      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-12T17:46:39.968716",
+      "status": "confirmed",
+      "youtube_video_id": "FkpWJ46Q6js",
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505599968_e14a4191",
+      "uploading_timestamp": "2026-11-12T17:46:39.973123",
+      "completed_timestamp": "2026-11-12T17:46:47.407271"
+    },
+    "channel_1:facttechz_money_mindset_9": {
+      "source_id": "facttechz_money_mindset_9",
+      "channel_id": 1,
+      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ 99% लोग यह गलती करते हैं! ⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-12T17:47:12.444111",
+      "status": "confirmed",
+      "youtube_video_id": "WLKvo8813Yw",
+      "error_details": null,
+      "pid": 3549,
+      "owner_token": "tok_3549_1794505632444_7b768751",
+      "uploading_timestamp": "2026-11-12T17:47:12.449170",
+      "completed_timestamp": "2026-11-12T17:47:20.112136"
     }
   }
 }
