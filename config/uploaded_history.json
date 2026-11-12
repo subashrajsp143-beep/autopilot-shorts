@@ -964,7 +964,12 @@
     "HcL1EQ5qD_g",
     "3cWm9B_0_kI",
     "jCE1Ol3PYDs",
-    "purAsH7pXTQ"
+    "purAsH7pXTQ",
+    "_sBRk9ADpK8",
+    "3GNyw4uaAqU",
+    "7aE4EhHXzlA",
+    "uZY9xr-QAk0",
+    "JgJrQnDIRgg"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -5644,6 +5649,66 @@
       "owner_token": "tok_3433_1794432886932_447e14c4",
       "uploading_timestamp": "2026-11-11T21:34:46.939396",
       "failed_timestamp": "2026-11-11T21:34:47.004638"
+    },
+    "channel_3:_sBRk9ADpK8": {
+      "source_id": "_sBRk9ADpK8",
+      "channel_id": 3,
+      "title": "सिक्का उछालो और 25 लाख जीतो! 🪙 #Shorts #CoinFlip",
+      "attempt_timestamp": "2026-11-12T14:01:39.665685",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3629,
+      "owner_token": "tok_3629_1794492099665_b656e02d",
+      "uploading_timestamp": "2026-11-12T14:01:39.672240"
+    },
+    "channel_3:3GNyw4uaAqU": {
+      "source_id": "3GNyw4uaAqU",
+      "channel_id": 3,
+      "title": "सब्सक्राइब करो और आईफोन ले जाओ! 📱 #Shorts #iPhoneGiveaway",
+      "attempt_timestamp": "2026-11-12T14:01:51.183020",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3629,
+      "owner_token": "tok_3629_1794492111182_31e2090c",
+      "uploading_timestamp": "2026-11-12T14:01:51.192547"
+    },
+    "channel_3:7aE4EhHXzlA": {
+      "source_id": "7aE4EhHXzlA",
+      "channel_id": 3,
+      "title": "ट्रैफिक में फंसे हर ड्राइवर को दिया कैश! 🚦 #Shorts #Kindness",
+      "attempt_timestamp": "2026-11-12T14:02:05.721032",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3629,
+      "owner_token": "tok_3629_1794492125721_536e3edd",
+      "uploading_timestamp": "2026-11-12T14:02:05.727949"
+    },
+    "channel_3:uZY9xr-QAk0": {
+      "source_id": "uZY9xr-QAk0",
+      "channel_id": 3,
+      "title": "सिक्का उछालो, कॉलेज की पूरी फीस माफ! 🎓 #Shorts #CollegeTuition",
+      "attempt_timestamp": "2026-11-12T14:02:21.042586",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3629,
+      "owner_token": "tok_3629_1794492141042_f1d4448e",
+      "uploading_timestamp": "2026-11-12T14:02:21.049113"
+    },
+    "channel_3:JgJrQnDIRgg": {
+      "source_id": "JgJrQnDIRgg",
+      "channel_id": 3,
+      "title": "जिसने फोन उठाया उसे मिले $10,000! 📞 #Shorts #PhoneCall",
+      "attempt_timestamp": "2026-11-12T14:02:32.360947",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3629,
+      "owner_token": "tok_3629_1794492152360_967d8de4",
+      "uploading_timestamp": "2026-11-12T14:02:32.367515"
     }
   }
 }
