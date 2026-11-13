@@ -989,7 +989,12 @@
     "3GNyw4uaAqU",
     "7aE4EhHXzlA",
     "uZY9xr-QAk0",
-    "JgJrQnDIRgg"
+    "JgJrQnDIRgg",
+    "UTdcX1e0cMA",
+    "0yPgljFcTR4",
+    "TN1wErFGTzM",
+    "pS-fFdvyHLE",
+    "8_gdcaX9Xqk"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -5820,6 +5825,66 @@
       "owner_token": "tok_3549_1794505632444_7b768751",
       "uploading_timestamp": "2026-11-12T17:47:12.449170",
       "completed_timestamp": "2026-11-12T17:47:20.112136"
+    },
+    "channel_3:UTdcX1e0cMA": {
+      "source_id": "UTdcX1e0cMA",
+      "channel_id": 3,
+      "title": "लावा पार करो और कैश ले जाओ! 🌋 #Shorts #FloorIsLava",
+      "attempt_timestamp": "2026-11-13T13:27:03.006221",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3622,
+      "owner_token": "tok_3622_1794576423006_851e8185",
+      "uploading_timestamp": "2026-11-13T13:27:03.012943"
+    },
+    "channel_3:0yPgljFcTR4": {
+      "source_id": "0yPgljFcTR4",
+      "channel_id": 3,
+      "title": "सब्सक्राइब करते ही मिले 40 लाख रुपये! 🚨 #Shorts #MrBeast50k",
+      "attempt_timestamp": "2026-11-13T13:27:15.763665",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3622,
+      "owner_token": "tok_3622_1794576435763_eb5985b2",
+      "uploading_timestamp": "2026-11-13T13:27:15.774588"
+    },
+    "channel_3:TN1wErFGTzM": {
+      "source_id": "TN1wErFGTzM",
+      "channel_id": 3,
+      "title": "यह चाबी ढूंढो और $10,000 जीतो! 🔑 #Shorts #TreasureHunt",
+      "attempt_timestamp": "2026-11-13T13:27:26.832228",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3622,
+      "owner_token": "tok_3622_1794576446832_f1e7afeb",
+      "uploading_timestamp": "2026-11-13T13:27:26.838914"
+    },
+    "channel_3:pS-fFdvyHLE": {
+      "source_id": "pS-fFdvyHLE",
+      "channel_id": 3,
+      "title": "कितने टेप लेम्बोर्गिनी को रोक सकते हैं? 🏎️📦 #Shorts #Lamborghini",
+      "attempt_timestamp": "2026-11-13T13:27:39.349862",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3622,
+      "owner_token": "tok_3622_1794576459349_b5e0e0fe",
+      "uploading_timestamp": "2026-11-13T13:27:39.356624"
+    },
+    "channel_3:8_gdcaX9Xqk": {
+      "source_id": "8_gdcaX9Xqk",
+      "channel_id": 3,
+      "title": "2 करोड़ रुपये बांटोगे या चुराओगे? 💰 #Shorts #SplitOrSteal",
+      "attempt_timestamp": "2026-11-13T13:27:51.233301",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3622,
+      "owner_token": "tok_3622_1794576471233_2718be0c",
+      "uploading_timestamp": "2026-11-13T13:27:51.240211"
     }
   }
 }
