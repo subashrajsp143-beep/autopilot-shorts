@@ -1028,6 +1028,11 @@
     "CAOY8EKH1qU",
     "GGBy50KtvRk",
     "Y0cBiGUuB1Y",
+    "S_CUEOBZ0P4",
+    "IemzxkkzI5s",
+    "CAOY8EKH1qU",
+    "GGBy50KtvRk",
+    "Y0cBiGUuB1Y",
     "S_CUEOBZ0P4"
   ],
   "used_queries": [
@@ -5812,27 +5817,27 @@
       "source_id": "facttechz_dark_psychology_9",
       "channel_id": 1,
       "title": "किसी को भी अपनी बात मनवाने का यह सीक्रेट नियम! 💡 ⚠️ कभी किसी ने यह नहीं सोचा था! ⚡ #Shorts",
-      "attempt_timestamp": "2026-11-14T12:35:18.350261",
+      "attempt_timestamp": "2026-11-14T19:25:51.293281",
       "status": "failed",
       "youtube_video_id": null,
       "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3622,
-      "owner_token": "tok_3622_1794659718350_d7daa3ce",
-      "uploading_timestamp": "2026-11-14T12:35:18.357559",
-      "failed_timestamp": "2026-11-14T12:35:18.524691"
+      "pid": 3623,
+      "owner_token": "tok_3623_1794684351293_7333d8ee",
+      "uploading_timestamp": "2026-11-14T19:25:51.301179",
+      "failed_timestamp": "2026-11-14T19:25:51.455072"
     },
     "channel_1:facttechz_dark_psychology_10": {
       "source_id": "facttechz_dark_psychology_10",
       "channel_id": 1,
       "title": "लोग आपकी इज्जत क्यों नहीं करते? यह 1 गलती तुरंत सुधारें! ⚠️ ⚠️ कभी किसी ने यह नहीं सोचा था! #Shorts",
-      "attempt_timestamp": "2026-11-14T12:35:18.532390",
+      "attempt_timestamp": "2026-11-14T19:25:51.462409",
       "status": "failed",
       "youtube_video_id": null,
       "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3622,
-      "owner_token": "tok_3622_1794659718532_f17fb8c0",
-      "uploading_timestamp": "2026-11-14T12:35:18.539444",
-      "failed_timestamp": "2026-11-14T12:35:18.641898"
+      "pid": 3623,
+      "owner_token": "tok_3623_1794684351462_f80b8433",
+      "uploading_timestamp": "2026-11-14T19:25:51.469340",
+      "failed_timestamp": "2026-11-14T19:25:51.624199"
     },
     "channel_3:_sBRk9ADpK8": {
       "source_id": "_sBRk9ADpK8",
@@ -6128,27 +6133,27 @@
       "source_id": "facttechz_ocean_mysteries_1",
       "channel_id": 1,
       "title": "समुद्र के 11,000 मीटर नीचे मिला यह एलियन जीव! 🐙🌊 ⚠️ कभी किसी ने यह नहीं सोचा था! ⚡ #Shorts",
-      "attempt_timestamp": "2026-11-14T12:35:17.898451",
+      "attempt_timestamp": "2026-11-14T19:25:50.584022",
       "status": "failed",
       "youtube_video_id": null,
       "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3622,
-      "owner_token": "tok_3622_1794659717898_34236800",
-      "uploading_timestamp": "2026-11-14T12:35:17.905686",
-      "failed_timestamp": "2026-11-14T12:35:18.171142"
+      "pid": 3623,
+      "owner_token": "tok_3623_1794684350584_40c536ed",
+      "uploading_timestamp": "2026-11-14T19:25:50.591050",
+      "failed_timestamp": "2026-11-14T19:25:50.975599"
     },
     "channel_1:facttechz_money_mindset_2": {
       "source_id": "facttechz_money_mindset_2",
       "channel_id": 1,
       "title": "गरीब और अमीर में सिर्फ इन 3 आदतों का फर्क है! 💰 ⚠️ कभी किसी ने यह नहीं सोचा था! ⚡ #Shorts",
-      "attempt_timestamp": "2026-11-14T12:35:18.178627",
+      "attempt_timestamp": "2026-11-14T19:25:50.982997",
       "status": "failed",
       "youtube_video_id": null,
       "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3622,
-      "owner_token": "tok_3622_1794659718178_f69bb32a",
-      "uploading_timestamp": "2026-11-14T12:35:18.185734",
-      "failed_timestamp": "2026-11-14T12:35:18.323612"
+      "pid": 3623,
+      "owner_token": "tok_3623_1794684350982_e985de56",
+      "uploading_timestamp": "2026-11-14T19:25:50.989939",
+      "failed_timestamp": "2026-11-14T19:25:51.268192"
     }
   }
 }
