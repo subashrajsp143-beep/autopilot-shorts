@@ -1018,7 +1018,12 @@
     "facttechz_space_wonders_6",
     "facttechz_dark_psychology_7",
     "facttechz_dark_psychology_8",
-    "facttechz_ancient_mysteries_10"
+    "facttechz_ancient_mysteries_10",
+    "IemzxkkzI5s",
+    "CAOY8EKH1qU",
+    "GGBy50KtvRk",
+    "Y0cBiGUuB1Y",
+    "S_CUEOBZ0P4"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -5223,9 +5228,9 @@
       "channel_id": 3,
       "title": "पिज़्ज़ा डिलीवरी वाले को टिप में दी ब्रैंड न्यू कार! 🍕🚗 #Shorts #Generosity",
       "attempt_timestamp": "2026-11-08T19:00:08.127147",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3690,
       "owner_token": "tok_3690_1794164408127_e88b70c1",
       "uploading_timestamp": "2026-11-08T19:00:08.132813"
@@ -5248,9 +5253,9 @@
       "channel_id": 3,
       "title": "अनजान छात्र की पूरी कॉलेज फीस चुका दी! 🎓 #Shorts #StudentHelp",
       "attempt_timestamp": "2026-11-08T19:00:32.415235",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3690,
       "owner_token": "tok_3690_1794164432415_44efe3d7",
       "uploading_timestamp": "2026-11-08T19:00:32.420940"
@@ -5736,9 +5741,9 @@
       "channel_id": 1,
       "title": "फोटोग्राफिक मेमोरी पाने का प्राचीन भारतीय तरीका! 🧘 ⚠️ दुनिया का सबसे बड़ा अनसुलझा रहस्य! 💀 #Shorts",
       "attempt_timestamp": "2026-11-13T21:01:28.077185",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3432,
       "owner_token": "tok_3432_1794603688077_3e4b1313",
       "uploading_timestamp": "2026-11-13T21:01:28.081973",
@@ -5801,28 +5806,28 @@
     "channel_1:facttechz_dark_psychology_9": {
       "source_id": "facttechz_dark_psychology_9",
       "channel_id": 1,
-      "title": "झूठ पकड़ने का यह खुफिया तरीका पुलिस भी इस्तेमाल करती है! 🕵️ ⚠️ यह सच जानकर होश उड़ जाएंगे! #Shorts",
-      "attempt_timestamp": "2026-11-11T21:34:46.804712",
+      "title": "किसी को भी अपनी बात मनवाने का यह सीक्रेट नियम! 💡 ⚠️ कभी किसी ने यह नहीं सोचा था! ⚡ #Shorts",
+      "attempt_timestamp": "2026-11-14T12:35:18.350261",
       "status": "failed",
       "youtube_video_id": null,
       "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3433,
-      "owner_token": "tok_3433_1794432886804_2baa7f2f",
-      "uploading_timestamp": "2026-11-11T21:34:46.810213",
-      "failed_timestamp": "2026-11-11T21:34:46.924448"
+      "pid": 3622,
+      "owner_token": "tok_3622_1794659718350_d7daa3ce",
+      "uploading_timestamp": "2026-11-14T12:35:18.357559",
+      "failed_timestamp": "2026-11-14T12:35:18.524691"
     },
     "channel_1:facttechz_dark_psychology_10": {
       "source_id": "facttechz_dark_psychology_10",
       "channel_id": 1,
-      "title": "किसी को भी अपनी बात मनवाने का यह सीक्रेट नियम! 💡 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
-      "attempt_timestamp": "2026-11-11T21:34:46.932825",
+      "title": "लोग आपकी इज्जत क्यों नहीं करते? यह 1 गलती तुरंत सुधारें! ⚠️ ⚠️ कभी किसी ने यह नहीं सोचा था! #Shorts",
+      "attempt_timestamp": "2026-11-14T12:35:18.532390",
       "status": "failed",
       "youtube_video_id": null,
       "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3433,
-      "owner_token": "tok_3433_1794432886932_447e14c4",
-      "uploading_timestamp": "2026-11-11T21:34:46.939396",
-      "failed_timestamp": "2026-11-11T21:34:47.004638"
+      "pid": 3622,
+      "owner_token": "tok_3622_1794659718532_f17fb8c0",
+      "uploading_timestamp": "2026-11-14T12:35:18.539444",
+      "failed_timestamp": "2026-11-14T12:35:18.641898"
     },
     "channel_3:_sBRk9ADpK8": {
       "source_id": "_sBRk9ADpK8",
@@ -6077,6 +6082,68 @@
       "uploading_timestamp": "2026-11-13T21:02:25.223756",
       "failed_timestamp": "2026-11-13T17:25:03.860038",
       "completed_timestamp": "2026-11-13T21:02:30.668226"
+    },
+    "channel_3:GGBy50KtvRk": {
+      "source_id": "GGBy50KtvRk",
+      "channel_id": 3,
+      "title": "वेट्रेस को टिप में दी सपनों की कार! ☕🚗 #Shorts #Emotional",
+      "attempt_timestamp": "2026-11-14T12:31:38.736545",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3622,
+      "owner_token": "tok_3622_1794659498736_43b86880",
+      "uploading_timestamp": "2026-11-14T12:31:38.746330"
+    },
+    "channel_3:Y0cBiGUuB1Y": {
+      "source_id": "Y0cBiGUuB1Y",
+      "channel_id": 3,
+      "title": "सब्सक्राइबर को भेजा डिज्नीलैंड! 🏰 #Shorts #DreamTrip",
+      "attempt_timestamp": "2026-11-14T12:31:49.283928",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3622,
+      "owner_token": "tok_3622_1794659509283_77bfd032",
+      "uploading_timestamp": "2026-11-14T12:31:49.290924"
+    },
+    "channel_3:S_CUEOBZ0P4": {
+      "source_id": "S_CUEOBZ0P4",
+      "channel_id": 3,
+      "title": "द रॉक vs मिस्टर बीस्ट $100,000 के लिए! 🪨💥 #Shorts #TheRock",
+      "attempt_timestamp": "2026-11-14T12:32:00.225604",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3622,
+      "owner_token": "tok_3622_1794659520225_d151432f",
+      "uploading_timestamp": "2026-11-14T12:32:00.232603"
+    },
+    "channel_1:facttechz_ocean_mysteries_1": {
+      "source_id": "facttechz_ocean_mysteries_1",
+      "channel_id": 1,
+      "title": "समुद्र के 11,000 मीटर नीचे मिला यह एलियन जीव! 🐙🌊 ⚠️ कभी किसी ने यह नहीं सोचा था! ⚡ #Shorts",
+      "attempt_timestamp": "2026-11-14T12:35:17.898451",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3622,
+      "owner_token": "tok_3622_1794659717898_34236800",
+      "uploading_timestamp": "2026-11-14T12:35:17.905686",
+      "failed_timestamp": "2026-11-14T12:35:18.171142"
+    },
+    "channel_1:facttechz_money_mindset_2": {
+      "source_id": "facttechz_money_mindset_2",
+      "channel_id": 1,
+      "title": "गरीब और अमीर में सिर्फ इन 3 आदतों का फर्क है! 💰 ⚠️ कभी किसी ने यह नहीं सोचा था! ⚡ #Shorts",
+      "attempt_timestamp": "2026-11-14T12:35:18.178627",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3622,
+      "owner_token": "tok_3622_1794659718178_f69bb32a",
+      "uploading_timestamp": "2026-11-14T12:35:18.185734",
+      "failed_timestamp": "2026-11-14T12:35:18.323612"
     }
   }
 }
