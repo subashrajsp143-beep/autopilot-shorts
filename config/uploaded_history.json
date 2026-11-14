@@ -1023,6 +1023,11 @@
     "CAOY8EKH1qU",
     "GGBy50KtvRk",
     "Y0cBiGUuB1Y",
+    "S_CUEOBZ0P4",
+    "IemzxkkzI5s",
+    "CAOY8EKH1qU",
+    "GGBy50KtvRk",
+    "Y0cBiGUuB1Y",
     "S_CUEOBZ0P4"
   ],
   "used_queries": [
@@ -6088,9 +6093,9 @@
       "channel_id": 3,
       "title": "वेट्रेस को टिप में दी सपनों की कार! ☕🚗 #Shorts #Emotional",
       "attempt_timestamp": "2026-11-14T12:31:38.736545",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3622,
       "owner_token": "tok_3622_1794659498736_43b86880",
       "uploading_timestamp": "2026-11-14T12:31:38.746330"
@@ -6100,9 +6105,9 @@
       "channel_id": 3,
       "title": "सब्सक्राइबर को भेजा डिज्नीलैंड! 🏰 #Shorts #DreamTrip",
       "attempt_timestamp": "2026-11-14T12:31:49.283928",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3622,
       "owner_token": "tok_3622_1794659509283_77bfd032",
       "uploading_timestamp": "2026-11-14T12:31:49.290924"
@@ -6112,9 +6117,9 @@
       "channel_id": 3,
       "title": "द रॉक vs मिस्टर बीस्ट $100,000 के लिए! 🪨💥 #Shorts #TheRock",
       "attempt_timestamp": "2026-11-14T12:32:00.225604",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3622,
       "owner_token": "tok_3622_1794659520225_d151432f",
       "uploading_timestamp": "2026-11-14T12:32:00.232603"
