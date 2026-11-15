@@ -1047,6 +1047,11 @@
     "CEJXqm2eiJ0",
     "mND4T0lzg_g",
     "41UzbuW6wJs",
+    "T_SMf9j50uc",
+    "aNI2jv7lBPQ",
+    "CEJXqm2eiJ0",
+    "mND4T0lzg_g",
+    "41UzbuW6wJs",
     "T_SMf9j50uc"
   ],
   "used_queries": [
@@ -5746,9 +5751,9 @@
       "channel_id": 1,
       "title": "मिस्र के पिरामिडों का यह खौफनाक सच कोई नहीं बताता! 🏛️ ⚠️ अमीर बनने का यह सीक्रेट कोई नहीं #Shorts",
       "attempt_timestamp": "2026-11-15T13:01:37.332020",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3445,
       "owner_token": "tok_3445_1794747697332_ba447ffc",
       "uploading_timestamp": "2026-11-15T13:01:37.338332",
