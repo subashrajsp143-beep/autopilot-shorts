@@ -431,7 +431,9 @@
     "zLv--TPaqPI",
     "bWEHx2dBdX8",
     "MDYtQI3FrTk",
-    "3lxDIQbrLdo"
+    "3lxDIQbrLdo",
+    "Rg6dJj6NzV0",
+    "fwc3ta-_IKQ"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -1033,7 +1035,14 @@
     "CAOY8EKH1qU",
     "GGBy50KtvRk",
     "Y0cBiGUuB1Y",
-    "S_CUEOBZ0P4"
+    "S_CUEOBZ0P4",
+    "aNI2jv7lBPQ",
+    "CEJXqm2eiJ0",
+    "mND4T0lzg_g",
+    "41UzbuW6wJs",
+    "T_SMf9j50uc",
+    "facttechz_ocean_mysteries_5",
+    "facttechz_money_mindset_8"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -1867,7 +1876,9 @@
     "ब्रह्मांड का सबसे बड़ा तारा—जिसके आगे सूरज एक कण जैसा है! ☀️🌌 ⚠️ दुनिया का सबसे बड़ा #Shorts",
     "किसी के दिमाग को शांत करने की यह ट्रिक कोई नहीं जानता! 🧠🤫 ⚠️ दुनिया का सबसे बड़ा अनसुलझा #Shorts",
     "अगर कोई आपको इग्नोर करे, तो यह 1 काम करो! ⚠️ ⚠️ दुनिया का सबसे बड़ा अनसुलझा रहस्य! 💀 #Shorts",
-    "अजंता एलोरा की गुफाएं आखिर किसने बनाईं? 🛕⚡ ⚠️ दुनिया का सबसे बड़ा अनसुलझा रहस्य! 💀 #Shorts"
+    "अजंता एलोरा की गुफाएं आखिर किसने बनाईं? 🛕⚡ ⚠️ दुनिया का सबसे बड़ा अनसुलझा रहस्य! 💀 #Shorts",
+    "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 #Shorts",
+    "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ अमीर बनने का यह सीक्रेट कोई #Shorts"
   ],
   "upload_logs": [
     {
@@ -5230,6 +5241,24 @@
       "source_id": "facttechz_ancient_mysteries_10",
       "query": "Ancient Mysteries",
       "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-15T13:01:49.904038",
+      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 #Shorts",
+      "type": "FactTechz Documentary Short (Ocean Mysteries) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "Rg6dJj6NzV0",
+      "source_id": "facttechz_ocean_mysteries_5",
+      "query": "Ocean Mysteries",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-15T13:01:58.597165",
+      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ अमीर बनने का यह सीक्रेट कोई #Shorts",
+      "type": "FactTechz Documentary Short (Money Mindset) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "fwc3ta-_IKQ",
+      "source_id": "facttechz_money_mindset_8",
+      "query": "Money Mindset",
+      "channel_id": 1
     }
   ],
   "pending_uploads": {
@@ -5326,9 +5355,9 @@
       "channel_id": 3,
       "title": "MrBeast ने अनजान लड़के को दिए $10,000! 💰 MRBEAST HINDI CASH #Shorts",
       "attempt_timestamp": "2026-11-09T04:55:40.290419",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3438,
       "owner_token": "tok_3438_1794200140290_4bc01db7",
       "uploading_timestamp": "2026-11-09T04:55:40.343890"
@@ -5338,9 +5367,9 @@
       "channel_id": 3,
       "title": "MrBeast Secret Briefcase में क्या था? 💼😱 MRBEAST MYSTERY #Shorts",
       "attempt_timestamp": "2026-11-09T04:55:52.415264",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3438,
       "owner_token": "tok_3438_1794200152415_bcc94bc1",
       "uploading_timestamp": "2026-11-09T04:55:52.419908"
@@ -5362,9 +5391,9 @@
       "channel_id": 3,
       "title": "Subscribers के हिसाब से लोगों का बर्ताव! 🏆 MRBEAST EXPERIMENT #Shorts",
       "attempt_timestamp": "2026-11-09T04:56:12.505385",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3438,
       "owner_token": "tok_3438_1794200172505_3e1d0aa1",
       "uploading_timestamp": "2026-11-09T04:56:12.510170"
@@ -5411,9 +5440,9 @@
       "channel_id": 3,
       "title": "MrBeast ने बना दिया पूरा गांव! 🏘️ MRBEAST BUILT A VILLAGE #Shorts",
       "attempt_timestamp": "2026-11-09T04:56:52.761199",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3438,
       "owner_token": "tok_3438_1794200212761_5801497a",
       "uploading_timestamp": "2026-11-09T04:56:52.766051"
@@ -5710,14 +5739,14 @@
     "channel_1:facttechz_ancient_mysteries_1": {
       "source_id": "facttechz_ancient_mysteries_1",
       "channel_id": 1,
-      "title": "अजंता एलोरा की गुफाएं आखिर किसने बनाईं? 🛕⚡ ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
-      "attempt_timestamp": "2026-11-11T21:34:45.216935",
-      "status": "failed",
+      "title": "मिस्र के पिरामिडों का यह खौफनाक सच कोई नहीं बताता! 🏛️ ⚠️ अमीर बनने का यह सीक्रेट कोई नहीं #Shorts",
+      "attempt_timestamp": "2026-11-15T13:01:37.332020",
+      "status": "uploading",
       "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3433,
-      "owner_token": "tok_3433_1794432885216_90596ae5",
-      "uploading_timestamp": "2026-11-11T21:34:45.222352",
+      "error_details": null,
+      "pid": 3445,
+      "owner_token": "tok_3445_1794747697332_ba447ffc",
+      "uploading_timestamp": "2026-11-15T13:01:37.338332",
       "failed_timestamp": "2026-11-11T21:34:45.650763"
     },
     "channel_1:facttechz_ocean_mysteries_2": {
@@ -6154,6 +6183,32 @@
       "owner_token": "tok_3623_1794684350982_e985de56",
       "uploading_timestamp": "2026-11-14T19:25:50.989939",
       "failed_timestamp": "2026-11-14T19:25:51.268192"
+    },
+    "channel_1:facttechz_ocean_mysteries_5": {
+      "source_id": "facttechz_ocean_mysteries_5",
+      "channel_id": 1,
+      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 #Shorts",
+      "attempt_timestamp": "2026-11-15T13:01:46.003759",
+      "status": "confirmed",
+      "youtube_video_id": "Rg6dJj6NzV0",
+      "error_details": null,
+      "pid": 3445,
+      "owner_token": "tok_3445_1794747706003_f24ee1fd",
+      "uploading_timestamp": "2026-11-15T13:01:46.010021",
+      "completed_timestamp": "2026-11-15T13:01:49.904007"
+    },
+    "channel_1:facttechz_money_mindset_8": {
+      "source_id": "facttechz_money_mindset_8",
+      "channel_id": 1,
+      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ अमीर बनने का यह सीक्रेट कोई #Shorts",
+      "attempt_timestamp": "2026-11-15T13:01:53.914901",
+      "status": "confirmed",
+      "youtube_video_id": "fwc3ta-_IKQ",
+      "error_details": null,
+      "pid": 3445,
+      "owner_token": "tok_3445_1794747713914_728efa6b",
+      "uploading_timestamp": "2026-11-15T13:01:53.921096",
+      "completed_timestamp": "2026-11-15T13:01:58.597134"
     }
   }
 }
