@@ -1052,7 +1052,12 @@
     "CEJXqm2eiJ0",
     "mND4T0lzg_g",
     "41UzbuW6wJs",
-    "T_SMf9j50uc"
+    "T_SMf9j50uc",
+    "f7y2XikE7sY",
+    "xDuuM3ERr5Q",
+    "y1UVAtHALaA",
+    "3ih2bPKSWsQ",
+    "uA9Zcg3vHvo"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -6219,6 +6224,66 @@
       "owner_token": "tok_3445_1794747713914_728efa6b",
       "uploading_timestamp": "2026-11-15T13:01:53.921096",
       "completed_timestamp": "2026-11-15T13:01:58.597134"
+    },
+    "channel_3:f7y2XikE7sY": {
+      "source_id": "f7y2XikE7sY",
+      "channel_id": 3,
+      "title": "MrBeast Bought Food With A Car! 🚗😱 MRBEAST CRAZY HINDI #Shorts",
+      "attempt_timestamp": "2026-11-16T14:00:50.247616",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3659,
+      "owner_token": "tok_3659_1794837650247_9b128e53",
+      "uploading_timestamp": "2026-11-16T14:00:50.254729"
+    },
+    "channel_3:xDuuM3ERr5Q": {
+      "source_id": "xDuuM3ERr5Q",
+      "channel_id": 3,
+      "title": "YouTuber पहचानो और $1,000 जीतो! 🎁💰 MRBEAST GAME #Shorts",
+      "attempt_timestamp": "2026-11-16T14:01:07.054792",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3659,
+      "owner_token": "tok_3659_1794837667054_6517e0de",
+      "uploading_timestamp": "2026-11-16T14:01:07.062204"
+    },
+    "channel_3:y1UVAtHALaA": {
+      "source_id": "y1UVAtHALaA",
+      "channel_id": 3,
+      "title": "MrBeast ने अचानक दिए 8 लाख रुपये! 💵🔥 MRBEAST CASH DROP #Shorts",
+      "attempt_timestamp": "2026-11-16T14:01:17.773730",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3659,
+      "owner_token": "tok_3659_1794837677773_9b6d1add",
+      "uploading_timestamp": "2026-11-16T14:01:17.780876"
+    },
+    "channel_3:3ih2bPKSWsQ": {
+      "source_id": "3ih2bPKSWsQ",
+      "channel_id": 3,
+      "title": "MrBeast ने Speed को किया Arrest! 🚔😂 MRBEAST SPEED #Shorts",
+      "attempt_timestamp": "2026-11-16T14:01:34.700820",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3659,
+      "owner_token": "tok_3659_1794837694700_1d465443",
+      "uploading_timestamp": "2026-11-16T14:01:34.707918"
+    },
+    "channel_3:uA9Zcg3vHvo": {
+      "source_id": "uA9Zcg3vHvo",
+      "channel_id": 3,
+      "title": "MrBeast vs IShowSpeed महा रेस! 🏃⚡ MRBEAST SPEED RACE #Shorts",
+      "attempt_timestamp": "2026-11-16T14:01:50.630066",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3659,
+      "owner_token": "tok_3659_1794837710630_5d9ca697",
+      "uploading_timestamp": "2026-11-16T14:01:50.637246"
     }
   }
 }
