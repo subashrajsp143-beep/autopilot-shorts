@@ -1083,6 +1083,11 @@
     "HcL1EQ5qD_g",
     "3cWm9B_0_kI",
     "jCE1Ol3PYDs",
+    "purAsH7pXTQ",
+    "SWc8fI_9iqA",
+    "HcL1EQ5qD_g",
+    "3cWm9B_0_kI",
+    "jCE1Ol3PYDs",
     "purAsH7pXTQ"
   ],
   "used_queries": [
@@ -5918,9 +5923,9 @@
       "channel_id": 1,
       "title": "लोग आपकी इज्जत क्यों नहीं करते? यह 1 गलती तुरंत सुधारें! ⚠️ ⚠️ इतिहास का सबसे खौफनाक रहस्य! #Shorts",
       "attempt_timestamp": "2026-11-17T18:50:34.775327",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3668,
       "owner_token": "tok_3668_1794941434775_18058767",
       "uploading_timestamp": "2026-11-17T18:50:34.783029",
