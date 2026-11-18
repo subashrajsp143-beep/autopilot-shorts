@@ -1102,7 +1102,12 @@
     "uZY9xr-QAk0",
     "JgJrQnDIRgg",
     "facttechz_money_mindset_7",
-    "facttechz_brain_power_10"
+    "facttechz_brain_power_10",
+    "_sBRk9ADpK8",
+    "3GNyw4uaAqU",
+    "7aE4EhHXzlA",
+    "uZY9xr-QAk0",
+    "JgJrQnDIRgg"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -6448,9 +6453,9 @@
       "channel_id": 1,
       "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ 1 सेकंड में किसी के दिमाग को समझो! 🧠 #Shorts",
       "attempt_timestamp": "2026-11-18T18:23:00.018988",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3447,
       "owner_token": "tok_3447_1795026180018_91c32c9f",
       "uploading_timestamp": "2026-11-18T18:23:00.025115"
