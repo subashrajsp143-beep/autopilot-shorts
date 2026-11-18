@@ -436,7 +436,9 @@
     "fwc3ta-_IKQ",
     "xPXGYQnW7Pg",
     "0B-VhoSxxfA",
-    "d4nvlCNd-Ec"
+    "d4nvlCNd-Ec",
+    "PpQ2qyS_n5Y",
+    "lsWJhhr1vkw"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -1093,7 +1095,14 @@
     "3GNyw4uaAqU",
     "7aE4EhHXzlA",
     "uZY9xr-QAk0",
-    "JgJrQnDIRgg"
+    "JgJrQnDIRgg",
+    "_sBRk9ADpK8",
+    "3GNyw4uaAqU",
+    "7aE4EhHXzlA",
+    "uZY9xr-QAk0",
+    "JgJrQnDIRgg",
+    "facttechz_money_mindset_7",
+    "facttechz_brain_power_10"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -1932,7 +1941,9 @@
     "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ अमीर बनने का यह सीक्रेट कोई #Shorts",
     "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
     "ब्लैक होल के अंदर गिरते ही आपके शरीर के साथ क्या होगा? 🕳️😱 ⚠️ वैज्ञानिक भी इसका जवाब नहीं #Shorts",
-    "कैलाश पर्वत पर आज तक कोई क्यों नहीं चढ़ पाया? 🏔️🚩 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे पाए! 🔬 #Shorts"
+    "कैलाश पर्वत पर आज तक कोई क्यों नहीं चढ़ पाया? 🏔️🚩 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे पाए! 🔬 #Shorts",
+    "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts",
+    "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts"
   ],
   "upload_logs": [
     {
@@ -5340,6 +5351,24 @@
       "source_id": "facttechz_ancient_mysteries_8",
       "query": "Ancient Mysteries",
       "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-18T18:23:15.814170",
+      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts",
+      "type": "FactTechz Documentary Short (Money Mindset) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "PpQ2qyS_n5Y",
+      "source_id": "facttechz_money_mindset_7",
+      "query": "Money Mindset",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-18T18:23:24.892600",
+      "title": "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts",
+      "type": "FactTechz Documentary Short (Brain Power) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "lsWJhhr1vkw",
+      "source_id": "facttechz_brain_power_10",
+      "query": "Brain Power",
+      "channel_id": 1
     }
   ],
   "pending_uploads": {
@@ -6413,6 +6442,44 @@
       "pid": 3636,
       "owner_token": "tok_3636_1794858831128_ad45c3de",
       "uploading_timestamp": "2026-11-16T19:53:51.135967"
+    },
+    "channel_1:facttechz_ocean_mysteries_4": {
+      "source_id": "facttechz_ocean_mysteries_4",
+      "channel_id": 1,
+      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ 1 सेकंड में किसी के दिमाग को समझो! 🧠 #Shorts",
+      "attempt_timestamp": "2026-11-18T18:23:00.018988",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3447,
+      "owner_token": "tok_3447_1795026180018_91c32c9f",
+      "uploading_timestamp": "2026-11-18T18:23:00.025115"
+    },
+    "channel_1:facttechz_money_mindset_7": {
+      "source_id": "facttechz_money_mindset_7",
+      "channel_id": 1,
+      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts",
+      "attempt_timestamp": "2026-11-18T18:23:11.793830",
+      "status": "confirmed",
+      "youtube_video_id": "PpQ2qyS_n5Y",
+      "error_details": null,
+      "pid": 3447,
+      "owner_token": "tok_3447_1795026191793_f879c3af",
+      "uploading_timestamp": "2026-11-18T18:23:11.799988",
+      "completed_timestamp": "2026-11-18T18:23:15.814143"
+    },
+    "channel_1:facttechz_brain_power_10": {
+      "source_id": "facttechz_brain_power_10",
+      "channel_id": 1,
+      "title": "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts",
+      "attempt_timestamp": "2026-11-18T18:23:19.824816",
+      "status": "confirmed",
+      "youtube_video_id": "lsWJhhr1vkw",
+      "error_details": null,
+      "pid": 3447,
+      "owner_token": "tok_3447_1795026199824_262dd2c8",
+      "uploading_timestamp": "2026-11-18T18:23:19.830905",
+      "completed_timestamp": "2026-11-18T18:23:24.892568"
     }
   }
 }
