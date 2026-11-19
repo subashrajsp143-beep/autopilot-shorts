@@ -1121,7 +1121,12 @@
     "pS-fFdvyHLE",
     "8_gdcaX9Xqk",
     "facttechz_space_wonders_3",
-    "facttechz_dark_psychology_5"
+    "facttechz_dark_psychology_5",
+    "UTdcX1e0cMA",
+    "0yPgljFcTR4",
+    "TN1wErFGTzM",
+    "pS-fFdvyHLE",
+    "8_gdcaX9Xqk"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -5707,9 +5712,9 @@
       "channel_id": 1,
       "title": "समुद्र के 11,000 मीटर नीचे मिला यह एलियन जीव! 🐙🌊 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
       "attempt_timestamp": "2026-11-19T18:33:57.387361",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3433,
       "owner_token": "tok_3433_1795113237387_c9b4807c",
       "uploading_timestamp": "2026-11-19T18:33:57.393573",
@@ -6551,9 +6556,9 @@
       "channel_id": 1,
       "title": "कैलाश पर्वत पर आज तक कोई क्यों नहीं चढ़ पाया? 🏔️🚩 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
       "attempt_timestamp": "2026-11-19T18:33:45.159849",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3433,
       "owner_token": "tok_3433_1795113225159_172d4aaa",
       "uploading_timestamp": "2026-11-19T18:33:45.165977"
