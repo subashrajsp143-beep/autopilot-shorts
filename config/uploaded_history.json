@@ -438,7 +438,9 @@
     "0B-VhoSxxfA",
     "d4nvlCNd-Ec",
     "PpQ2qyS_n5Y",
-    "lsWJhhr1vkw"
+    "lsWJhhr1vkw",
+    "F1mnYtnoLo8",
+    "qhuZp7xZn6A"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -1112,7 +1114,14 @@
     "0yPgljFcTR4",
     "TN1wErFGTzM",
     "pS-fFdvyHLE",
-    "8_gdcaX9Xqk"
+    "8_gdcaX9Xqk",
+    "UTdcX1e0cMA",
+    "0yPgljFcTR4",
+    "TN1wErFGTzM",
+    "pS-fFdvyHLE",
+    "8_gdcaX9Xqk",
+    "facttechz_space_wonders_3",
+    "facttechz_dark_psychology_5"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -1953,7 +1962,9 @@
     "ब्लैक होल के अंदर गिरते ही आपके शरीर के साथ क्या होगा? 🕳️😱 ⚠️ वैज्ञानिक भी इसका जवाब नहीं #Shorts",
     "कैलाश पर्वत पर आज तक कोई क्यों नहीं चढ़ पाया? 🏔️🚩 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे पाए! 🔬 #Shorts",
     "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts",
-    "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts"
+    "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts",
+    "ब्लैक होल के अंदर गिरते ही आपके शरीर के साथ क्या होगा? 🕳️😱 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
+    "किसी के दिमाग को शांत करने की यह ट्रिक कोई नहीं जानता! 🧠🤫 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts"
   ],
   "upload_logs": [
     {
@@ -5379,6 +5390,24 @@
       "source_id": "facttechz_brain_power_10",
       "query": "Brain Power",
       "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-19T18:33:31.902547",
+      "title": "ब्लैक होल के अंदर गिरते ही आपके शरीर के साथ क्या होगा? 🕳️😱 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
+      "type": "FactTechz Documentary Short (Space Wonders) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "F1mnYtnoLo8",
+      "source_id": "facttechz_space_wonders_3",
+      "query": "Space Wonders",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-19T18:33:41.150809",
+      "title": "किसी के दिमाग को शांत करने की यह ट्रिक कोई नहीं जानता! 🧠🤫 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
+      "type": "FactTechz Documentary Short (Dark Psychology) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "qhuZp7xZn6A",
+      "source_id": "facttechz_dark_psychology_5",
+      "query": "Dark Psychology",
+      "channel_id": 1
     }
   ],
   "pending_uploads": {
@@ -5676,14 +5705,14 @@
     "channel_1:facttechz_ocean_mysteries_9": {
       "source_id": "facttechz_ocean_mysteries_9",
       "channel_id": 1,
-      "title": "समुद्र का 'द ब्लोप' साउंड—जिसने वैज्ञानिकों को डरा दिया! 🔊🌊 ⚠️ इतिहास का सबसे खौफनाक रहस्य! #Shorts",
-      "attempt_timestamp": "2026-11-09T04:59:13.043555",
-      "status": "failed",
+      "title": "समुद्र के 11,000 मीटर नीचे मिला यह एलियन जीव! 🐙🌊 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-19T18:33:57.387361",
+      "status": "uploading",
       "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3438,
-      "owner_token": "tok_3438_1794200353043_e51e1df6",
-      "uploading_timestamp": "2026-11-09T04:59:13.048514",
+      "error_details": null,
+      "pid": 3433,
+      "owner_token": "tok_3433_1795113237387_c9b4807c",
+      "uploading_timestamp": "2026-11-19T18:33:57.393573",
       "failed_timestamp": "2026-11-09T04:59:13.166991"
     },
     "channel_1:facttechz_money_mindset_10": {
@@ -6490,6 +6519,44 @@
       "owner_token": "tok_3447_1795026199824_262dd2c8",
       "uploading_timestamp": "2026-11-18T18:23:19.830905",
       "completed_timestamp": "2026-11-18T18:23:24.892568"
+    },
+    "channel_1:facttechz_space_wonders_3": {
+      "source_id": "facttechz_space_wonders_3",
+      "channel_id": 1,
+      "title": "ब्लैक होल के अंदर गिरते ही आपके शरीर के साथ क्या होगा? 🕳️😱 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-19T18:33:26.440530",
+      "status": "confirmed",
+      "youtube_video_id": "F1mnYtnoLo8",
+      "error_details": null,
+      "pid": 3433,
+      "owner_token": "tok_3433_1795113206440_b3c707a4",
+      "uploading_timestamp": "2026-11-19T18:33:26.446822",
+      "completed_timestamp": "2026-11-19T18:33:31.902522"
+    },
+    "channel_1:facttechz_dark_psychology_5": {
+      "source_id": "facttechz_dark_psychology_5",
+      "channel_id": 1,
+      "title": "किसी के दिमाग को शांत करने की यह ट्रिक कोई नहीं जानता! 🧠🤫 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-19T18:33:35.911824",
+      "status": "confirmed",
+      "youtube_video_id": "qhuZp7xZn6A",
+      "error_details": null,
+      "pid": 3433,
+      "owner_token": "tok_3433_1795113215911_54d89dc1",
+      "uploading_timestamp": "2026-11-19T18:33:35.918014",
+      "completed_timestamp": "2026-11-19T18:33:41.150784"
+    },
+    "channel_1:facttechz_ancient_mysteries_7": {
+      "source_id": "facttechz_ancient_mysteries_7",
+      "channel_id": 1,
+      "title": "कैलाश पर्वत पर आज तक कोई क्यों नहीं चढ़ पाया? 🏔️🚩 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-19T18:33:45.159849",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3433,
+      "owner_token": "tok_3433_1795113225159_172d4aaa",
+      "uploading_timestamp": "2026-11-19T18:33:45.165977"
     }
   }
 }
