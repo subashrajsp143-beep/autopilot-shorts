@@ -1151,6 +1151,11 @@
     "CEJXqm2eiJ0",
     "mND4T0lzg_g",
     "41UzbuW6wJs",
+    "T_SMf9j50uc",
+    "aNI2jv7lBPQ",
+    "CEJXqm2eiJ0",
+    "mND4T0lzg_g",
+    "41UzbuW6wJs",
     "T_SMf9j50uc"
   ],
   "used_queries": [
@@ -6587,6 +6592,44 @@
       "pid": 3433,
       "owner_token": "tok_3433_1795113225159_172d4aaa",
       "uploading_timestamp": "2026-11-19T18:33:45.165977"
+    },
+    "channel_1:facttechz_ocean_mysteries_3": {
+      "source_id": "facttechz_ocean_mysteries_3",
+      "channel_id": 1,
+      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ दुनिया का सबसे बड़ा अनसुलझा रहस्य! 💀 #Shorts",
+      "attempt_timestamp": "2026-11-21T20:43:03.561812",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3427,
+      "owner_token": "tok_3427_1795293783561_ed669728",
+      "uploading_timestamp": "2026-11-21T20:43:03.568191"
+    },
+    "channel_1:facttechz_money_mindset_6": {
+      "source_id": "facttechz_money_mindset_6",
+      "channel_id": 1,
+      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ दुनिया का सबसे बड़ा अनसुलझा #Shorts",
+      "attempt_timestamp": "2026-11-21T20:43:15.086755",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3427,
+      "owner_token": "tok_3427_1795293795086_9c3385de",
+      "uploading_timestamp": "2026-11-21T20:43:15.093240",
+      "failed_timestamp": "2026-11-21T20:43:15.265610"
+    },
+    "channel_1:facttechz_brain_power_9": {
+      "source_id": "facttechz_brain_power_9",
+      "channel_id": 1,
+      "title": "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ दुनिया का सबसे बड़ा अनसुलझा #Shorts",
+      "attempt_timestamp": "2026-11-21T20:43:15.276344",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3427,
+      "owner_token": "tok_3427_1795293795276_63eb5c81",
+      "uploading_timestamp": "2026-11-21T20:43:15.282689",
+      "failed_timestamp": "2026-11-21T20:43:15.421116"
     }
   }
 }
