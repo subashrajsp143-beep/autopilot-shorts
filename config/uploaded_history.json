@@ -440,7 +440,9 @@
     "PpQ2qyS_n5Y",
     "lsWJhhr1vkw",
     "F1mnYtnoLo8",
-    "qhuZp7xZn6A"
+    "qhuZp7xZn6A",
+    "5agEGG0-tqw",
+    "_mqnaQ-rAf0"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -1161,7 +1163,14 @@
     "xDuuM3ERr5Q",
     "y1UVAtHALaA",
     "3ih2bPKSWsQ",
-    "uA9Zcg3vHvo"
+    "uA9Zcg3vHvo",
+    "f7y2XikE7sY",
+    "xDuuM3ERr5Q",
+    "y1UVAtHALaA",
+    "3ih2bPKSWsQ",
+    "uA9Zcg3vHvo",
+    "facttechz_space_wonders_2",
+    "facttechz_dark_psychology_4"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -5448,6 +5457,24 @@
       "source_id": "facttechz_dark_psychology_5",
       "query": "Dark Psychology",
       "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-22T17:23:10.793089",
+      "title": "ब्लैक होल के अंदर गिरते ही आपके शरीर के साथ क्या होगा? 🕳️😱 ⚠️ कभी किसी ने यह नहीं सोचा था! #Shorts",
+      "type": "FactTechz Documentary Short (Space Wonders) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "5agEGG0-tqw",
+      "source_id": "facttechz_space_wonders_2",
+      "query": "Space Wonders",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-22T17:23:22.411000",
+      "title": "किसी के दिमाग को शांत करने की यह ट्रिक कोई नहीं जानता! 🧠🤫 ⚠️ कभी किसी ने यह नहीं सोचा था! ⚡ #Shorts",
+      "type": "FactTechz Documentary Short (Dark Psychology) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "_mqnaQ-rAf0",
+      "source_id": "facttechz_dark_psychology_4",
+      "query": "Dark Psychology",
+      "channel_id": 1
     }
   ],
   "pending_uploads": {
@@ -5705,14 +5732,14 @@
     "channel_1:facttechz_ancient_mysteries_6": {
       "source_id": "facttechz_ancient_mysteries_6",
       "channel_id": 1,
-      "title": "एंटार्कटिका की बर्फ के 2 मील नीचे वैज्ञानिकों को क्या मिला? ❄️😱 ⚠️ इतिहास का सबसे खौफनाक #Shorts",
-      "attempt_timestamp": "2026-11-09T04:59:12.631397",
-      "status": "failed",
+      "title": "कैलाश पर्वत पर आज तक कोई क्यों नहीं चढ़ पाया? 🏔️🚩 ⚠️ कभी किसी ने यह नहीं सोचा था! ⚡ #Shorts",
+      "attempt_timestamp": "2026-11-22T17:23:26.419684",
+      "status": "uploading",
       "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3438,
-      "owner_token": "tok_3438_1794200352631_17db3759",
-      "uploading_timestamp": "2026-11-09T04:59:12.636256",
+      "error_details": null,
+      "pid": 3596,
+      "owner_token": "tok_3596_1795368206419_8fea6c42",
+      "uploading_timestamp": "2026-11-22T17:23:26.425497",
       "failed_timestamp": "2026-11-09T04:59:12.772474"
     },
     "channel_1:facttechz_ocean_mysteries_7": {
@@ -6635,6 +6662,32 @@
       "owner_token": "tok_3427_1795293795276_63eb5c81",
       "uploading_timestamp": "2026-11-21T20:43:15.282689",
       "failed_timestamp": "2026-11-21T20:43:15.421116"
+    },
+    "channel_1:facttechz_space_wonders_2": {
+      "source_id": "facttechz_space_wonders_2",
+      "channel_id": 1,
+      "title": "ब्लैक होल के अंदर गिरते ही आपके शरीर के साथ क्या होगा? 🕳️😱 ⚠️ कभी किसी ने यह नहीं सोचा था! #Shorts",
+      "attempt_timestamp": "2026-11-22T17:23:05.679442",
+      "status": "confirmed",
+      "youtube_video_id": "5agEGG0-tqw",
+      "error_details": null,
+      "pid": 3596,
+      "owner_token": "tok_3596_1795368185679_d966c523",
+      "uploading_timestamp": "2026-11-22T17:23:05.685244",
+      "completed_timestamp": "2026-11-22T17:23:10.793057"
+    },
+    "channel_1:facttechz_dark_psychology_4": {
+      "source_id": "facttechz_dark_psychology_4",
+      "channel_id": 1,
+      "title": "किसी के दिमाग को शांत करने की यह ट्रिक कोई नहीं जानता! 🧠🤫 ⚠️ कभी किसी ने यह नहीं सोचा था! ⚡ #Shorts",
+      "attempt_timestamp": "2026-11-22T17:23:14.801730",
+      "status": "confirmed",
+      "youtube_video_id": "_mqnaQ-rAf0",
+      "error_details": null,
+      "pid": 3596,
+      "owner_token": "tok_3596_1795368194801_8d585bdd",
+      "uploading_timestamp": "2026-11-22T17:23:14.807387",
+      "completed_timestamp": "2026-11-22T17:23:22.410970"
     }
   }
 }
