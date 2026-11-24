@@ -442,7 +442,11 @@
     "F1mnYtnoLo8",
     "qhuZp7xZn6A",
     "5agEGG0-tqw",
-    "_mqnaQ-rAf0"
+    "_mqnaQ-rAf0",
+    "ywIKfF7iVr4",
+    "7jvrNZvJFw8",
+    "8UtudyixE5E",
+    "FPTg1P8-ULo"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -1185,7 +1189,16 @@
     "HcL1EQ5qD_g",
     "3cWm9B_0_kI",
     "jCE1Ol3PYDs",
-    "purAsH7pXTQ"
+    "purAsH7pXTQ",
+    "_sBRk9ADpK8",
+    "3GNyw4uaAqU",
+    "7aE4EhHXzlA",
+    "uZY9xr-QAk0",
+    "JgJrQnDIRgg",
+    "facttechz_ocean_mysteries_2",
+    "facttechz_money_mindset_6",
+    "facttechz_brain_power_8",
+    "facttechz_brain_power_9"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -2028,7 +2041,10 @@
     "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts",
     "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ 1 सेकंड में किसी के दिमाग को #Shorts",
     "ब्लैक होल के अंदर गिरते ही आपके शरीर के साथ क्या होगा? 🕳️😱 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
-    "किसी के दिमाग को शांत करने की यह ट्रिक कोई नहीं जानता! 🧠🤫 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts"
+    "किसी के दिमाग को शांत करने की यह ट्रिक कोई नहीं जानता! 🧠🤫 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
+    "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे पाए! 🔬 #Shorts",
+    "अमीर लोग टैक्स कैसे बचाते हैं? अमीर बनने का 1 नियम! 💸 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
+    "सुबह उठते ही यह 1 गलती आपका दिमाग कमजोर कर देती है! 📱⚠️ ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts"
   ],
   "upload_logs": [
     {
@@ -5490,6 +5506,42 @@
       "source_id": "facttechz_dark_psychology_4",
       "query": "Dark Psychology",
       "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-24T01:53:19.914366",
+      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे पाए! 🔬 #Shorts",
+      "type": "FactTechz Documentary Short (Ocean Mysteries) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "ywIKfF7iVr4",
+      "source_id": "facttechz_ocean_mysteries_2",
+      "query": "Ocean Mysteries",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-24T01:53:40.094059",
+      "title": "अमीर लोग टैक्स कैसे बचाते हैं? अमीर बनने का 1 नियम! 💸 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
+      "type": "FactTechz Documentary Short (Money Mindset) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "7jvrNZvJFw8",
+      "source_id": "facttechz_money_mindset_6",
+      "query": "Money Mindset",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-24T01:53:49.364585",
+      "title": "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
+      "type": "FactTechz Documentary Short (Brain Power) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "8UtudyixE5E",
+      "source_id": "facttechz_brain_power_8",
+      "query": "Brain Power",
+      "channel_id": 1
+    },
+    {
+      "timestamp": "2026-11-24T01:53:58.871331",
+      "title": "सुबह उठते ही यह 1 गलती आपका दिमाग कमजोर कर देती है! 📱⚠️ ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
+      "type": "FactTechz Documentary Short (Brain Power) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "FPTg1P8-ULo",
+      "source_id": "facttechz_brain_power_9",
+      "query": "Brain Power",
+      "channel_id": 1
     }
   ],
   "pending_uploads": {
@@ -5983,15 +6035,16 @@
     "channel_1:facttechz_ocean_mysteries_2": {
       "source_id": "facttechz_ocean_mysteries_2",
       "channel_id": 1,
-      "title": "समुद्र के 11,000 मीटर नीचे मिला यह एलियन जीव! 🐙🌊 ⚠️ यह सच जानकर होश उड़ जाएंगे! 😱 #Shorts",
-      "attempt_timestamp": "2026-11-11T21:34:45.656411",
-      "status": "failed",
-      "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3433,
-      "owner_token": "tok_3433_1794432885656_e101c686",
-      "uploading_timestamp": "2026-11-11T21:34:45.661750",
-      "failed_timestamp": "2026-11-11T21:34:45.834874"
+      "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे पाए! 🔬 #Shorts",
+      "attempt_timestamp": "2026-11-24T01:53:14.301447",
+      "status": "confirmed",
+      "youtube_video_id": "ywIKfF7iVr4",
+      "error_details": null,
+      "pid": 3823,
+      "owner_token": "tok_3823_1795485194301_1d9256dc",
+      "uploading_timestamp": "2026-11-24T01:53:14.309576",
+      "failed_timestamp": "2026-11-11T21:34:45.834874",
+      "completed_timestamp": "2026-11-24T01:53:19.914335"
     },
     "channel_1:facttechz_money_mindset_3": {
       "source_id": "facttechz_money_mindset_3",
@@ -6645,9 +6698,9 @@
       "channel_id": 1,
       "title": "समुद्र की गहराई में छिपा सबसे खतरनाक सच! 🌊 ⚠️ दुनिया का सबसे बड़ा अनसुलझा रहस्य! 💀 #Shorts",
       "attempt_timestamp": "2026-11-21T20:43:03.561812",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3427,
       "owner_token": "tok_3427_1795293783561_ed669728",
       "uploading_timestamp": "2026-11-21T20:43:03.568191"
@@ -6655,28 +6708,30 @@
     "channel_1:facttechz_money_mindset_6": {
       "source_id": "facttechz_money_mindset_6",
       "channel_id": 1,
-      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ दुनिया का सबसे बड़ा अनसुलझा #Shorts",
-      "attempt_timestamp": "2026-11-21T20:43:15.086755",
-      "status": "failed",
-      "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3427,
-      "owner_token": "tok_3427_1795293795086_9c3385de",
-      "uploading_timestamp": "2026-11-21T20:43:15.093240",
-      "failed_timestamp": "2026-11-21T20:43:15.265610"
+      "title": "अमीर लोग टैक्स कैसे बचाते हैं? अमीर बनने का 1 नियम! 💸 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
+      "attempt_timestamp": "2026-11-24T01:53:32.747100",
+      "status": "confirmed",
+      "youtube_video_id": "7jvrNZvJFw8",
+      "error_details": null,
+      "pid": 3823,
+      "owner_token": "tok_3823_1795485212747_b0a92ce5",
+      "uploading_timestamp": "2026-11-24T01:53:32.755236",
+      "failed_timestamp": "2026-11-21T20:43:15.265610",
+      "completed_timestamp": "2026-11-24T01:53:40.094027"
     },
     "channel_1:facttechz_brain_power_9": {
       "source_id": "facttechz_brain_power_9",
       "channel_id": 1,
-      "title": "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ दुनिया का सबसे बड़ा अनसुलझा #Shorts",
-      "attempt_timestamp": "2026-11-21T20:43:15.276344",
-      "status": "failed",
-      "youtube_video_id": null,
-      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
-      "pid": 3427,
-      "owner_token": "tok_3427_1795293795276_63eb5c81",
-      "uploading_timestamp": "2026-11-21T20:43:15.282689",
-      "failed_timestamp": "2026-11-21T20:43:15.421116"
+      "title": "सुबह उठते ही यह 1 गलती आपका दिमाग कमजोर कर देती है! 📱⚠️ ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
+      "attempt_timestamp": "2026-11-24T01:53:53.373970",
+      "status": "confirmed",
+      "youtube_video_id": "FPTg1P8-ULo",
+      "error_details": null,
+      "pid": 3823,
+      "owner_token": "tok_3823_1795485233373_2a7b752a",
+      "uploading_timestamp": "2026-11-24T01:53:53.382080",
+      "failed_timestamp": "2026-11-21T20:43:15.421116",
+      "completed_timestamp": "2026-11-24T01:53:58.871298"
     },
     "channel_1:facttechz_space_wonders_2": {
       "source_id": "facttechz_space_wonders_2",
@@ -6703,6 +6758,31 @@
       "owner_token": "tok_3596_1795368194801_8d585bdd",
       "uploading_timestamp": "2026-11-22T17:23:14.807387",
       "completed_timestamp": "2026-11-22T17:23:22.410970"
+    },
+    "channel_1:facttechz_money_mindset_5": {
+      "source_id": "facttechz_money_mindset_5",
+      "channel_id": 1,
+      "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
+      "attempt_timestamp": "2026-11-24T01:53:23.934477",
+      "status": "uploading",
+      "youtube_video_id": null,
+      "error_details": null,
+      "pid": 3823,
+      "owner_token": "tok_3823_1795485203934_4cb85181",
+      "uploading_timestamp": "2026-11-24T01:53:23.942402"
+    },
+    "channel_1:facttechz_brain_power_8": {
+      "source_id": "facttechz_brain_power_8",
+      "channel_id": 1,
+      "title": "आपका दिमाग रात को सोने के बाद यह खौफनाक काम करता है! 🧠 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
+      "attempt_timestamp": "2026-11-24T01:53:44.105824",
+      "status": "confirmed",
+      "youtube_video_id": "8UtudyixE5E",
+      "error_details": null,
+      "pid": 3823,
+      "owner_token": "tok_3823_1795485224105_f29d3d6e",
+      "uploading_timestamp": "2026-11-24T01:53:44.113954",
+      "completed_timestamp": "2026-11-24T01:53:49.364551"
     }
   }
 }
