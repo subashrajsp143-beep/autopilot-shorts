@@ -1203,6 +1203,11 @@
     "3GNyw4uaAqU",
     "7aE4EhHXzlA",
     "uZY9xr-QAk0",
+    "JgJrQnDIRgg",
+    "_sBRk9ADpK8",
+    "3GNyw4uaAqU",
+    "7aE4EhHXzlA",
+    "uZY9xr-QAk0",
     "JgJrQnDIRgg"
   ],
   "used_queries": [
@@ -6769,9 +6774,9 @@
       "channel_id": 1,
       "title": "20 की उम्र में अमीर बनने का यह सीक्रेट कोई नहीं सिखाता! 💰 ⚠️ वैज्ञानिक भी इसका जवाब नहीं दे #Shorts",
       "attempt_timestamp": "2026-11-24T01:53:23.934477",
-      "status": "uploading",
+      "status": "uncertain",
       "youtube_video_id": null,
-      "error_details": null,
+      "error_details": "Process died while upload was in progress. Potential orphaned video on YouTube.",
       "pid": 3823,
       "owner_token": "tok_3823_1795485203934_4cb85181",
       "uploading_timestamp": "2026-11-24T01:53:23.942402"
