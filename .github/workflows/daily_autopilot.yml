@@ -75,17 +75,20 @@ jobs:
           DAILY_QUOTA_CH3: "6"
         run: |
           TARGET_CH="${{ inputs.channel }}"
-          if [ -z "$TARGET_CH" ] || [ "$TARGET_CH" = "all" ] && [ "${{ github.event_name }}" = "schedule" ]; then
-            HOUR_UTC=$(date -u +%H)
-            if [ "$HOUR_UTC" -ge 4 ] && [ "$HOUR_UTC" -le 7 ]; then
+          SCHED_CRON="${{ github.event.schedule }}"
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ "$SCHED_CRON" = "45 5 * * *" ]; then
               TARGET_CH="1"
-            elif [ "$HOUR_UTC" -ge 8 ] && [ "$HOUR_UTC" -le 11 ]; then
+            elif [ "$SCHED_CRON" = "30 9 * * *" ]; then
               TARGET_CH="2"
-            elif [ "$HOUR_UTC" -ge 13 ] && [ "$HOUR_UTC" -le 16 ]; then
+            elif [ "$SCHED_CRON" = "30 14 * * *" ]; then
               TARGET_CH="3"
             else
               TARGET_CH="all"
             fi
+          fi
+          if [ -z "$TARGET_CH" ]; then
+            TARGET_CH="all"
           fi
 
           echo "Targeting Channel: $TARGET_CH"
