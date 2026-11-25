@@ -1,6 +1,8 @@
 """
 Voice & Subtitle Generator
-Uses Microsoft Neural TTS (Edge-TTS) with seamless Google TTS (gTTS) fallback.
+Uses ElevenLabs TTS (`eleven_v4`) as primary neural voiceover engine for natural,
+expressive narration with exact word/sentence alignment, and falls back seamlessly
+to Microsoft Edge-TTS and Google TTS (gTTS) when needed.
 Creates styled ASS subtitles with dynamic short-chunk timing (Hormozi style).
 """
 
@@ -10,6 +12,21 @@ import re
 import subprocess
 from typing import Dict, Any, List, Tuple
 import edge_tts
+
+try:
+    from src.elevenlabs_tts import (
+        detect_language_code,
+        is_elevenlabs_available,
+        sanitize_hindi_tts_text,
+        synthesize_with_timestamps,
+    )
+except ImportError:
+    from elevenlabs_tts import (
+        detect_language_code,
+        is_elevenlabs_available,
+        sanitize_hindi_tts_text,
+        synthesize_with_timestamps,
+    )
 
 
 def format_ass_time(seconds: float) -> str:
@@ -47,84 +64,125 @@ class VoiceGenerator:
             os.makedirs(os.path.dirname(output_ass_path), exist_ok=True)
 
         sentence_events: List[Dict[str, Any]] = []
+        word_events: List[Dict[str, Any]] = []
+        synthesized_ok = False
 
-        try:
-            # 1. Primary: Edge-TTS
-            communicate = edge_tts.Communicate(text, self.voice)
-            with open(output_audio_path, "wb") as audio_file:
-                async for chunk in communicate.stream():
-                    if chunk["type"] == "audio":
-                        audio_file.write(chunk["data"])
-                    elif chunk["type"] == "SentenceBoundary":
-                        start_s = chunk["offset"] / 10_000_000.0
-                        duration_s = chunk["duration"] / 10_000_000.0
-                        sentence_events.append({
-                            "start": start_s,
-                            "end": start_s + duration_s,
-                            "duration": duration_s,
-                            "text": chunk["text"].strip()
-                        })
-        except Exception as e:
-            # 2. Fallback: Google TTS (reliable on all cloud datacenters)
-            print(f"Notice: Edge-TTS error ({e}). Using Google TTS fallback...")
-            from gtts import gTTS
-            lang = "hi" if "hi" in self.voice.lower() else "en"
-            tts = gTTS(text=text, lang=lang, slow=False)
-            tts.save(output_audio_path)
-
+        if is_elevenlabs_available():
             try:
-                cmd = ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", output_audio_path]
-                out = subprocess.check_output(cmd, text=True).strip()
-                total_dur = float(out)
-            except Exception:
-                total_dur = 30.0
-
-            raw_sents = [s.strip() for s in re.split(r'[।\.!\?]+', text) if s.strip()]
-            if not raw_sents:
-                raw_sents = [text]
-            time_per_sent = total_dur / len(raw_sents)
-            cur_time = 0.0
-            for sent in raw_sents:
-                s_end = min(total_dur, cur_time + time_per_sent)
-                sentence_events.append({
-                    "start": cur_time,
-                    "end": s_end,
-                    "duration": s_end - cur_time,
-                    "text": sent
-                })
-                cur_time = s_end
-
-        # Calculate total duration
-        total_duration = sentence_events[-1]["end"] if sentence_events else 0.0
-
-        # Build dynamic chunks for subtitles
-        dialogue_lines: List[str] = []
-        for sent in sentence_events:
-            sentence_text = sent["text"]
-            words = sentence_text.split()
-            if not words:
-                continue
-
-            num_words = len(words)
-            chunk_size = max(1, words_per_chunk)
-            chunks: List[List[str]] = [words[i:i + chunk_size] for i in range(0, num_words, chunk_size)]
-
-            total_chars = sum(len(w) for w in words)
-            time_per_char = sent["duration"] / max(1, total_chars)
-
-            current_time = sent["start"]
-            for chunk in chunks:
-                chunk_chars = sum(len(w) for w in chunk)
-                chunk_duration = max(0.4, chunk_chars * time_per_char)
-                start_time_str = format_ass_time(current_time)
-                end_time = min(sent["end"], current_time + chunk_duration)
-                end_time_str = format_ass_time(end_time)
-
-                chunk_text = " ".join(chunk).upper()
-                dialogue_lines.append(
-                    f"Dialogue: 0,{start_time_str},{end_time_str},ViralYellow,,0,0,0,,{chunk_text}"
+                el_res = await asyncio.to_thread(
+                    synthesize_with_timestamps,
+                    text,
+                    self.voice,
                 )
-                current_time = end_time
+                with open(output_audio_path, "wb") as audio_file:
+                    audio_file.write(el_res["audio_bytes"])
+                sentence_events = el_res.get("sentences") or []
+                if el_res.get("has_alignment") and el_res.get("words"):
+                    word_events = el_res["words"]
+                synthesized_ok = True
+            except Exception as el_err:
+                print(f"Notice: ElevenLabs unavailable ({el_err}). Falling back to Edge-TTS...")
+
+        if not synthesized_ok:
+            edge_voice = (
+                self.voice
+                if ("-" in (self.voice or "") and "neural" in (self.voice or "").lower())
+                else ("hi-IN-MadhurNeural" if detect_language_code(text) == "hi" else "en-US-ChristopherNeural")
+            )
+            try:
+                # 1. Secondary: Edge-TTS
+                communicate = edge_tts.Communicate(text, edge_voice)
+                with open(output_audio_path, "wb") as audio_file:
+                    async for chunk in communicate.stream():
+                        if chunk["type"] == "audio":
+                            audio_file.write(chunk["data"])
+                        elif chunk["type"] == "SentenceBoundary":
+                            start_s = chunk["offset"] / 10_000_000.0
+                            duration_s = chunk["duration"] / 10_000_000.0
+                            sentence_events.append({
+                                "start": start_s,
+                                "end": start_s + duration_s,
+                                "duration": duration_s,
+                                "text": chunk["text"].strip()
+                            })
+            except Exception as e:
+                # 2. Fallback: Google TTS (reliable on all cloud datacenters)
+                print(f"Notice: Edge-TTS error ({e}). Using Google TTS fallback...")
+                from gtts import gTTS
+                lang = detect_language_code(text)
+                tts = gTTS(text=sanitize_hindi_tts_text(text), lang=lang, slow=False)
+                tts.save(output_audio_path)
+
+                try:
+                    cmd = ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", output_audio_path]
+                    out = subprocess.check_output(cmd, text=True).strip()
+                    total_dur = float(out)
+                except Exception:
+                    total_dur = 30.0
+
+                raw_sents = [s.strip() for s in re.split(r'[।\.!\?]+', text) if s.strip()]
+                if not raw_sents:
+                    raw_sents = [text]
+                time_per_sent = total_dur / len(raw_sents)
+                cur_time = 0.0
+                for sent in raw_sents:
+                    s_end = min(total_dur, cur_time + time_per_sent)
+                    sentence_events.append({
+                        "start": cur_time,
+                        "end": s_end,
+                        "duration": s_end - cur_time,
+                        "text": sent
+                    })
+                    cur_time = s_end
+
+        # Calculate total duration (prefer exact ffprobe duration if available)
+        total_duration = sentence_events[-1]["end"] if sentence_events else 0.0
+        try:
+            cmd = ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", output_audio_path]
+            probed = float(subprocess.check_output(cmd, text=True).strip())
+            if probed > 0:
+                total_duration = probed
+        except Exception:
+            pass
+
+        # Build dynamic chunks for subtitles (exact word timings from ElevenLabs when present)
+        dialogue_lines: List[str] = []
+        chunk_size = max(1, words_per_chunk)
+        if word_events:
+            chunks = [word_events[i:i + chunk_size] for i in range(0, len(word_events), chunk_size)]
+            for chunk in chunks:
+                s_time = float(chunk[0]["s"])
+                e_time = max(s_time + 0.25, float(chunk[-1]["e"]))
+                chunk_text = " ".join(str(w["w"]) for w in chunk).upper()
+                dialogue_lines.append(
+                    f"Dialogue: 0,{format_ass_time(s_time)},{format_ass_time(e_time)},ViralYellow,,0,0,0,,{chunk_text}"
+                )
+        else:
+            for sent in sentence_events:
+                sentence_text = sent["text"]
+                words = sentence_text.split()
+                if not words:
+                    continue
+
+                num_words = len(words)
+                chunks: List[List[str]] = [words[i:i + chunk_size] for i in range(0, num_words, chunk_size)]
+
+                total_chars = sum(len(w) for w in words)
+                time_per_char = sent["duration"] / max(1, total_chars)
+
+                current_time = sent["start"]
+                for chunk in chunks:
+                    chunk_chars = sum(len(w) for w in chunk)
+                    chunk_duration = max(0.4, chunk_chars * time_per_char)
+                    start_time_str = format_ass_time(current_time)
+                    end_time = min(sent["end"], current_time + chunk_duration)
+                    end_time_str = format_ass_time(end_time)
+
+                    chunk_text = " ".join(chunk).upper()
+                    dialogue_lines.append(
+                        f"Dialogue: 0,{start_time_str},{end_time_str},ViralYellow,,0,0,0,,{chunk_text}"
+                    )
+                    current_time = end_time
 
         # Font selection based on platform
         font_name = "Nirmala UI" if os.name == "nt" else "Noto Sans Devanagari"

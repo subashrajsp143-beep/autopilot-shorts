@@ -51,7 +51,12 @@ from channel_generator import generate_channel_batch
 
 
 def ensure_credentials():
-    """Restores client_secrets, youtube_token, and gemini_api_key if running in cloud runner."""
+    """Loads .env and restores client_secrets, youtube_token, and gemini_api_key if running in cloud runner."""
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(override=False)
+    except Exception:
+        pass
     cs_path = "config/client_secrets.json"
     yt_path = "config/youtube_token.json"
     dat_path = "config/credentials.dat"

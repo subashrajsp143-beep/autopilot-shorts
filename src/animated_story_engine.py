@@ -7,9 +7,9 @@ The Family Man, Gullak) and Movies (Hera Pheri, 3 Idiots, Stree, KGF, Pushpa).
 
 Features:
 - Multi-character animated dialogue with lip-sync + expressive poses
-- Dual Hindi voices (hi-IN-MadhurNeural & hi-IN-PrabhatNeural / pitch shift)
-  so Speaker A, Speaker B, and Narrator sound distinct!
-- Exact WordBoundary millisecond Hindi captions
+- Natural human-like multi-speaker ElevenLabs TTS (Daniel / George / Sarah)
+  with seamless Request Stitching & emotion presets (edge-tts / gTTS fallback)
+- Exact millisecond Hindi captions for automatic A/V synchronization
 - Custom story worlds (Panchayat village water tank, Mirzapur crimson hall, etc.)
 - Guaranteed unique thumbnails via 64-bit dHash check
 """
@@ -23,7 +23,6 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-import edge_tts
 import numpy as np
 from scipy.io import wavfile
 
@@ -35,6 +34,7 @@ if sys.platform == "win32":
         pass
 
 from src.thumbnail_generator import ThumbnailGenerator
+from src.elevenlabs_tts import synthesize_line_pcm_and_words
 
 
 FALLBACK_STORY_TOPICS: List[Dict[str, Any]] = [
@@ -99,59 +99,33 @@ class AnimatedStoryEngine:
         return ("hi-IN-SwaraNeural", "+0Hz", "+6%")
 
     @staticmethod
-    async def _tts_line(text: str, tmp_dir: Path, idx: int, speaker: str) -> Tuple[np.ndarray, List[Dict[str, Any]]]:
-        clean_text = re.sub(r'[^\w\s\u0900-\u097F.,?!\'"-]', ' ', str(text or '')).strip()
-        clean_text = re.sub(r'\s+', ' ', clean_text) or "आगे देखिए क्या होता है।"
+    async def _tts_line(
+        text: str,
+        tmp_dir: Path,
+        idx: int,
+        speaker: str,
+        previous_text: Optional[str] = None,
+        next_text: Optional[str] = None,
+        emotion: Optional[str] = None,
+    ) -> Tuple[np.ndarray, List[Dict[str, Any]], str]:
         voice, pitch, rate = AnimatedStoryEngine._voice_for_speaker(speaker)
-        mp3_path = tmp_dir / f"story_line_{idx}.mp3"
-        wav_path = tmp_dir / f"story_line_{idx}.wav"
-        words: List[Dict[str, Any]] = []
-        audio_bytes = bytearray()
-
         attempts = [
             (voice, rate, pitch),
             ("hi-IN-MadhurNeural", "+5%", "+0Hz"),
             ("hi-IN-SwaraNeural", "+5%", "+0Hz"),
         ]
-        for att_idx, (v_name, r_str, p_str) in enumerate(attempts):
-            try:
-                words.clear()
-                audio_bytes.clear()
-                comm = edge_tts.Communicate(clean_text, voice=v_name, rate=r_str, pitch=p_str, boundary="WordBoundary")
-                async for msg in comm.stream():
-                    if msg["type"] == "audio":
-                        audio_bytes.extend(msg["data"])
-                    elif msg["type"] == "WordBoundary":
-                        start_s = msg["offset"] / 1e7
-                        dur_s = msg["duration"] / 1e7
-                        words.append({"w": msg["text"], "s": start_s, "e": start_s + dur_s})
-                if len(audio_bytes) > 500:
-                    break
-            except Exception as tts_err:
-                print(f"⚠️ edge-tts attempt {att_idx + 1} failed ({tts_err}); retrying...")
-                await asyncio.sleep(0.8)
-
-        if len(audio_bytes) <= 500:
-            from gtts import gTTS
-            gTTS(text=clean_text, lang="hi").save(str(mp3_path))
-        else:
-            mp3_path.write_bytes(bytes(audio_bytes))
-
-        subprocess.run(
-            ["ffmpeg", "-v", "error", "-y", "-i", str(mp3_path), "-ar", "48000", "-ac", "2", str(wav_path)],
-            check=True,
+        pcm, words, backend = await synthesize_line_pcm_and_words(
+            text=text,
+            tmp_dir=tmp_dir,
+            stem=f"story_line_{idx}",
+            role_or_voice=speaker,
+            emotion=emotion,
+            previous_text=previous_text,
+            next_text=next_text,
+            edge_attempts=attempts,
+            default_fallback_text="आगे देखिए क्या होता है।",
         )
-        _, pcm = wavfile.read(wav_path)
-        mp3_path.unlink(missing_ok=True)
-        wav_path.unlink(missing_ok=True)
-
-        dur = len(pcm) / 48000.0
-        if not words:
-            tokens = [t for t in clean_text.split() if t.strip()]
-            step = dur / max(1, len(tokens))
-            words = [{"w": tok, "s": k * step, "e": (k + 1) * step} for k, tok in enumerate(tokens)]
-
-        return pcm, words
+        return pcm, words, backend
 
     async def _build_narration_and_timing(
         self, lines: List[Dict[str, Any]], lead: float = 0.25, gap: float = 0.18, outro: float = 0.70
@@ -160,9 +134,26 @@ class AnimatedStoryEngine:
         data_dir.mkdir(parents=True, exist_ok=True)
 
         chunks = []
+        used_backends: List[str] = []
         for idx, ln in enumerate(lines):
-            pcm, words = await self._tts_line(ln["text"], data_dir, idx, ln.get("speaker", "narrator"))
+            prev_txt = lines[idx - 1]["text"] if idx > 0 else None
+            next_txt = lines[idx + 1]["text"] if idx + 1 < len(lines) else None
+            spk = ln.get("speaker", "narrator")
+            emotion = (
+                ln.get("emotion_a") if spk == "A"
+                else (ln.get("emotion_b") if spk == "B" else None)
+            ) or ln.get("pose") or ln.get("emotion")
+            pcm, words, backend = await self._tts_line(
+                ln["text"],
+                data_dir,
+                idx,
+                spk,
+                previous_text=prev_txt,
+                next_text=next_txt,
+                emotion=emotion,
+            )
             chunks.append((pcm, words, ln["text"]))
+            used_backends.append(backend)
 
         cursor = lead
         line_entries = []
@@ -190,7 +181,9 @@ class AnimatedStoryEngine:
 
         total_dur = round(cursor - gap + outro, 3)
         full_audio = full_audio[: int(total_dur * self.SR)]
-        lines_json = {"duration": total_dur, "voice": "multi_hindi", "speed": 1.06, "lines": line_entries}
+        active_backend = used_backends[0] if used_backends else "multi_hindi"
+        print(f"🎙️ AnimatedStory TTS backend: {active_backend}")
+        lines_json = {"duration": total_dur, "voice": active_backend, "speed": 1.0, "lines": line_entries}
         return full_audio, lines_json, word_entries
 
     def render_story_short(
@@ -217,7 +210,7 @@ class AnimatedStoryEngine:
 
         script_json = {
             "title": blueprint.get("title", "Animated WebSeries Short"),
-            "voice": "multi_hindi",
+            "voice": lines_json.get("voice", "elevenlabs"),
             "music": blueprint.get("music", "bed"),
             "lines": [{"text": ln["text"], "caps": ln.get("caps", "")} for ln in lines],
         }

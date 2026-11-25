@@ -3,7 +3,8 @@ Zack Explainer Engine (Channel 1: MiniTalesWorld)
 -------------------------------------------------
 Renders Zack D. Films-style animated X-ray & body/science explainers in Hindi
 fully in code using zack_engine/ (Node + Headless Chrome + ffmpeg + numpy/scipy)
-with exact Hindi WordBoundary captions via edge-tts.
+with natural ElevenLabs Hindi narration + exact character-to-word captions
+(and seamless edge-tts / gTTS fallback).
 """
 
 import asyncio
@@ -16,7 +17,6 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-import edge_tts
 import numpy as np
 from scipy.io import wavfile
 
@@ -28,6 +28,7 @@ if sys.platform == "win32":
         pass
 
 from src.thumbnail_generator import ThumbnailGenerator
+from src.elevenlabs_tts import synthesize_line_pcm_and_words
 
 
 HERO_THEMES = [
@@ -88,65 +89,57 @@ class ZackExplainerEngine:
         self.thumb_gen = ThumbnailGenerator(output_dir=str(self.output_dir))
 
     @staticmethod
-    async def _tts_line(text: str, tmp_dir: Path, idx: int, voice: str = "hi-IN-MadhurNeural") -> Tuple[np.ndarray, List[Dict[str, Any]]]:
-        clean_text = re.sub(r'[^\w\s\u0900-\u097F.,?!\'"-]', ' ', str(text or '')).strip()
-        clean_text = re.sub(r'\s+', ' ', clean_text) or "आगे देखिए।"
-        mp3_path = tmp_dir / f"line_{idx}.mp3"
-        wav_path = tmp_dir / f"line_{idx}.wav"
-        words: List[Dict[str, Any]] = []
-        audio_bytes = bytearray()
-
-        for att_idx, v_name in enumerate([voice, "hi-IN-MadhurNeural", "hi-IN-SwaraNeural"]):
-            try:
-                words.clear()
-                audio_bytes.clear()
-                comm = edge_tts.Communicate(clean_text, voice=v_name, rate="+6%", boundary="WordBoundary")
-                async for msg in comm.stream():
-                    if msg["type"] == "audio":
-                        audio_bytes.extend(msg["data"])
-                    elif msg["type"] == "WordBoundary":
-                        start_s = msg["offset"] / 1e7
-                        dur_s = msg["duration"] / 1e7
-                        words.append({"w": msg["text"], "s": start_s, "e": start_s + dur_s})
-                if len(audio_bytes) > 500:
-                    break
-            except Exception as tts_err:
-                print(f"⚠️ edge-tts attempt {att_idx + 1} failed ({tts_err}); retrying...")
-                await asyncio.sleep(0.8)
-
-        if len(audio_bytes) <= 500:
-            from gtts import gTTS
-            gTTS(text=clean_text, lang="hi").save(str(mp3_path))
-        else:
-            mp3_path.write_bytes(bytes(audio_bytes))
-
-        subprocess.run(
-            ["ffmpeg", "-v", "error", "-y", "-i", str(mp3_path), "-ar", "48000", "-ac", "2", str(wav_path)],
-            check=True,
+    async def _tts_line(
+        text: str,
+        tmp_dir: Path,
+        idx: int,
+        voice: str = "explainer",
+        previous_text: Optional[str] = None,
+        next_text: Optional[str] = None,
+        emotion: Optional[str] = None,
+    ) -> Tuple[np.ndarray, List[Dict[str, Any]], str]:
+        fallback_attempts = [
+            ("hi-IN-MadhurNeural", "+6%", "+0Hz"),
+            ("hi-IN-SwaraNeural", "+6%", "+0Hz"),
+        ]
+        if voice and "-" in voice and "neural" in voice.lower():
+            fallback_attempts.insert(0, (voice, "+6%", "+0Hz"))
+        pcm, words, backend = await synthesize_line_pcm_and_words(
+            text=text,
+            tmp_dir=tmp_dir,
+            stem=f"line_{idx}",
+            role_or_voice=voice,
+            emotion=emotion,
+            previous_text=previous_text,
+            next_text=next_text,
+            edge_attempts=fallback_attempts,
+            default_fallback_text="आगे देखिए।",
         )
-        _, pcm = wavfile.read(wav_path)
-        mp3_path.unlink(missing_ok=True)
-        wav_path.unlink(missing_ok=True)
-
-        # Fallback word timing if edge-tts did not emit WordBoundary for any reason
-        dur = len(pcm) / 48000.0
-        if not words:
-            tokens = [t for t in clean_text.split() if t.strip()]
-            step = dur / max(1, len(tokens))
-            words = [{"w": tok, "s": k * step, "e": (k + 1) * step} for k, tok in enumerate(tokens)]
-
-        return pcm, words
+        return pcm, words, backend
 
     async def _build_narration_and_timing(
-        self, lines: List[Dict[str, Any]], voice: str = "hi-IN-MadhurNeural", lead: float = 0.28, gap: float = 0.20, outro: float = 0.75
+        self, lines: List[Dict[str, Any]], voice: str = "explainer", lead: float = 0.28, gap: float = 0.20, outro: float = 0.75
     ) -> Tuple[np.ndarray, Dict[str, Any], Dict[str, Any]]:
         data_dir = self.engine_dir / "data"
         data_dir.mkdir(parents=True, exist_ok=True)
 
         chunks: List[Tuple[np.ndarray, List[Dict[str, Any]], str]] = []
+        used_backends: List[str] = []
         for idx, ln in enumerate(lines):
-            pcm, words = await self._tts_line(ln["text"], data_dir, idx, voice=voice)
+            prev_txt = lines[idx - 1]["text"] if idx > 0 else None
+            next_txt = lines[idx + 1]["text"] if idx + 1 < len(lines) else None
+            emotion = ln.get("pose") or ln.get("emotion")
+            pcm, words, backend = await self._tts_line(
+                ln["text"],
+                data_dir,
+                idx,
+                voice=voice,
+                previous_text=prev_txt,
+                next_text=next_txt,
+                emotion=emotion,
+            )
             chunks.append((pcm, words, ln["text"]))
+            used_backends.append(backend)
 
         cursor = lead
         line_entries = []
@@ -176,7 +169,9 @@ class ZackExplainerEngine:
         trim_samples = int(total_dur * self.SR)
         full_audio = full_audio[:trim_samples]
 
-        lines_json = {"duration": total_dur, "voice": voice, "speed": 1.06, "lines": line_entries}
+        active_voice = used_backends[0] if used_backends else voice
+        print(f"🎙️ ZackExplainer TTS backend: {active_voice}")
+        lines_json = {"duration": total_dur, "voice": active_voice, "speed": 1.0, "lines": line_entries}
         return full_audio, lines_json, word_entries
 
     def render_short(
@@ -206,7 +201,7 @@ class ZackExplainerEngine:
         theme = HERO_THEMES[(slot_index + random.randint(0, len(HERO_THEMES) - 1)) % len(HERO_THEMES)]
         script_json = {
             "title": blueprint.get("title", "Amazing Body Science"),
-            "voice": "hi-IN-MadhurNeural",
+            "voice": lines_json.get("voice", "elevenlabs"),
             "music": blueprint.get("music", "tension"),
             "lines": [{"text": ln["text"], "caps": ln.get("caps", "")} for ln in lines],
         }
