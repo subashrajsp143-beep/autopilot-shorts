@@ -492,7 +492,11 @@
     "_uSU3cls5aU",
     "FPIxK0KB_5A",
     "5gUalLUmRcQ",
-    "f0Z4mmWetb0"
+    "f0Z4mmWetb0",
+    "vbbuKK1tAu4",
+    "uEJvjM07zWU",
+    "SRRhMIpcfeo",
+    "0NU9YTXngdk"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -712,7 +716,11 @@
     "ExquisiteTriangularPenguinNomNom-QfndpOm3Vng_Cg5Q",
     "RamshackleLaconicLapwingSpicyBoy-vXH5sbEmR5KAzDO7",
     "BenevolentRepleteRatTriHard-DythDw2ua2Wi67Mt",
-    "AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv"
+    "AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv",
+    "story3d_srikant_tiwari_home_mission_parody",
+    "story3d_kgf_pushpa_auto_bargain_parody",
+    "story3d_munna_bhai_gullak_crossover_jadu",
+    "story3d_panchayat_vidhayak_bribe_parody"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -837,7 +845,10 @@
     "Mirzapur (Gangster throne room comedy/twist parody)",
     "twitch:shanks_ttv",
     "twitch:Jynxzi",
-    "twitch:Peterbot"
+    "twitch:Peterbot",
+    "The Family Man (Secret agent balancing home & mission)",
+    "KGF / Pushpa / Bahubali (Epic mass dialogue parody)",
+    "Munna Bhai MBBS / Gullak (Heartwarming & hilarious Indian twist)"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -1211,7 +1222,11 @@
     "HOW DID HE MISS THIS?! 😱 #Shorts",
     "JYNXZI SOUL LEFT HIS BODY 😱 #Shorts",
     "JYNXZI OPENS THE CRUSTY SOCK 😱 #Shorts",
-    "Peterbot's Aim Looks Illegal Here! 😳 #Shorts"
+    "Peterbot's Aim Looks Illegal Here! 😳 #Shorts",
+    "श्रीकांत तिवारी की ऑफिस-घर वाली लाइफ! 😂🏠 #Shorts",
+    "जब Pushpa ने ऑटो वाले से भाड़ा कम कराया! 😂🔥 #Shorts",
+    "जब मुन्ना भाई पहुंचे गुल्लक वाले घर! 😂🏠 #Shorts #MunnaBhaiGullak",
+    "विधायक जी का नया भ्रष्टाचार प्लान! 😂💸 #Shorts #Panchayat"
   ],
   "used_subject_keys": [
     "dark_psychology_silence_trick",
@@ -1231,7 +1246,11 @@
     "gaming_ExquisiteTriangularPenguinNomNom-QfndpOm3Vng_Cg5Q",
     "gaming_RamshackleLaconicLapwingSpicyBoy-vXH5sbEmR5KAzDO7",
     "gaming_BenevolentRepleteRatTriHard-DythDw2ua2Wi67Mt",
-    "gaming_AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv"
+    "gaming_AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv",
+    "srikant_tiwari_home_mission_parody",
+    "kgf_pushpa_auto_bargain_parody",
+    "munna_bhai_gullak_crossover_jadu",
+    "panchayat_vidhayak_bribe_parody"
   ],
   "uploaded_thumbnail_hashes": [
     {
@@ -1341,6 +1360,30 @@
       "channel_id": 2,
       "source_id": "AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv",
       "timestamp": "2026-11-25T19:33:44.593818+00:00"
+    },
+    {
+      "dhash": "ccf0b0f0e8e8e869",
+      "channel_id": 3,
+      "source_id": "story3d_srikant_tiwari_home_mission_parody",
+      "timestamp": "2026-11-25T23:17:22.687676+00:00"
+    },
+    {
+      "dhash": "6971f2a0e8e8e869",
+      "channel_id": 3,
+      "source_id": "story3d_kgf_pushpa_auto_bargain_parody",
+      "timestamp": "2026-11-25T23:17:31.750965+00:00"
+    },
+    {
+      "dhash": "ccf1b0120e842869",
+      "channel_id": 3,
+      "source_id": "story3d_munna_bhai_gullak_crossover_jadu",
+      "timestamp": "2026-11-25T23:17:41.215446+00:00"
+    },
+    {
+      "dhash": "6d73b03068686969",
+      "channel_id": 3,
+      "source_id": "story3d_panchayat_vidhayak_bribe_parody",
+      "timestamp": "2026-11-25T23:17:50.159599+00:00"
     }
   ],
   "upload_logs": [
@@ -5345,6 +5388,50 @@
       "channel_id": 2,
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T23:17:22.678930+00:00",
+      "title": "श्रीकांत तिवारी की ऑफिस-घर वाली लाइफ! 😂🏠 #Shorts",
+      "type": "Animated Story (The Family Man) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "vbbuKK1tAu4",
+      "source_id": "story3d_srikant_tiwari_home_mission_parody",
+      "query": "The Family Man (Secret agent balancing home & mission)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T23:17:31.742275+00:00",
+      "title": "जब Pushpa ने ऑटो वाले से भाड़ा कम कराया! 😂🔥 #Shorts",
+      "type": "Animated Story (KGF / Pushpa / Bahubali) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "uEJvjM07zWU",
+      "source_id": "story3d_kgf_pushpa_auto_bargain_parody",
+      "query": "KGF / Pushpa / Bahubali (Epic mass dialogue parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T23:17:41.206602+00:00",
+      "title": "जब मुन्ना भाई पहुंचे गुल्लक वाले घर! 😂🏠 #Shorts #MunnaBhaiGullak",
+      "type": "Animated Story (Munna Bhai MBBS / Gullak) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "SRRhMIpcfeo",
+      "source_id": "story3d_munna_bhai_gullak_crossover_jadu",
+      "query": "Munna Bhai MBBS / Gullak (Heartwarming & hilarious Indian twist)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T23:17:50.150850+00:00",
+      "title": "विधायक जी का नया भ्रष्टाचार प्लान! 😂💸 #Shorts #Panchayat",
+      "type": "Animated Story (Panchayat) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "0NU9YTXngdk",
+      "source_id": "story3d_panchayat_vidhayak_bribe_parody",
+      "query": "Panchayat (Phulera village comedy & Sachiv/Pradhan parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   ],
   "pending_uploads": {
@@ -6948,6 +7035,66 @@
       "owner_token": "tok_3406_1795635228612_6a93e543",
       "uploading_timestamp": "2026-11-25T19:33:48.617393+00:00",
       "failed_timestamp": "2026-11-25T19:33:48.810825+00:00"
+    },
+    "channel_3:story3d_srikant_tiwari_home_mission_parody": {
+      "source_id": "story3d_srikant_tiwari_home_mission_parody",
+      "channel_id": 3,
+      "title": "श्रीकांत तिवारी की ऑफिस-घर वाली लाइफ! 😂🏠 #Shorts",
+      "attempt_timestamp": "2026-11-25T23:17:17.852473+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "vbbuKK1tAu4",
+      "error_details": null,
+      "pid": 3605,
+      "owner_token": "tok_3605_1795648637852_a5886319",
+      "uploading_timestamp": "2026-11-25T23:17:17.860976+00:00",
+      "completed_timestamp": "2026-11-25T23:17:22.678930+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_kgf_pushpa_auto_bargain_parody": {
+      "source_id": "story3d_kgf_pushpa_auto_bargain_parody",
+      "channel_id": 3,
+      "title": "जब Pushpa ने ऑटो वाले से भाड़ा कम कराया! 😂🔥 #Shorts",
+      "attempt_timestamp": "2026-11-25T23:17:26.707088+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "uEJvjM07zWU",
+      "error_details": null,
+      "pid": 3605,
+      "owner_token": "tok_3605_1795648646707_9b827ac6",
+      "uploading_timestamp": "2026-11-25T23:17:26.715848+00:00",
+      "completed_timestamp": "2026-11-25T23:17:31.742275+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_munna_bhai_gullak_crossover_jadu": {
+      "source_id": "story3d_munna_bhai_gullak_crossover_jadu",
+      "channel_id": 3,
+      "title": "जब मुन्ना भाई पहुंचे गुल्लक वाले घर! 😂🏠 #Shorts #MunnaBhaiGullak",
+      "attempt_timestamp": "2026-11-25T23:17:35.769323+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "SRRhMIpcfeo",
+      "error_details": null,
+      "pid": 3605,
+      "owner_token": "tok_3605_1795648655769_6ee167d2",
+      "uploading_timestamp": "2026-11-25T23:17:35.777990+00:00",
+      "completed_timestamp": "2026-11-25T23:17:41.206602+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_panchayat_vidhayak_bribe_parody": {
+      "source_id": "story3d_panchayat_vidhayak_bribe_parody",
+      "channel_id": 3,
+      "title": "विधायक जी का नया भ्रष्टाचार प्लान! 😂💸 #Shorts #Panchayat",
+      "attempt_timestamp": "2026-11-25T23:17:45.233926+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "0NU9YTXngdk",
+      "error_details": null,
+      "pid": 3605,
+      "owner_token": "tok_3605_1795648665233_7a0de6ac",
+      "uploading_timestamp": "2026-11-25T23:17:45.242917+00:00",
+      "completed_timestamp": "2026-11-25T23:17:50.150850+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   }
 }
