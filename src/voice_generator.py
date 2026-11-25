@@ -86,8 +86,8 @@ class VoiceGenerator:
         if not synthesized_ok:
             edge_voice = (
                 self.voice
-                if ("-" in (self.voice or "") and "neural" in (self.voice or "").lower())
-                else ("hi-IN-MadhurNeural" if detect_language_code(text) == "hi" else "en-US-ChristopherNeural")
+                if ("-" in (self.voice or "") and "neural" in (self.voice or "").lower() and "madhur" not in (self.voice or "").lower())
+                else ("hi-IN-SwaraNeural" if detect_language_code(text) == "hi" else "en-US-JennyNeural")
             )
             try:
                 # 1. Secondary: Edge-TTS

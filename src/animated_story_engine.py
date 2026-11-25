@@ -91,11 +91,11 @@ class AnimatedStoryEngine:
 
     @staticmethod
     def _voice_for_speaker(speaker: str) -> Tuple[str, str, str]:
-        # Return (edge_tts_voice, pitch, rate) for distinct multi-character voices
+        # Female fallback voice profiles when Edge-TTS fallback is used (primary uses ElevenLabs Sarah)
         if speaker == "A":
-            return ("hi-IN-MadhurNeural", "-8Hz", "+4%")
+            return ("hi-IN-SwaraNeural", "-4Hz", "+4%")
         elif speaker == "B":
-            return ("hi-IN-MadhurNeural", "+10Hz", "+10%")
+            return ("hi-IN-SwaraNeural", "+6Hz", "+8%")
         return ("hi-IN-SwaraNeural", "+0Hz", "+6%")
 
     @staticmethod

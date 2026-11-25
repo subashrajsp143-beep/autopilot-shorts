@@ -74,12 +74,11 @@ class ElevenLabsIntegrationTests(unittest.TestCase):
         p_b = elevenlabs_tts.resolve_voice_profile("B", emotion="shocked", text_hint="क्या?!")
         p_n = elevenlabs_tts.resolve_voice_profile("narrator")
 
-        self.assertEqual(p_exp.voice_id, elevenlabs_tts.VOICE_GEORGE)
-        self.assertEqual(p_a.voice_id, elevenlabs_tts.VOICE_DANIEL)
-        self.assertEqual(p_b.voice_id, elevenlabs_tts.VOICE_GEORGE)
+        self.assertEqual(p_exp.voice_id, elevenlabs_tts.VOICE_SARAH)
+        self.assertEqual(p_a.voice_id, elevenlabs_tts.VOICE_SARAH)
+        self.assertEqual(p_b.voice_id, elevenlabs_tts.VOICE_SARAH)
         self.assertEqual(p_n.voice_id, elevenlabs_tts.VOICE_SARAH)
-        # Distinct speakers use distinct voices & emotion lowers stability for shocked lines
-        self.assertNotEqual(p_a.voice_id, p_b.voice_id)
+        # Emotion modulation lowers stability for shocked/excited lines
         self.assertLess(p_b.stability, p_a.stability)
 
     def test_hindi_alignment_preserves_matras(self):
@@ -125,7 +124,7 @@ class ElevenLabsIntegrationTests(unittest.TestCase):
             self.assertEqual(captured_calls[0]["model_id"], "eleven_v4")
             self.assertEqual(captured_calls[0]["language_code"], "hi")
             self.assertEqual(captured_calls[0]["apply_text_normalization"], "on")
-            self.assertEqual(captured_calls[0]["voice_id"], elevenlabs_tts.VOICE_GEORGE)
+            self.assertEqual(captured_calls[0]["voice_id"], elevenlabs_tts.VOICE_SARAH)
             ass_txt = Path(out_ass).read_text(encoding="utf-8")
             self.assertIn("Dialogue: 0,", ass_txt)
             self.assertIn("दुनिया", ass_txt)
@@ -183,10 +182,20 @@ class ElevenLabsIntegrationTests(unittest.TestCase):
             self.assertEqual(captured_calls[1].get("previous_text"), "पहली लाइन का सच!")
             self.assertIsNone(captured_calls[1].get("next_text"))
 
-            # Check Multi-speaker Voice IDs on Story lines (indices 2, 3, 4)
-            self.assertEqual(captured_calls[2]["voice_id"], elevenlabs_tts.VOICE_DANIEL)
-            self.assertEqual(captured_calls[3]["voice_id"], elevenlabs_tts.VOICE_GEORGE)
+            # Check Sarah female voice across all story lines
+            self.assertEqual(captured_calls[2]["voice_id"], elevenlabs_tts.VOICE_SARAH)
+            self.assertEqual(captured_calls[3]["voice_id"], elevenlabs_tts.VOICE_SARAH)
             self.assertEqual(captured_calls[4]["voice_id"], elevenlabs_tts.VOICE_SARAH)
+
+    def test_channel2_trending_games_include_gta6(self):
+        from src.dynamic_creator_engine import GAMING_QUERY_POOL, TWITCH_GAMING_SOURCES
+
+        yt_queries = " ".join(item["q"].lower() for item in GAMING_QUERY_POOL)
+        twitch_games = [item["name"] for item in TWITCH_GAMING_SOURCES if item["kind"] == "game"]
+        self.assertIn("gta 6", yt_queries)
+        self.assertIn("marvel rivals", yt_queries)
+        self.assertIn("Grand Theft Auto VI", twitch_games)
+        self.assertIn("Marvel Rivals", twitch_games)
 
     def test_graceful_fallback_when_no_key(self):
         async def fake_stream():

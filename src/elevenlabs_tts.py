@@ -99,11 +99,11 @@ def resolve_voice_profile(
     emotion: Optional[str] = None,
     text_hint: str = "",
 ) -> VoiceProfile:
-    """Map semantic speaker roles (or explicit voice IDs) to consistent voice + emotion settings."""
+    """Map semantic speaker roles (or explicit voice IDs) to consistent Sarah female voice + emotion settings."""
     role = (role_or_voice or "explainer").strip()
     role_low = role.lower()
 
-    default_voice = (os.environ.get("ELEVENLABS_VOICE_ID") or "").strip() or VOICE_GEORGE
+    default_voice = (os.environ.get("ELEVENLABS_VOICE_ID") or "").strip() or VOICE_SARAH
 
     if _VOICE_ID_RE.match(role) and "neural" not in role_low:
         voice_id = role
@@ -111,20 +111,17 @@ def resolve_voice_profile(
         similarity = 0.80
         label = f"custom:{role[:8]}"
     elif role_low in ("a", "speaker_a", "speaker-a"):
-        voice_id = (os.environ.get("ELEVENLABS_VOICE_A") or "").strip() or VOICE_DANIEL
+        voice_id = (os.environ.get("ELEVENLABS_VOICE_A") or "").strip() or default_voice
         base_stability = 0.42
         similarity = 0.82
-        label = "speaker_a:daniel"
+        label = "speaker_a:sarah"
     elif role_low in ("b", "speaker_b", "speaker-b"):
-        voice_id = (os.environ.get("ELEVENLABS_VOICE_B") or "").strip() or VOICE_GEORGE
+        voice_id = (os.environ.get("ELEVENLABS_VOICE_B") or "").strip() or default_voice
         base_stability = 0.32
         similarity = 0.78
-        label = "speaker_b:george"
+        label = "speaker_b:sarah"
     elif role_low in ("narrator",):
         voice_id = (os.environ.get("ELEVENLABS_VOICE_NARRATOR") or "").strip() or default_voice
-        # Distinct default narrator for multi-speaker stories when no override is forced
-        if not os.environ.get("ELEVENLABS_VOICE_NARRATOR") and not os.environ.get("ELEVENLABS_VOICE_ID"):
-            voice_id = VOICE_SARAH
         base_stability = 0.40
         similarity = 0.80
         label = "narrator:sarah"
@@ -132,7 +129,7 @@ def resolve_voice_profile(
         voice_id = (os.environ.get("ELEVENLABS_VOICE_EXPLAINER") or "").strip() or default_voice
         base_stability = 0.36
         similarity = 0.80
-        label = "explainer:george"
+        label = "explainer:sarah"
 
     emo = (emotion or "").strip().lower()
     if emo in ("shocked", "panic", "excited", "laugh", "angry") or "!" in (text_hint or ""):
@@ -420,8 +417,8 @@ async def synthesize_line_pcm_and_words(
     import edge_tts
 
     attempts = list(edge_attempts or [
-        ("hi-IN-MadhurNeural", "+6%", "+0Hz"),
         ("hi-IN-SwaraNeural", "+6%", "+0Hz"),
+        ("hi-IN-MadhurNeural", "+6%", "+0Hz"),
     ])
     words: List[Dict[str, Any]] = []
     audio_bytes = bytearray()

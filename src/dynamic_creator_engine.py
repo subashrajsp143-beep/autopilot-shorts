@@ -42,24 +42,24 @@ from src.thumbnail_generator import ThumbnailGenerator
 
 
 GAMING_QUERY_POOL: List[Dict[str, str]] = [
-    {"q": "IShowSpeed funny rage gaming shorts", "creator": "IShowSpeed", "lang": "en", "banner": "SPEED LOST HIS MIND!"},
-    {"q": "CarryMinati funny gaming live reaction shorts", "creator": "CarryMinati", "lang": "hi", "banner": "CARRYMINATI OP REACTION!"},
-    {"q": "Techno Gamerz GTA 5 crazy stunt shorts", "creator": "Techno Gamerz", "lang": "hi", "banner": "TECHNO GAMERZ INSANE!"},
-    {"q": "Kai Cenat funniest gaming scream shorts", "creator": "Kai Cenat", "lang": "en", "banner": "KAI CENAT CRAZY MOMENT!"},
-    {"q": "CaseOh horror game jumpscare reaction shorts", "creator": "CaseOh", "lang": "en", "banner": "CASEOH JUMPSCARE RAGE!"},
-    {"q": "Triggered Insaan funny gaming reaction shorts", "creator": "Triggered Insaan", "lang": "hi", "banner": "TRIGGERED INSAAN FUNNY!"},
-    {"q": "BeastBoyShub horror game funny moment shorts", "creator": "BeastBoyShub", "lang": "hi", "banner": "BBS CRAZY REACTION!"},
+    {"q": "GTA 6 viral gameplay trailer reaction shorts", "creator": "GTA VI", "lang": "en", "banner": "GTA 6 IS INSANE!"},
+    {"q": "GTA VI secret details trailer breakdown viral shorts", "creator": "GTA VI", "lang": "en", "banner": "GTA 6 HIDDEN DETAILS!"},
+    {"q": "IShowSpeed GTA 6 reaction rage gaming shorts", "creator": "IShowSpeed", "lang": "en", "banner": "SPEED ON GTA 6!"},
+    {"q": "Techno Gamerz GTA 6 GTA 5 trending gameplay shorts", "creator": "Techno Gamerz", "lang": "hi", "banner": "TECHNO GAMERZ GTA!"},
+    {"q": "Marvel Rivals insane clutch viral gaming shorts", "creator": "Marvel Rivals", "lang": "en", "banner": "MARVEL RIVALS INSANE!"},
+    {"q": "CarryMinati trending game live reaction shorts", "creator": "CarryMinati", "lang": "hi", "banner": "CARRYMINATI OP REACTION!"},
+    {"q": "Kai Cenat trending game viral reaction shorts", "creator": "Kai Cenat", "lang": "en", "banner": "KAI CENAT CRAZY MOMENT!"},
+    {"q": "Triggered Insaan trending game funny shorts", "creator": "Triggered Insaan", "lang": "hi", "banner": "TRIGGERED INSAAN FUNNY!"},
+    {"q": "GTA 5 FiveM RP craziest viral stunt shorts", "creator": "GTA 5 RP", "lang": "en", "banner": "GTA IMPOSSIBLE STUNT!"},
+    {"q": "Total Gaming Ajju Bhai trending clutch shorts", "creator": "Total Gaming", "lang": "hi", "banner": "AJJU BHAI OP MOMENT!"},
+    {"q": "Black Myth Wukong Elden Ring insane boss fight shorts", "creator": "Trending RPG", "lang": "en", "banner": "UNREAL BOSS FIGHT!"},
     {"q": "Scout OP BGMI insane 1v4 clutch shorts", "creator": "Scout", "lang": "hi", "banner": "SCOUT 1V4 INSANE CLUTCH!"},
-    {"q": "Total Gaming Ajju Bhai funny clutch shorts", "creator": "Total Gaming", "lang": "hi", "banner": "AJJU BHAI OP MOMENT!"},
-    {"q": "IShowSpeed playing scary game reaction shorts", "creator": "IShowSpeed", "lang": "en", "banner": "SPEED SCARY GAME RAGE!"},
-    {"q": "Minecraft insane MLG clutch viral shorts", "creator": "Minecraft", "lang": "en", "banner": "1000 IQ MINECRAFT CLUTCH!"},
+    {"q": "CaseOh trending horror game jumpscare shorts", "creator": "CaseOh", "lang": "en", "banner": "CASEOH JUMPSCARE RAGE!"},
     {"q": "Valorant craziest ace streamer reaction shorts", "creator": "Valorant", "lang": "en", "banner": "IMPOSSIBLE VALORANT ACE!"},
-    {"q": "Jynxzi R6 funny streamer rage shorts", "creator": "Jynxzi", "lang": "en", "banner": "FUNNIEST STREAM RAGE!"},
-    {"q": "MrBeast Gaming insane challenge shorts", "creator": "MrBeast Gaming", "lang": "en", "banner": "CRAZIEST GAMING CHALLENGE!"},
-    {"q": "GTA 5 impossible thug life viral shorts", "creator": "GTA 5", "lang": "en", "banner": "GTA 5 IMPOSSIBLE STUNT!"},
-    {"q": "Mortal BGMI funny live stream moment shorts", "creator": "Mortal", "lang": "hi", "banner": "MORTAL FUNNY STREAM CLIP!"},
-    {"q": "Payal Gaming funny reaction stream shorts", "creator": "Payal Gaming", "lang": "hi", "banner": "LIVE STREAM CHAOS!"},
-    {"q": "IShowSpeed FIFA rage funny moment shorts", "creator": "IShowSpeed", "lang": "en", "banner": "SPEED FIFA RAGE!"},
+    {"q": "BeastBoyShub trending horror game reaction shorts", "creator": "BeastBoyShub", "lang": "hi", "banner": "BBS CRAZY REACTION!"},
+    {"q": "FC 26 FIFA craziest goal viral gaming shorts", "creator": "EA Sports FC 26", "lang": "en", "banner": "IMPOSSIBLE FC 26 GOAL!"},
+    {"q": "Payal Gaming live stream trending clutch shorts", "creator": "Payal Gaming", "lang": "hi", "banner": "LIVE STREAM CHAOS!"},
+    {"q": "MrBeast Gaming trending challenge shorts", "creator": "MrBeast Gaming", "lang": "en", "banner": "CRAZIEST GAMING CHALLENGE!"},
 ]
 
 VIRAL_TRENDING_POOL: List[Dict[str, str]] = [
@@ -79,17 +79,20 @@ VIRAL_TRENDING_POOL: List[Dict[str, str]] = [
 
 
 TWITCH_GAMING_SOURCES: List[Dict[str, str]] = [
+    {"kind": "game", "name": "Grand Theft Auto VI", "creator": "GTA VI Viral", "banner": "GTA 6 TRENDING CLIP!"},
+    {"kind": "game", "name": "Marvel Rivals", "creator": "Marvel Rivals Viral", "banner": "INSANE MARVEL RIVALS PLAY!"},
+    {"kind": "game", "name": "Grand Theft Auto V", "creator": "GTA 5 Viral", "banner": "GTA 5 INSANE CLIP!"},
     {"kind": "user", "name": "kaicenat", "creator": "Kai Cenat", "banner": "KAI CENAT CRAZY STREAM!"},
+    {"kind": "game", "name": "EA Sports FC 26", "creator": "FC 26 Viral", "banner": "CRAZY FC 26 GOAL!"},
+    {"kind": "game", "name": "Call of Duty: Warzone", "creator": "Warzone Viral", "banner": "UNREAL WARZONE CLUTCH!"},
     {"kind": "user", "name": "caseoh_", "creator": "CaseOh", "banner": "CASEOH INSANE REACTION!"},
+    {"kind": "game", "name": "VALORANT", "creator": "Valorant Viral", "banner": "IMPOSSIBLE VALORANT PLAY!"},
+    {"kind": "game", "name": "Elden Ring", "creator": "Elden Ring Viral", "banner": "INSANE BOSS CLUTCH!"},
     {"kind": "user", "name": "jynxzi", "creator": "Jynxzi", "banner": "JYNXZI FUNNIEST RAGE!"},
+    {"kind": "game", "name": "Fortnite", "creator": "Fortnite Viral", "banner": "INSANE FORTNITE CLUTCH!"},
+    {"kind": "game", "name": "Counter-Strike", "creator": "CS2 Viral", "banner": "UNREAL CS2 ACE!"},
     {"kind": "user", "name": "xqc", "creator": "xQc", "banner": "XQC UNHINGED MOMENT!"},
     {"kind": "user", "name": "tarik", "creator": "Tarik", "banner": "INSANE PRO CLUTCH!"},
-    {"kind": "game", "name": "Grand Theft Auto V", "creator": "GTA 5 Viral", "banner": "GTA 5 INSANE CLIP!"},
-    {"kind": "game", "name": "VALORANT", "creator": "Valorant Viral", "banner": "IMPOSSIBLE VALORANT PLAY!"},
-    {"kind": "game", "name": "Minecraft", "creator": "Minecraft Viral", "banner": "1000 IQ MINECRAFT!"},
-    {"kind": "game", "name": "Fortnite", "creator": "Fortnite Viral", "banner": "INSANE FORTNITE CLUTCH!"},
-    {"kind": "game", "name": "EA Sports FC 25", "creator": "FC 25 Viral", "banner": "CRAZY FIFA MOMENT!"},
-    {"kind": "game", "name": "Counter-Strike", "creator": "CS2 Viral", "banner": "UNREAL CS2 ACE!"},
 ]
 
 
@@ -226,10 +229,10 @@ Return strict JSON:
                     },
                 )
                 payload = json.loads(urllib.request.urlopen(req, timeout=12).read().decode("utf-8"))
-                container = payload.get("data", {}).get(src["kind"]) or {}
-                edges = container.get("clips", {}).get("edges", [])
+                container = (payload.get("data") or {}).get(src["kind"]) or {}
+                edges = (container.get("clips") or {}).get("edges") or []
                 for edge in edges:
-                    node = edge.get("node") or {}
+                    node = (edge or {}).get("node") or {}
                     slug = node.get("slug", "")
                     title = node.get("title", "")
                     dur = float(node.get("durationSeconds") or 0)

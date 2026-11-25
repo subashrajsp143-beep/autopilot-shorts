@@ -99,10 +99,10 @@ class ZackExplainerEngine:
         emotion: Optional[str] = None,
     ) -> Tuple[np.ndarray, List[Dict[str, Any]], str]:
         fallback_attempts = [
-            ("hi-IN-MadhurNeural", "+6%", "+0Hz"),
             ("hi-IN-SwaraNeural", "+6%", "+0Hz"),
+            ("hi-IN-MadhurNeural", "+6%", "+0Hz"),
         ]
-        if voice and "-" in voice and "neural" in voice.lower():
+        if voice and "-" in voice and "neural" in voice.lower() and "madhur" not in voice.lower():
             fallback_attempts.insert(0, (voice, "+6%", "+0Hz"))
         pcm, words, backend = await synthesize_line_pcm_and_words(
             text=text,
