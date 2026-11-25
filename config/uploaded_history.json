@@ -488,7 +488,11 @@
     "RqQORXzYTIo",
     "MKnxLcA-QRw",
     "k3GUJkdIlwg",
-    "SPMKrKBuZOw"
+    "SPMKrKBuZOw",
+    "_uSU3cls5aU",
+    "FPIxK0KB_5A",
+    "5gUalLUmRcQ",
+    "f0Z4mmWetb0"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -704,7 +708,11 @@
     "ClearTameMarrowKevinTurtle-MedgUZKJ5BLzb3Oh",
     "ExquisiteInnocentGaragePoooound-mLDj-ot7Fg9JJjLA",
     "story3d_panchayat_ai_chatbot_parody",
-    "story3d_mirzapur_tiffin_gaddi_parody"
+    "story3d_mirzapur_tiffin_gaddi_parody",
+    "ExquisiteTriangularPenguinNomNom-QfndpOm3Vng_Cg5Q",
+    "RamshackleLaconicLapwingSpicyBoy-vXH5sbEmR5KAzDO7",
+    "BenevolentRepleteRatTriHard-DythDw2ua2Wi67Mt",
+    "AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -826,7 +834,10 @@
     "twitch:PGL",
     "twitch:KaiCenat",
     "Panchayat (Phulera village comedy & Sachiv/Pradhan parody)",
-    "Mirzapur (Gangster throne room comedy/twist parody)"
+    "Mirzapur (Gangster throne room comedy/twist parody)",
+    "twitch:shanks_ttv",
+    "twitch:Jynxzi",
+    "twitch:Peterbot"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -1196,7 +1207,11 @@
     "UNBELIEVABLE PRO MOMENT! 😱 #Shorts",
     "KAI CENAT CAN'T BELIEVE THIS! 😱 #Shorts",
     "जब फुलेरा गाँव में आया एआई रोबोट! 😂🤖 #Shorts",
-    "मिर्जापुर की गद्दी का खौफनाक सच! 👑😂 #Shorts"
+    "मिर्जापुर की गद्दी का खौफनाक सच! 👑😂 #Shorts",
+    "HOW DID HE MISS THIS?! 😱 #Shorts",
+    "JYNXZI SOUL LEFT HIS BODY 😱 #Shorts",
+    "JYNXZI OPENS THE CRUSTY SOCK 😱 #Shorts",
+    "Peterbot's Aim Looks Illegal Here! 😳 #Shorts"
   ],
   "used_subject_keys": [
     "dark_psychology_silence_trick",
@@ -1212,7 +1227,11 @@
     "gaming_ClearTameMarrowKevinTurtle-MedgUZKJ5BLzb3Oh",
     "gaming_ExquisiteInnocentGaragePoooound-mLDj-ot7Fg9JJjLA",
     "panchayat_ai_chatbot_parody",
-    "mirzapur_tiffin_gaddi_parody"
+    "mirzapur_tiffin_gaddi_parody",
+    "gaming_ExquisiteTriangularPenguinNomNom-QfndpOm3Vng_Cg5Q",
+    "gaming_RamshackleLaconicLapwingSpicyBoy-vXH5sbEmR5KAzDO7",
+    "gaming_BenevolentRepleteRatTriHard-DythDw2ua2Wi67Mt",
+    "gaming_AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv"
   ],
   "uploaded_thumbnail_hashes": [
     {
@@ -1298,6 +1317,30 @@
       "channel_id": 3,
       "source_id": "story3d_mirzapur_tiffin_gaddi_parody",
       "timestamp": "2026-11-25T10:34:47.553385+00:00"
+    },
+    {
+      "dhash": "ec90c8fcf5cd0c74",
+      "channel_id": 2,
+      "source_id": "ExquisiteTriangularPenguinNomNom-QfndpOm3Vng_Cg5Q",
+      "timestamp": "2026-11-25T19:33:17.651602+00:00"
+    },
+    {
+      "dhash": "2b2b809c909d0b0b",
+      "channel_id": 2,
+      "source_id": "RamshackleLaconicLapwingSpicyBoy-vXH5sbEmR5KAzDO7",
+      "timestamp": "2026-11-25T19:33:26.693092+00:00"
+    },
+    {
+      "dhash": "0661199257050cbe",
+      "channel_id": 2,
+      "source_id": "BenevolentRepleteRatTriHard-DythDw2ua2Wi67Mt",
+      "timestamp": "2026-11-25T19:33:36.101451+00:00"
+    },
+    {
+      "dhash": "80c380bc0a01010a",
+      "channel_id": 2,
+      "source_id": "AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv",
+      "timestamp": "2026-11-25T19:33:44.593818+00:00"
     }
   ],
   "upload_logs": [
@@ -5258,6 +5301,50 @@
       "channel_id": 3,
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T19:33:17.646541+00:00",
+      "title": "HOW DID HE MISS THIS?! 😱 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "_uSU3cls5aU",
+      "source_id": "ExquisiteTriangularPenguinNomNom-QfndpOm3Vng_Cg5Q",
+      "query": "twitch:shanks_ttv",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T19:33:26.687951+00:00",
+      "title": "JYNXZI SOUL LEFT HIS BODY 😱 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "FPIxK0KB_5A",
+      "source_id": "RamshackleLaconicLapwingSpicyBoy-vXH5sbEmR5KAzDO7",
+      "query": "twitch:Jynxzi",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T19:33:36.096150+00:00",
+      "title": "JYNXZI OPENS THE CRUSTY SOCK 😱 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "5gUalLUmRcQ",
+      "source_id": "BenevolentRepleteRatTriHard-DythDw2ua2Wi67Mt",
+      "query": "twitch:Jynxzi",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T19:33:44.581404+00:00",
+      "title": "Peterbot's Aim Looks Illegal Here! 😳 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "f0Z4mmWetb0",
+      "source_id": "AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv",
+      "query": "twitch:Peterbot",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   ],
   "pending_uploads": {
@@ -6788,6 +6875,79 @@
       "completed_timestamp": "2026-11-25T10:34:47.547153+00:00",
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    "channel_2:ExquisiteTriangularPenguinNomNom-QfndpOm3Vng_Cg5Q": {
+      "source_id": "ExquisiteTriangularPenguinNomNom-QfndpOm3Vng_Cg5Q",
+      "channel_id": 2,
+      "title": "HOW DID HE MISS THIS?! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-25T19:33:12.443156+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "_uSU3cls5aU",
+      "error_details": null,
+      "pid": 3406,
+      "owner_token": "tok_3406_1795635192443_d9392ccc",
+      "uploading_timestamp": "2026-11-25T19:33:12.448354+00:00",
+      "completed_timestamp": "2026-11-25T19:33:17.646541+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:RamshackleLaconicLapwingSpicyBoy-vXH5sbEmR5KAzDO7": {
+      "source_id": "RamshackleLaconicLapwingSpicyBoy-vXH5sbEmR5KAzDO7",
+      "channel_id": 2,
+      "title": "JYNXZI SOUL LEFT HIS BODY 😱 #Shorts",
+      "attempt_timestamp": "2026-11-25T19:33:21.664448+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "FPIxK0KB_5A",
+      "error_details": null,
+      "pid": 3406,
+      "owner_token": "tok_3406_1795635201664_cbfc9eef",
+      "uploading_timestamp": "2026-11-25T19:33:21.669698+00:00",
+      "completed_timestamp": "2026-11-25T19:33:26.687951+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:BenevolentRepleteRatTriHard-DythDw2ua2Wi67Mt": {
+      "source_id": "BenevolentRepleteRatTriHard-DythDw2ua2Wi67Mt",
+      "channel_id": 2,
+      "title": "JYNXZI OPENS THE CRUSTY SOCK 😱 #Shorts",
+      "attempt_timestamp": "2026-11-25T19:33:30.704023+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "5gUalLUmRcQ",
+      "error_details": null,
+      "pid": 3406,
+      "owner_token": "tok_3406_1795635210703_9f76c6be",
+      "uploading_timestamp": "2026-11-25T19:33:30.709329+00:00",
+      "completed_timestamp": "2026-11-25T19:33:36.096150+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv": {
+      "source_id": "AbrasiveJazzyGarbageGivePLZ--PiGi5mF39a1s7Kv",
+      "channel_id": 2,
+      "title": "Peterbot's Aim Looks Illegal Here! 😳 #Shorts",
+      "attempt_timestamp": "2026-11-25T19:33:40.112879+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "f0Z4mmWetb0",
+      "error_details": null,
+      "pid": 3406,
+      "owner_token": "tok_3406_1795635220112_f8dd3575",
+      "uploading_timestamp": "2026-11-25T19:33:40.118314+00:00",
+      "completed_timestamp": "2026-11-25T19:33:44.581404+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:EndearingBigSashimiJebaited-cELLmcuKb0wbJ-7k": {
+      "source_id": "EndearingBigSashimiJebaited-cELLmcuKb0wbJ-7k",
+      "channel_id": 2,
+      "title": "JKS UNBELIEVABLE 1V4 CLUTCH! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-25T19:33:48.612240+00:00",
+      "status": "failed",
+      "youtube_video_id": null,
+      "error_details": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">",
+      "pid": 3406,
+      "owner_token": "tok_3406_1795635228612_6a93e543",
+      "uploading_timestamp": "2026-11-25T19:33:48.617393+00:00",
+      "failed_timestamp": "2026-11-25T19:33:48.810825+00:00"
     }
   }
 }
