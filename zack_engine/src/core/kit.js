@@ -428,3 +428,242 @@ export function cosmosBg(t, accent = '#4FD1E8') {
   circle(540, 760, 230, accent);
   ell(475, 690, 58, 34, C.white, -0.5);
 }
+
+
+// ═════════════════════════ ANIMATED STORY WORLDS & ACTORS (CH3) ═════════════════════════
+export function storyWorld(world = 'panchayat_village', t = 0) {
+  if (world === 'mirzapur_hall') {
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#1B070B'); grad.addColorStop(0.65, '#3D0E16'); grad.addColorStop(1, '#120508');
+    ctx.fillStyle = grad; ctx.fillRect(-300, -300, W + 600, H + 600);
+    // Warm dramatic overhead spotlight cone
+    ctx.save(); ctx.globalAlpha = 0.22;
+    const cone = ctx.createRadialGradient(540, 500, 40, 540, 950, 760);
+    cone.addColorStop(0, '#FFB347'); cone.addColorStop(1, 'transparent');
+    ctx.fillStyle = cone; ctx.fillRect(-200, 0, W + 400, H); ctx.restore();
+    // Ornate boss throne silhouette + pillars
+    for (const px of [120, 960]) {
+      rr(px - 45, 160, 90, 1450, 12); ctx.fillStyle = '#29090F'; ctx.fill();
+      rr(px - 35, 180, 22, 1410, 6); ctx.fillStyle = '#5B1823'; ctx.fill();
+    }
+    // Red velvet throne chair in center-back
+    rr(380, 820, 320, 460, 38); ctx.fillStyle = '#6D111E'; ctx.fill(); ctx.lineWidth = 8; ctx.strokeStyle = '#C89B3C'; ctx.stroke();
+    rr(360, 1180, 360, 180, 22); ctx.fillStyle = '#4C0B14'; ctx.fill();
+    // Floating embers/dust
+    for (let i = 0; i < 16; i++) {
+      const ex = (rnd(i * 5) * W + Math.sin(t + i) * 35) % W;
+      const ey = H - ((t * 90 + rnd(i * 9) * H) % H);
+      ctx.globalAlpha = 0.45; circle(ex, ey, 4 + rnd(i) * 5, '#FFD43B'); ctx.globalAlpha = 1;
+    }
+    ctx.fillStyle = '#24090D'; ctx.fillRect(-300, 1540, W + 600, 700);
+    return;
+  }
+
+  if (world === 'scam_office') {
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#0D1B2A'); grad.addColorStop(0.6, '#1B3A57'); grad.addColorStop(1, '#102030');
+    ctx.fillStyle = grad; ctx.fillRect(-300, -300, W + 600, H + 600);
+    // Glass window skyline + glowing green ticker bar
+    rr(70, 220, 940, 640, 20); ctx.fillStyle = '#112940'; ctx.fill(); ctx.lineWidth = 10; ctx.strokeStyle = '#2D5478'; ctx.stroke();
+    for (let b = 0; b < 9; b++) {
+      const bx = 100 + b * 100, bh = 160 + rnd(b + 2) * 260;
+      ctx.fillStyle = '#091826'; ctx.fillRect(bx, 850 - bh, 82, bh);
+      for (let wy = 850 - bh + 25; wy < 820; wy += 42) {
+        ctx.fillStyle = rnd(wy + b) > 0.4 ? '#F7D88A' : '#4FD1E8'; ctx.globalAlpha = 0.5;
+        ctx.fillRect(bx + 14, wy, 20, 20); ctx.fillRect(bx + 46, wy, 20, 20); ctx.globalAlpha = 1;
+      }
+    }
+    // Mahogany executive desk & stock chart pulse
+    ctx.strokeStyle = '#2ECC71'; ctx.lineWidth = 8; ctx.beginPath();
+    for (let x = 110; x <= 970; x += 45) {
+      const y = 380 - Math.sin(x * 0.02 + t * 2) * 45 - (x - 110) * 0.08;
+      x === 110 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.fillStyle = '#3E2723'; ctx.fillRect(-300, 1460, W + 600, 700);
+    return;
+  }
+
+  if (world === 'college_hostel') {
+    fillAll('#EAE3D2');
+    ctx.fillStyle = '#C9B99B'; ctx.fillRect(-300, 1520, W + 600, 700);
+    // Green classroom chalkboard
+    rr(120, 240, 840, 500, 18); ctx.fillStyle = '#5D4037'; ctx.fill();
+    rr(148, 268, 784, 444, 8); ctx.fillStyle = '#1E4631'; ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.45)'; ctx.lineWidth = 6;
+    ctx.beginPath(); ctx.moveTo(210, 410); ctx.lineTo(440, 410); ctx.moveTo(210, 480); ctx.lineTo(560, 480); ctx.stroke();
+    ctx.font = `900 42px ${FONT_STACK}`; ctx.fillStyle = '#FFD43B'; ctx.textAlign = 'center';
+    ctx.fillText('E = MC² ?', 720, 430);
+    return;
+  }
+
+  if (world === 'cinema_night') {
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#070914'); grad.addColorStop(0.55, '#191D38'); grad.addColorStop(1, '#090C18');
+    ctx.fillStyle = grad; ctx.fillRect(-300, -300, W + 600, H + 600);
+    // Moon + misty golden lantern glow
+    ctx.save(); ctx.globalAlpha = 0.25; circle(820, 340, 180, '#FFE082'); ctx.restore();
+    circle(820, 340, 96, '#FFF5C0');
+    ctx.save(); ctx.globalAlpha = 0.16;
+    const beam = ctx.createRadialGradient(540, 920, 30, 540, 920, 620);
+    beam.addColorStop(0, '#FF9E2C'); beam.addColorStop(1, 'transparent');
+    ctx.fillStyle = beam; ctx.fillRect(0, 200, W, 1400); ctx.restore();
+    ctx.fillStyle = '#101424'; ctx.fillRect(-300, 1540, W + 600, 700);
+    return;
+  }
+
+  // Default / panchayat_village / chawl_comedy: Warm sunny Indian village/courtyard with 3D sky gradient & water tank
+  const skyGrad = ctx.createLinearGradient(0, 0, 0, 1540);
+  skyGrad.addColorStop(0, world === 'chawl_comedy' ? '#FCE38A' : '#8FD3F4');
+  skyGrad.addColorStop(1, '#F6EFE2');
+  ctx.fillStyle = skyGrad; ctx.fillRect(-300, -300, W + 600, H + 600);
+  // Soft drifting clouds
+  const cdx = Math.sin(t * 0.4) * 30;
+  ell(230 + cdx, 290, 110, 42, C.white); ell(290 + cdx, 270, 75, 45, C.white);
+  ell(790 - cdx, 360, 130, 46, C.white); ell(850 - cdx, 340, 80, 46, C.white);
+  if (world === 'panchayat_village') {
+    // Iconic village water tank in background!
+    for (const lx of [760, 860]) line([[lx, 840], [lx + (lx < 800 ? 15 : -15), 1540]], '#8C96A3', 14);
+    line([[752, 1180], [868, 1180]], '#8C96A3', 10);
+    rr(730, 690, 160, 155, 16); ctx.fillStyle = '#DFE6EE'; ctx.fill(); ctx.lineWidth = 6; ctx.strokeStyle = '#6D7B8D'; ctx.stroke();
+    rr(720, 670, 180, 34, 10); ctx.fillStyle = '#D62839'; ctx.fill();
+    // Swaying Neem tree on left
+    const sw = Math.sin(t * 1.4) * 8;
+    line([[130, 1540], [140 + sw * 0.4, 980]], '#6D4C41', 42);
+    circle(135 + sw, 880, 140, '#3C9E54'); circle(220 + sw, 940, 110, '#4CAF50'); circle(75 + sw, 950, 105, '#2E7D32');
+  } else {
+    // Chawl colorful doorway / balcony backdrop
+    rr(140, 480, 800, 1060, 20); ctx.fillStyle = '#FAD390'; ctx.fill();
+    rr(380, 660, 320, 880, [160, 160, 0, 0]); ctx.fillStyle = '#B8E994'; ctx.fill();
+    rr(410, 690, 260, 850, [130, 130, 0, 0]); ctx.fillStyle = '#4A69BD'; ctx.fill();
+  }
+  ctx.fillStyle = world === 'panchayat_village' ? '#D7C49E' : '#D2B48C';
+  ctx.fillRect(-300, 1530, W + 600, 700);
+}
+
+export function actor(o = {}) {
+  const s = o.s || 1;
+  const skin = o.skin || '#E0A882';
+  const skinShade = o.skinShade || '#C48A64';
+  const shirt = o.shirt || '#FFFFFF';
+  const shirtShade = o.shirtShade || '#D8DEE9';
+  const hair = o.hair || '#221E1D';
+  const pants = o.pants || '#2C3E50';
+  const talking = o.talk ? Math.abs(Math.sin((o.t || 0) * 14)) : 0;
+
+  ctx.save();
+  ctx.translate(o.x || 540, o.y || 1200);
+  ctx.scale((o.flip ? -1 : 1) * s, s);
+
+  // Ground shadow
+  ctx.save(); ctx.globalAlpha = 0.22; ell(0, 610, 155, 30, '#000'); ctx.restore();
+
+  // Legs
+  rr(-118, 180, 108, 420, 36); ctx.fillStyle = pants; ctx.fill();
+  rr(10, 180, 108, 420, 36); ctx.fillStyle = pants; ctx.fill();
+
+  // Left arm
+  const armL = o.armL || ARM.down;
+  line([[-132, -165], [-armL.e[0], armL.e[1]]], skin, 46);
+  line([[-armL.e[0], armL.e[1]], [-armL.h[0], armL.h[1]]], skin, 42);
+  line([[-132, -165], [lerp(-132, -armL.e[0], 0.55), lerp(-165, armL.e[1], 0.55)]], shirt, 66);
+
+  // 3D-shaded torso
+  ctx.beginPath(); ctx.moveTo(-48, -210);
+  ctx.bezierCurveTo(-125, -210, -156, -190, -158, -115);
+  ctx.lineTo(-132, 195); ctx.quadraticCurveTo(-130, 212, -110, 212);
+  ctx.lineTo(110, 212); ctx.quadraticCurveTo(130, 212, 132, 195);
+  ctx.lineTo(158, -115); ctx.bezierCurveTo(156, -190, 125, -210, 48, -210); ctx.closePath();
+  ctx.fillStyle = shirt; ctx.fill();
+  ctx.save(); ctx.clip();
+  ctx.fillStyle = shirtShade; ctx.fillRect(55, -220, 130, 450);
+  ctx.restore();
+
+  // Neck + Collar
+  rr(-34, -252, 68, 58, 18); ctx.fillStyle = skin; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(0, -210, 46, 22, 0, 0, Math.PI); ctx.strokeStyle = shirtShade; ctx.lineWidth = 10; ctx.stroke();
+
+  // Head
+  ctx.save(); ctx.translate(0, -348);
+  ell(0, -32, 114, 92, hair);
+  for (const sd of [-1, 1]) { ell(sd * 102, 14, 21, 27, skin); ell(sd * 104, 14, 9, 14, skinShade); }
+  ell(0, 12, 100, 110, skin);
+  // Subtle 3D cheek highlight & rim shade
+  ctx.save(); ctx.globalAlpha = 0.14; ell(38, 12, 48, 92, '#000'); ctx.restore();
+  // Hair
+  ctx.beginPath(); ctx.moveTo(-102, -6); ctx.quadraticCurveTo(-114, -110, -12, -122);
+  ctx.quadraticCurveTo(94, -130, 110, -26); ctx.quadraticCurveTo(85, -68, 35, -72);
+  ctx.quadraticCurveTo(-22, -74, -58, -48); ctx.closePath();
+  ctx.fillStyle = hair; ctx.fill();
+
+  // Brows (angry, shock, smirk, normal)
+  const em = o.emotion || 'normal';
+  ctx.strokeStyle = hair; ctx.lineWidth = 12; ctx.lineCap = 'round';
+  if (em === 'angry') {
+    line([[-66, -34], [-18, -16]], hair, 12);
+    line([[18, -16], [66, -34]], hair, 12);
+  } else if (em === 'shock') {
+    line([[-66, -42], [-20, -48]], hair, 11);
+    line([[20, -48], [66, -42]], hair, 11);
+  } else {
+    line([[-64, -28], [-20, -34]], hair, 11);
+    line([[20, -34], [64, -28]], hair, 11);
+  }
+
+  // Eyes / Sunglasses
+  if (o.glasses) {
+    rr(-82, -16, 72, 44, 10); ctx.fillStyle = '#111'; ctx.fill(); ctx.lineWidth = 5; ctx.strokeStyle = '#FFD43B'; ctx.stroke();
+    rr(10, -16, 72, 44, 10); ctx.fillStyle = '#111'; ctx.fill(); ctx.stroke();
+    line([[-10, 4], [10, 4]], '#FFD43B', 6);
+  } else if (em === 'shock' || o.eyes === 'wide') {
+    for (const sd of [-1, 1]) {
+      circle(sd * 40, 6, 24, C.white);
+      ctx.strokeStyle = C.ink; ctx.lineWidth = 4; ctx.stroke();
+      circle(sd * 40, 7, 11, C.ink); circle(sd * 40 + 4, 2, 4, C.white);
+    }
+  } else if (em === 'laugh' || o.eyes === 'closed') {
+    for (const sd of [-1, 1]) {
+      ctx.beginPath(); ctx.arc(sd * 40, 12, 16, 1.1 * Math.PI, 1.9 * Math.PI);
+      ctx.strokeStyle = C.ink; ctx.lineWidth = 8; ctx.stroke();
+    }
+  } else {
+    for (const sd of [-1, 1]) { ell(sd * 40, 6, 11, 14, C.ink); circle(sd * 40 + 4, 1, 4, C.white); }
+  }
+
+  // Moustache / Beard (Indian webseries vibe!)
+  if (o.beard) {
+    ctx.beginPath(); ctx.arc(0, 42, 82, 0.1 * Math.PI, 0.9 * Math.PI);
+    ctx.fillStyle = hair; ctx.fill();
+  }
+  if (o.moustache) {
+    ctx.beginPath(); ctx.moveTo(-46, 58); ctx.quadraticCurveTo(-20, 40, 0, 52);
+    ctx.quadraticCurveTo(20, 40, 46, 58); ctx.quadraticCurveTo(18, 62, 0, 56);
+    ctx.quadraticCurveTo(-18, 62, -46, 58); ctx.fillStyle = hair; ctx.fill();
+  }
+
+  // Animated Mouth (lip-sync bounce when talking!)
+  if (talking > 0.15) {
+    ell(0, 78, 22, 6 + talking * 16, C.mouth);
+    ell(0, 86, 12, 5, C.pink);
+  } else if (em === 'shock') {
+    ell(0, 80, 20, 24, C.mouth);
+  } else if (em === 'laugh') {
+    ctx.beginPath(); ctx.moveTo(-34, 66); ctx.quadraticCurveTo(0, 114, 34, 66); ctx.closePath();
+    ctx.fillStyle = C.mouth; ctx.fill();
+  } else if (em === 'angry') {
+    line([[-24, 82], [0, 72], [24, 82]], C.mouth, 8);
+  } else {
+    ctx.beginPath(); ctx.moveTo(-22, 72); ctx.quadraticCurveTo(0, 88, 22, 72);
+    ctx.strokeStyle = C.mouth; ctx.lineWidth = 8; ctx.stroke();
+  }
+  ctx.restore();
+
+  // Right arm (with gesture)
+  const armR = o.armR || ARM.down;
+  line([[132, -165], [armR.e[0], armR.e[1]]], skin, 46);
+  line([[armR.e[0], armR.e[1]], [armR.h[0], armR.h[1]]], skin, 42);
+  line([[132, -165], [lerp(132, armR.e[0], 0.55), lerp(-165, armR.e[1], 0.55)]], shirt, 66);
+  circle(armR.h[0], armR.h[1], 24, skin);
+
+  ctx.restore();
+}

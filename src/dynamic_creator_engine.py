@@ -21,8 +21,9 @@ import random
 import re
 import subprocess
 import sys
+import urllib.request
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 if sys.platform == "win32":
     try:
@@ -74,6 +75,21 @@ VIRAL_TRENDING_POOL: List[Dict[str, str]] = [
     {"q": "insane human talent viral clip shorts", "creator": "Viral Talent", "lang": "en", "banner": "NEXT LEVEL TALENT!"},
     {"q": "trending viral video india funny shocking shorts", "creator": "India Viral", "lang": "hi", "banner": "VIRAL MOMENT TODAY!"},
     {"q": "crushing lava vs ice hydraulic press shorts", "creator": "Viral Experiments", "lang": "en", "banner": "LAVA VS HYDRAULIC PRESS!"},
+]
+
+
+TWITCH_GAMING_SOURCES: List[Dict[str, str]] = [
+    {"kind": "user", "name": "kaicenat", "creator": "Kai Cenat", "banner": "KAI CENAT CRAZY STREAM!"},
+    {"kind": "user", "name": "caseoh_", "creator": "CaseOh", "banner": "CASEOH INSANE REACTION!"},
+    {"kind": "user", "name": "jynxzi", "creator": "Jynxzi", "banner": "JYNXZI FUNNIEST RAGE!"},
+    {"kind": "user", "name": "xqc", "creator": "xQc", "banner": "XQC UNHINGED MOMENT!"},
+    {"kind": "user", "name": "tarik", "creator": "Tarik", "banner": "INSANE PRO CLUTCH!"},
+    {"kind": "game", "name": "Grand Theft Auto V", "creator": "GTA 5 Viral", "banner": "GTA 5 INSANE CLIP!"},
+    {"kind": "game", "name": "VALORANT", "creator": "Valorant Viral", "banner": "IMPOSSIBLE VALORANT PLAY!"},
+    {"kind": "game", "name": "Minecraft", "creator": "Minecraft Viral", "banner": "1000 IQ MINECRAFT!"},
+    {"kind": "game", "name": "Fortnite", "creator": "Fortnite Viral", "banner": "INSANE FORTNITE CLUTCH!"},
+    {"kind": "game", "name": "EA Sports FC 25", "creator": "FC 25 Viral", "banner": "CRAZY FIFA MOMENT!"},
+    {"kind": "game", "name": "Counter-Strike", "creator": "CS2 Viral", "banner": "UNREAL CS2 ACE!"},
 ]
 
 
@@ -183,6 +199,144 @@ Return strict JSON:
             "tags": ["shorts", "viral", niche_mode, creator.lower().replace(" ", ""), "trending"],
         }
 
+    def _discover_twitch_candidates(
+        self,
+        slot_index: int,
+        day_offset: int,
+        session_ids: Set[str],
+    ) -> List[Tuple[str, str, float, str, Dict[str, str]]]:
+        """Queries Twitch GraphQL for top viral English/Hindi gaming clips (immune to Google datacenter bot blocks)."""
+        results: List[Tuple[str, str, float, str, Dict[str, str]]] = []
+        start_idx = (day_offset * 5 + slot_index - 1) % len(TWITCH_GAMING_SOURCES)
+        for offset in range(len(TWITCH_GAMING_SOURCES)):
+            src = TWITCH_GAMING_SOURCES[(start_idx + offset) % len(TWITCH_GAMING_SOURCES)]
+            name = src["name"]
+            if src["kind"] == "user":
+                gql = f'query {{ user(login: "{name}") {{ clips(first: 15, criteria: {{ period: LAST_WEEK }}) {{ edges {{ node {{ slug title url durationSeconds viewCount broadcaster {{ displayName }} }} }} }} }} }}'
+            else:
+                gql = f'query {{ game(name: "{name}") {{ clips(first: 15, criteria: {{ period: LAST_WEEK, languages: [EN, HI] }}) {{ edges {{ node {{ slug title url durationSeconds viewCount broadcaster {{ displayName }} }} }} }} }} }}'
+            try:
+                req = urllib.request.Request(
+                    "https://gql.twitch.tv/gql",
+                    data=json.dumps({"query": gql}).encode("utf-8"),
+                    headers={
+                        "Client-ID": "kimne78kx3ncx6brgo4mv6wki5h1ko",
+                        "Content-Type": "application/json",
+                        "User-Agent": "Mozilla/5.0",
+                    },
+                )
+                payload = json.loads(urllib.request.urlopen(req, timeout=12).read().decode("utf-8"))
+                container = payload.get("data", {}).get(src["kind"]) or {}
+                edges = container.get("clips", {}).get("edges", [])
+                for edge in edges:
+                    node = edge.get("node") or {}
+                    slug = node.get("slug", "")
+                    title = node.get("title", "")
+                    dur = float(node.get("durationSeconds") or 0)
+                    bname = (node.get("broadcaster") or {}).get("displayName") or src["creator"]
+                    if not slug or slug in session_ids or self.tracker.is_source_used(slug) or self.tracker.is_title_used(title):
+                        continue
+                    if dur < 10 or dur > 60:
+                        continue
+                    cfg_item = {"creator": bname, "lang": "en", "banner": src["banner"]}
+                    results.append((slug, title, dur, node.get("url") or f"https://clips.twitch.tv/{slug}", cfg_item))
+                if len(results) >= 8:
+                    break
+            except Exception as e:
+                print(f"Notice: Twitch query failed for {name}: {e}")
+        return results
+
+    def _finalize_clip(
+        self,
+        raw_file: str,
+        vid_id: str,
+        vid_title: str,
+        target_url: str,
+        mode: str,
+        cfg: Dict[str, str],
+        slot_index: int,
+        output_video_path: str,
+        output_thumb_path: str,
+        session_ids: Set[str],
+        batch_hashes: Optional[Set[str]],
+        require_audio: bool,
+        query: str,
+    ) -> Optional[Dict[str, Any]]:
+        probe = self._probe_streams(raw_file)
+        if not probe["has_video"] or probe["duration"] < 8.0:
+            try:
+                os.remove(raw_file)
+            except Exception:
+                pass
+            return None
+        if require_audio and not probe["has_audio"]:
+            print(f"⚠️ Skipping {vid_id} — missing authentic audio track.")
+            try:
+                os.remove(raw_file)
+            except Exception:
+                pass
+            return None
+
+        meta = self._build_metadata(vid_title, mode, cfg, vid_id)
+        if self.tracker.is_title_used(meta["title"]):
+            meta["title"] = f"{meta['title'].replace('#Shorts', '').strip()[:62]} [{vid_id[:4]}] #Shorts"
+
+        render_dur = min(31.0, max(10.0, probe["duration"] - 0.1))
+        clean_banner = self._clean_banner(meta["banner"])
+        font_opt = self._get_font_opt()
+        os.makedirs(os.path.dirname(output_video_path) or ".", exist_ok=True)
+
+        vf = (
+            "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,"
+            f"drawtext={font_opt}text='{clean_banner}':fontsize=50:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=210[v]"
+        )
+        ff_cmd = [
+            "ffmpeg", "-y",
+            "-i", raw_file,
+            "-t", f"{render_dur:.2f}",
+            "-filter_complex", vf,
+            "-map", "[v]",
+            "-map", "0:a?" if not require_audio else "0:a",
+            "-af", "loudnorm=I=-14:TP=-1.5:LRA=11",
+            "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p",
+            "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
+            output_video_path
+        ]
+        ff_res = subprocess.run(ff_cmd, capture_output=True, text=True)
+        if ff_res.returncode != 0 or not os.path.exists(output_video_path):
+            print(f"⚠️ FFmpeg format failed for {vid_id}: {ff_res.stderr[-200:]}")
+            return None
+
+        thumb_path = self.thumb_gen.generate(
+            video_path=raw_file,
+            output_thumb_path=output_thumb_path,
+            badge_text=meta["banner"],
+            timestamp_sec=min(3.5, render_dur * 0.4),
+            slot_index=slot_index,
+            tracker=self.tracker,
+            batch_hashes=batch_hashes,
+        )
+
+        session_ids.add(vid_id)
+        try:
+            os.remove(raw_file)
+        except Exception:
+            pass
+
+        return {
+            "video_path": output_video_path,
+            "thumbnail_path": thumb_path,
+            "thumbnail_dhash": self.thumb_gen.last_dhash,
+            "duration": render_dur,
+            "title": meta["title"],
+            "description": meta["description"],
+            "tags": meta["tags"],
+            "source_id": vid_id,
+            "source_url": target_url,
+            "creator": cfg["creator"],
+            "query": query,
+        }
+
     def discover_and_render_slot(
         self,
         mode: str,
@@ -195,17 +349,19 @@ Return strict JSON:
         require_audio: bool = True,
     ) -> Optional[Dict[str, Any]]:
         """
-        Discovers a 100% never-before-used clip via yt-dlp across rotating queries,
-        downloads peak section with authentic original audio, renders 1080x1920 Short,
-        and generates a dHash-verified unique thumbnail.
+        Discovers a 100% never-before-used clip via YouTube (with Node JS runtime)
+        and automatically falls back to Twitch Viral Gaming Clips on cloud IPs
+        if YouTube bot-blocks datacenter downloads.
         """
         pool = GAMING_QUERY_POOL if mode == "gaming" else VIRAL_TRENDING_POOL
         session_ids = session_used_ids if session_used_ids is not None else set()
-
-        # Rotate starting query across days & slots so queries stay diverse
         start_q_idx = (day_offset * 7 + slot_index - 1) % len(pool)
 
-        for q_offset in range(min(5, len(pool))):
+        # 1. Try YouTube discovery (try up to 3 rotating queries, 3 candidates each)
+        yt_bot_blocked = False
+        for q_offset in range(min(3, len(pool))):
+            if yt_bot_blocked:
+                break
             cfg = pool[(start_q_idx + q_offset) % len(pool)]
             query = cfg["q"]
             print(f"🔍 [{mode.upper()} | Slot {slot_index}] Searching YouTube: '{query}'...")
@@ -213,10 +369,11 @@ Return strict JSON:
             search_cmd = [
                 sys.executable, "-m", "yt_dlp",
                 "--no-update",
-                "--extractor-args", "youtube:player_client=android,ios,mweb",
+                "--js-runtimes", "node",
+                "--extractor-args", "youtube:player_client=android,tv,web",
                 "--flat-playlist",
                 "--print", "%(id)s|||%(title)s|||%(duration)s",
-                f"ytsearch20:{query}"
+                f"ytsearch15:{query}"
             ]
             candidates = []
             try:
@@ -228,30 +385,25 @@ Return strict JSON:
                     vid_id, vid_title, dur_raw = parts[0].strip(), parts[1].strip(), parts[2].strip()
                     if not vid_id or len(vid_id) != 11:
                         continue
-                    if vid_id in session_ids or self.tracker.is_source_used(vid_id):
-                        continue
-                    if self.tracker.is_title_used(vid_title):
+                    if vid_id in session_ids or self.tracker.is_source_used(vid_id) or self.tracker.is_title_used(vid_title):
                         continue
                     try:
                         dur = float(dur_raw) if dur_raw not in ("NA", "None", "") else 45.0
                     except ValueError:
                         dur = 45.0
-                    if dur < 10 or dur > 3600:
-                        continue
-                    candidates.append((vid_id, vid_title, dur))
+                    if 10 <= dur <= 3600:
+                        candidates.append((vid_id, vid_title, dur))
             except Exception as e:
                 print(f"Warning: yt-dlp search error for '{query}': {e}")
                 continue
 
-            for vid_id, vid_title, dur in candidates[:6]:
+            for vid_id, vid_title, dur in candidates[:3]:
                 target_url = f"https://www.youtube.com/watch?v={vid_id}"
                 out_prefix = f"fresh_{mode}_{vid_id}"
                 out_tmpl = os.path.join(self.downloads_dir, f"{out_prefix}.%(ext)s")
 
-                # Smart duration-aware clip range (never slice past end of Shorts!)
                 if dur <= 58:
-                    t_start = 0
-                    t_end = min(33, int(dur))
+                    t_start, t_end = 0, min(33, int(dur))
                 else:
                     t_start = max(15, min(int(dur * 0.32), int(dur) - 32))
                     t_end = t_start + 30
@@ -260,8 +412,10 @@ Return strict JSON:
                 dl_cmd = [
                     sys.executable, "-m", "yt_dlp",
                     "--no-update",
-                    "--extractor-args", "youtube:player_client=android,ios,mweb",
-                    "-f", "b[height<=1080][acodec!=none]/b[height<=720]/best",
+                    "--js-runtimes", "node",
+                    "--extractor-args", "youtube:player_client=android,tv,web",
+                    "-f", "bv*[height<=720]+ba/b[height<=720]/b",
+                    "--merge-output-format", "mp4",
                     "--download-sections", sec_spec,
                     "--force-keyframes-at-cuts",
                     "-o", out_tmpl,
@@ -269,94 +423,88 @@ Return strict JSON:
                     target_url
                 ]
 
-                print(f"📥 Downloading {vid_id} ({sec_spec})...")
+                print(f"📥 Downloading YouTube {vid_id} ({sec_spec})...")
                 try:
                     dl_res = subprocess.run(dl_cmd, capture_output=True, text=True, timeout=55)
                     if dl_res.returncode != 0:
+                        err_tail = (dl_res.stderr or "").strip().splitlines()[-2:]
+                        err_msg = " | ".join(err_tail)
+                        print(f"⚠️ yt-dlp YouTube error ({vid_id}): {err_msg[:180]}")
+                        if "Sign in to confirm" in (dl_res.stderr or "") or "not a bot" in (dl_res.stderr or ""):
+                            yt_bot_blocked = True
+                            break
                         continue
-                except Exception:
+                except Exception as dl_exc:
+                    print(f"⚠️ Download timeout/error ({vid_id}): {dl_exc}")
                     continue
 
                 found = [f for f in glob.glob(os.path.join(self.downloads_dir, f"{out_prefix}*.*")) if not f.endswith(".part")]
                 if not found or os.path.getsize(found[0]) < 150000:
                     continue
 
-                raw_file = found[0]
-                probe = self._probe_streams(raw_file)
-                if not probe["has_video"] or probe["duration"] < 8.0:
-                    try:
-                        os.remove(raw_file)
-                    except Exception:
-                        pass
-                    continue
-                if require_audio and not probe["has_audio"]:
-                    print(f"⚠️ Skipping {vid_id} — missing authentic audio track.")
-                    try:
-                        os.remove(raw_file)
-                    except Exception:
-                        pass
-                    continue
-
-                meta = self._build_metadata(vid_title, mode, cfg, vid_id)
-                if self.tracker.is_title_used(meta["title"]):
-                    meta["title"] = f"{meta['title'].replace('#Shorts', '').strip()[:62]} [{vid_id[:4]}] #Shorts"
-
-                # Format 1080x1920 vertical with original audio ONLY (NO AI voice!) + crisp loudnorm
-                render_dur = min(31.0, max(10.0, probe["duration"] - 0.1))
-                clean_banner = self._clean_banner(meta["banner"])
-                font_opt = self._get_font_opt()
-                os.makedirs(os.path.dirname(output_video_path) or ".", exist_ok=True)
-
-                vf = (
-                    "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,"
-                    f"drawtext={font_opt}text='{clean_banner}':fontsize=50:fontcolor=yellow:box=1:boxcolor=black@0.85:boxborderw=18:x=(w-text_w)/2:y=210[v]"
-                )
-                ff_cmd = [
-                    "ffmpeg", "-y",
-                    "-i", raw_file,
-                    "-t", f"{render_dur:.2f}",
-                    "-filter_complex", vf,
-                    "-map", "[v]",
-                    "-map", "0:a?" if not require_audio else "0:a",
-                    "-af", "loudnorm=I=-14:TP=-1.5:LRA=11",
-                    "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p",
-                    "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
-                    output_video_path
-                ]
-                ff_res = subprocess.run(ff_cmd, capture_output=True, text=True)
-                if ff_res.returncode != 0 or not os.path.exists(output_video_path):
-                    print(f"⚠️ FFmpeg format failed for {vid_id}: {ff_res.stderr[-200:]}")
-                    continue
-
-                # Extract thumbnail BEFORE banner or from peak moment, guaranteed unique dHash
-                thumb_path = self.thumb_gen.generate(
-                    video_path=raw_file,
-                    output_thumb_path=output_thumb_path,
-                    badge_text=meta["banner"],
-                    timestamp_sec=min(3.5, render_dur * 0.4),
+                finalized = self._finalize_clip(
+                    raw_file=found[0],
+                    vid_id=vid_id,
+                    vid_title=vid_title,
+                    target_url=target_url,
+                    mode=mode,
+                    cfg=cfg,
                     slot_index=slot_index,
-                    tracker=self.tracker,
+                    output_video_path=output_video_path,
+                    output_thumb_path=output_thumb_path,
+                    session_ids=session_ids,
                     batch_hashes=batch_hashes,
+                    require_audio=require_audio,
+                    query=query,
                 )
+                if finalized:
+                    return finalized
 
-                session_ids.add(vid_id)
+        # 2. Twitch Viral Gaming Clips (works 100% cleanly on GitHub Actions cloud IPs without Google bot blocks!)
+        if mode == "gaming":
+            print(f"🎮 [GAMING | Slot {slot_index}] Discovering fresh viral Twitch gaming clips...")
+            tw_cands = self._discover_twitch_candidates(slot_index, day_offset, session_ids)
+            for slug, tw_title, dur, tw_url, cfg_item in tw_cands[:6]:
+                out_prefix = f"fresh_twitch_{slug[:24]}"
+                out_tmpl = os.path.join(self.downloads_dir, f"{out_prefix}.%(ext)s")
+                dl_cmd = [
+                    sys.executable, "-m", "yt_dlp",
+                    "--no-update",
+                    "-f", "b/bv*[height<=720]+ba/best",
+                    "-o", out_tmpl,
+                    "--no-playlist",
+                    tw_url,
+                ]
+                print(f"📥 Downloading Twitch clip {slug[:20]} ({cfg_item['creator']})...")
                 try:
-                    os.remove(raw_file)
-                except Exception:
-                    pass
+                    dl_res = subprocess.run(dl_cmd, capture_output=True, text=True, timeout=45)
+                    if dl_res.returncode != 0:
+                        print(f"⚠️ Twitch download err: {(dl_res.stderr or '')[-150:]}")
+                        continue
+                except Exception as exc:
+                    print(f"⚠️ Twitch timeout: {exc}")
+                    continue
 
-                return {
-                    "video_path": output_video_path,
-                    "thumbnail_path": thumb_path,
-                    "thumbnail_dhash": self.thumb_gen.last_dhash,
-                    "duration": render_dur,
-                    "title": meta["title"],
-                    "description": meta["description"],
-                    "tags": meta["tags"],
-                    "source_id": vid_id,
-                    "source_url": target_url,
-                    "creator": cfg["creator"],
-                    "query": query,
-                }
+                found = [f for f in glob.glob(os.path.join(self.downloads_dir, f"{out_prefix}*.*")) if not f.endswith(".part")]
+                if not found or os.path.getsize(found[0]) < 150000:
+                    continue
+
+                finalized = self._finalize_clip(
+                    raw_file=found[0],
+                    vid_id=slug,
+                    vid_title=tw_title,
+                    target_url=tw_url,
+                    mode=mode,
+                    cfg=cfg_item,
+                    slot_index=slot_index,
+                    output_video_path=output_video_path,
+                    output_thumb_path=output_thumb_path,
+                    session_ids=session_ids,
+                    batch_hashes=batch_hashes,
+                    require_audio=require_audio,
+                    query=f"twitch:{cfg_item['creator']}",
+                )
+                if finalized:
+                    return finalized
 
         return None

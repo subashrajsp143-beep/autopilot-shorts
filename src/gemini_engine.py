@@ -268,6 +268,83 @@ Return strictly valid JSON:
         parsed["lines"] = clean_lines
         return parsed
 
+    def generate_webseries_movie_story(
+        self,
+        franchise: str,
+        used_titles: Optional[List[str]] = None,
+        used_subjects: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
+        """
+        Generates a 100% original, copyright-safe 2D/3D animated storytelling/parody/what-if
+        Hindi script inspired by Indian Web Series (Panchayat, Mirzapur, Scam 1992, Kota Factory,
+        Family Man, Gullak) and Iconic Movies (Hera Pheri, 3 Idiots, Stree, KGF, Pushpa, Munna Bhai).
+        """
+        avoid_titles = (used_titles or [])[-40:]
+        avoid_subjects = (used_subjects or [])[-60:]
+
+        prompt = f"""
+You are a viral Indian YouTube Shorts animation creator writing hilarious, gripping, copyright-safe
+animated scenes/parodies/untold fan-stories inspired by Indian Web Series and Movies.
+Target Franchise / Vibe: {franchise}
+
+STRICT ANTI-REPEAT RULE:
+NEVER repeat any of these previously covered topics/titles:
+- Used subject keys: {json.dumps(avoid_subjects, ensure_ascii=False)}
+- Recent titles: {json.dumps(avoid_titles, ensure_ascii=False)}
+
+STORY & DIALOGUE RULES:
+1. Write 7 to 9 short punchy Hindi lines (~70 to 90 words total, ~28-35 seconds) as an animated scene (funny "What if...", clever parody twist, untold fan-theory, or iconic character dilemma — 100% original writing, NOT copied verbatim script).
+2. Line 1 MUST hook immediately in 0-2 seconds!
+3. Choose matching visual set `"world"` strictly from:
+   ["panchayat_village", "mirzapur_hall", "scam_office", "college_hostel", "chawl_comedy", "cinema_night"]
+4. Choose `"char_a"` and `"char_b"` appearance colors/props matching the characters (e.g. kurta + moustache for village leader, dark blazer + glasses for boss/scammer, bright casual shirt for comedy hero).
+5. Each line has:
+   - "text": clean conversational Hindi Devanagari line (no stage directions, no brackets, no speaker prefix like "A:")
+   - "caps": 1-3 word chunks separated by "|", with ONE "*" yellow highlight word per chunk
+   - "speaker": "A", "B", or "narrator"
+   - "shot": strictly one of ["two_shot", "closeup_a", "closeup_b", "dramatic_zoom"]
+   - "emotion_a": strictly one of ["normal", "shock", "angry", "laugh"]
+   - "emotion_b": strictly one of ["normal", "shock", "angry", "laugh"]
+   - "pill": optional 1-3 word UPPERCASE ENGLISH reaction tag (e.g. "GAJAB BEZZATI!", "MIRZAPUR TWIST", "25 DIN DOUBLE!", "RISK HAI!") or ""
+   - "sfx": strictly one of ["pop", "whoosh", "slam", "boing", "sparkle", "thud", "alarm"]
+
+Return strictly valid JSON:
+{{
+  "subject_key": "short_unique_snake_case_key",
+  "title": "Catchy Hindi Title With Emoji Under 68 Chars #Shorts",
+  "description": "2-line engaging Hindi summary + 6 viral hashtags",
+  "tags": ["shorts", "viral", "animated", "webseries", "panchayat", "mirzapur", "comedy"],
+  "music": "bed",
+  "world": "panchayat_village",
+  "banner": "2-4 UPPERCASE ENGLISH WORDS ONLY (NO HINDI, NO EMOJIS)",
+  "char_a": {{"skin": "#DFA37D", "shirt": "#F8F9FA", "shirtShade": "#DCE2EC", "hair": "#231F20", "moustache": true, "glasses": false, "beard": false}},
+  "char_b": {{"skin": "#E6B898", "shirt": "#2E67BE", "shirtShade": "#1F4B94", "hair": "#2D221C", "moustache": false, "glasses": false, "beard": true}},
+  "lines": [
+    {{"text": "...", "caps": "...", "speaker": "narrator", "shot": "two_shot", "emotion_a": "normal", "emotion_b": "shock", "pill": "", "sfx": "pop"}}
+  ]
+}}
+"""
+        parsed = self._call_gemini_json(prompt)
+        clean_lines = []
+        for ln in parsed.get("lines", []):
+            txt = re.sub(r'\[.*?\]|\(.*?\)', '', str(ln.get("text", ""))).strip()
+            txt = re.sub(r'^[ABab]\s*:\s*', '', txt)
+            txt = re.sub(r'\s+', ' ', txt)
+            if not txt:
+                continue
+            clean_lines.append({
+                "text": txt,
+                "caps": str(ln.get("caps", "")).strip(),
+                "speaker": str(ln.get("speaker", "A")),
+                "shot": str(ln.get("shot", "two_shot")),
+                "emotion_a": str(ln.get("emotion_a", "normal")),
+                "emotion_b": str(ln.get("emotion_b", "normal")),
+                "pill": str(ln.get("pill", "")).strip()[:24],
+                "sfx": str(ln.get("sfx", "whoosh")).strip(),
+            })
+        parsed["lines"] = clean_lines
+        return parsed
+
 
 if __name__ == "__main__":
     engine = GeminiEngine()

@@ -801,7 +801,7 @@ def generate_daily_10_batch(
                 CHANNEL_CATEGORIES = {
                     1: "27",  # Education / Zack D. Films 3D Hindi Explainers
                     2: "20",  # Gaming / Viral Gaming Clips (Original Language)
-                    3: "24",  # Entertainment / Trending Viral Clips
+                    3: "1",   # Film & Animation / Web Series & Movies Animated Scenes
                 }
                 ch_category = CHANNEL_CATEGORIES.get(ch_id, "24")
 

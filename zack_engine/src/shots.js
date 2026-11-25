@@ -12,6 +12,61 @@ export function buildShots(storyboard = {}) {
   const lines = storyboard.lines || [];
   const totalLines = Math.max(1, T.lines ? T.lines.length : lines.length);
 
+  if (storyboard.mode === 'story') {
+    const world = storyboard.world || 'panchayat_village';
+    const charA = storyboard.char_a || { shirt: '#F8F9FA', shirtShade: '#DCE2EC', moustache: true, skin: '#DFA37D', hair: '#231F20' };
+    const charB = storyboard.char_b || { shirt: '#2E67BE', shirtShade: '#1F4B94', glasses: false, skin: '#E6B898', hair: '#2D221C' };
+
+    for (let i = 0; i < totalLines; i++) {
+      const st = cut(i);
+      const meta = lines[i] || {};
+      const shotType = String(meta.shot || (i === 0 ? 'two_shot' : i % 2 === 1 ? 'closeup_a' : 'closeup_b'));
+      const speaker = String(meta.speaker || (i % 2 === 0 ? 'A' : 'B'));
+      const pillTxt = meta.pill ? String(meta.pill) : '';
+      const sfx = String(meta.sfx || (i === 0 ? 'pop' : 'whoosh'));
+
+      if (i > 0) cue(st, 'whoosh', { gain: 0.65 });
+      if (sfx && sfx !== 'whoosh') cue(st + 0.12, sfx, { gain: 0.72 });
+
+      const camFocus = shotType === 'closeup_a' ? [340, 820] : shotType === 'closeup_b' ? [740, 820] : [540, 880];
+      add({
+        id: `S${String(i + 1).padStart(2, '0')}`,
+        at: st,
+        cam: camFocus,
+        zoom: shotType === 'dramatic_zoom' ? 0.12 : 0.07,
+        note: `${world} · ${shotType}`,
+        draw(lt, d, t) {
+          K.storyWorld(world, t);
+          const emA = meta.emotion_a || (speaker === 'A' ? 'normal' : 'shock');
+          const emB = meta.emotion_b || (speaker === 'B' ? 'angry' : 'normal');
+          const armA = speaker === 'A' ? K.ARM.point : (emA === 'shock' ? K.ARM.mouth : K.ARM.hip);
+          const armB = speaker === 'B' ? K.ARM.point : (emB === 'shock' ? K.ARM.mouth : K.ARM.down);
+
+          if (shotType === 'closeup_a') {
+            K.actor({ ...charA, x: 540, y: 1200, s: 1.55, emotion: emA, talk: speaker === 'A' || speaker === 'narrator', t, armR: armA });
+          } else if (shotType === 'closeup_b') {
+            K.actor({ ...charB, x: 540, y: 1200, s: 1.55, emotion: emB, talk: speaker === 'B' || speaker === 'narrator', t, armR: armB, flip: true });
+          } else {
+            // Two-character dialogue scene (spaced cleanly so arms never touch neighbor's face)
+            const sc = shotType === 'dramatic_zoom' ? 1.04 : 0.96;
+            K.actor({ ...charA, x: 265, y: 1240, s: sc, emotion: emA, talk: speaker === 'A' || speaker === 'narrator', t, armR: armA });
+            K.actor({ ...charB, x: 815, y: 1240, s: sc, emotion: emB, talk: speaker === 'B', t, armR: armB, flip: true });
+          }
+
+          if (emA === 'shock' || emB === 'shock') {
+            K.shockLines(shotType === 'closeup_b' ? 540 : 340, 620, 170, seg(lt, 0.15, 0.5) * (1 - seg(lt, 0.9, 1.3)));
+          }
+          if (pillTxt && !globalThis.__CLEAN_FRAME) {
+            const popSc = eob(seg(lt, 0.15, 0.42));
+            const bgCol = /GAJAB|DANGER|ALERT|SHOCK|BAWAL|FIRE|ATTACK/i.test(pillTxt) ? C.red : C.ink;
+            K.pill(pillTxt, 540, 310, 52, bgCol, C.white, popSc);
+          }
+        }
+      });
+    }
+    return { shots: S, cues: CUES };
+  }
+
   for (let i = 0; i < totalLines; i++) {
     const st = cut(i);
     const meta = lines[i] || {};

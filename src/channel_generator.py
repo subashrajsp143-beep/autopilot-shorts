@@ -28,6 +28,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
+from src.animated_story_engine import AnimatedStoryEngine, FALLBACK_STORY_TOPICS
 from src.dynamic_creator_engine import DynamicCreatorEngine
 from src.gemini_engine import GeminiEngine
 from src.history_tracker import HistoryTracker
@@ -41,6 +42,18 @@ ZACK_NICHES = [
     "Space & Cosmos Extremes",
     "Deep Ocean & Earth Wonders",
     "Dark Psychology & Mind Tricks",
+]
+
+STORY_FRANCHISES = [
+    "Panchayat (Phulera village comedy & Sachiv/Pradhan parody)",
+    "Mirzapur (Gangster throne room comedy/twist parody)",
+    "Hera Pheri / Phir Hera Pheri (Baburao-Raju-Shyam scheme comedy)",
+    "3 Idiots / Kota Factory (College hostel & viva parody)",
+    "Scam 1992 (Stock market hustle & office drama parody)",
+    "The Family Man (Secret agent balancing home & mission)",
+    "Stree / Bhool Bhulaiyaa (Spooky comedy night mystery)",
+    "KGF / Pushpa / Bahubali (Epic mass dialogue parody)",
+    "Munna Bhai MBBS / Gullak (Heartwarming & hilarious Indian twist)",
 ]
 
 
@@ -171,11 +184,10 @@ def generate_channel_batch(
             except Exception as err:
                 print(f"  ❌ Ch1 Slot {slot} render failed: {err}")
 
-    elif channel_id in (2, 3):
+    elif channel_id == 2:
         # CHANNEL 2: Viral Gaming Clips (Original language & audio ONLY — NO AI Voice)
-        # CHANNEL 3: Pure Trending Viral Clips ("Jo Viral Hai Wahi")
-        mode = "gaming" if channel_id == 2 else "viral_trending"
-        label = "Gaming Clip (Original Audio)" if channel_id == 2 else "Trending Viral Short"
+        mode = "gaming"
+        label = "Gaming Clip (Original Audio)"
         creator_engine = DynamicCreatorEngine(
             downloads_dir=os.path.join("assets", "downloads", f"ch{channel_id}"),
             output_dir=channel_dir,
@@ -222,6 +234,94 @@ def generate_channel_batch(
                 print(f"  ✓ Ready Ch{channel_id} Slot {slot}: {res['title'][:48]} ({res['source_id']})")
             except Exception as err:
                 print(f"  ❌ Ch{channel_id} Slot {slot} failed: {err}")
+
+    elif channel_id == 3:
+        # CHANNEL 3: Web Series & Movies 2D/3D Animated Scenes (Panchayat, Mirzapur, Movies)
+        story_engine = AnimatedStoryEngine(engine_dir="zack_engine", output_dir=channel_dir)
+        gemini = GeminiEngine()
+
+        used_titles = list(tracker.history.get("used_script_titles", []))
+        used_subjects = list(tracker.history.get("used_subject_keys", []))
+        session_subjects: Set[str] = set()
+
+        for slot in range(1, count + 1):
+            franchise = STORY_FRANCHISES[(day_offset + slot - 1) % len(STORY_FRANCHISES)]
+            blueprint = None
+
+            if gemini.is_available():
+                for attempt in range(3):
+                    try:
+                        cand = gemini.generate_webseries_movie_story(
+                            franchise=franchise,
+                            used_titles=used_titles,
+                            used_subjects=used_subjects + list(session_subjects),
+                        )
+                        sk = str(cand.get("subject_key") or f"story_{day_offset}_{slot}_{attempt}").strip().lower()
+                        title = str(cand.get("title") or "").strip()
+                        source_id = f"story3d_{sk}"
+
+                        if (
+                            cand.get("lines")
+                            and sk not in session_subjects
+                            and not tracker.is_subject_used(sk)
+                            and not tracker.is_source_used(source_id)
+                            and not tracker.is_title_used(title)
+                        ):
+                            cand["subject_key"] = sk
+                            blueprint = cand
+                            break
+                    except Exception as ge_err:
+                        print(f"⚠️ Gemini Ch3 attempt {attempt + 1} failed: {ge_err}")
+
+            if blueprint is None:
+                for fb in FALLBACK_STORY_TOPICS:
+                    sk = fb["subject_key"]
+                    source_id = f"story3d_{sk}"
+                    if sk not in session_subjects and not tracker.is_subject_used(sk) and not tracker.is_source_used(source_id) and not tracker.is_title_used(fb["title"]):
+                        blueprint = fb
+                        break
+
+            if blueprint is None:
+                print(f"⚠️ Skipping Channel 3 slot {slot}: no unique unused story topic available.")
+                continue
+
+            sk = blueprint["subject_key"]
+            source_id = f"story3d_{sk}"
+            session_subjects.add(sk)
+            used_subjects.append(sk)
+            used_titles.append(blueprint["title"])
+
+            out_vid = os.path.join(channel_dir, f"ch3_v{slot:02d}.mp4")
+            out_thumb = os.path.join(channel_dir, f"ch3_v{slot:02d}_thumb.jpg")
+            print(f"[{slot}/{count}] Channel 3 (Animated Story): Rendering '{blueprint['title'][:50]}'...")
+
+            try:
+                r = story_engine.render_story_short(
+                    blueprint=blueprint,
+                    output_video_path=out_vid,
+                    output_thumb_path=out_thumb,
+                    slot_index=slot,
+                    tracker=tracker,
+                    batch_hashes=batch_hashes,
+                )
+                results.append({
+                    "index": slot,
+                    "channel_id": 3,
+                    "type": f"Animated Story ({franchise.split('(')[0].strip()})",
+                    "title": r["title"],
+                    "description": r["description"],
+                    "tags": r["tags"],
+                    "video_path": r["video_path"],
+                    "thumbnail_path": r["thumbnail_path"],
+                    "thumbnail_dhash": r["thumbnail_dhash"],
+                    "duration": r["duration"],
+                    "source_id": source_id,
+                    "subject_key": sk,
+                    "query": franchise,
+                })
+                print(f"  ✓ Rendered Ch3 Slot {slot}: {os.path.basename(r['video_path'])}")
+            except Exception as err:
+                print(f"  ❌ Ch3 Slot {slot} render failed: {err}")
 
     print(f"\n✅ Ready with {len(results)}/{count} unique videos for Channel {channel_id}!\n")
     return results
