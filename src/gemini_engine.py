@@ -74,7 +74,10 @@ class GeminiEngine:
                 if response.status_code == 200:
                     res_json = response.json()
                     raw_text = res_json["candidates"][0]["content"]["parts"][0]["text"]
-                    return json.loads(raw_text)
+                    parsed_obj = json.loads(raw_text)
+                    if isinstance(parsed_obj, list) and parsed_obj and isinstance(parsed_obj[0], dict):
+                        return parsed_obj[0]
+                    return parsed_obj
                 else:
                     last_error = f"{model} returned {response.status_code}: {response.text[:120]}"
             except Exception as e:

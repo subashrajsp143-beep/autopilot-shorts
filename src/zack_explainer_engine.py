@@ -89,21 +89,37 @@ class ZackExplainerEngine:
 
     @staticmethod
     async def _tts_line(text: str, tmp_dir: Path, idx: int, voice: str = "hi-IN-MadhurNeural") -> Tuple[np.ndarray, List[Dict[str, Any]]]:
+        clean_text = re.sub(r'[^\w\s\u0900-\u097F.,?!\'"-]', ' ', str(text or '')).strip()
+        clean_text = re.sub(r'\s+', ' ', clean_text) or "आगे देखिए।"
         mp3_path = tmp_dir / f"line_{idx}.mp3"
         wav_path = tmp_dir / f"line_{idx}.wav"
-        comm = edge_tts.Communicate(text, voice=voice, rate="+6%", boundary="WordBoundary")
         words: List[Dict[str, Any]] = []
         audio_bytes = bytearray()
 
-        async for msg in comm.stream():
-            if msg["type"] == "audio":
-                audio_bytes.extend(msg["data"])
-            elif msg["type"] == "WordBoundary":
-                start_s = msg["offset"] / 1e7
-                dur_s = msg["duration"] / 1e7
-                words.append({"w": msg["text"], "s": start_s, "e": start_s + dur_s})
+        for att_idx, v_name in enumerate([voice, "hi-IN-MadhurNeural", "hi-IN-SwaraNeural"]):
+            try:
+                words.clear()
+                audio_bytes.clear()
+                comm = edge_tts.Communicate(clean_text, voice=v_name, rate="+6%", boundary="WordBoundary")
+                async for msg in comm.stream():
+                    if msg["type"] == "audio":
+                        audio_bytes.extend(msg["data"])
+                    elif msg["type"] == "WordBoundary":
+                        start_s = msg["offset"] / 1e7
+                        dur_s = msg["duration"] / 1e7
+                        words.append({"w": msg["text"], "s": start_s, "e": start_s + dur_s})
+                if len(audio_bytes) > 500:
+                    break
+            except Exception as tts_err:
+                print(f"⚠️ edge-tts attempt {att_idx + 1} failed ({tts_err}); retrying...")
+                await asyncio.sleep(0.8)
 
-        mp3_path.write_bytes(bytes(audio_bytes))
+        if len(audio_bytes) <= 500:
+            from gtts import gTTS
+            gTTS(text=clean_text, lang="hi").save(str(mp3_path))
+        else:
+            mp3_path.write_bytes(bytes(audio_bytes))
+
         subprocess.run(
             ["ffmpeg", "-v", "error", "-y", "-i", str(mp3_path), "-ar", "48000", "-ac", "2", str(wav_path)],
             check=True,
@@ -115,7 +131,7 @@ class ZackExplainerEngine:
         # Fallback word timing if edge-tts did not emit WordBoundary for any reason
         dur = len(pcm) / 48000.0
         if not words:
-            tokens = [t for t in text.split() if t.strip()]
+            tokens = [t for t in clean_text.split() if t.strip()]
             step = dur / max(1, len(tokens))
             words = [{"w": tok, "s": k * step, "e": (k + 1) * step} for k, tok in enumerate(tokens)]
 
