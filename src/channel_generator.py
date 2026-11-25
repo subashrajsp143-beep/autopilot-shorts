@@ -1,20 +1,25 @@
-from src.thumbnail_generator import ThumbnailGenerator
 """
-Channel Batch Generator
------------------------
-Generates 10 distinct, non-overlapping Shorts tailored specifically
-for each of the 3 YouTube channels:
-- Channel 3: Sports, Football & IShowSpeed with high-energy Hindi commentary
-- Channel 1: FactTechz-style HD moving video B-roll documentary Shorts
-- Channel 2: Mind-Blowing Science, Hydraulic Press & Guinness World Records
+Channel Batch Generator (3 Distinct Niches, Zero Repeats)
+---------------------------------------------------------
+- Channel 1 (MiniTalesWorld): Zack D. Films-style Hindi 3D/X-Ray Animated Explainers
+  via zack_engine/ + Gemini non-repeating topic generation + edge-tts WordBoundary.
+- Channel 2 (Pawsome Productions): Viral Gaming Clips in their ORIGINAL creator language
+  & authentic audio (NO AI Voice!) — CarryMinati, IShowSpeed, Techno Gamerz, Kai Cenat,
+  CaseOh, Scout, Triggered Insaan, BeastBoyShub, Total Gaming, etc.
+- Channel 3 (Next Level Facts): Pure Trending Viral Clips ("Jo Viral Hai Wahi") —
+  Guinness Records, Hydraulic Press, Physics Magic, MrBeast Challenges, Trick Shots.
 
-Includes dynamic daily rotation so every single day gets fresh scripts & titles!
+Strict Guarantees:
+- Never reuses stale pre-rendered MP4 files from prior days.
+- Never repeats source IDs, semantic subject keys, or similar titles.
+- Never repeats thumbnails (enforced via 64-bit perceptual dHash).
 """
 
+import glob
 import os
 import sys
-import subprocess
-from typing import List, Dict, Any, Optional
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Set
 
 if sys.platform == "win32":
     try:
@@ -23,279 +28,200 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-from src.channel_blueprints import get_channel_blueprints, CHANNEL_3_POOL
-from src.action_hindi_renderer import render_action_clip_hindi
-from src.video_maker import VideoMaker
-from src.voice_generator import generate_audio
+from src.dynamic_creator_engine import DynamicCreatorEngine
+from src.gemini_engine import GeminiEngine
+from src.history_tracker import HistoryTracker
+from src.zack_explainer_engine import FALLBACK_ZACK_TOPICS, ZackExplainerEngine
+
+
+ZACK_NICHES = [
+    "Human Body Science (What happens if...)",
+    "Brain & Sleep Mysteries",
+    "Weird Medical & Survival Facts",
+    "Space & Cosmos Extremes",
+    "Deep Ocean & Earth Wonders",
+    "Dark Psychology & Mind Tricks",
+]
+
+
+def _clear_stale_channel_outputs(channel_dir: str):
+    """Deletes previous batch video/thumb/audio artifacts so old clips are never reused."""
+    os.makedirs(channel_dir, exist_ok=True)
+    for pattern in ("*.mp4", "*.jpg", "*.mp3", "*.wav", "*.ass"):
+        for fpath in glob.glob(os.path.join(channel_dir, pattern)):
+            try:
+                os.remove(fpath)
+            except Exception:
+                pass
 
 
 def generate_channel_batch(
     channel_id: int,
     base_output_dir: str = "output/batch_today",
-    force_render: bool = False,
-    day_offset: Optional[int] = None
+    force_render: bool = True,
+    day_offset: Optional[int] = None,
+    target_count: Optional[int] = None,
 ) -> List[Dict[str, Any]]:
     """
-    Renders or loads 10 unique Shorts for the specified channel ID (1, 2, or 3).
-    Guarantees zero cross-channel duplicate videos or scripts with dynamic daily rotation.
+    Generates a fresh, strictly non-repeating batch of Shorts for the given channel ID.
     """
+    if day_offset is None:
+        day_offset = datetime.now().timetuple().tm_yday
+
+    count = target_count or int(os.environ.get(f"DAILY_QUOTA_CH{channel_id}", 6))
     channel_dir = os.path.join(base_output_dir, f"channel_{channel_id}")
-    os.makedirs(channel_dir, exist_ok=True)
+    _clear_stale_channel_outputs(channel_dir)
+
+    tracker = HistoryTracker()
     results: List[Dict[str, Any]] = []
+    batch_hashes: Set[str] = set()
 
-    # Get today's dynamic rotating blueprints
-    blueprints = get_channel_blueprints(channel_id, count=10, day_offset=day_offset)
-
-    print(f"\n=======================================================")
-    print(f"🎬 Processing 10 Unique Hindi Shorts for Channel {channel_id}")
+    print("\n=======================================================")
+    print(f"🎬 Generating {count} Unique Shorts for Channel {channel_id}")
     print(f"📂 Output directory: {channel_dir}")
-    print(f"=======================================================\n")
+    print("=======================================================\n")
 
-    if channel_id == 3:
-        # CHANNEL 3: MrBeast Hindi Commentary & Transformative Shorts (Approved MrBeast Content Only)
-        from src.mrbeast_hindi_engine import MrBeastHindiEngine
-        beast_engine = MrBeastHindiEngine(output_dir=channel_dir)
+    if channel_id == 1:
+        # CHANNEL 1: Zack D. Films-style Hindi Explainers
+        zack_engine = ZackExplainerEngine(engine_dir="zack_engine", output_dir=channel_dir)
+        gemini = GeminiEngine()
 
-        for bp in blueprints:
-            slot = bp["slot"]
-            out_vid = os.path.join(channel_dir, f"ch3_v{slot:02d}.mp4")
-            out_thumb = os.path.join(channel_dir, f"ch3_v{slot:02d}_thumb.jpg")
+        used_titles = list(tracker.history.get("used_script_titles", []))
+        used_subjects = list(tracker.history.get("used_subject_keys", []))
+        session_subjects: Set[str] = set()
 
-            if not force_render and os.path.exists(out_vid) and os.path.getsize(out_vid) > 500000:
-                print(f"[{slot}/10] Channel 3: Using pre-rendered '{bp['title'][:45]}...'")
-                results.append({
-                    "index": slot,
-                    "channel_id": 3,
-                    "type": bp.get("type", "MrBeast Hindi Commentary Short"),
-                    "title": bp["title"],
-                    "description": bp["description"],
-                    "tags": bp["tags"],
-                    "video_path": out_vid,
-                    "thumbnail_path": out_thumb if os.path.exists(out_thumb) else None,
-                    "duration": 25.0,
-                    "source_id": bp.get("id", os.path.basename(bp.get("clip", ""))),
-                    "query": bp.get("query", "mrbeast_commentary"),
-                    "creator": bp.get("creator", "MrBeast"),
-                    "source_url": bp.get("source_url", "https://www.youtube.com/@MrBeast"),
-                    "reuse_permission_ref": bp.get("reuse_permission_ref", "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines"),
-                    "third_party_material_checked": bp.get("third_party_material_checked", True),
-                    "contains_third_party_music": bp.get("contains_third_party_music", False),
-                })
-            elif bp.get("engine") == "mrbeast_hindi":
-                print(f"[{slot}/10] Channel 3: Rendering MrBeast Hindi Commentary Short '{bp['title'][:45]}...'")
-                try:
-                    render_res = beast_engine.render_mrbeast_short(
-                        item=bp,
-                        output_video_path=out_vid,
-                        output_thumb_path=out_thumb
-                    )
-                    results.append({
-                        "index": slot,
-                        "channel_id": 3,
-                        "type": "MrBeast Hindi Commentary Short",
-                        "title": render_res["title"],
-                        "description": render_res["description"],
-                        "tags": render_res["tags"],
-                        "video_path": render_res["video_path"],
-                        "thumbnail_path": render_res["thumbnail_path"],
-                        "duration": render_res["duration"],
-                        "source_id": render_res["source_id"],
-                        "query": render_res["query"],
-                        "creator": render_res.get("creator", "MrBeast"),
-                        "source_url": render_res.get("source_url", "https://www.youtube.com/@MrBeast"),
-                        "reuse_permission_ref": render_res.get("reuse_permission_ref", "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines"),
-                        "third_party_material_checked": render_res.get("third_party_material_checked", True),
-                        "contains_third_party_music": render_res.get("contains_third_party_music", False),
-                    })
-                    print(f"  ✓ Rendered: {os.path.basename(render_res['video_path'])}")
-                except Exception as e:
-                    print(f"  ⚠️ Beast download notice ({e}). Falling back to local MrBeast short...")
-                    fallback_bp = CHANNEL_3_POOL[slot % len(CHANNEL_3_POOL)]
-                    render_res = render_action_clip_hindi(
-                        clip_path=fallback_bp["clip"],
-                        hindi_text=fallback_bp.get("hindi_script", ""),
-                        banner_text=fallback_bp["banner"],
-                        output_video_path=out_vid,
-                        output_thumb_path=out_thumb,
-                        use_ai_voice=True
-                    )
-                    results.append({
-                        "index": slot,
-                        "channel_id": 3,
-                        "type": "MrBeast Hindi Commentary Short",
-                        "title": fallback_bp["title"],
-                        "description": fallback_bp["description"],
-                        "tags": fallback_bp["tags"],
-                        "video_path": render_res["video_path"],
-                        "thumbnail_path": render_res["thumbnail_path"],
-                        "duration": render_res["duration"],
-                        "source_id": os.path.basename(fallback_bp["clip"]),
-                        "query": "mrbeast_commentary_fallback",
-                        "creator": fallback_bp.get("creator", "MrBeast"),
-                        "source_url": fallback_bp.get("source_url", "https://www.youtube.com/@MrBeast"),
-                        "reuse_permission_ref": fallback_bp.get("reuse_permission_ref", "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines"),
-                        "third_party_material_checked": fallback_bp.get("third_party_material_checked", True),
-                        "contains_third_party_music": fallback_bp.get("contains_third_party_music", False),
-                    })
-                    print(f"  ✓ Rendered fallback: {os.path.basename(render_res['video_path'])}")
-            else:
-                print(f"[{slot}/10] Channel 3: Rendering MrBeast Commentary Short '{bp['title'][:45]}...'")
-                render_res = render_action_clip_hindi(
-                    clip_path=bp["clip"],
-                    hindi_text=bp.get("hindi_script", ""),
-                    banner_text=bp["banner"],
-                    output_video_path=out_vid,
-                    output_thumb_path=out_thumb,
-                    use_ai_voice=True,  # Transformative original Hindi voiceover commentary & dynamic subtitles!
-                    thumb_time=bp.get("thumb_time", 3.2),
-                    slot_index=slot
-                )
-                results.append({
-                    "index": slot,
-                    "channel_id": 3,
-                    "type": "MrBeast Hindi Commentary Short",
-                    "title": bp["title"],
-                    "description": bp["description"],
-                    "tags": bp["tags"],
-                    "video_path": render_res["video_path"],
-                    "thumbnail_path": render_res["thumbnail_path"],
-                    "duration": render_res["duration"],
-                    "source_id": os.path.basename(bp["clip"]),
-                    "query": "mrbeast_hindi_commentary",
-                    "creator": bp.get("creator", "MrBeast"),
-                    "source_url": bp.get("source_url", "https://www.youtube.com/@MrBeast"),
-                    "reuse_permission_ref": bp.get("reuse_permission_ref", "docs/CONTENT_PERMISSIONS.md#mrbeast-content-reuse-guidelines"),
-                    "third_party_material_checked": bp.get("third_party_material_checked", True),
-                    "contains_third_party_music": bp.get("contains_third_party_music", False),
-                })
-                print(f"  ✓ Rendered: {os.path.basename(render_res['video_path'])}")
+        for slot in range(1, count + 1):
+            niche = ZACK_NICHES[(day_offset + slot - 1) % len(ZACK_NICHES)]
+            blueprint = None
 
-    elif channel_id == 1:
-        # CHANNEL 1: FactTechz-Style HD Moving B-Roll Documentary Shorts
-        vm = VideoMaker(assets_dir="assets", output_dir=channel_dir)
+            if gemini.is_available():
+                for attempt in range(3):
+                    try:
+                        cand = gemini.generate_zack_explainer(
+                            niche=niche,
+                            used_titles=used_titles,
+                            used_subjects=used_subjects + list(session_subjects),
+                        )
+                        sk = str(cand.get("subject_key") or f"topic_{day_offset}_{slot}_{attempt}").strip().lower()
+                        title = str(cand.get("title") or "").strip()
+                        source_id = f"zack3d_{sk}"
 
-        for bp in blueprints:
-            slot = bp["slot"]
-            audio_path = os.path.join(channel_dir, f"ch1_v{slot:02d}_voice.mp3")
-            ass_path = os.path.join(channel_dir, f"ch1_v{slot:02d}_sub.ass")
-            out_vid_name = f"ch1_v{slot:02d}.mp4"
-            out_vid = os.path.join(channel_dir, out_vid_name)
+                        if (
+                            cand.get("lines")
+                            and sk not in session_subjects
+                            and not tracker.is_subject_used(sk)
+                            and not tracker.is_source_used(source_id)
+                            and not tracker.is_title_used(title)
+                        ):
+                            cand["subject_key"] = sk
+                            blueprint = cand
+                            break
+                        else:
+                            print(f"⚠️ Gemini returned duplicate/empty topic '{sk}'; retrying...")
+                    except Exception as ge_err:
+                        print(f"⚠️ Gemini attempt {attempt + 1} failed: {ge_err}")
+
+            if blueprint is None:
+                for fb in FALLBACK_ZACK_TOPICS:
+                    sk = fb["subject_key"]
+                    source_id = f"zack3d_{sk}"
+                    if sk not in session_subjects and not tracker.is_subject_used(sk) and not tracker.is_source_used(source_id) and not tracker.is_title_used(fb["title"]):
+                        blueprint = fb
+                        break
+
+            if blueprint is None:
+                print(f"⚠️ Skipping Channel 1 slot {slot}: no unique unused topic available.")
+                continue
+
+            sk = blueprint["subject_key"]
+            source_id = f"zack3d_{sk}"
+            session_subjects.add(sk)
+            used_subjects.append(sk)
+            used_titles.append(blueprint["title"])
+
+            out_vid = os.path.join(channel_dir, f"ch1_v{slot:02d}.mp4")
             out_thumb = os.path.join(channel_dir, f"ch1_v{slot:02d}_thumb.jpg")
+            print(f"[{slot}/{count}] Channel 1 (Zack 3D Hindi): Rendering '{blueprint['title'][:50]}'...")
 
-            if not force_render and os.path.exists(out_vid) and os.path.getsize(out_vid) > 500000:
-                print(f"[{slot}/10] Channel 1: Using pre-rendered '{bp['title'][:45]}...'")
-                results.append({
-                    "index": slot,
-                    "channel_id": 1,
-                    "type": f"FactTechz Documentary Short ({bp['niche']})",
-                    "title": bp["title"],
-                    "description": bp["description"],
-                    "tags": bp["tags"],
-                    "video_path": out_vid,
-                    "thumbnail_path": out_thumb if os.path.exists(out_thumb) else None,
-                    "duration": 20.0,
-                    "source_id": f"facttechz_{bp['niche'].lower().replace(' ', '_')}_{slot}",
-                    "query": bp["niche"]
-                })
-            else:
-                print(f"[{slot}/10] Channel 1: Rendering '{bp['title'][:45]}...'")
-                voice_res = generate_audio(
-                    text=bp.get("hindi_script") or bp.get("script", ""),
-                    audio_path=audio_path,
-                    ass_path=ass_path,
-                    voice="hi-IN-MadhurNeural"
-                )
-
-                out_vid = vm.render_video(
-                    audio_path=audio_path,
-                    ass_path=ass_path,
-                    duration=voice_res["duration"],
-                    output_filename=out_vid_name,
-                    banner_text=bp["banner"],
-                    bg_video_paths=bp["scenes"]
-                )
-
-                # High-CTR Thumbnail from pristine B-roll (Zero subtitle clutter!)
-                try:
-                    tg = ThumbnailGenerator(output_dir=channel_dir)
-                    clean_bg = bp["scenes"][0] if (bp.get("scenes") and os.path.exists(bp["scenes"][0])) else out_vid
-                    tg.generate(
-                        video_path=clean_bg,
-                        output_thumb_path=out_thumb,
-                        badge_text=bp["banner"],
-                        timestamp_sec=bp.get("thumb_time", 2.0),
-                        slot_index=slot
-                    )
-                except Exception as tg_err:
-                    print(f"Notice: Ch1 thumbnail fallback: {tg_err}")
-                    subprocess.run([
-                        "ffmpeg", "-y", "-ss", "00:00:02.500", "-i", out_vid,
-                        "-vframes", "1", "-q:v", "2", out_thumb
-                    ], capture_output=True)
-
-                results.append({
-                    "index": slot,
-                    "channel_id": 1,
-                    "type": f"FactTechz Documentary Short ({bp['niche']})",
-                    "title": bp["title"],
-                    "description": bp["description"],
-                    "tags": bp["tags"],
-                    "video_path": out_vid,
-                    "thumbnail_path": out_thumb if os.path.exists(out_thumb) else None,
-                    "duration": voice_res["duration"],
-                    "source_id": f"facttechz_{bp['niche'].lower().replace(' ', '_')}_{slot}",
-                    "query": bp["niche"]
-                })
-                print(f"  ✓ Rendered: {os.path.basename(out_vid)}")
-
-    elif channel_id == 2:
-        # CHANNEL 2: Satisfying Science & Guinness World Records (Hindi Commentary)
-        for bp in blueprints:
-            slot = bp["slot"]
-            out_vid = os.path.join(channel_dir, f"ch2_v{slot:02d}.mp4")
-            out_thumb = os.path.join(channel_dir, f"ch2_v{slot:02d}_thumb.jpg")
-
-            if not force_render and os.path.exists(out_vid) and os.path.getsize(out_vid) > 500000:
-                print(f"[{slot}/10] Channel 2: Using pre-rendered '{bp['title'][:45]}...'")
-                results.append({
-                    "index": slot,
-                    "channel_id": 2,
-                    "type": "Science & Stunt Short (Hindi Voice)",
-                    "title": bp["title"],
-                    "description": bp["description"],
-                    "tags": bp["tags"],
-                    "video_path": out_vid,
-                    "thumbnail_path": out_thumb if os.path.exists(out_thumb) else None,
-                    "duration": 15.0,
-                    "source_id": os.path.basename(bp["clip"]),
-                    "query": "science_and_records_hindi"
-                })
-            else:
-                print(f"[{slot}/10] Channel 2: Rendering '{bp['title'][:45]}...'")
-                render_res = render_action_clip_hindi(
-                    clip_path=bp["clip"],
-                    hindi_text=bp["hindi_script"],
-                    banner_text=bp["banner"],
+            try:
+                r = zack_engine.render_short(
+                    blueprint=blueprint,
                     output_video_path=out_vid,
                     output_thumb_path=out_thumb,
-                    use_ai_voice=False,  # Authentic crunch / stunt sounds! Zero robotic AI voice
-                    thumb_time=bp.get("thumb_time", 4.0),
-                    slot_index=slot
+                    slot_index=slot,
+                    tracker=tracker,
+                    batch_hashes=batch_hashes,
                 )
                 results.append({
                     "index": slot,
-                    "channel_id": 2,
-                    "type": "Science & Stunt Short (Authentic Audio)",
-                    "title": bp["title"],
-                    "description": bp["description"],
-                    "tags": bp["tags"],
-                    "video_path": render_res["video_path"],
-                    "thumbnail_path": render_res["thumbnail_path"],
-                    "duration": render_res["duration"],
-                    "source_id": os.path.basename(bp["clip"]),
-                    "query": "science_and_records_authentic"
+                    "channel_id": 1,
+                    "type": f"Zack 3D Hindi Explainer ({niche[:18]})",
+                    "title": r["title"],
+                    "description": r["description"],
+                    "tags": r["tags"],
+                    "video_path": r["video_path"],
+                    "thumbnail_path": r["thumbnail_path"],
+                    "thumbnail_dhash": r["thumbnail_dhash"],
+                    "duration": r["duration"],
+                    "source_id": source_id,
+                    "subject_key": sk,
+                    "query": niche,
                 })
-                print(f"  ✓ Rendered: {os.path.basename(render_res['video_path'])}")
+                print(f"  ✓ Rendered Ch1 Slot {slot}: {os.path.basename(r['video_path'])}")
+            except Exception as err:
+                print(f"  ❌ Ch1 Slot {slot} render failed: {err}")
 
-    print(f"\n✅ Ready with all 10 videos for Channel {channel_id}!\n")
+    elif channel_id in (2, 3):
+        # CHANNEL 2: Viral Gaming Clips (Original language & audio ONLY — NO AI Voice)
+        # CHANNEL 3: Pure Trending Viral Clips ("Jo Viral Hai Wahi")
+        mode = "gaming" if channel_id == 2 else "viral_trending"
+        label = "Gaming Clip (Original Audio)" if channel_id == 2 else "Trending Viral Short"
+        creator_engine = DynamicCreatorEngine(
+            downloads_dir=os.path.join("assets", "downloads", f"ch{channel_id}"),
+            output_dir=channel_dir,
+        )
+        session_used_ids: Set[str] = set()
+
+        for slot in range(1, count + 1):
+            out_vid = os.path.join(channel_dir, f"ch{channel_id}_v{slot:02d}.mp4")
+            out_thumb = os.path.join(channel_dir, f"ch{channel_id}_v{slot:02d}_thumb.jpg")
+            print(f"[{slot}/{count}] Channel {channel_id} ({label}): Discovering fresh clip...")
+
+            try:
+                res = creator_engine.discover_and_render_slot(
+                    mode=mode,
+                    slot_index=slot,
+                    output_video_path=out_vid,
+                    output_thumb_path=out_thumb,
+                    day_offset=day_offset,
+                    session_used_ids=session_used_ids,
+                    batch_hashes=batch_hashes,
+                    require_audio=True,
+                )
+                if not res:
+                    print(f"  ⚠️ No fresh clip found for Ch{channel_id} Slot {slot}.")
+                    continue
+
+                results.append({
+                    "index": slot,
+                    "channel_id": channel_id,
+                    "type": label,
+                    "title": res["title"],
+                    "description": res["description"],
+                    "tags": res["tags"],
+                    "video_path": res["video_path"],
+                    "thumbnail_path": res["thumbnail_path"],
+                    "thumbnail_dhash": res.get("thumbnail_dhash", ""),
+                    "duration": res["duration"],
+                    "source_id": res["source_id"],
+                    "subject_key": f"{mode}_{res['source_id']}",
+                    "creator": res.get("creator", ""),
+                    "source_url": res.get("source_url", ""),
+                    "query": res.get("query", mode),
+                })
+                print(f"  ✓ Ready Ch{channel_id} Slot {slot}: {res['title'][:48]} ({res['source_id']})")
+            except Exception as err:
+                print(f"  ❌ Ch{channel_id} Slot {slot} failed: {err}")
+
+    print(f"\n✅ Ready with {len(results)}/{count} unique videos for Channel {channel_id}!\n")
     return results

@@ -6,11 +6,11 @@ concurrency:
 
 on:
   schedule:
-    # 05:30 UTC = 11:00 AM IST (Channel 1: MiniTalesWorld Kick-off)
-    - cron: '30 5 * * *'
-    # 09:30 UTC = 03:00 PM IST (Channel 2: Pawsome Productions Kick-off)
+    # 05:45 UTC = 11:15 AM IST (Channel 1: MiniTalesWorld Zack 3D Hindi Explainers)
+    - cron: '45 5 * * *'
+    # 09:30 UTC = 03:00 PM IST (Channel 2: Pawsome Productions Viral Gaming Clips)
     - cron: '30 9 * * *'
-    # 14:30 UTC = 08:00 PM IST (Channel 3: Next Level Facts Prime Time Kick-off)
+    # 14:30 UTC = 08:00 PM IST (Channel 3: Next Level Facts Trending Viral Clips)
     - cron: '30 14 * * *'
   workflow_dispatch:
     inputs:
@@ -39,25 +39,40 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🟢 Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
       - name: 🐍 Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: ⚙️ Install FFmpeg & Hindi Fonts
+      - name: ⚙️ Install FFmpeg, Chrome & Hindi Fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg fonts-noto-core fonts-deva fonts-dejavu-core
+          sudo apt-get install -y ffmpeg fonts-noto-core fonts-noto-color-emoji fonts-dejavu-core
+          if ! command -v google-chrome >/dev/null 2>&1; then
+            wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb || true
+            sudo apt-get install -y /tmp/chrome.deb || sudo apt-get install -y chromium-browser || sudo apt-get install -y chromium
+            rm -f /tmp/chrome.deb
+          fi
+          fc-cache -fv || true
 
       - name: 📦 Install Python Packages
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install -U yt-dlp edge-tts
 
-      - name: 🚀 Generate 10 Shorts & Auto-Upload to YouTube
+      - name: 🚀 Generate Fresh Shorts & Auto-Upload to YouTube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DAILY_QUOTA_CH1: "6"
+          DAILY_QUOTA_CH2: "6"
+          DAILY_QUOTA_CH3: "6"
         run: |
           TARGET_CH="${{ inputs.channel }}"
           if [ -z "$TARGET_CH" ] || [ "$TARGET_CH" = "all" ] && [ "${{ github.event_name }}" = "schedule" ]; then
@@ -103,20 +118,8 @@ jobs:
             done
             if [ "$pushed" != "true" ]; then
               echo "Error: Failed to push config updates to origin main after 5 attempts."
-              if [ -n "$GITHUB_STEP_SUMMARY" ]; then
-                echo "### ❌ CRITICAL: Failed to Push Upload History to GitHub" >> "$GITHUB_STEP_SUMMARY"
-                echo "All 5 git push attempts failed. Changes remain unpushed on the runner." >> "$GITHUB_STEP_SUMMARY"
-                if [ -f "config/emergency_unconfirmed_uploads.jsonl" ]; then
-                  echo "#### Emergency Unconfirmed Upload Records:" >> "$GITHUB_STEP_SUMMARY"
-                  echo '```json' >> "$GITHUB_STEP_SUMMARY"
-                  cat config/emergency_unconfirmed_uploads.jsonl >> "$GITHUB_STEP_SUMMARY"
-                  echo '```' >> "$GITHUB_STEP_SUMMARY"
-                fi
-              fi
-              if [ -f "config/emergency_unconfirmed_uploads.jsonl" ]; then
-                echo "Contents of config/emergency_unconfirmed_uploads.jsonl:"
-                cat config/emergency_unconfirmed_uploads.jsonl
-              fi
               exit 1
             fi
+          else
+            echo "No changes to config/ history to commit."
           fi

@@ -9,11 +9,13 @@ idempotent confirmation, and uncertain upload reconciliation.
 
 import os
 import sys
+import re
 import json
 import time
 import uuid
 import socket
 import ctypes
+from difflib import SequenceMatcher
 from contextlib import contextmanager
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, List, Optional, Tuple
@@ -138,11 +140,14 @@ class HistoryTracker:
                 "used_source_ids": [],
                 "used_queries": [],
                 "used_script_titles": [],
+                "used_subject_keys": [],
+                "uploaded_thumbnail_hashes": [],
                 "upload_logs": [],
                 "pending_uploads": {}
             }
-        if "pending_uploads" not in data:
-            data["pending_uploads"] = {}
+        data.setdefault("pending_uploads", {})
+        data.setdefault("used_subject_keys", [])
+        data.setdefault("uploaded_thumbnail_hashes", [])
 
         # Self-healing: Merge any emergency unconfirmed upload records if present on disk
         emergency_file = os.path.join(os.path.dirname(self.history_file), "emergency_unconfirmed_uploads.jsonl")
@@ -187,14 +192,94 @@ class HistoryTracker:
         except Exception as e:
             print(f"Warning: Failed to save history tracker: {e}")
 
-    def is_source_used(self, source_id: str) -> bool:
-        """Returns True if the source video has already been clipped before."""
-        return source_id in self.history.get("used_source_ids", [])
+    @staticmethod
+    def _normalize_text(text: str) -> str:
+        t = re.sub(r'#\w+', '', str(text or '').lower())
+        t = re.sub(r'[^\w\s\u0900-\u097F]', ' ', t)
+        return re.sub(r'\s+', ' ', t).strip()
 
-    def is_title_used(self, title: str) -> bool:
-        """Returns True if an identical title was already uploaded."""
-        clean = title.strip().lower()
-        return any(clean == t.strip().lower() for t in self.history.get("used_script_titles", []))
+    @staticmethod
+    def _hamming_hex(h1: str, h2: str) -> int:
+        try:
+            return (int(h1, 16) ^ int(h2, 16)).bit_count()
+        except Exception:
+            return 64
+
+    def is_source_used(self, source_id: str) -> bool:
+        """Returns True if the source video has already been clipped, logged, or stuck in pending."""
+        if not source_id:
+            return False
+        if source_id in self.history.get("used_source_ids", []):
+            return True
+        for k, entry in self.history.get("pending_uploads", {}).items():
+            if entry.get("source_id") == source_id and entry.get("status") in ("confirmed", "uncertain", "uploading"):
+                return True
+        for item in self.history.get("upload_logs", []):
+            if item.get("source_id") == source_id:
+                return True
+        return False
+
+    def is_subject_used(self, subject_key: str) -> bool:
+        """Returns True if a semantic subject key was already covered."""
+        if not subject_key:
+            return False
+        sk = subject_key.strip().lower()
+        return any(sk == s.strip().lower() for s in self.history.get("used_subject_keys", []))
+
+    def mark_subject_used(self, subject_key: str):
+        if not subject_key:
+            return
+        with self.file_lock():
+            self.reload()
+            keys = self.history.setdefault("used_subject_keys", [])
+            if subject_key not in keys:
+                keys.append(subject_key)
+                self.save()
+
+    def is_title_used(self, title: str, similarity_threshold: float = 0.80) -> bool:
+        """Returns True if an identical or near-identical title was already uploaded."""
+        if not title:
+            return False
+        clean_raw = title.strip().lower()
+        clean_norm = self._normalize_text(title)
+        seen_titles = list(self.history.get("used_script_titles", [])) + [
+            str(l.get("title", "")) for l in self.history.get("upload_logs", []) if l.get("title")
+        ]
+        for t in seen_titles:
+            if clean_raw == t.strip().lower():
+                return True
+            t_norm = self._normalize_text(t)
+            if clean_norm and t_norm:
+                if clean_norm == t_norm:
+                    return True
+                if SequenceMatcher(None, clean_norm, t_norm).ratio() >= similarity_threshold:
+                    return True
+        return False
+
+    def is_thumbnail_hash_used(self, dhash_hex: str, max_hamming: int = 8) -> bool:
+        """Returns True if any historical thumbnail has perceptual distance <= max_hamming."""
+        if not dhash_hex:
+            return False
+        for item in self.history.get("uploaded_thumbnail_hashes", []):
+            prev_h = item.get("dhash") if isinstance(item, dict) else str(item)
+            if prev_h and self._hamming_hex(dhash_hex, prev_h) <= max_hamming:
+                return True
+        return False
+
+    def record_thumbnail_hash(self, dhash_hex: str, channel_id: int, source_id: str):
+        """Stores a confirmed thumbnail perceptual hash under lock."""
+        if not dhash_hex:
+            return
+        with self.file_lock():
+            self.reload()
+            hashes = self.history.setdefault("uploaded_thumbnail_hashes", [])
+            hashes.append({
+                "dhash": dhash_hex,
+                "channel_id": channel_id,
+                "source_id": source_id,
+                "timestamp": get_utc_iso_timestamp()
+            })
+            self.save()
 
     def _is_source_uploaded_today_internal(
         self,

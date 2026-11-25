@@ -193,6 +193,81 @@ Return strictly valid JSON:
             "description": f"{niche.replace('_', ' ').title()} viral moment.\n\n#Shorts #Viral #Trending"
         }
 
+    def generate_zack_explainer(
+        self,
+        niche: str,
+        used_titles: Optional[List[str]] = None,
+        used_subjects: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
+        """
+        Generates a Zack D. Films style "What happens if...?" Hindi explainer storyboard
+        with strict topic uniqueness and per-cut visual scene choreography.
+        """
+        avoid_titles = (used_titles or [])[-40:]
+        avoid_subjects = (used_subjects or [])[-60:]
+
+        prompt = f"""
+You are a viral YouTube Shorts writer creating Zack D. Films-style "What happens if...?" explainers in natural conversational HINDI.
+Category focus: {niche}
+
+STRICT ANTI-REPEAT RULE:
+NEVER repeat or paraphrase any of these previously covered topics/titles:
+- Used subject keys: {json.dumps(avoid_subjects, ensure_ascii=False)}
+- Recent titles: {json.dumps(avoid_titles, ensure_ascii=False)}
+
+Choose a 100% FRESH, fascinating, scientifically accurate topic (e.g. holding a sneeze, cracking knuckles, drinking 5 energy drinks, staying awake 7 days, swallowing an apple seed, swimming in Dead Sea, brain freeze, ear ringing, hiccups, cold shower shock, zero gravity body changes, deep sea pressure, etc.) that is NOT in the lists above.
+
+STORY & SCRIPT RULES:
+1. Write 8 to 10 lines (cuts) totaling ~75 to 95 spoken Hindi words (~28-35 seconds).
+2. Line 1 MUST open immediately with a shocking "क्या होगा अगर..." question (0-second hook).
+3. Every sentence flows naturally like talking to a friend (no stage directions, no brackets).
+4. Write numbers in Hindi words as spoken (e.g. "सात", "तीस", "दो").
+5. Each line object must have:
+   - "text": pure Hindi Devanagari sentence/clause to be spoken by TTS.
+   - "caps": short 1-3 word Hindi/English caption chunks separated by "|", with EXACTLY ONE word per chunk prefixed with "*" for yellow highlight (e.g. "क्या होगा *अगर | आप छींक *रोक लें?"). Keep every chunk under 3 words!
+   - "scene": strictly one of ["hook_shock", "xray_lungs", "xray_heart", "xray_brain", "xray_stomach", "blood_vessel", "myth_bust", "clock_pass", "cosmos", "ocean_mystery", "outro_twist"]
+   - "pill": optional 1-3 word uppercase badge (e.g. "PRESSURE ↑", "HEART 140 BPM", "BRAIN ALARM", "MYTH BUSTED") or ""
+   - "sfx": strictly one of ["pop", "whoosh", "heartbeat", "bubbles", "alarm", "thud", "slide", "sparkle", "slam"]
+
+Return strictly valid JSON:
+{{
+  "subject_key": "short_unique_snake_case_topic_key",
+  "title": "Curiosity Hindi Title Under 70 Chars With Emoji #Shorts",
+  "description": "2-line Hindi summary + 6 viral hashtags",
+  "tags": ["shorts", "viral", "zackdfilms", "hindifacts", "science", "bodyfacts"],
+  "music": "tension",
+  "banner": "2-4 UPPERCASE ENGLISH WORDS ONLY (NO HINDI, NO EMOJIS, e.g. 'DONT HOLD SNEEZE!')",
+  "lines": [
+    {{
+      "text": "...",
+      "caps": "...",
+      "scene": "hook_shock",
+      "pill": "",
+      "sfx": "pop"
+    }}
+  ]
+}}
+"""
+        parsed = self._call_gemini_json(prompt)
+        # Sanitize lines
+        clean_lines = []
+        for idx, ln in enumerate(parsed.get("lines", [])):
+            txt = re.sub(r'\[.*?\]|\(.*?\)', '', str(ln.get("text", ""))).strip()
+            txt = re.sub(r'\s+', ' ', txt)
+            if not txt:
+                continue
+            caps = str(ln.get("caps", "")).strip()
+            scene = str(ln.get("scene", "hook_shock")).strip()
+            clean_lines.append({
+                "text": txt,
+                "caps": caps,
+                "scene": scene,
+                "pill": str(ln.get("pill", "")).strip()[:24],
+                "sfx": str(ln.get("sfx", "whoosh")).strip(),
+            })
+        parsed["lines"] = clean_lines
+        return parsed
+
 
 if __name__ == "__main__":
     engine = GeminiEngine()
