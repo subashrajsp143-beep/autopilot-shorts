@@ -486,7 +486,9 @@
     "SdZbk5fv94k",
     "ganyM9liFPo",
     "RqQORXzYTIo",
-    "MKnxLcA-QRw"
+    "MKnxLcA-QRw",
+    "k3GUJkdIlwg",
+    "SPMKrKBuZOw"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -700,7 +702,9 @@
     "DiligentFrigidStapleLeeroyJenkins-S4URjMVSDAfbVUbq",
     "IgnorantDeadChamoisKappa-AbQjn64QOS9SRame",
     "ClearTameMarrowKevinTurtle-MedgUZKJ5BLzb3Oh",
-    "ExquisiteInnocentGaragePoooound-mLDj-ot7Fg9JJjLA"
+    "ExquisiteInnocentGaragePoooound-mLDj-ot7Fg9JJjLA",
+    "story3d_panchayat_ai_chatbot_parody",
+    "story3d_mirzapur_tiffin_gaddi_parody"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -820,7 +824,9 @@
     "twitch:DrDonutttttt",
     "twitch:lukethenukelittler67",
     "twitch:PGL",
-    "twitch:KaiCenat"
+    "twitch:KaiCenat",
+    "Panchayat (Phulera village comedy & Sachiv/Pradhan parody)",
+    "Mirzapur (Gangster throne room comedy/twist parody)"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -1188,7 +1194,9 @@
     "THE GREATEST POWER SHOT EVER?! 😱 #Shorts",
     "I CANNOT BELIEVE THIS LUCK! 😱 #Shorts",
     "UNBELIEVABLE PRO MOMENT! 😱 #Shorts",
-    "KAI CENAT CAN'T BELIEVE THIS! 😱 #Shorts"
+    "KAI CENAT CAN'T BELIEVE THIS! 😱 #Shorts",
+    "जब फुलेरा गाँव में आया एआई रोबोट! 😂🤖 #Shorts",
+    "मिर्जापुर की गद्दी का खौफनाक सच! 👑😂 #Shorts"
   ],
   "used_subject_keys": [
     "dark_psychology_silence_trick",
@@ -1202,7 +1210,9 @@
     "gaming_DiligentFrigidStapleLeeroyJenkins-S4URjMVSDAfbVUbq",
     "gaming_IgnorantDeadChamoisKappa-AbQjn64QOS9SRame",
     "gaming_ClearTameMarrowKevinTurtle-MedgUZKJ5BLzb3Oh",
-    "gaming_ExquisiteInnocentGaragePoooound-mLDj-ot7Fg9JJjLA"
+    "gaming_ExquisiteInnocentGaragePoooound-mLDj-ot7Fg9JJjLA",
+    "panchayat_ai_chatbot_parody",
+    "mirzapur_tiffin_gaddi_parody"
   ],
   "uploaded_thumbnail_hashes": [
     {
@@ -1276,6 +1286,18 @@
       "channel_id": 2,
       "source_id": "ExquisiteInnocentGaragePoooound-mLDj-ot7Fg9JJjLA",
       "timestamp": "2026-11-25T10:28:04.798219+00:00"
+    },
+    {
+      "dhash": "6d73f03226842869",
+      "channel_id": 3,
+      "source_id": "story3d_panchayat_ai_chatbot_parody",
+      "timestamp": "2026-11-25T10:34:38.904993+00:00"
+    },
+    {
+      "dhash": "332b0f4f6b8b8716",
+      "channel_id": 3,
+      "source_id": "story3d_mirzapur_tiffin_gaddi_parody",
+      "timestamp": "2026-11-25T10:34:47.553385+00:00"
     }
   ],
   "upload_logs": [
@@ -5214,6 +5236,28 @@
       "channel_id": 2,
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T10:34:38.898681+00:00",
+      "title": "जब फुलेरा गाँव में आया एआई रोबोट! 😂🤖 #Shorts",
+      "type": "Animated Story (Panchayat) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "k3GUJkdIlwg",
+      "source_id": "story3d_panchayat_ai_chatbot_parody",
+      "query": "Panchayat (Phulera village comedy & Sachiv/Pradhan parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-25T10:34:47.547153+00:00",
+      "title": "मिर्जापुर की गद्दी का खौफनाक सच! 👑😂 #Shorts",
+      "type": "Animated Story (Mirzapur) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "SPMKrKBuZOw",
+      "source_id": "story3d_mirzapur_tiffin_gaddi_parody",
+      "query": "Mirzapur (Gangster throne room comedy/twist parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   ],
   "pending_uploads": {
@@ -6712,6 +6756,36 @@
       "owner_token": "tok_3565_1795602476748_aa1f39a9",
       "uploading_timestamp": "2026-11-25T10:27:56.754679+00:00",
       "completed_timestamp": "2026-11-25T10:28:04.791986+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_panchayat_ai_chatbot_parody": {
+      "source_id": "story3d_panchayat_ai_chatbot_parody",
+      "channel_id": 3,
+      "title": "जब फुलेरा गाँव में आया एआई रोबोट! 😂🤖 #Shorts",
+      "attempt_timestamp": "2026-11-25T10:34:31.696861+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "k3GUJkdIlwg",
+      "error_details": null,
+      "pid": 3568,
+      "owner_token": "tok_3568_1795602871696_a2fc1317",
+      "uploading_timestamp": "2026-11-25T10:34:31.703021+00:00",
+      "completed_timestamp": "2026-11-25T10:34:38.898681+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_mirzapur_tiffin_gaddi_parody": {
+      "source_id": "story3d_mirzapur_tiffin_gaddi_parody",
+      "channel_id": 3,
+      "title": "मिर्जापुर की गद्दी का खौफनाक सच! 👑😂 #Shorts",
+      "attempt_timestamp": "2026-11-25T10:34:42.917716+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "SPMKrKBuZOw",
+      "error_details": null,
+      "pid": 3568,
+      "owner_token": "tok_3568_1795602882917_8a355286",
+      "uploading_timestamp": "2026-11-25T10:34:42.923845+00:00",
+      "completed_timestamp": "2026-11-25T10:34:47.547153+00:00",
       "origin": "github_actions",
       "timezone": "UTC"
     }
