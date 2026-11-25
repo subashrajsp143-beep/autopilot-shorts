@@ -516,9 +516,9 @@ def check_already_uploaded_today(
             3: ["Channel 3", "Next Level Facts"]
         }
         target_counts = {
-            1: int(os.environ.get("DAILY_QUOTA_CH1", 6)),
-            2: int(os.environ.get("DAILY_QUOTA_CH2", 6)),
-            3: int(os.environ.get("DAILY_QUOTA_CH3", 6)),
+            1: int(os.environ.get("DAILY_QUOTA_CH1", 5)),
+            2: int(os.environ.get("DAILY_QUOTA_CH2", 5)),
+            3: int(os.environ.get("DAILY_QUOTA_CH3", 5)),
         }
 
         # Track and report duplicate history entries without altering history
@@ -760,7 +760,7 @@ def generate_daily_10_batch(
         print("=" * 60)
 
         try:
-            ch_target = int(os.environ.get(f"DAILY_QUOTA_CH{ch_id}", 6))
+            ch_target = int(os.environ.get(f"DAILY_QUOTA_CH{ch_id}", 5))
             # 1. Generate fresh, strictly unique videos for this channel
             ch_videos = generate_channel_batch(ch_id, base_output_dir=output_batch_dir, force_render=True, target_count=ch_target)
             all_generated_videos[ch_id] = ch_videos

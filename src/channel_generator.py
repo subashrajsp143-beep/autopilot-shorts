@@ -81,7 +81,7 @@ def generate_channel_batch(
     if day_offset is None:
         day_offset = datetime.now().timetuple().tm_yday
 
-    count = target_count or int(os.environ.get(f"DAILY_QUOTA_CH{channel_id}", 6))
+    count = target_count or int(os.environ.get(f"DAILY_QUOTA_CH{channel_id}", 5))
     channel_dir = os.path.join(base_output_dir, f"channel_{channel_id}")
     _clear_stale_channel_outputs(channel_dir)
 

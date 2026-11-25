@@ -71,9 +71,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          DAILY_QUOTA_CH1: "6"
-          DAILY_QUOTA_CH2: "6"
-          DAILY_QUOTA_CH3: "6"
+          DAILY_QUOTA_CH1: "5"
+          DAILY_QUOTA_CH2: "5"
+          DAILY_QUOTA_CH3: "5"
         run: |
           TARGET_CH="${{ inputs.channel }}"
           SCHED_CRON="${{ github.event.schedule }}"
