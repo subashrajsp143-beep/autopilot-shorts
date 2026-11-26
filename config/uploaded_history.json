@@ -506,7 +506,12 @@
     "vuNUd1puSgI",
     "vMm9cOa5zgw",
     "OWFOxIvj1fo",
-    "okRkSiJ9knY"
+    "okRkSiJ9knY",
+    "jGjd5cSqk4Y",
+    "2ytCeo8AYqg",
+    "FU3yi0mnokY",
+    "AB2rSzq6jyM",
+    "GwXy9yozbmQ"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -740,7 +745,12 @@
     "ConfidentProudCroquetteBIRB-6_9UQdlQEjkh6Baa",
     "AntsyPolishedKoupreyBibleThump-NHTlUqUqyb4BUNY3",
     "MistyFastChickpeaBatChest-1l50Cnz_nbghKxmh",
-    "TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG"
+    "TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG",
+    "story3d_stree_bhool_bhulaiyaa_night_scare",
+    "story3d_bahubali_wifi_password_parody",
+    "story3d_gullak_mishra_family_budget_hack",
+    "story3d_panchayat_corporate_lingo_parody",
+    "story3d_mirzapur_throne_subscription_parody"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -872,7 +882,8 @@
     "twitch:xQc",
     "twitch:tarik",
     "twitch:Tminnzy",
-    "twitch:Nakkida"
+    "twitch:Nakkida",
+    "Stree / Bhool Bhulaiyaa (Spooky comedy night mystery)"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -1260,7 +1271,12 @@
     "TARIK GETS JUMPSCARED! 😱 #Shorts",
     "MANDY SHOWED UP AND I LOST CONTROL 😳 #Shorts",
     "KAI CENAT LOSES HIS MIND! 😱 #Shorts",
-    "Derpy just proved her name right! 🤡 #Shorts"
+    "Derpy just proved her name right! 🤡 #Shorts",
+    "स्त्री और मंजुलिका का आमना-सामना! 😱👻 #Shorts",
+    "जब बाहुबली ने मांगा वाईफाई का पासवर्ड! 📶👑 #Shorts",
+    "गुल्लक फैमिली का बजट फेल! 😂💸 #Shorts",
+    "फुलेरा गाँव में अब कॉर्पोरेट स्टाइल! 😂👔 #Shorts #Panchayat",
+    "मिर्जापुर की गद्दी का नया सब्सक्रिप्शन प्लान! 👑😂 #Shorts"
   ],
   "used_subject_keys": [
     "dark_psychology_silence_trick",
@@ -1294,7 +1310,12 @@
     "gaming_ConfidentProudCroquetteBIRB-6_9UQdlQEjkh6Baa",
     "gaming_AntsyPolishedKoupreyBibleThump-NHTlUqUqyb4BUNY3",
     "gaming_MistyFastChickpeaBatChest-1l50Cnz_nbghKxmh",
-    "gaming_TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG"
+    "gaming_TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG",
+    "stree_bhool_bhulaiyaa_night_scare",
+    "bahubali_wifi_password_parody",
+    "gullak_mishra_family_budget_hack",
+    "panchayat_corporate_lingo_parody",
+    "mirzapur_throne_subscription_parody"
   ],
   "uploaded_thumbnail_hashes": [
     {
@@ -1488,6 +1509,36 @@
       "channel_id": 2,
       "source_id": "TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG",
       "timestamp": "2026-11-26T19:17:03.769529+00:00"
+    },
+    {
+      "dhash": "4c71b0128e8ca869",
+      "channel_id": 3,
+      "source_id": "story3d_stree_bhool_bhulaiyaa_night_scare",
+      "timestamp": "2026-11-26T23:15:07.540159+00:00"
+    },
+    {
+      "dhash": "e4e08c041c2c8ccc",
+      "channel_id": 3,
+      "source_id": "story3d_bahubali_wifi_password_parody",
+      "timestamp": "2026-11-26T23:15:19.625733+00:00"
+    },
+    {
+      "dhash": "4d73f0f0e8e8e869",
+      "channel_id": 3,
+      "source_id": "story3d_gullak_mishra_family_budget_hack",
+      "timestamp": "2026-11-26T23:15:29.912443+00:00"
+    },
+    {
+      "dhash": "6d73f0128e8ca869",
+      "channel_id": 3,
+      "source_id": "story3d_panchayat_corporate_lingo_parody",
+      "timestamp": "2026-11-26T23:15:37.959486+00:00"
+    },
+    {
+      "dhash": "44890f4f4b8b8716",
+      "channel_id": 3,
+      "source_id": "story3d_mirzapur_throne_subscription_parody",
+      "timestamp": "2026-11-26T23:15:45.202579+00:00"
     }
   ],
   "upload_logs": [
@@ -5646,6 +5697,61 @@
       "channel_id": 2,
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T23:15:07.532624+00:00",
+      "title": "स्त्री और मंजुलिका का आमना-सामना! 😱👻 #Shorts",
+      "type": "Animated Story (Stree / Bhool Bhulaiyaa) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "jGjd5cSqk4Y",
+      "source_id": "story3d_stree_bhool_bhulaiyaa_night_scare",
+      "query": "Stree / Bhool Bhulaiyaa (Spooky comedy night mystery)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T23:15:19.618171+00:00",
+      "title": "जब बाहुबली ने मांगा वाईफाई का पासवर्ड! 📶👑 #Shorts",
+      "type": "Animated Story (KGF / Pushpa / Bahubali) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "2ytCeo8AYqg",
+      "source_id": "story3d_bahubali_wifi_password_parody",
+      "query": "KGF / Pushpa / Bahubali (Epic mass dialogue parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T23:15:29.903807+00:00",
+      "title": "गुल्लक फैमिली का बजट फेल! 😂💸 #Shorts",
+      "type": "Animated Story (Munna Bhai MBBS / Gullak) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "FU3yi0mnokY",
+      "source_id": "story3d_gullak_mishra_family_budget_hack",
+      "query": "Munna Bhai MBBS / Gullak (Heartwarming & hilarious Indian twist)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T23:15:37.951420+00:00",
+      "title": "फुलेरा गाँव में अब कॉर्पोरेट स्टाइल! 😂👔 #Shorts #Panchayat",
+      "type": "Animated Story (Panchayat) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "AB2rSzq6jyM",
+      "source_id": "story3d_panchayat_corporate_lingo_parody",
+      "query": "Panchayat (Phulera village comedy & Sachiv/Pradhan parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T23:15:45.194812+00:00",
+      "title": "मिर्जापुर की गद्दी का नया सब्सक्रिप्शन प्लान! 👑😂 #Shorts",
+      "type": "Animated Story (Mirzapur) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "GwXy9yozbmQ",
+      "source_id": "story3d_mirzapur_throne_subscription_parody",
+      "query": "Mirzapur (Gangster throne room comedy/twist parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   ],
   "pending_uploads": {
@@ -7457,6 +7563,81 @@
       "owner_token": "tok_3393_1795720618506_b404608c",
       "uploading_timestamp": "2026-11-26T19:16:58.513030+00:00",
       "completed_timestamp": "2026-11-26T19:17:03.763884+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_stree_bhool_bhulaiyaa_night_scare": {
+      "source_id": "story3d_stree_bhool_bhulaiyaa_night_scare",
+      "channel_id": 3,
+      "title": "स्त्री और मंजुलिका का आमना-सामना! 😱👻 #Shorts",
+      "attempt_timestamp": "2026-11-26T23:14:58.587754+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "jGjd5cSqk4Y",
+      "error_details": null,
+      "pid": 3412,
+      "owner_token": "tok_3412_1795734898587_1f934308",
+      "uploading_timestamp": "2026-11-26T23:14:58.595630+00:00",
+      "completed_timestamp": "2026-11-26T23:15:07.532624+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_bahubali_wifi_password_parody": {
+      "source_id": "story3d_bahubali_wifi_password_parody",
+      "channel_id": 3,
+      "title": "जब बाहुबली ने मांगा वाईफाई का पासवर्ड! 📶👑 #Shorts",
+      "attempt_timestamp": "2026-11-26T23:15:11.714730+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "2ytCeo8AYqg",
+      "error_details": null,
+      "pid": 3412,
+      "owner_token": "tok_3412_1795734911714_1cd23f4f",
+      "uploading_timestamp": "2026-11-26T23:15:11.722322+00:00",
+      "completed_timestamp": "2026-11-26T23:15:19.618171+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_gullak_mishra_family_budget_hack": {
+      "source_id": "story3d_gullak_mishra_family_budget_hack",
+      "channel_id": 3,
+      "title": "गुल्लक फैमिली का बजट फेल! 😂💸 #Shorts",
+      "attempt_timestamp": "2026-11-26T23:15:23.676892+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "FU3yi0mnokY",
+      "error_details": null,
+      "pid": 3412,
+      "owner_token": "tok_3412_1795734923676_43f6ece0",
+      "uploading_timestamp": "2026-11-26T23:15:23.685128+00:00",
+      "completed_timestamp": "2026-11-26T23:15:29.903807+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_panchayat_corporate_lingo_parody": {
+      "source_id": "story3d_panchayat_corporate_lingo_parody",
+      "channel_id": 3,
+      "title": "फुलेरा गाँव में अब कॉर्पोरेट स्टाइल! 😂👔 #Shorts #Panchayat",
+      "attempt_timestamp": "2026-11-26T23:15:33.929915+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "AB2rSzq6jyM",
+      "error_details": null,
+      "pid": 3412,
+      "owner_token": "tok_3412_1795734933929_8bd94a15",
+      "uploading_timestamp": "2026-11-26T23:15:33.937829+00:00",
+      "completed_timestamp": "2026-11-26T23:15:37.951420+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_mirzapur_throne_subscription_parody": {
+      "source_id": "story3d_mirzapur_throne_subscription_parody",
+      "channel_id": 3,
+      "title": "मिर्जापुर की गद्दी का नया सब्सक्रिप्शन प्लान! 👑😂 #Shorts",
+      "attempt_timestamp": "2026-11-26T23:15:41.976878+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "GwXy9yozbmQ",
+      "error_details": null,
+      "pid": 3412,
+      "owner_token": "tok_3412_1795734941976_18390cfa",
+      "uploading_timestamp": "2026-11-26T23:15:41.985218+00:00",
+      "completed_timestamp": "2026-11-26T23:15:45.194812+00:00",
       "origin": "github_actions",
       "timezone": "UTC"
     }
