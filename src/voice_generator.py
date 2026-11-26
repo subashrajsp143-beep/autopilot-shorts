@@ -67,7 +67,38 @@ class VoiceGenerator:
         word_events: List[Dict[str, Any]] = []
         synthesized_ok = False
 
-        if is_elevenlabs_available():
+        # --- 1. PRIMARY: Kokoro TTS (free, local, unlimited) ---
+        try:
+            from src.kokoro_tts import is_kokoro_available as kokoro_ok, kokoro_synthesize, kokoro_proportional_words, resolve_kokoro_voice
+        except ImportError:
+            try:
+                from kokoro_tts import is_kokoro_available as kokoro_ok, kokoro_synthesize, kokoro_proportional_words, resolve_kokoro_voice
+            except ImportError:
+                kokoro_ok = lambda: False
+
+        if not synthesized_ok and kokoro_ok():
+            try:
+                kokoro_voice = resolve_kokoro_voice(gender="female")
+                k_res = kokoro_synthesize(text, output_audio_path, voice=kokoro_voice)
+                dur = k_res.get("duration", 0)
+                word_events = kokoro_proportional_words(text, dur)
+                # Build sentence events from proportional words
+                raw_sents = [s.strip() for s in re.split(r'[।\.!\?]+', text) if s.strip()]
+                if not raw_sents:
+                    raw_sents = [text]
+                time_per_sent = dur / max(1, len(raw_sents))
+                cur = 0.0
+                for sent in raw_sents:
+                    s_end = min(dur, cur + time_per_sent)
+                    sentence_events.append({"start": cur, "end": s_end, "duration": s_end - cur, "text": sent})
+                    cur = s_end
+                synthesized_ok = True
+                print(f"🎙️ VoiceGenerator: Kokoro TTS ({kokoro_voice})")
+            except Exception as kokoro_err:
+                print(f"Notice: Kokoro TTS unavailable ({kokoro_err}). Trying ElevenLabs...")
+
+        # --- 2. PREMIUM FALLBACK: ElevenLabs ---
+        if not synthesized_ok and is_elevenlabs_available():
             try:
                 el_res = await asyncio.to_thread(
                     synthesize_with_timestamps,

@@ -394,10 +394,39 @@ async def synthesize_line_pcm_and_words(
     """
     Unified high-level TTS helper for frame-accurate pipelines (Channel 1 & Channel 3).
     Returns: (pcm_48k_stereo_int16, word_timings, backend_used).
-    Uses ElevenLabs v4 + character timestamps first; falls back seamlessly to edge-tts / gTTS.
+
+    Priority chain:
+      1. Kokoro TTS (free, local, unlimited) — PRIMARY
+      2. ElevenLabs v4 + character timestamps — PREMIUM FALLBACK
+      3. Edge-TTS → gTTS — EMERGENCY FALLBACK
     """
     clean_text = sanitize_hindi_tts_text(text, default_fallback=default_fallback_text)
 
+    # --- 1. PRIMARY: Kokoro TTS (free, local, unlimited) ---
+    try:
+        from src.kokoro_tts import is_kokoro_available, kokoro_synthesize_pcm, kokoro_proportional_words, resolve_kokoro_voice
+    except ImportError:
+        try:
+            from kokoro_tts import is_kokoro_available, kokoro_synthesize_pcm, kokoro_proportional_words, resolve_kokoro_voice
+        except ImportError:
+            is_kokoro_available = lambda: False
+
+    if is_kokoro_available():
+        try:
+            kokoro_voice = resolve_kokoro_voice(role_or_voice, gender="female")
+            pcm, dur = await asyncio.to_thread(
+                kokoro_synthesize_pcm,
+                clean_text,
+                tmp_dir,
+                stem,
+                voice=kokoro_voice,
+            )
+            words = kokoro_proportional_words(clean_text, dur)
+            return pcm, words, f"kokoro:{kokoro_voice}"
+        except Exception as kokoro_err:
+            print(f"⚠️ Kokoro TTS fallback triggered for {stem} ({kokoro_err}); trying ElevenLabs...")
+
+    # --- 2. PREMIUM FALLBACK: ElevenLabs ---
     if is_elevenlabs_available():
         try:
             res = await asyncio.to_thread(

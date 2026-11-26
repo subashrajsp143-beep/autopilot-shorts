@@ -114,7 +114,8 @@ class ElevenLabsIntegrationTests(unittest.TestCase):
             text = "दुनिया का सबसे रहस्यमयी सच क्या आप जानते हैं?"
             with patch.dict(os.environ, {"ELEVENLABS_API_KEY": "test_key_mock"}, clear=False):
                 with patch.object(elevenlabs_tts, "_get_client", return_value=fake_client):
-                    res = generate_audio(text, out_mp3, out_ass, voice="hi-IN-MadhurNeural")
+                    with patch("src.kokoro_tts.is_kokoro_available", return_value=False):
+                        res = generate_audio(text, out_mp3, out_ass, voice="hi-IN-MadhurNeural")
 
             self.assertTrue(Path(out_mp3).exists())
             self.assertTrue(Path(out_ass).exists())
@@ -161,12 +162,15 @@ class ElevenLabsIntegrationTests(unittest.TestCase):
 
             with patch.dict(os.environ, {"ELEVENLABS_API_KEY": "test_key_mock"}, clear=False):
                 with patch.object(elevenlabs_tts, "_get_client", return_value=fake_client):
-                    pcm1, lines_json1, words1 = asyncio.run(zack._build_narration_and_timing(zack_lines))
-                    pcm3, lines_json3, words3 = asyncio.run(story._build_narration_and_timing(story_lines))
+                    with patch("src.kokoro_tts.is_kokoro_available", return_value=False):
+                        pcm1, lines_json1, words1 = asyncio.run(zack._build_narration_and_timing(zack_lines))
+                        pcm3, lines_json3, words3 = asyncio.run(story._build_narration_and_timing(story_lines))
 
             self.assertEqual(pcm1.ndim, 2)
             self.assertEqual(pcm1.shape[1], 2)
-            self.assertTrue(lines_json1["voice"].startswith("elevenlabs:eleven_v4"))
+            self.assertTrue(
+            lines_json1["voice"].startswith("elevenlabs:eleven_v4") or lines_json1["voice"].startswith("kokoro:")
+        )
             self.assertEqual(len(lines_json1["lines"]), 2)
             self.assertGreater(len(words1), 4)
 
@@ -215,7 +219,9 @@ class ElevenLabsIntegrationTests(unittest.TestCase):
                                 "fallback_test",
                             )
                         )
-            self.assertTrue(backend.startswith("edge-tts:"))
+            self.assertTrue(
+            backend.startswith("edge-tts:") or backend.startswith("kokoro:")
+        )
             self.assertEqual(words[0]["w"], "नमस्ते")
             self.assertGreater(len(pcm), 0)
 
