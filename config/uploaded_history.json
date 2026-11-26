@@ -501,7 +501,12 @@
     "zpMq8g8NGFE",
     "Kdv2XTR-PD0",
     "gyq21sdD_jE",
-    "LRDgq_E-2xc"
+    "LRDgq_E-2xc",
+    "LIOynUqOw3c",
+    "vuNUd1puSgI",
+    "vMm9cOa5zgw",
+    "OWFOxIvj1fo",
+    "okRkSiJ9knY"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -730,7 +735,12 @@
     "zack3d_sleep_paralysis_glitch",
     "zack3d_body_reaction_to_cold_shower",
     "zack3d_zero_gravity_body_changes",
-    "zack3d_deep_sea_pressure_effect"
+    "zack3d_deep_sea_pressure_effect",
+    "ResilientDrabGrasshopperWow-fKAbKH4GGUaEC2dl",
+    "ConfidentProudCroquetteBIRB-6_9UQdlQEjkh6Baa",
+    "AntsyPolishedKoupreyBibleThump-NHTlUqUqyb4BUNY3",
+    "MistyFastChickpeaBatChest-1l50Cnz_nbghKxmh",
+    "TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -858,7 +868,11 @@
     "twitch:Peterbot",
     "The Family Man (Secret agent balancing home & mission)",
     "KGF / Pushpa / Bahubali (Epic mass dialogue parody)",
-    "Munna Bhai MBBS / Gullak (Heartwarming & hilarious Indian twist)"
+    "Munna Bhai MBBS / Gullak (Heartwarming & hilarious Indian twist)",
+    "twitch:xQc",
+    "twitch:tarik",
+    "twitch:Tminnzy",
+    "twitch:Nakkida"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -1241,7 +1255,12 @@
     "रात को हिल नहीं पाए तो? 😱 #Shorts #SleepParalysis",
     "ठंडे पानी से नहाने पर शरीर में क्या होता है? 🚿🥶 #Shorts",
     "अंतरिक्ष में शरीर के साथ क्या होता है? 🚀😱 #Shorts",
-    "क्या होगा अगर आप समुद्र की गहराई में जाएँ? 🌊😱 #Shorts"
+    "क्या होगा अगर आप समुद्र की गहराई में जाएँ? 🌊😱 #Shorts",
+    "xQc Reacts To GTA 6 Dating Mechanics! 😱 #Shorts",
+    "TARIK GETS JUMPSCARED! 😱 #Shorts",
+    "MANDY SHOWED UP AND I LOST CONTROL 😳 #Shorts",
+    "KAI CENAT LOSES HIS MIND! 😱 #Shorts",
+    "Derpy just proved her name right! 🤡 #Shorts"
   ],
   "used_subject_keys": [
     "dark_psychology_silence_trick",
@@ -1270,7 +1289,12 @@
     "sleep_paralysis_glitch",
     "body_reaction_to_cold_shower",
     "zero_gravity_body_changes",
-    "deep_sea_pressure_effect"
+    "deep_sea_pressure_effect",
+    "gaming_ResilientDrabGrasshopperWow-fKAbKH4GGUaEC2dl",
+    "gaming_ConfidentProudCroquetteBIRB-6_9UQdlQEjkh6Baa",
+    "gaming_AntsyPolishedKoupreyBibleThump-NHTlUqUqyb4BUNY3",
+    "gaming_MistyFastChickpeaBatChest-1l50Cnz_nbghKxmh",
+    "gaming_TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG"
   ],
   "uploaded_thumbnail_hashes": [
     {
@@ -1434,6 +1458,36 @@
       "channel_id": 1,
       "source_id": "zack3d_deep_sea_pressure_effect",
       "timestamp": "2026-11-26T15:56:50.104165+00:00"
+    },
+    {
+      "dhash": "117810818f0981c0",
+      "channel_id": 2,
+      "source_id": "ResilientDrabGrasshopperWow-fKAbKH4GGUaEC2dl",
+      "timestamp": "2026-11-26T19:16:21.175882+00:00"
+    },
+    {
+      "dhash": "8bb564c8dc38f272",
+      "channel_id": 2,
+      "source_id": "ConfidentProudCroquetteBIRB-6_9UQdlQEjkh6Baa",
+      "timestamp": "2026-11-26T19:16:31.840922+00:00"
+    },
+    {
+      "dhash": "69468d5b468eb05d",
+      "channel_id": 2,
+      "source_id": "AntsyPolishedKoupreyBibleThump-NHTlUqUqyb4BUNY3",
+      "timestamp": "2026-11-26T19:16:45.475542+00:00"
+    },
+    {
+      "dhash": "61673f464cece479",
+      "channel_id": 2,
+      "source_id": "MistyFastChickpeaBatChest-1l50Cnz_nbghKxmh",
+      "timestamp": "2026-11-26T19:16:54.493375+00:00"
+    },
+    {
+      "dhash": "5d2d42c7d363e1f8",
+      "channel_id": 2,
+      "source_id": "TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG",
+      "timestamp": "2026-11-26T19:17:03.769529+00:00"
     }
   ],
   "upload_logs": [
@@ -5537,6 +5591,61 @@
       "channel_id": 1,
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T19:16:21.170158+00:00",
+      "title": "xQc Reacts To GTA 6 Dating Mechanics! 😱 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "LIOynUqOw3c",
+      "source_id": "ResilientDrabGrasshopperWow-fKAbKH4GGUaEC2dl",
+      "query": "twitch:xQc",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T19:16:31.833349+00:00",
+      "title": "TARIK GETS JUMPSCARED! 😱 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "vuNUd1puSgI",
+      "source_id": "ConfidentProudCroquetteBIRB-6_9UQdlQEjkh6Baa",
+      "query": "twitch:tarik",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T19:16:45.468927+00:00",
+      "title": "MANDY SHOWED UP AND I LOST CONTROL 😳 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "vMm9cOa5zgw",
+      "source_id": "AntsyPolishedKoupreyBibleThump-NHTlUqUqyb4BUNY3",
+      "query": "twitch:Tminnzy",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T19:16:54.487228+00:00",
+      "title": "KAI CENAT LOSES HIS MIND! 😱 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "OWFOxIvj1fo",
+      "source_id": "MistyFastChickpeaBatChest-1l50Cnz_nbghKxmh",
+      "query": "twitch:KaiCenat",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T19:17:03.763884+00:00",
+      "title": "Derpy just proved her name right! 🤡 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "okRkSiJ9knY",
+      "source_id": "TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG",
+      "query": "twitch:Nakkida",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   ],
   "pending_uploads": {
@@ -7273,6 +7382,81 @@
       "owner_token": "tok_3642_1795708601340_be54584e",
       "uploading_timestamp": "2026-11-26T15:56:41.349622+00:00",
       "completed_timestamp": "2026-11-26T15:56:50.094108+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:ResilientDrabGrasshopperWow-fKAbKH4GGUaEC2dl": {
+      "source_id": "ResilientDrabGrasshopperWow-fKAbKH4GGUaEC2dl",
+      "channel_id": 2,
+      "title": "xQc Reacts To GTA 6 Dating Mechanics! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-26T19:16:14.553103+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "LIOynUqOw3c",
+      "error_details": null,
+      "pid": 3393,
+      "owner_token": "tok_3393_1795720574553_3bca9664",
+      "uploading_timestamp": "2026-11-26T19:16:14.558659+00:00",
+      "completed_timestamp": "2026-11-26T19:16:21.170158+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:ConfidentProudCroquetteBIRB-6_9UQdlQEjkh6Baa": {
+      "source_id": "ConfidentProudCroquetteBIRB-6_9UQdlQEjkh6Baa",
+      "channel_id": 2,
+      "title": "TARIK GETS JUMPSCARED! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-26T19:16:25.187871+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "vuNUd1puSgI",
+      "error_details": null,
+      "pid": 3393,
+      "owner_token": "tok_3393_1795720585187_7f8e92c7",
+      "uploading_timestamp": "2026-11-26T19:16:25.193388+00:00",
+      "completed_timestamp": "2026-11-26T19:16:31.833349+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:AntsyPolishedKoupreyBibleThump-NHTlUqUqyb4BUNY3": {
+      "source_id": "AntsyPolishedKoupreyBibleThump-NHTlUqUqyb4BUNY3",
+      "channel_id": 2,
+      "title": "MANDY SHOWED UP AND I LOST CONTROL 😳 #Shorts",
+      "attempt_timestamp": "2026-11-26T19:16:35.853192+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "vMm9cOa5zgw",
+      "error_details": null,
+      "pid": 3393,
+      "owner_token": "tok_3393_1795720595853_b34344fb",
+      "uploading_timestamp": "2026-11-26T19:16:35.859603+00:00",
+      "completed_timestamp": "2026-11-26T19:16:45.468927+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:MistyFastChickpeaBatChest-1l50Cnz_nbghKxmh": {
+      "source_id": "MistyFastChickpeaBatChest-1l50Cnz_nbghKxmh",
+      "channel_id": 2,
+      "title": "KAI CENAT LOSES HIS MIND! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-26T19:16:49.490878+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "OWFOxIvj1fo",
+      "error_details": null,
+      "pid": 3393,
+      "owner_token": "tok_3393_1795720609490_ab5fae74",
+      "uploading_timestamp": "2026-11-26T19:16:49.496914+00:00",
+      "completed_timestamp": "2026-11-26T19:16:54.487228+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG": {
+      "source_id": "TransparentShortWombatRlyTho-xpNfwO5BpUHhl3AG",
+      "channel_id": 2,
+      "title": "Derpy just proved her name right! 🤡 #Shorts",
+      "attempt_timestamp": "2026-11-26T19:16:58.506420+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "okRkSiJ9knY",
+      "error_details": null,
+      "pid": 3393,
+      "owner_token": "tok_3393_1795720618506_b404608c",
+      "uploading_timestamp": "2026-11-26T19:16:58.513030+00:00",
+      "completed_timestamp": "2026-11-26T19:17:03.763884+00:00",
       "origin": "github_actions",
       "timezone": "UTC"
     }
