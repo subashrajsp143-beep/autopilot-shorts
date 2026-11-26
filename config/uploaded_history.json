@@ -496,7 +496,12 @@
     "vbbuKK1tAu4",
     "uEJvjM07zWU",
     "SRRhMIpcfeo",
-    "0NU9YTXngdk"
+    "0NU9YTXngdk",
+    "5yy2vXWkkzc",
+    "zpMq8g8NGFE",
+    "Kdv2XTR-PD0",
+    "gyq21sdD_jE",
+    "LRDgq_E-2xc"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -720,7 +725,12 @@
     "story3d_srikant_tiwari_home_mission_parody",
     "story3d_kgf_pushpa_auto_bargain_parody",
     "story3d_munna_bhai_gullak_crossover_jadu",
-    "story3d_panchayat_vidhayak_bribe_parody"
+    "story3d_panchayat_vidhayak_bribe_parody",
+    "zack3d_stomach_acid_melt_metal",
+    "zack3d_sleep_paralysis_glitch",
+    "zack3d_body_reaction_to_cold_shower",
+    "zack3d_zero_gravity_body_changes",
+    "zack3d_deep_sea_pressure_effect"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -1226,7 +1236,12 @@
     "श्रीकांत तिवारी की ऑफिस-घर वाली लाइफ! 😂🏠 #Shorts",
     "जब Pushpa ने ऑटो वाले से भाड़ा कम कराया! 😂🔥 #Shorts",
     "जब मुन्ना भाई पहुंचे गुल्लक वाले घर! 😂🏠 #Shorts #MunnaBhaiGullak",
-    "विधायक जी का नया भ्रष्टाचार प्लान! 😂💸 #Shorts #Panchayat"
+    "विधायक जी का नया भ्रष्टाचार प्लान! 😂💸 #Shorts #Panchayat",
+    "क्या पेट का एसिड मेटल पिघला सकता है? 🧪😱 #Shorts",
+    "रात को हिल नहीं पाए तो? 😱 #Shorts #SleepParalysis",
+    "ठंडे पानी से नहाने पर शरीर में क्या होता है? 🚿🥶 #Shorts",
+    "अंतरिक्ष में शरीर के साथ क्या होता है? 🚀😱 #Shorts",
+    "क्या होगा अगर आप समुद्र की गहराई में जाएँ? 🌊😱 #Shorts"
   ],
   "used_subject_keys": [
     "dark_psychology_silence_trick",
@@ -1250,7 +1265,12 @@
     "srikant_tiwari_home_mission_parody",
     "kgf_pushpa_auto_bargain_parody",
     "munna_bhai_gullak_crossover_jadu",
-    "panchayat_vidhayak_bribe_parody"
+    "panchayat_vidhayak_bribe_parody",
+    "stomach_acid_melt_metal",
+    "sleep_paralysis_glitch",
+    "body_reaction_to_cold_shower",
+    "zero_gravity_body_changes",
+    "deep_sea_pressure_effect"
   ],
   "uploaded_thumbnail_hashes": [
     {
@@ -1384,6 +1404,36 @@
       "channel_id": 3,
       "source_id": "story3d_panchayat_vidhayak_bribe_parody",
       "timestamp": "2026-11-25T23:17:50.159599+00:00"
+    },
+    {
+      "dhash": "0f1ef252662a530d",
+      "channel_id": 1,
+      "source_id": "zack3d_stomach_acid_melt_metal",
+      "timestamp": "2026-11-26T15:55:57.520715+00:00"
+    },
+    {
+      "dhash": "230b6c666496162f",
+      "channel_id": 1,
+      "source_id": "zack3d_sleep_paralysis_glitch",
+      "timestamp": "2026-11-26T15:56:10.167829+00:00"
+    },
+    {
+      "dhash": "0b0b46d3e2229269",
+      "channel_id": 1,
+      "source_id": "zack3d_body_reaction_to_cold_shower",
+      "timestamp": "2026-11-26T15:56:23.969213+00:00"
+    },
+    {
+      "dhash": "0b334d8e8e8e0c0e",
+      "channel_id": 1,
+      "source_id": "zack3d_zero_gravity_body_changes",
+      "timestamp": "2026-11-26T15:56:37.321685+00:00"
+    },
+    {
+      "dhash": "17334d8e868e0c8e",
+      "channel_id": 1,
+      "source_id": "zack3d_deep_sea_pressure_effect",
+      "timestamp": "2026-11-26T15:56:50.104165+00:00"
     }
   ],
   "upload_logs": [
@@ -5432,6 +5482,61 @@
       "channel_id": 3,
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T15:55:57.511763+00:00",
+      "title": "क्या पेट का एसिड मेटल पिघला सकता है? 🧪😱 #Shorts",
+      "type": "Zack 3D Hindi Explainer (Human Body Science) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "5yy2vXWkkzc",
+      "source_id": "zack3d_stomach_acid_melt_metal",
+      "query": "Human Body Science (What happens if...)",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T15:56:10.158802+00:00",
+      "title": "रात को हिल नहीं पाए तो? 😱 #Shorts #SleepParalysis",
+      "type": "Zack 3D Hindi Explainer (Brain & Sleep Myst) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "zpMq8g8NGFE",
+      "source_id": "zack3d_sleep_paralysis_glitch",
+      "query": "Brain & Sleep Mysteries",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T15:56:23.960295+00:00",
+      "title": "ठंडे पानी से नहाने पर शरीर में क्या होता है? 🚿🥶 #Shorts",
+      "type": "Zack 3D Hindi Explainer (Weird Medical & Su) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "Kdv2XTR-PD0",
+      "source_id": "zack3d_body_reaction_to_cold_shower",
+      "query": "Weird Medical & Survival Facts",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T15:56:37.312774+00:00",
+      "title": "अंतरिक्ष में शरीर के साथ क्या होता है? 🚀😱 #Shorts",
+      "type": "Zack 3D Hindi Explainer (Space & Cosmos Ext) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "gyq21sdD_jE",
+      "source_id": "zack3d_zero_gravity_body_changes",
+      "query": "Space & Cosmos Extremes",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-26T15:56:50.094108+00:00",
+      "title": "क्या होगा अगर आप समुद्र की गहराई में जाएँ? 🌊😱 #Shorts",
+      "type": "Zack 3D Hindi Explainer (Deep Ocean & Earth) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "LRDgq_E-2xc",
+      "source_id": "zack3d_deep_sea_pressure_effect",
+      "query": "Deep Ocean & Earth Wonders",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   ],
   "pending_uploads": {
@@ -7093,6 +7198,81 @@
       "owner_token": "tok_3605_1795648665233_7a0de6ac",
       "uploading_timestamp": "2026-11-25T23:17:45.242917+00:00",
       "completed_timestamp": "2026-11-25T23:17:50.150850+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_stomach_acid_melt_metal": {
+      "source_id": "zack3d_stomach_acid_melt_metal",
+      "channel_id": 1,
+      "title": "क्या पेट का एसिड मेटल पिघला सकता है? 🧪😱 #Shorts",
+      "attempt_timestamp": "2026-11-26T15:55:49.408964+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "5yy2vXWkkzc",
+      "error_details": null,
+      "pid": 3642,
+      "owner_token": "tok_3642_1795708549408_a5274bc9",
+      "uploading_timestamp": "2026-11-26T15:55:49.417830+00:00",
+      "completed_timestamp": "2026-11-26T15:55:57.511763+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_sleep_paralysis_glitch": {
+      "source_id": "zack3d_sleep_paralysis_glitch",
+      "channel_id": 1,
+      "title": "रात को हिल नहीं पाए तो? 😱 #Shorts #SleepParalysis",
+      "attempt_timestamp": "2026-11-26T15:56:01.539139+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "zpMq8g8NGFE",
+      "error_details": null,
+      "pid": 3642,
+      "owner_token": "tok_3642_1795708561539_ec9b1ddb",
+      "uploading_timestamp": "2026-11-26T15:56:01.547942+00:00",
+      "completed_timestamp": "2026-11-26T15:56:10.158802+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_body_reaction_to_cold_shower": {
+      "source_id": "zack3d_body_reaction_to_cold_shower",
+      "channel_id": 1,
+      "title": "ठंडे पानी से नहाने पर शरीर में क्या होता है? 🚿🥶 #Shorts",
+      "attempt_timestamp": "2026-11-26T15:56:14.186245+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "Kdv2XTR-PD0",
+      "error_details": null,
+      "pid": 3642,
+      "owner_token": "tok_3642_1795708574186_4b7b4e34",
+      "uploading_timestamp": "2026-11-26T15:56:14.195344+00:00",
+      "completed_timestamp": "2026-11-26T15:56:23.960295+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_zero_gravity_body_changes": {
+      "source_id": "zack3d_zero_gravity_body_changes",
+      "channel_id": 1,
+      "title": "अंतरिक्ष में शरीर के साथ क्या होता है? 🚀😱 #Shorts",
+      "attempt_timestamp": "2026-11-26T15:56:27.987752+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "gyq21sdD_jE",
+      "error_details": null,
+      "pid": 3642,
+      "owner_token": "tok_3642_1795708587987_7b210333",
+      "uploading_timestamp": "2026-11-26T15:56:27.996852+00:00",
+      "completed_timestamp": "2026-11-26T15:56:37.312774+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_deep_sea_pressure_effect": {
+      "source_id": "zack3d_deep_sea_pressure_effect",
+      "channel_id": 1,
+      "title": "क्या होगा अगर आप समुद्र की गहराई में जाएँ? 🌊😱 #Shorts",
+      "attempt_timestamp": "2026-11-26T15:56:41.340703+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "LRDgq_E-2xc",
+      "error_details": null,
+      "pid": 3642,
+      "owner_token": "tok_3642_1795708601340_be54584e",
+      "uploading_timestamp": "2026-11-26T15:56:41.349622+00:00",
+      "completed_timestamp": "2026-11-26T15:56:50.094108+00:00",
       "origin": "github_actions",
       "timezone": "UTC"
     }
