@@ -516,7 +516,12 @@
     "YfHY7MUIRtA",
     "zBHDfoSkmbE",
     "NIMbHfDxERA",
-    "xUfaf3QlMa0"
+    "xUfaf3QlMa0",
+    "soAxJMTB9KA",
+    "MLZP6W5XloI",
+    "z-dFfsg3PIw",
+    "8k_iaIB1OQw",
+    "KboqyshYzU8"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -760,7 +765,12 @@
     "zack3d_stomach_acid_vs_razor_blade",
     "zack3d_black_hole_spaghettification_science",
     "zack3d_falling_through_earth_center",
-    "zack3d_staring_at_sun_effects"
+    "zack3d_staring_at_sun_effects",
+    "VictoriousRamshackleBulgogiDBstyle-VMckbO6J58T9vded",
+    "TiredSourTardigradeTTours-Qq5xXVl-FFKSMvS7",
+    "ScaryFurtiveVanillaKappa-GAbGjChaRYo3U1Bz",
+    "ClumsyVivaciousDotterelBrokeBack-wxQt-rqtGLWo29wm",
+    "HonestEvilGoshawkWTRuck-fwYawILShXutVO9m"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -893,7 +903,11 @@
     "twitch:tarik",
     "twitch:Tminnzy",
     "twitch:Nakkida",
-    "Stree / Bhool Bhulaiyaa (Spooky comedy night mystery)"
+    "Stree / Bhool Bhulaiyaa (Spooky comedy night mystery)",
+    "twitch:lismmmmmm_17",
+    "twitch:erobb221",
+    "twitch:caseoh_",
+    "twitch:realeastryan"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -1291,7 +1305,12 @@
     "क्या होगा अगर आप एक रेजर ब्लेड निगल लें? 😱⚠️ #Shorts",
     "क्या होगा अगर आप ब्लैक होल में गिर जाएं? 🌌😱 #Shorts",
     "अगर पृथ्वी के आर-पार कूद जाएं तो क्या होगा? 🌍😱 #Shorts",
-    "सूरज को घूरने पर आँखें क्यों जलती हैं? ☀️😱 #Shorts"
+    "सूरज को घूरने पर आँखें क्यों जलती हैं? ☀️😱 #Shorts",
+    "KAI CENAT LOSES HIS MIND! 😱 [Vict] #Shorts",
+    "Grinding while they party! 💀 #Shorts",
+    "Roommate Fails At Christmas Tree Setup 🎄 #Shorts",
+    "CASEOH CAN'T BELIEVE THIS HAPPENED! 😱 #Shorts",
+    "My AutoCorrect Failed Me! 💀 #Shorts"
   ],
   "used_subject_keys": [
     "dark_psychology_silence_trick",
@@ -1335,7 +1354,12 @@
     "stomach_acid_vs_razor_blade",
     "black_hole_spaghettification_science",
     "falling_through_earth_center",
-    "staring_at_sun_effects"
+    "staring_at_sun_effects",
+    "gaming_VictoriousRamshackleBulgogiDBstyle-VMckbO6J58T9vded",
+    "gaming_TiredSourTardigradeTTours-Qq5xXVl-FFKSMvS7",
+    "gaming_ScaryFurtiveVanillaKappa-GAbGjChaRYo3U1Bz",
+    "gaming_ClumsyVivaciousDotterelBrokeBack-wxQt-rqtGLWo29wm",
+    "gaming_HonestEvilGoshawkWTRuck-fwYawILShXutVO9m"
   ],
   "uploaded_thumbnail_hashes": [
     {
@@ -1589,6 +1613,36 @@
       "channel_id": 1,
       "source_id": "zack3d_staring_at_sun_effects",
       "timestamp": "2026-11-27T15:44:00.599713+00:00"
+    },
+    {
+      "dhash": "160700145424270b",
+      "channel_id": 2,
+      "source_id": "VictoriousRamshackleBulgogiDBstyle-VMckbO6J58T9vded",
+      "timestamp": "2026-11-27T19:11:49.794898+00:00"
+    },
+    {
+      "dhash": "3f83a4b4fd0f0e3f",
+      "channel_id": 2,
+      "source_id": "TiredSourTardigradeTTours-Qq5xXVl-FFKSMvS7",
+      "timestamp": "2026-11-27T19:11:58.143917+00:00"
+    },
+    {
+      "dhash": "84bc9c9cbd381ac6",
+      "channel_id": 2,
+      "source_id": "ScaryFurtiveVanillaKappa-GAbGjChaRYo3U1Bz",
+      "timestamp": "2026-11-27T19:12:05.986636+00:00"
+    },
+    {
+      "dhash": "5b7878d93cf3732b",
+      "channel_id": 2,
+      "source_id": "ClumsyVivaciousDotterelBrokeBack-wxQt-rqtGLWo29wm",
+      "timestamp": "2026-11-27T19:12:14.490140+00:00"
+    },
+    {
+      "dhash": "224edc9af88c2768",
+      "channel_id": 2,
+      "source_id": "HonestEvilGoshawkWTRuck-fwYawILShXutVO9m",
+      "timestamp": "2026-11-27T19:12:26.435831+00:00"
     }
   ],
   "upload_logs": [
@@ -5857,6 +5911,61 @@
       "channel_id": 1,
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T19:11:49.787665+00:00",
+      "title": "KAI CENAT LOSES HIS MIND! 😱 [Vict] #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "soAxJMTB9KA",
+      "source_id": "VictoriousRamshackleBulgogiDBstyle-VMckbO6J58T9vded",
+      "query": "twitch:KaiCenat",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T19:11:58.136641+00:00",
+      "title": "Grinding while they party! 💀 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "MLZP6W5XloI",
+      "source_id": "TiredSourTardigradeTTours-Qq5xXVl-FFKSMvS7",
+      "query": "twitch:lismmmmmm_17",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T19:12:05.979238+00:00",
+      "title": "Roommate Fails At Christmas Tree Setup 🎄 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "z-dFfsg3PIw",
+      "source_id": "ScaryFurtiveVanillaKappa-GAbGjChaRYo3U1Bz",
+      "query": "twitch:erobb221",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T19:12:14.482802+00:00",
+      "title": "CASEOH CAN'T BELIEVE THIS HAPPENED! 😱 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "8k_iaIB1OQw",
+      "source_id": "ClumsyVivaciousDotterelBrokeBack-wxQt-rqtGLWo29wm",
+      "query": "twitch:caseoh_",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T19:12:26.428580+00:00",
+      "title": "My AutoCorrect Failed Me! 💀 #Shorts",
+      "type": "Gaming Clip (Original Audio) [Channel 2 (Pawsome Productions)]",
+      "youtube_id": "KboqyshYzU8",
+      "source_id": "HonestEvilGoshawkWTRuck-fwYawILShXutVO9m",
+      "query": "twitch:realeastryan",
+      "channel_id": 2,
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   ],
   "pending_uploads": {
@@ -7818,6 +7927,81 @@
       "owner_token": "tok_3603_1795794236333_4b62a8a3",
       "uploading_timestamp": "2026-11-27T15:43:56.342802+00:00",
       "completed_timestamp": "2026-11-27T15:44:00.589867+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:VictoriousRamshackleBulgogiDBstyle-VMckbO6J58T9vded": {
+      "source_id": "VictoriousRamshackleBulgogiDBstyle-VMckbO6J58T9vded",
+      "channel_id": 2,
+      "title": "KAI CENAT LOSES HIS MIND! 😱 [Vict] #Shorts",
+      "attempt_timestamp": "2026-11-27T19:11:45.916842+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "soAxJMTB9KA",
+      "error_details": null,
+      "pid": 3553,
+      "owner_token": "tok_3553_1795806705916_68aa5987",
+      "uploading_timestamp": "2026-11-27T19:11:45.924275+00:00",
+      "completed_timestamp": "2026-11-27T19:11:49.787665+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:TiredSourTardigradeTTours-Qq5xXVl-FFKSMvS7": {
+      "source_id": "TiredSourTardigradeTTours-Qq5xXVl-FFKSMvS7",
+      "channel_id": 2,
+      "title": "Grinding while they party! 💀 #Shorts",
+      "attempt_timestamp": "2026-11-27T19:11:53.809884+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "MLZP6W5XloI",
+      "error_details": null,
+      "pid": 3553,
+      "owner_token": "tok_3553_1795806713809_3eff8dc7",
+      "uploading_timestamp": "2026-11-27T19:11:53.817112+00:00",
+      "completed_timestamp": "2026-11-27T19:11:58.136641+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:ScaryFurtiveVanillaKappa-GAbGjChaRYo3U1Bz": {
+      "source_id": "ScaryFurtiveVanillaKappa-GAbGjChaRYo3U1Bz",
+      "channel_id": 2,
+      "title": "Roommate Fails At Christmas Tree Setup 🎄 #Shorts",
+      "attempt_timestamp": "2026-11-27T19:12:02.158853+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "z-dFfsg3PIw",
+      "error_details": null,
+      "pid": 3553,
+      "owner_token": "tok_3553_1795806722158_7fee8110",
+      "uploading_timestamp": "2026-11-27T19:12:02.166118+00:00",
+      "completed_timestamp": "2026-11-27T19:12:05.979238+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:ClumsyVivaciousDotterelBrokeBack-wxQt-rqtGLWo29wm": {
+      "source_id": "ClumsyVivaciousDotterelBrokeBack-wxQt-rqtGLWo29wm",
+      "channel_id": 2,
+      "title": "CASEOH CAN'T BELIEVE THIS HAPPENED! 😱 #Shorts",
+      "attempt_timestamp": "2026-11-27T19:12:10.001736+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "8k_iaIB1OQw",
+      "error_details": null,
+      "pid": 3553,
+      "owner_token": "tok_3553_1795806730001_5a0c5068",
+      "uploading_timestamp": "2026-11-27T19:12:10.009027+00:00",
+      "completed_timestamp": "2026-11-27T19:12:14.482802+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_2:HonestEvilGoshawkWTRuck-fwYawILShXutVO9m": {
+      "source_id": "HonestEvilGoshawkWTRuck-fwYawILShXutVO9m",
+      "channel_id": 2,
+      "title": "My AutoCorrect Failed Me! 💀 #Shorts",
+      "attempt_timestamp": "2026-11-27T19:12:18.505276+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "KboqyshYzU8",
+      "error_details": null,
+      "pid": 3553,
+      "owner_token": "tok_3553_1795806738505_ff488f5f",
+      "uploading_timestamp": "2026-11-27T19:12:18.512486+00:00",
+      "completed_timestamp": "2026-11-27T19:12:26.428580+00:00",
       "origin": "github_actions",
       "timezone": "UTC"
     }
