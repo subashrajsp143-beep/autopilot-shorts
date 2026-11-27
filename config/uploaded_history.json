@@ -521,7 +521,12 @@
     "MLZP6W5XloI",
     "z-dFfsg3PIw",
     "8k_iaIB1OQw",
-    "KboqyshYzU8"
+    "KboqyshYzU8",
+    "veAWG5VF1g8",
+    "ae75ISNdIs8",
+    "wmHH9pWZ2bw",
+    "QXaHJJiztv4",
+    "vqxx5Xq6fQg"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -770,7 +775,12 @@
     "TiredSourTardigradeTTours-Qq5xXVl-FFKSMvS7",
     "ScaryFurtiveVanillaKappa-GAbGjChaRYo3U1Bz",
     "ClumsyVivaciousDotterelBrokeBack-wxQt-rqtGLWo29wm",
-    "HonestEvilGoshawkWTRuck-fwYawILShXutVO9m"
+    "HonestEvilGoshawkWTRuck-fwYawILShXutVO9m",
+    "story3d_pushpa_extra_chutney_parody",
+    "story3d_munna_bhai_jhappi_budget_parody",
+    "story3d_panchayat_cctv_security_parody",
+    "story3d_mirzapur_home_loan_verification_parody",
+    "story3d_hera_pheri_tax_filing_parody"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -907,7 +917,8 @@
     "twitch:lismmmmmm_17",
     "twitch:erobb221",
     "twitch:caseoh_",
-    "twitch:realeastryan"
+    "twitch:realeastryan",
+    "Hera Pheri / Phir Hera Pheri (Baburao-Raju-Shyam scheme comedy)"
   ],
   "used_script_titles": [
     "3 साइकोलॉजिकल ट्रिक्स जो सबको आपका दीवाना बना देंगी! 😱 #Shorts #PsychologyFacts",
@@ -1310,7 +1321,12 @@
     "Grinding while they party! 💀 #Shorts",
     "Roommate Fails At Christmas Tree Setup 🎄 #Shorts",
     "CASEOH CAN'T BELIEVE THIS HAPPENED! 😱 #Shorts",
-    "My AutoCorrect Failed Me! 💀 #Shorts"
+    "My AutoCorrect Failed Me! 💀 #Shorts",
+    "जब Pushpa ने मांगी समोसे के साथ फ्री चटनी! 😂🔥 #Shorts",
+    "जब जादू की झप्पी का बजट बन गया! 😂🫂 #Shorts",
+    "जब फुलेरा गाँव में लगे सीसीटीवी कैमरे! 😂📹 #Shorts #Panchayat",
+    "जब कालीन भैया की गद्दी पर आया बैंक लोन! 😂👑 #Shorts",
+    "जब बाबूराव ने भरा इनकम टैक्स! 💸😂 #Shorts"
   ],
   "used_subject_keys": [
     "dark_psychology_silence_trick",
@@ -1359,7 +1375,12 @@
     "gaming_TiredSourTardigradeTTours-Qq5xXVl-FFKSMvS7",
     "gaming_ScaryFurtiveVanillaKappa-GAbGjChaRYo3U1Bz",
     "gaming_ClumsyVivaciousDotterelBrokeBack-wxQt-rqtGLWo29wm",
-    "gaming_HonestEvilGoshawkWTRuck-fwYawILShXutVO9m"
+    "gaming_HonestEvilGoshawkWTRuck-fwYawILShXutVO9m",
+    "pushpa_extra_chutney_parody",
+    "munna_bhai_jhappi_budget_parody",
+    "panchayat_cctv_security_parody",
+    "mirzapur_home_loan_verification_parody",
+    "hera_pheri_tax_filing_parody"
   ],
   "uploaded_thumbnail_hashes": [
     {
@@ -1643,6 +1664,36 @@
       "channel_id": 2,
       "source_id": "HonestEvilGoshawkWTRuck-fwYawILShXutVO9m",
       "timestamp": "2026-11-27T19:12:26.435831+00:00"
+    },
+    {
+      "dhash": "c0c8b2d0d0c0cccc",
+      "channel_id": 3,
+      "source_id": "story3d_pushpa_extra_chutney_parody",
+      "timestamp": "2026-11-27T22:54:15.544580+00:00"
+    },
+    {
+      "dhash": "ccf0f0b286c6e869",
+      "channel_id": 3,
+      "source_id": "story3d_munna_bhai_jhappi_budget_parody",
+      "timestamp": "2026-11-27T22:54:24.732178+00:00"
+    },
+    {
+      "dhash": "6d73b03068686969",
+      "channel_id": 3,
+      "source_id": "story3d_panchayat_cctv_security_parody",
+      "timestamp": "2026-11-27T22:54:33.978147+00:00"
+    },
+    {
+      "dhash": "330f8f3b4bc53333",
+      "channel_id": 3,
+      "source_id": "story3d_mirzapur_home_loan_verification_parody",
+      "timestamp": "2026-11-27T22:54:43.456034+00:00"
+    },
+    {
+      "dhash": "6871f2f0e8e8e869",
+      "channel_id": 3,
+      "source_id": "story3d_hera_pheri_tax_filing_parody",
+      "timestamp": "2026-11-27T22:54:52.599071+00:00"
     }
   ],
   "upload_logs": [
@@ -5966,6 +6017,61 @@
       "channel_id": 2,
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T22:54:15.536649+00:00",
+      "title": "जब Pushpa ने मांगी समोसे के साथ फ्री चटनी! 😂🔥 #Shorts",
+      "type": "Animated Story (KGF / Pushpa / Bahubali) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "veAWG5VF1g8",
+      "source_id": "story3d_pushpa_extra_chutney_parody",
+      "query": "KGF / Pushpa / Bahubali (Epic mass dialogue parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T22:54:24.724134+00:00",
+      "title": "जब जादू की झप्पी का बजट बन गया! 😂🫂 #Shorts",
+      "type": "Animated Story (Munna Bhai MBBS / Gullak) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "ae75ISNdIs8",
+      "source_id": "story3d_munna_bhai_jhappi_budget_parody",
+      "query": "Munna Bhai MBBS / Gullak (Heartwarming & hilarious Indian twist)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T22:54:33.970022+00:00",
+      "title": "जब फुलेरा गाँव में लगे सीसीटीवी कैमरे! 😂📹 #Shorts #Panchayat",
+      "type": "Animated Story (Panchayat) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "wmHH9pWZ2bw",
+      "source_id": "story3d_panchayat_cctv_security_parody",
+      "query": "Panchayat (Phulera village comedy & Sachiv/Pradhan parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T22:54:43.447805+00:00",
+      "title": "जब कालीन भैया की गद्दी पर आया बैंक लोन! 😂👑 #Shorts",
+      "type": "Animated Story (Mirzapur) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "QXaHJJiztv4",
+      "source_id": "story3d_mirzapur_home_loan_verification_parody",
+      "query": "Mirzapur (Gangster throne room comedy/twist parody)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T22:54:52.590973+00:00",
+      "title": "जब बाबूराव ने भरा इनकम टैक्स! 💸😂 #Shorts",
+      "type": "Animated Story (Hera Pheri / Phir Hera Pheri) [Channel 3 (Next Level Facts)]",
+      "youtube_id": "vqxx5Xq6fQg",
+      "source_id": "story3d_hera_pheri_tax_filing_parody",
+      "query": "Hera Pheri / Phir Hera Pheri (Baburao-Raju-Shyam scheme comedy)",
+      "channel_id": 3,
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   ],
   "pending_uploads": {
@@ -8002,6 +8108,81 @@
       "owner_token": "tok_3553_1795806738505_ff488f5f",
       "uploading_timestamp": "2026-11-27T19:12:18.512486+00:00",
       "completed_timestamp": "2026-11-27T19:12:26.428580+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_pushpa_extra_chutney_parody": {
+      "source_id": "story3d_pushpa_extra_chutney_parody",
+      "channel_id": 3,
+      "title": "जब Pushpa ने मांगी समोसे के साथ फ्री चटनी! 😂🔥 #Shorts",
+      "attempt_timestamp": "2026-11-27T22:54:10.823179+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "veAWG5VF1g8",
+      "error_details": null,
+      "pid": 3409,
+      "owner_token": "tok_3409_1795820050823_a324ec99",
+      "uploading_timestamp": "2026-11-27T22:54:10.831722+00:00",
+      "completed_timestamp": "2026-11-27T22:54:15.536649+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_munna_bhai_jhappi_budget_parody": {
+      "source_id": "story3d_munna_bhai_jhappi_budget_parody",
+      "channel_id": 3,
+      "title": "जब जादू की झप्पी का बजट बन गया! 😂🫂 #Shorts",
+      "attempt_timestamp": "2026-11-27T22:54:19.561098+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "ae75ISNdIs8",
+      "error_details": null,
+      "pid": 3409,
+      "owner_token": "tok_3409_1795820059561_cb1b872c",
+      "uploading_timestamp": "2026-11-27T22:54:19.569595+00:00",
+      "completed_timestamp": "2026-11-27T22:54:24.724134+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_panchayat_cctv_security_parody": {
+      "source_id": "story3d_panchayat_cctv_security_parody",
+      "channel_id": 3,
+      "title": "जब फुलेरा गाँव में लगे सीसीटीवी कैमरे! 😂📹 #Shorts #Panchayat",
+      "attempt_timestamp": "2026-11-27T22:54:28.748841+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "wmHH9pWZ2bw",
+      "error_details": null,
+      "pid": 3409,
+      "owner_token": "tok_3409_1795820068748_568d5f48",
+      "uploading_timestamp": "2026-11-27T22:54:28.756914+00:00",
+      "completed_timestamp": "2026-11-27T22:54:33.970022+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_mirzapur_home_loan_verification_parody": {
+      "source_id": "story3d_mirzapur_home_loan_verification_parody",
+      "channel_id": 3,
+      "title": "जब कालीन भैया की गद्दी पर आया बैंक लोन! 😂👑 #Shorts",
+      "attempt_timestamp": "2026-11-27T22:54:37.994929+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "QXaHJJiztv4",
+      "error_details": null,
+      "pid": 3409,
+      "owner_token": "tok_3409_1795820077994_bf5c7928",
+      "uploading_timestamp": "2026-11-27T22:54:38.002918+00:00",
+      "completed_timestamp": "2026-11-27T22:54:43.447805+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_3:story3d_hera_pheri_tax_filing_parody": {
+      "source_id": "story3d_hera_pheri_tax_filing_parody",
+      "channel_id": 3,
+      "title": "जब बाबूराव ने भरा इनकम टैक्स! 💸😂 #Shorts",
+      "attempt_timestamp": "2026-11-27T22:54:47.472942+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "vqxx5Xq6fQg",
+      "error_details": null,
+      "pid": 3409,
+      "owner_token": "tok_3409_1795820087472_71c75b7c",
+      "uploading_timestamp": "2026-11-27T22:54:47.481005+00:00",
+      "completed_timestamp": "2026-11-27T22:54:52.590973+00:00",
       "origin": "github_actions",
       "timezone": "UTC"
     }
