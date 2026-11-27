@@ -511,7 +511,12 @@
     "2ytCeo8AYqg",
     "FU3yi0mnokY",
     "AB2rSzq6jyM",
-    "GwXy9yozbmQ"
+    "GwXy9yozbmQ",
+    "fPoj_XfUqk0",
+    "YfHY7MUIRtA",
+    "zBHDfoSkmbE",
+    "NIMbHfDxERA",
+    "xUfaf3QlMa0"
   ],
   "used_source_ids": [
     "clip_01_mrbeast_island.mp4",
@@ -750,7 +755,12 @@
     "story3d_bahubali_wifi_password_parody",
     "story3d_gullak_mishra_family_budget_hack",
     "story3d_panchayat_corporate_lingo_parody",
-    "story3d_mirzapur_throne_subscription_parody"
+    "story3d_mirzapur_throne_subscription_parody",
+    "zack3d_brain_sleep_deprivation_7_days",
+    "zack3d_stomach_acid_vs_razor_blade",
+    "zack3d_black_hole_spaghettification_science",
+    "zack3d_falling_through_earth_center",
+    "zack3d_staring_at_sun_effects"
   ],
   "used_queries": [
     "MrBeast Island",
@@ -1276,7 +1286,12 @@
     "जब बाहुबली ने मांगा वाईफाई का पासवर्ड! 📶👑 #Shorts",
     "गुल्लक फैमिली का बजट फेल! 😂💸 #Shorts",
     "फुलेरा गाँव में अब कॉर्पोरेट स्टाइल! 😂👔 #Shorts #Panchayat",
-    "मिर्जापुर की गद्दी का नया सब्सक्रिप्शन प्लान! 👑😂 #Shorts"
+    "मिर्जापुर की गद्दी का नया सब्सक्रिप्शन प्लान! 👑😂 #Shorts",
+    "अगर आप सात दिनों तक न सोएं तो क्या होगा? 🧠⚠️ #Shorts",
+    "क्या होगा अगर आप एक रेजर ब्लेड निगल लें? 😱⚠️ #Shorts",
+    "क्या होगा अगर आप ब्लैक होल में गिर जाएं? 🌌😱 #Shorts",
+    "अगर पृथ्वी के आर-पार कूद जाएं तो क्या होगा? 🌍😱 #Shorts",
+    "सूरज को घूरने पर आँखें क्यों जलती हैं? ☀️😱 #Shorts"
   ],
   "used_subject_keys": [
     "dark_psychology_silence_trick",
@@ -1315,7 +1330,12 @@
     "bahubali_wifi_password_parody",
     "gullak_mishra_family_budget_hack",
     "panchayat_corporate_lingo_parody",
-    "mirzapur_throne_subscription_parody"
+    "mirzapur_throne_subscription_parody",
+    "brain_sleep_deprivation_7_days",
+    "stomach_acid_vs_razor_blade",
+    "black_hole_spaghettification_science",
+    "falling_through_earth_center",
+    "staring_at_sun_effects"
   ],
   "uploaded_thumbnail_hashes": [
     {
@@ -1539,6 +1559,36 @@
       "channel_id": 3,
       "source_id": "story3d_mirzapur_throne_subscription_parody",
       "timestamp": "2026-11-26T23:15:45.202579+00:00"
+    },
+    {
+      "dhash": "2b29a9b25145a419",
+      "channel_id": 1,
+      "source_id": "zack3d_brain_sleep_deprivation_7_days",
+      "timestamp": "2026-11-27T15:43:24.419859+00:00"
+    },
+    {
+      "dhash": "25071b3351138679",
+      "channel_id": 1,
+      "source_id": "zack3d_stomach_acid_vs_razor_blade",
+      "timestamp": "2026-11-27T15:43:35.175577+00:00"
+    },
+    {
+      "dhash": "330f0e9f2d707568",
+      "channel_id": 1,
+      "source_id": "zack3d_black_hole_spaghettification_science",
+      "timestamp": "2026-11-27T15:43:44.421642+00:00"
+    },
+    {
+      "dhash": "32d08696b0b179b2",
+      "channel_id": 1,
+      "source_id": "zack3d_falling_through_earth_center",
+      "timestamp": "2026-11-27T15:43:52.314198+00:00"
+    },
+    {
+      "dhash": "1b2bcc8e0e0f0f96",
+      "channel_id": 1,
+      "source_id": "zack3d_staring_at_sun_effects",
+      "timestamp": "2026-11-27T15:44:00.599713+00:00"
     }
   ],
   "upload_logs": [
@@ -5752,6 +5802,61 @@
       "channel_id": 3,
       "origin": "github_actions",
       "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T15:43:24.410586+00:00",
+      "title": "अगर आप सात दिनों तक न सोएं तो क्या होगा? 🧠⚠️ #Shorts",
+      "type": "Zack 3D Hindi Explainer (Brain & Sleep Myst) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "fPoj_XfUqk0",
+      "source_id": "zack3d_brain_sleep_deprivation_7_days",
+      "query": "Brain & Sleep Mysteries",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T15:43:35.166124+00:00",
+      "title": "क्या होगा अगर आप एक रेजर ब्लेड निगल लें? 😱⚠️ #Shorts",
+      "type": "Zack 3D Hindi Explainer (Weird Medical & Su) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "YfHY7MUIRtA",
+      "source_id": "zack3d_stomach_acid_vs_razor_blade",
+      "query": "Weird Medical & Survival Facts",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T15:43:44.412019+00:00",
+      "title": "क्या होगा अगर आप ब्लैक होल में गिर जाएं? 🌌😱 #Shorts",
+      "type": "Zack 3D Hindi Explainer (Space & Cosmos Ext) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "zBHDfoSkmbE",
+      "source_id": "zack3d_black_hole_spaghettification_science",
+      "query": "Space & Cosmos Extremes",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T15:43:52.304775+00:00",
+      "title": "अगर पृथ्वी के आर-पार कूद जाएं तो क्या होगा? 🌍😱 #Shorts",
+      "type": "Zack 3D Hindi Explainer (Deep Ocean & Earth) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "NIMbHfDxERA",
+      "source_id": "zack3d_falling_through_earth_center",
+      "query": "Deep Ocean & Earth Wonders",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    {
+      "timestamp": "2026-11-27T15:44:00.589867+00:00",
+      "title": "सूरज को घूरने पर आँखें क्यों जलती हैं? ☀️😱 #Shorts",
+      "type": "Zack 3D Hindi Explainer (Dark Psychology & ) [Channel 1 (MiniTalesWorld)]",
+      "youtube_id": "xUfaf3QlMa0",
+      "source_id": "zack3d_staring_at_sun_effects",
+      "query": "Dark Psychology & Mind Tricks",
+      "channel_id": 1,
+      "origin": "github_actions",
+      "timezone": "UTC"
     }
   ],
   "pending_uploads": {
@@ -7638,6 +7743,81 @@
       "owner_token": "tok_3412_1795734941976_18390cfa",
       "uploading_timestamp": "2026-11-26T23:15:41.985218+00:00",
       "completed_timestamp": "2026-11-26T23:15:45.194812+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_brain_sleep_deprivation_7_days": {
+      "source_id": "zack3d_brain_sleep_deprivation_7_days",
+      "channel_id": 1,
+      "title": "अगर आप सात दिनों तक न सोएं तो क्या होगा? 🧠⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-27T15:43:17.481067+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "fPoj_XfUqk0",
+      "error_details": null,
+      "pid": 3603,
+      "owner_token": "tok_3603_1795794197481_e62adf01",
+      "uploading_timestamp": "2026-11-27T15:43:17.490092+00:00",
+      "completed_timestamp": "2026-11-27T15:43:24.410586+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_stomach_acid_vs_razor_blade": {
+      "source_id": "zack3d_stomach_acid_vs_razor_blade",
+      "channel_id": 1,
+      "title": "क्या होगा अगर आप एक रेजर ब्लेड निगल लें? 😱⚠️ #Shorts",
+      "attempt_timestamp": "2026-11-27T15:43:28.439106+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "YfHY7MUIRtA",
+      "error_details": null,
+      "pid": 3603,
+      "owner_token": "tok_3603_1795794208439_4b9cce74",
+      "uploading_timestamp": "2026-11-27T15:43:28.448460+00:00",
+      "completed_timestamp": "2026-11-27T15:43:35.166124+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_black_hole_spaghettification_science": {
+      "source_id": "zack3d_black_hole_spaghettification_science",
+      "channel_id": 1,
+      "title": "क्या होगा अगर आप ब्लैक होल में गिर जाएं? 🌌😱 #Shorts",
+      "attempt_timestamp": "2026-11-27T15:43:39.194222+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "zBHDfoSkmbE",
+      "error_details": null,
+      "pid": 3603,
+      "owner_token": "tok_3603_1795794219194_a29f3609",
+      "uploading_timestamp": "2026-11-27T15:43:39.203729+00:00",
+      "completed_timestamp": "2026-11-27T15:43:44.412019+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_falling_through_earth_center": {
+      "source_id": "zack3d_falling_through_earth_center",
+      "channel_id": 1,
+      "title": "अगर पृथ्वी के आर-पार कूद जाएं तो क्या होगा? 🌍😱 #Shorts",
+      "attempt_timestamp": "2026-11-27T15:43:48.440626+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "NIMbHfDxERA",
+      "error_details": null,
+      "pid": 3603,
+      "owner_token": "tok_3603_1795794228440_1bb23614",
+      "uploading_timestamp": "2026-11-27T15:43:48.450118+00:00",
+      "completed_timestamp": "2026-11-27T15:43:52.304775+00:00",
+      "origin": "github_actions",
+      "timezone": "UTC"
+    },
+    "channel_1:zack3d_staring_at_sun_effects": {
+      "source_id": "zack3d_staring_at_sun_effects",
+      "channel_id": 1,
+      "title": "सूरज को घूरने पर आँखें क्यों जलती हैं? ☀️😱 #Shorts",
+      "attempt_timestamp": "2026-11-27T15:43:56.333060+00:00",
+      "status": "confirmed",
+      "youtube_video_id": "xUfaf3QlMa0",
+      "error_details": null,
+      "pid": 3603,
+      "owner_token": "tok_3603_1795794236333_4b62a8a3",
+      "uploading_timestamp": "2026-11-27T15:43:56.342802+00:00",
+      "completed_timestamp": "2026-11-27T15:44:00.589867+00:00",
       "origin": "github_actions",
       "timezone": "UTC"
     }
