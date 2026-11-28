@@ -118,7 +118,7 @@ class ZackExplainerEngine:
         return pcm, words, backend
 
     async def _build_narration_and_timing(
-        self, lines: List[Dict[str, Any]], voice: str = "explainer", lead: float = 0.28, gap: float = 0.20, outro: float = 0.75
+        self, lines: List[Dict[str, Any]], voice: str = "explainer", lead: float = 0.15, gap: float = 0.12, outro: float = 0.45
     ) -> Tuple[np.ndarray, Dict[str, Any], Dict[str, Any]]:
         data_dir = self.engine_dir / "data"
         data_dir.mkdir(parents=True, exist_ok=True)

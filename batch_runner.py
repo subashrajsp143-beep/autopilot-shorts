@@ -372,37 +372,8 @@ def get_indian_peak_schedule(num_videos: int = 10, channel_id: int = 1):
         ]
     }
 
-    hours_list = CHANNEL_TARGET_HOURS.get(channel_id, CHANNEL_TARGET_HOURS[1])
-    slots = []
-    last_dt = now_ist
-
-    for idx in range(num_videos):
-        if idx == 0:
-            # Slot 1 goes live IMMEDIATELY as PUBLIC!
-            # Bypasses YouTube API private schedule cold-start bug and triggers real-time Shorts Feed test
-            slots.append(None)
-            continue
-
-        h, m = hours_list[idx % len(hours_list)]
-        target_dt = now_ist.replace(hour=h, minute=m, second=0, microsecond=0)
-
-        anchor_h, anchor_m = hours_list[0]
-        # If this slot hour is in the morning for evening channels (e.g. Channel 3 morning slots)
-        if h < anchor_h or (h == anchor_h and m < anchor_m):
-            target_dt += timedelta(days=1)
-        elif target_dt <= now_ist + timedelta(minutes=5):
-            # If today's slot time already passed, shift to tomorrow
-            target_dt += timedelta(days=1)
-
-        # Minimum spacing between videos on the same channel
-        if target_dt <= last_dt:
-            target_dt = last_dt + timedelta(minutes=25)
-
-        last_dt = target_dt
-        slot_utc = target_dt.astimezone(timezone.utc)
-        slots.append(slot_utc.strftime("%Y-%m-%dT%H:%M:%S.000Z"))
-
-    return slots
+    # Upload all slots immediately as PUBLIC to avoid YouTube API private->publishAt cold-start 0-view bug
+    return [None] * num_videos
 
 get_staggered_schedule = get_indian_peak_schedule
 

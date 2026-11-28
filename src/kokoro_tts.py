@@ -55,12 +55,19 @@ def _detect_lang(text: str) -> str:
     return "en-us"
 
 
+def _get_kokoro_cmd_prefix() -> Optional[List[str]]:
+    """Return command prefix to invoke HyperFrames CLI (global binary or local plugin-cli.mjs)."""
+    global_bin = shutil.which("hyperframes")
+    if global_bin:
+        return [global_bin]
+    if _HYPERFRAMES_CLI.exists() and shutil.which("node") is not None:
+        return ["node", str(_HYPERFRAMES_CLI)]
+    return None
+
+
 def is_kokoro_available() -> bool:
     """Check if HyperFrames Kokoro TTS CLI is available."""
-    if not _HYPERFRAMES_CLI.exists():
-        return False
-    # Check node.js is available
-    return shutil.which("node") is not None
+    return _get_kokoro_cmd_prefix() is not None
 
 
 def get_next_female_voice() -> str:
@@ -110,7 +117,7 @@ def kokoro_synthesize(
     output_path: str,
     *,
     voice: str = "",
-    speed: float = 1.0,
+    speed: float = 1.08,
     lang: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
@@ -123,7 +130,8 @@ def kokoro_synthesize(
       - voice: str
       - lang: str
     """
-    if not is_kokoro_available():
+    cmd_prefix = _get_kokoro_cmd_prefix()
+    if not cmd_prefix:
         raise RuntimeError("Kokoro TTS not available (HyperFrames CLI or Node.js missing)")
 
     detected_lang = lang or _detect_lang(text)
@@ -138,8 +146,7 @@ def kokoro_synthesize(
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     cmd = [
-        "node",
-        str(_HYPERFRAMES_CLI),
+        *cmd_prefix,
         "tts",
         "--text-file", str(text_file),
         "--voice", chosen_voice,

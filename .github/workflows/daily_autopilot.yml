@@ -6,12 +6,12 @@ concurrency:
 
 on:
   schedule:
-    # 05:45 UTC = 11:15 AM IST (Channel 1: MiniTalesWorld Zack 3D Hindi Explainers)
-    - cron: '45 5 * * *'
-    # 09:30 UTC = 03:00 PM IST (Channel 2: Pawsome Productions Viral Gaming Clips)
-    - cron: '30 9 * * *'
-    # 14:30 UTC = 08:00 PM IST (Channel 3: Next Level Facts Trending Viral Clips)
-    - cron: '30 14 * * *'
+    # 05:17 UTC = 10:47 AM IST (Channel 1: MiniTalesWorld Zack 3D Hindi Explainers)
+    - cron: '17 5 * * *'
+    # 09:23 UTC = 02:53 PM IST (Channel 2: Pawsome Productions Viral Gaming Clips)
+    - cron: '23 9 * * *'
+    # 14:19 UTC = 07:49 PM IST (Channel 3: Next Level Facts Trending Viral Clips)
+    - cron: '19 14 * * *'
   workflow_dispatch:
     inputs:
       channel:
@@ -61,28 +61,29 @@ jobs:
           fi
           fc-cache -fv || true
 
-      - name: 📦 Install Python Packages
+      - name: 📦 Install Python & Kokoro TTS Packages
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -U yt-dlp edge-tts
+          npm install -g hyperframes || true
 
       - name: 🚀 Generate Fresh Shorts & Auto-Upload to YouTube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          DAILY_QUOTA_CH1: "5"
-          DAILY_QUOTA_CH2: "5"
-          DAILY_QUOTA_CH3: "5"
+          DAILY_QUOTA_CH1: "2"
+          DAILY_QUOTA_CH2: "2"
+          DAILY_QUOTA_CH3: "2"
         run: |
           TARGET_CH="${{ inputs.channel }}"
           SCHED_CRON="${{ github.event.schedule }}"
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "$SCHED_CRON" = "45 5 * * *" ]; then
+            if [ "$SCHED_CRON" = "17 5 * * *" ]; then
               TARGET_CH="1"
-            elif [ "$SCHED_CRON" = "30 9 * * *" ]; then
+            elif [ "$SCHED_CRON" = "23 9 * * *" ]; then
               TARGET_CH="2"
-            elif [ "$SCHED_CRON" = "30 14 * * *" ]; then
+            elif [ "$SCHED_CRON" = "19 14 * * *" ]; then
               TARGET_CH="3"
             else
               TARGET_CH="all"
